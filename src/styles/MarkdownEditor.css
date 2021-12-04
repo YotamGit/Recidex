@@ -1,0 +1,42 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.btn {
+  display: inline-block;
+  background: #000;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  margin-left: 40vw;
+  margin-right: 40vw;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 15px;
+  font-family: inherit;
+}
+
+.editor {
+  border-radius: 5px;
+  border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+}
+
+.editor-text-box {
+  border-radius: 5px;
+  border: 2px solid black;
+  width: 40vw;
+  height: 50vh;
+  overflow-y: auto;
+}
+
+.text-box-container {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: row;
+}
