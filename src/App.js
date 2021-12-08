@@ -2,6 +2,7 @@ import Button from "./components/Button";
 import Search from "./components/Search";
 import MarkdownEditor from "./components/MarkdownEditor";
 import { useState } from "react";
+import RecipeEditor from "./components/RecipeEditor";
 
 function App() {
   const [search, setSearch] = useState("");
@@ -12,7 +13,7 @@ function App() {
     <div>
       <Search onChange={onRecipeSearch} />
       <Button color="white" text={search} />
-      <MarkdownEditor submitText="Save Description" />
+      <RecipeEditor />
     </div>
   );
 }
