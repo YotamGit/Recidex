@@ -2,7 +2,7 @@ import { marked } from "marked";
 import { useState } from "react";
 import "../styles/MarkdownEditor.css";
 
-const MarkdownEditor = ({ submitText }) => {
+const MarkdownEditor = ({ submitText, setData, close }) => {
   const [markdown, setMarkdown] = useState("");
 
   const markdownToHtml = (markdownText) => {
@@ -19,21 +19,23 @@ const MarkdownEditor = ({ submitText }) => {
       alert("Please enter content");
       return;
     } else {
-      var res = window.confirm("Save Recipe?");
+      var res = window.confirm("Save?");
       if (res) {
         markdownToHtml(markdown);
         //return data here to parent element
+        setData(markdown);
+        close();
       }
     }
   };
 
   return (
-    <form className="editor" onSubmit={onSubmit}>
-      <div className="text-box-container">
+    <form className="markdown-editor" onSubmit={onSubmit}>
+      <div className="markdown-editor-text-box-container">
         <div>
           <h3>Markdown</h3>
           <textarea
-            className="editor-text-box"
+            className="markdown-editor-text-box"
             type="text"
             placeholder="Enter Markdown"
             onChange={(e) => markdownToHtml(e.target.value)}
@@ -41,7 +43,7 @@ const MarkdownEditor = ({ submitText }) => {
         </div>
         <div>
           <h3>Preview</h3>
-          <div id="converted-markdown" className="editor-text-box">
+          <div id="converted-markdown" className="markdown-editor-text-box">
             Preview
           </div>
         </div>

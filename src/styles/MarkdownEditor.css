@@ -20,14 +20,15 @@
   font-family: inherit;
 }
 
-.editor {
+.markdown-editor {
   border-radius: 5px;
   border: 2px solid black;
   display: flex;
   flex-direction: column;
+  background-color: white;
 }
 
-.editor-text-box {
+.markdown-editor-text-box {
   border-radius: 5px;
   border: 2px solid black;
   width: 40vw;
@@ -36,7 +37,7 @@
   padding: 1vw;
 }
 
-.text-box-container {
+.markdown-editor-text-box-container {
   display: flex;
   justify-content: space-evenly;
   flex-direction: row;
