@@ -9,10 +9,12 @@ const RecipeEditor = ({
   ingredients,
   directions,
   recipeTitle,
+  rtl,
   setTitle,
   setDescription,
   setIngredients,
   setDirections,
+  setRtl,
 }) => {
   const [tempTitle, setTempTitle] = useState(recipeTitle);
 
@@ -39,34 +41,40 @@ const RecipeEditor = ({
   };
 
   return (
-    <div className="recipe-editor">
-      {
-        <div className="recipe-editor-section">
-          <h2>Title</h2>
-          <div className="recipe-editor-text-box">{recipeTitle}</div>
-          <Popup trigger={<button>Edit</button>} modal nested>
-            {(close) => (
-              <div className="recipe-editor-title-editor">
-                <button onClick={close}>&times;</button>
-                <div>
-                  <input
-                    type="text"
-                    onChange={(e) => setTempTitle(e.target.value)}
-                    value={tempTitle}
-                  />
+    <div className="recipe-editor" style={{ direction: rtl ? "rtl" : "ltr" }}>
+      <div className="recipe-editor-section checkbox">
+        <label>Set Right To left</label>
+        <input
+          type="checkbox"
+          checked={rtl}
+          value={rtl}
+          onChange={(e) => setRtl(e.currentTarget.checked)}
+        />
+      </div>
+      <div className="recipe-editor-section">
+        <h2>Title</h2>
+        <div className="recipe-editor-text-box">{recipeTitle}</div>
+        <Popup trigger={<button>Edit</button>} modal nested>
+          {(close) => (
+            <div className="recipe-editor-title-editor">
+              <button onClick={close}>&times;</button>
+              <div>
+                <input
+                  type="text"
+                  onChange={(e) => setTempTitle(e.target.value)}
+                  value={tempTitle}
+                />
 
-                  <input
-                    type="button"
-                    value="Save Title"
-                    onClick={() => onSubmitTitle(close)}
-                  ></input>
-                </div>
+                <input
+                  type="button"
+                  value="Save Title"
+                  onClick={() => onSubmitTitle(close)}
+                ></input>
               </div>
-            )}
-          </Popup>
-        </div>
-      }
-
+            </div>
+          )}
+        </Popup>
+      </div>
       <div className="recipe-editor-section">
         <h2>Description</h2>
         <div
@@ -82,6 +90,8 @@ const RecipeEditor = ({
                 setData={setDescription}
                 close={close}
                 defaultText={description}
+                setRtl={setRtl}
+                defaultRtl={rtl}
               />
             </>
           )}
@@ -100,8 +110,10 @@ const RecipeEditor = ({
               <MarkdownEditor
                 submitText="Save Ingredients"
                 setData={setIngredients}
+                setRtl={setRtl}
                 close={close}
                 defaultText={ingredients}
+                defaultRtl={rtl}
               />
             </>
           )}
@@ -120,8 +132,10 @@ const RecipeEditor = ({
               <MarkdownEditor
                 submitText="Save Directions"
                 setData={setDirections}
+                setRtl={setRtl}
                 close={close}
                 defaultText={directions}
+                defaultRtl={rtl}
               />
             </>
           )}

@@ -2,9 +2,19 @@ import { marked } from "marked";
 import { useState, useEffect } from "react";
 import "../styles/MarkdownEditor.css";
 
-const MarkdownEditor = ({ defaultText, submitText, setData, close }) => {
+const MarkdownEditor = ({
+  defaultText,
+  defaultRtl,
+  submitText,
+  setData,
+  close,
+  setRtl,
+}) => {
   const [markdown, setMarkdown] = useState(defaultText ? defaultText : "");
-  console.log(markdown);
+  const [rightToLeft, setRightToLeft] = useState(
+    defaultRtl ? defaultRtl : false
+  );
+
   useEffect(() => {
     if (defaultText) {
       document.getElementById("converted-markdown").innerHTML =
@@ -30,6 +40,7 @@ const MarkdownEditor = ({ defaultText, submitText, setData, close }) => {
       if (res) {
         markdownToHtml(markdown);
         setData(markdown);
+        setRtl(rightToLeft);
         close();
       }
     }
@@ -46,14 +57,28 @@ const MarkdownEditor = ({ defaultText, submitText, setData, close }) => {
             placeholder="Enter Markdown"
             onChange={(e) => markdownToHtml(e.target.value)}
             value={markdown}
+            style={{ direction: rightToLeft ? "rtl" : "ltr" }}
           />
         </div>
         <div>
           <h3>Preview</h3>
-          <div id="converted-markdown" className="markdown-editor-text-box">
+          <div
+            id="converted-markdown"
+            className="markdown-editor-text-box"
+            style={{ direction: rightToLeft ? "rtl" : "ltr" }}
+          >
             Preview
           </div>
         </div>
+      </div>
+      <div>
+        <label>Set Right To left</label>
+        <input
+          type="checkbox"
+          checked={rightToLeft}
+          value={rightToLeft}
+          onChange={(e) => setRightToLeft(e.currentTarget.checked)}
+        />
       </div>
       <input className="btn" type="submit" value={submitText} />
     </form>

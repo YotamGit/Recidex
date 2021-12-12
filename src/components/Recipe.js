@@ -15,6 +15,7 @@ const Recipe = () => {
   const [directions, setDirections] = useState(
     "### Step 1\nIn a medium bowl, combine cornmeal, flour, salt, pepper, sugar and baking powder. Stir in eggs and milk.\n### Step 2\nPreheat oil in a deep saucepan over medium heat. Insert wooden skewers into frankfurters. Roll frankfurters in batter until well coated.\n### Step 3\nFry 2 or 3 corn dogs at a time until lightly browned, about 3 minutes. Drain on paper towels."
   );
+  const [rtl, setRtl] = useState(false);
 
   useEffect(() => {
     document.getElementById("recipe-description").innerHTML =
@@ -26,7 +27,7 @@ const Recipe = () => {
   }, [description, ingredients, directions]);
 
   return (
-    <div className="recipe">
+    <div className="recipe" style={{ direction: rtl ? "rtl" : "ltr" }}>
       <h1 style={{ textAlign: "center" }}>{recipeTitle}</h1>
       <div className="recipe-section">
         <div className="recipe-title">Description</div>
@@ -46,6 +47,7 @@ const Recipe = () => {
             <button onClick={close}>&times;</button>
             <RecipeEditor
               recipeTitle={recipeTitle}
+              rtl={rtl}
               description={description}
               ingredients={ingredients}
               directions={directions}
@@ -53,6 +55,7 @@ const Recipe = () => {
               setDescription={setDescription}
               setIngredients={setIngredients}
               setDirections={setDirections}
+              setRtl={setRtl}
             />
           </>
         )}
