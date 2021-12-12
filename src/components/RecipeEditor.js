@@ -86,7 +86,7 @@ const RecipeEditor = ({
             <>
               <button onClick={close}>&times;</button>
               <MarkdownEditor
-                submitText="Save Description"
+                contextText="Description"
                 setData={setDescription}
                 close={close}
                 defaultText={description}
@@ -108,7 +108,7 @@ const RecipeEditor = ({
             <>
               <button onClick={close}>&times;</button>
               <MarkdownEditor
-                submitText="Save Ingredients"
+                contextText="Ingredients"
                 setData={setIngredients}
                 setRtl={setRtl}
                 close={close}
@@ -130,7 +130,7 @@ const RecipeEditor = ({
             <>
               <button onClick={close}>&times;</button>
               <MarkdownEditor
-                submitText="Save Directions"
+                contextText="Directions"
                 setData={setDirections}
                 setRtl={setRtl}
                 close={close}

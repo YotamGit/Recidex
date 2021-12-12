@@ -5,7 +5,7 @@ import "../styles/MarkdownEditor.css";
 const MarkdownEditor = ({
   defaultText,
   defaultRtl,
-  submitText,
+  contextText,
   setData,
   close,
   setRtl,
@@ -48,6 +48,7 @@ const MarkdownEditor = ({
 
   return (
     <form className="markdown-editor" onSubmit={onSubmit}>
+      <h1 style={{ textAlign: "center" }}>{contextText}</h1>
       <div className="markdown-editor-text-box-container">
         <div>
           <h3>Markdown</h3>
@@ -71,7 +72,7 @@ const MarkdownEditor = ({
           </div>
         </div>
       </div>
-      <div>
+      <div style={{ textAlign: "center" }}>
         <label>Set Right To left</label>
         <input
           type="checkbox"
@@ -80,7 +81,7 @@ const MarkdownEditor = ({
           onChange={(e) => setRightToLeft(e.currentTarget.checked)}
         />
       </div>
-      <input className="btn" type="submit" value={submitText} />
+      <input className="btn" type="submit" value={"Save " + contextText} />
     </form>
   );
 };
