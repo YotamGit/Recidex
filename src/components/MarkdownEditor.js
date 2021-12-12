@@ -1,9 +1,16 @@
 import { marked } from "marked";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../styles/MarkdownEditor.css";
 
-const MarkdownEditor = ({ submitText, setData, close }) => {
-  const [markdown, setMarkdown] = useState("");
+const MarkdownEditor = ({ defaultText, submitText, setData, close }) => {
+  const [markdown, setMarkdown] = useState(defaultText ? defaultText : "");
+  console.log(markdown);
+  useEffect(() => {
+    if (defaultText) {
+      document.getElementById("converted-markdown").innerHTML =
+        marked.parse(markdown);
+    }
+  }, [markdown]);
 
   const markdownToHtml = (markdownText) => {
     setMarkdown(markdownText);
@@ -22,7 +29,6 @@ const MarkdownEditor = ({ submitText, setData, close }) => {
       var res = window.confirm("Save?");
       if (res) {
         markdownToHtml(markdown);
-        //return data here to parent element
         setData(markdown);
         close();
       }
@@ -39,6 +45,7 @@ const MarkdownEditor = ({ submitText, setData, close }) => {
             type="text"
             placeholder="Enter Markdown"
             onChange={(e) => markdownToHtml(e.target.value)}
+            value={markdown}
           />
         </div>
         <div>

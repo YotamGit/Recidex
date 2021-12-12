@@ -81,6 +81,7 @@ const RecipeEditor = ({
                 submitText="Save Description"
                 setData={setDescription}
                 close={close}
+                defaultText={description}
               />
             </>
           )}
@@ -100,6 +101,7 @@ const RecipeEditor = ({
                 submitText="Save Ingredients"
                 setData={setIngredients}
                 close={close}
+                defaultText={ingredients}
               />
             </>
           )}
@@ -119,6 +121,7 @@ const RecipeEditor = ({
                 submitText="Save Directions"
                 setData={setDirections}
                 close={close}
+                defaultText={directions}
               />
             </>
           )}
