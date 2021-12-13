@@ -4,19 +4,17 @@ import Popup from "reactjs-popup";
 import "../styles/RecipeEditor.css";
 import { marked } from "marked";
 
-const RecipeEditor = ({
-  description,
-  ingredients,
-  directions,
-  recipeTitle,
-  rtl,
-  setTitle,
-  setDescription,
-  setIngredients,
-  setDirections,
-  setRtl,
-}) => {
-  const [tempTitle, setTempTitle] = useState(recipeTitle);
+const RecipeEditor = ({ onEditRecipe, recipe }) => {
+  const [tempTitle, setTempTitle] = useState(recipe.title);
+  const [title, setTitle] = useState(tempTitle);
+  const [tempSource, setTempSource] = useState(recipe.source);
+  const [source, setSource] = useState(tempSource);
+
+  const [description, setDescription] = useState(recipe.description);
+  const [ingredients, setIngredients] = useState(recipe.ingredients);
+  const [directions, setDirections] = useState(recipe.directions);
+  const [rtl, setRtl] = useState(recipe.rtl);
+  const id = recipe.id;
 
   useEffect(() => {
     document.getElementById("recipe-editor-description").innerHTML =
@@ -39,6 +37,13 @@ const RecipeEditor = ({
       }
     }
   };
+  const onSubmitSource = (close) => {
+    var res = window.confirm("Save?");
+    if (res) {
+      setSource(tempSource);
+      close();
+    }
+  };
 
   return (
     <div className="recipe-editor" style={{ direction: rtl ? "rtl" : "ltr" }}>
@@ -51,29 +56,59 @@ const RecipeEditor = ({
           onChange={(e) => setRtl(e.currentTarget.checked)}
         />
       </div>
-      <div className="recipe-editor-section">
-        <h2>Title</h2>
-        <div className="recipe-editor-text-box">{recipeTitle}</div>
-        <Popup trigger={<button>Edit</button>} modal nested>
-          {(close) => (
-            <div className="recipe-editor-title-editor">
-              <button onClick={close}>&times;</button>
-              <div>
-                <input
-                  type="text"
-                  onChange={(e) => setTempTitle(e.target.value)}
-                  value={tempTitle}
-                />
+      <div className="recipe-editor-section recipe-editor-metadata-section">
+        <div className="recipe-editor-metadata">
+          <h2>Title</h2>
+          <div>{title}</div>
+          <Popup trigger={<button>Edit</button>} modal nested>
+            {(close) => (
+              <div className="recipe-editor-metadata-editor">
+                <button onClick={close}>&times;</button>
+                <h2>Title</h2>
+                <div>
+                  <input
+                    type="text"
+                    onChange={(e) => setTempTitle(e.target.value)}
+                    value={tempTitle}
+                    placeholder={title}
+                  />
 
-                <input
-                  type="button"
-                  value="Save Title"
-                  onClick={() => onSubmitTitle(close)}
-                ></input>
+                  <input
+                    type="button"
+                    value="Save Title"
+                    onClick={() => onSubmitTitle(close)}
+                  ></input>
+                </div>
               </div>
-            </div>
-          )}
-        </Popup>
+            )}
+          </Popup>
+        </div>
+        <div className="recipe-editor-metadata">
+          <h2>Source</h2>
+          <div>{source}</div>
+          <Popup trigger={<button>Edit</button>} modal nested>
+            {(close) => (
+              <div className="recipe-editor-metadata-editor">
+                <button onClick={close}>&times;</button>
+                <h2>Source</h2>
+                <div>
+                  <input
+                    type="text"
+                    onChange={(e) => setTempSource(e.target.value)}
+                    value={tempSource}
+                    placeholder={source}
+                  />
+
+                  <input
+                    type="button"
+                    value="Save Source"
+                    onClick={() => onSubmitSource(close)}
+                  ></input>
+                </div>
+              </div>
+            )}
+          </Popup>
+        </div>
       </div>
       <div className="recipe-editor-section">
         <h2>Description</h2>
@@ -141,6 +176,21 @@ const RecipeEditor = ({
           )}
         </Popup>
       </div>
+      <button
+        onClick={() => {
+          onEditRecipe({
+            id,
+            title,
+            source,
+            rtl,
+            description,
+            ingredients,
+            directions,
+          });
+        }}
+      >
+        Save Changes
+      </button>
     </div>
   );
 };

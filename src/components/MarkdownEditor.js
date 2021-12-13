@@ -20,7 +20,7 @@ const MarkdownEditor = ({
       document.getElementById("converted-markdown").innerHTML =
         marked.parse(markdown);
     }
-  }, [markdown]);
+  }, [markdown, defaultText]);
 
   const markdownToHtml = (markdownText) => {
     setMarkdown(markdownText);
