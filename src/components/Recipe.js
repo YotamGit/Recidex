@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import RecipeEditor from "./RecipeEditor";
 import Popup from "reactjs-popup";
 import "../styles/Recipe.css";
@@ -16,30 +16,30 @@ const Recipe = ({ recipe, onEditRecipe }) => {
 
   return (
     <div className="recipe" style={{ direction: recipe.rtl ? "rtl" : "ltr" }}>
-      <div style={{ textAlign: "center" }}>
+      <div className="recipe-header">
         <h1>{recipe.title}</h1>
         <h3>source: {recipe.source}</h3>
       </div>
-      <div className="recipe-section">
+      <div className="recipe-section recipe-description-container">
         <div className="recipe-title">Description</div>
         <div
           className="recipe-text-box"
           id={recipe.id + "-recipe-description"}
-        ></div>
+        />
       </div>
       <div className="recipe-section">
         <div className="recipe-title">Ingredients</div>
         <div
           className="recipe-text-box"
           id={recipe.id + "-recipe-ingredients"}
-        ></div>
+        />
       </div>
       <div className="recipe-section">
         <div className="recipe-title">Directions</div>
         <div
           className="recipe-text-box"
           id={recipe.id + "-recipe-directions"}
-        ></div>
+        />
       </div>
       <Popup trigger={<button>Edit Recipe</button>} modal nested>
         {(close) => (
