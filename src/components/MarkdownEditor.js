@@ -81,7 +81,7 @@ const MarkdownEditor = ({
           onChange={(e) => setRightToLeft(e.currentTarget.checked)}
         />
       </div>
-      <input className="btn" type="submit" value={"Save " + contextText} />
+      <input className="btn" type="submit" value={"Save Edit"} />
     </form>
   );
 };

@@ -26,6 +26,7 @@
 .recipe-editor-section.recipe-editor-metadata-section {
   display: flex;
   flex-direction: row;
+  justify-content: space-evenly;
 }
 
 .recipe-editor-metadata {

@@ -3,8 +3,9 @@ import { useState, useEffect } from "react";
 import Popup from "reactjs-popup";
 import "../styles/RecipeEditor.css";
 import { marked } from "marked";
+import RecipeEditorSection from "./RecipeEditorSection";
 
-const RecipeEditor = ({ onEditRecipe, recipe }) => {
+const RecipeEditor = ({ onEditRecipe, recipe, close }) => {
   const [tempTitle, setTempTitle] = useState(recipe.title);
   const [title, setTitle] = useState(tempTitle);
   const [tempSource, setTempSource] = useState(recipe.source);
@@ -45,6 +46,21 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
     }
   };
 
+  const onSaveRecipeChanges = (close) => {
+    var res = window.confirm("Save?");
+    if (res) {
+      onEditRecipe({
+        id,
+        title,
+        source,
+        rtl,
+        description,
+        ingredients,
+        directions,
+      });
+      close();
+    }
+  };
   return (
     <div className="recipe-editor" style={{ direction: rtl ? "rtl" : "ltr" }}>
       <div className="recipe-editor-section checkbox">
@@ -110,87 +126,28 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
           </Popup>
         </div>
       </div>
-      <div className="recipe-editor-section">
-        <h2>Description</h2>
-        <div
-          className="recipe-editor-text-box"
-          id="recipe-editor-description"
-        ></div>
-        <Popup trigger={<button>Edit</button>} modal nested>
-          {(close) => (
-            <>
-              <button onClick={close}>&times;</button>
-              <MarkdownEditor
-                contextText="Description"
-                setData={setDescription}
-                close={close}
-                defaultText={description}
-                setRtl={setRtl}
-                defaultRtl={rtl}
-              />
-            </>
-          )}
-        </Popup>
-      </div>
-      <div className="recipe-editor-section">
-        <h2>Ingredients</h2>
-        <div
-          className="recipe-editor-text-box"
-          id="recipe-editor-ingredients"
-        ></div>
-        <Popup trigger={<button>Edit</button>} modal nested>
-          {(close) => (
-            <>
-              <button onClick={close}>&times;</button>
-              <MarkdownEditor
-                contextText="Ingredients"
-                setData={setIngredients}
-                setRtl={setRtl}
-                close={close}
-                defaultText={ingredients}
-                defaultRtl={rtl}
-              />
-            </>
-          )}
-        </Popup>
-      </div>
-      <div className="recipe-editor-section">
-        <h2>Directions</h2>
-        <div
-          className="recipe-editor-text-box"
-          id="recipe-editor-directions"
-        ></div>
-        <Popup trigger={<button>Edit</button>} modal nested>
-          {(close) => (
-            <>
-              <button onClick={close}>&times;</button>
-              <MarkdownEditor
-                contextText="Directions"
-                setData={setDirections}
-                setRtl={setRtl}
-                close={close}
-                defaultText={directions}
-                defaultRtl={rtl}
-              />
-            </>
-          )}
-        </Popup>
-      </div>
-      <button
-        onClick={() => {
-          onEditRecipe({
-            id,
-            title,
-            source,
-            rtl,
-            description,
-            ingredients,
-            directions,
-          });
-        }}
-      >
-        Save Changes
-      </button>
+      <RecipeEditorSection
+        sectionTitle={"Description"}
+        setData={setDescription}
+        data={description}
+        setRtl={setRtl}
+        rtl={rtl}
+      />
+      <RecipeEditorSection
+        sectionTitle={"Ingredients"}
+        setData={setIngredients}
+        data={ingredients}
+        setRtl={setRtl}
+        rtl={rtl}
+      />
+      <RecipeEditorSection
+        sectionTitle={"Directions"}
+        setData={setDirections}
+        data={directions}
+        setRtl={setRtl}
+        rtl={rtl}
+      />
+      <button onClick={() => onSaveRecipeChanges(close)}>Save Changes</button>
     </div>
   );
 };

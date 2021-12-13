@@ -12,7 +12,7 @@ const Recipe = ({ recipe, onEditRecipe }) => {
       marked.parse(recipe.ingredients ? recipe.ingredients : "");
     document.getElementById(recipe.id + "-recipe-directions").innerHTML =
       marked.parse(recipe.directions ? recipe.directions : "");
-  }, [recipe.description, recipe.ingredients, recipe.directions]);
+  }, [recipe.description, recipe.ingredients, recipe.directions, recipe.id]);
 
   return (
     <div className="recipe" style={{ direction: recipe.rtl ? "rtl" : "ltr" }}>
@@ -49,6 +49,7 @@ const Recipe = ({ recipe, onEditRecipe }) => {
               key={recipe.id}
               recipe={recipe}
               onEditRecipe={onEditRecipe}
+              close={close}
             />
           </>
         )}
