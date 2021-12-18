@@ -92,13 +92,28 @@ function App() {
     );
   };
 
+  const deleteRecipe = (id) => {
+    var res = window.confirm(
+      "Delete Recipe: " +
+        recipes.filter((recipe) => recipe.id === id)[0].title +
+        "?"
+    );
+    if (res) {
+      setRecipes(recipes.filter((recipe) => recipe.id !== id));
+    }
+  };
+
   return (
     <div>
       <Search onChange={onRecipeSearch} />
       <Button color="white" text={search} />
 
       {recipes.length > 0 ? (
-        <Recipes recipes={recipes} onEditRecipe={onEditRecipe} />
+        <Recipes
+          recipes={recipes}
+          onEditRecipe={onEditRecipe}
+          deleteRecipe={deleteRecipe}
+        />
       ) : (
         "No Recipes To Show"
       )}

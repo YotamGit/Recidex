@@ -3,8 +3,9 @@ import RecipeEditor from "./RecipeEditor";
 import Popup from "reactjs-popup";
 import "../styles/Recipe.css";
 import { marked } from "marked";
+import Button from "./Button";
 
-const Recipe = ({ recipe, onEditRecipe }) => {
+const Recipe = ({ recipe, onEditRecipe, deleteRecipe }) => {
   useEffect(() => {
     document.getElementById(recipe.id + "-recipe-description").innerHTML =
       marked.parse(recipe.description ? recipe.description : "");
@@ -54,6 +55,11 @@ const Recipe = ({ recipe, onEditRecipe }) => {
           </>
         )}
       </Popup>
+      <Button
+        text="Delete"
+        color="red"
+        onClick={() => deleteRecipe(recipe.id)}
+      />
     </div>
   );
 };

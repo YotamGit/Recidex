@@ -9,6 +9,7 @@ const RecipeEditorSection = ({ sectionTitle, setData, data, setRtl, rtl }) => {
       "recipe-editor-" + sectionTitle.toLowerCase()
     ).innerHTML = marked.parse(data);
   }, [data, sectionTitle]);
+
   return (
     <div className="recipe-editor-section">
       <h2>{sectionTitle}</h2>
