@@ -2,7 +2,7 @@ import Button from "./components/Button";
 import Search from "./components/Search";
 import { useEffect, useState } from "react";
 import Recipes from "./components/Recipes";
-
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 function App() {
   const [recipes, setRecipes] = useState([
     {
@@ -104,20 +104,35 @@ function App() {
   };
 
   return (
-    <div>
-      <Search onChange={onRecipeSearch} />
-      <Button color="white" text={search} />
-
-      {recipes.length > 0 ? (
-        <Recipes
-          recipes={recipes}
-          onEditRecipe={onEditRecipe}
-          deleteRecipe={deleteRecipe}
-        />
-      ) : (
-        "No Recipes To Show"
-      )}
-    </div>
+    <Router>
+      <div>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <Search onChange={onRecipeSearch} />
+                <Button color="white" text={search} />
+              </>
+            }
+          />
+          <Route
+            path="/home"
+            element={
+              recipes.length > 0 ? (
+                <Recipes
+                  recipes={recipes}
+                  onEditRecipe={onEditRecipe}
+                  deleteRecipe={deleteRecipe}
+                />
+              ) : (
+                "No Recipes To Show"
+              )
+            }
+          />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
