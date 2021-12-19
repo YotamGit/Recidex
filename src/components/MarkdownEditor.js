@@ -1,6 +1,11 @@
 import { marked } from "marked";
 import { useState, useEffect } from "react";
 import "../styles/MarkdownEditor.css";
+marked.setOptions({
+  gfm: true,
+  breaks: true,
+  smartLists: true,
+});
 
 const MarkdownEditor = ({
   defaultText,

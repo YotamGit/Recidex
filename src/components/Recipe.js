@@ -5,6 +5,12 @@ import "../styles/Recipe.css";
 import { marked } from "marked";
 import Button from "./Button";
 
+marked.setOptions({
+  gfm: true,
+  breaks: true,
+  smartLists: true,
+});
+
 const Recipe = ({ recipe, onEditRecipe, deleteRecipe }) => {
   useEffect(() => {
     document.getElementById(recipe.id + "-recipe-description").innerHTML =

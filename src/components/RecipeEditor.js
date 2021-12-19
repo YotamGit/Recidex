@@ -4,6 +4,12 @@ import "../styles/RecipeEditor.css";
 import { marked } from "marked";
 import RecipeEditorSection from "./RecipeEditorSection";
 
+marked.setOptions({
+  gfm: true,
+  breaks: true,
+  smartLists: true,
+});
+
 const RecipeEditor = ({ onEditRecipe, recipe, close }) => {
   const [tempTitle, setTempTitle] = useState(recipe.title);
   const [title, setTitle] = useState(tempTitle);

@@ -3,6 +3,12 @@ import { useEffect } from "react";
 import Popup from "reactjs-popup";
 import { marked } from "marked";
 
+marked.setOptions({
+  gfm: true,
+  breaks: true,
+  smartLists: true,
+});
+
 const RecipeEditorSection = ({ sectionTitle, setData, data, setRtl, rtl }) => {
   useEffect(() => {
     document.getElementById(

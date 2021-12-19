@@ -2,7 +2,12 @@ import Button from "./components/Button";
 import Search from "./components/Search";
 import { useEffect, useState } from "react";
 import Recipes from "./components/Recipes";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Navigate,
+  Route,
+  Routes,
+} from "react-router-dom";
 function App() {
   const [recipes, setRecipes] = useState([
     {
@@ -113,6 +118,7 @@ function App() {
               <>
                 <Search onChange={onRecipeSearch} />
                 <Button color="white" text={search} />
+                <Navigate to="/home" />
               </>
             }
           />
