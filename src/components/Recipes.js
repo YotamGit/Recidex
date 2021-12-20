@@ -1,10 +1,10 @@
-import Recipe from "./Recipe.js";
+import RecipeCard from "./RecipeCard.js";
 import "../styles/Recipes.css";
 const Recipes = ({ recipes, onEditRecipe, deleteRecipe }) => {
   return (
     <div className="recipes-container">
       {recipes.map((recipe) => (
-        <Recipe
+        <RecipeCard
           key={recipe.id}
           recipe={recipe}
           onEditRecipe={onEditRecipe}

@@ -2,11 +2,13 @@ import Button from "./components/Button";
 import Search from "./components/Search";
 import { useEffect, useState } from "react";
 import Recipes from "./components/Recipes";
+import RecipePage from "./components/RecipePage";
 import {
   BrowserRouter as Router,
   Navigate,
   Route,
   Routes,
+  Link,
 } from "react-router-dom";
 function App() {
   const [recipes, setRecipes] = useState([
@@ -125,15 +127,30 @@ function App() {
           <Route
             path="/home"
             element={
-              recipes.length > 0 ? (
-                <Recipes
-                  recipes={recipes}
-                  onEditRecipe={onEditRecipe}
-                  deleteRecipe={deleteRecipe}
-                />
-              ) : (
-                "No Recipes To Show"
-              )
+              <>
+                <Link to="/recipes/1">recipe 1</Link>
+                <Link to="/recipes/2">recipe 2</Link>
+                <Link to="/recipes/3">recipe 3</Link>
+                {recipes.length > 0 ? (
+                  <Recipes
+                    recipes={recipes}
+                    onEditRecipe={onEditRecipe}
+                    deleteRecipe={deleteRecipe}
+                  />
+                ) : (
+                  "No Recipes To Show"
+                )}
+              </>
+            }
+          />
+          <Route
+            path="/recipes/:recipe_id"
+            element={
+              <RecipePage
+                recipes={recipes}
+                deleteRecipe={deleteRecipe}
+                onEditRecipe={onEditRecipe}
+              />
             }
           />
         </Routes>
