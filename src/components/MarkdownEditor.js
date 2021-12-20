@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import "../styles/MarkdownEditor.css";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import AppBar from "@mui/material/AppBar";
 
 marked.setOptions({
   gfm: true,
@@ -101,8 +100,17 @@ const MarkdownEditor = ({
           />
         </div>
         <div className="markdown-editor-button-row">
-          <input className="markdown-btn" type="submit" value={"Save Edit"} />
-          <button className="markdown-btn" onClick={close}>
+          <input
+            className="markdown-btn"
+            style={{ backgroundColor: "green" }}
+            type="submit"
+            value={"Save Edit"}
+          />
+          <button
+            className="markdown-btn"
+            style={{ backgroundColor: "red" }}
+            onClick={close}
+          >
             Close
           </button>
         </div>

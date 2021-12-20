@@ -1,26 +1,34 @@
-.recipe-card .recipe {
+.recipe-card {
   border-radius: 5px;
   border: 2px solid black;
-  display: flex;
-  flex-direction: column;
-  background-color: white;
-  width: 800px;
+  width: 805px;
   height: 70vh;
   margin: 1%;
 }
-
-.recipe-header {
-  text-align: center;
-  height: 10%;
+.recipe-card .recipe {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  width: 100%;
+  height: 90%;
+  flex-grow: 1;
 }
-.recipe-title {
+
+.recipe-card .recipe-header {
+  text-align: center;
+  height: 15%;
+  font-size: 3vh;
+  font-weight: 400;
+}
+.recipe-card .recipe-title {
   direction: ltr;
   margin-bottom: 1%;
-  font-size: 200%;
+  font-size: 3vh;
+  font-weight: 400;
   height: 20%;
 }
 
-.recipe-text-box {
+.recipe-card .recipe-text-box {
   overflow-y: auto;
   font-size: 100%;
   padding-left: 4%;
@@ -29,20 +37,20 @@
   height: 80%;
 }
 
-.recipe-section {
+.recipe-card .recipe-section {
   width: 100%;
-  height: 35%;
+  height: 28%;
   overflow-y: hidden;
 }
 
-.recipe-section.recipe-description-container {
+.recipe-card .recipe-section.recipe-description-container {
   height: 20%;
 }
-.recipe-section.recipe-description-container .recipe-title {
+.recipe-card .recipe-section.recipe-description-container .recipe-title {
   margin-bottom: 1%;
   height: 35%;
 }
-.recipe-section.recipe-description-container .recipe-text-box {
+.recipe-card .recipe-section.recipe-description-container .recipe-text-box {
   margin-bottom: 1%;
   height: 65%;
 }

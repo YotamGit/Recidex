@@ -12,17 +12,20 @@
   height: 100%;
 }
 
-.recipe-header {
+.recipe-page .recipe-header {
   text-align: center;
-  height: 10%;
+  height: 15%;
+  font-size: 3.5vh;
+  font-weight: 400;
 }
-.recipe-title {
+.recipe-page .recipe-title {
   margin-bottom: 1%;
-  font-size: 200%;
+  font-size: 4vh;
+  font-weight: 400;
   height: 20%;
 }
 
-.recipe-text-box {
+.recipe-page .recipe-text-box {
   overflow-y: auto;
   font-size: 100%;
   padding-left: 4%;
@@ -31,20 +34,20 @@
   height: 80%;
 }
 
-.recipe-section {
+.recipe-page .recipe-section {
   width: 100%;
   height: 35%;
   overflow-y: hidden;
 }
 
-.recipe-section.recipe-description-container {
+.recipe-page .recipe-section.recipe-description-container {
   height: 20%;
 }
-.recipe-section.recipe-description-container .recipe-title {
+.recipe-page .recipe-section.recipe-description-container .recipe-title {
   margin-bottom: 1%;
   height: 35%;
 }
-.recipe-section.recipe-description-container .recipe-text-box {
+.recipe-page .recipe-section.recipe-description-container .recipe-text-box {
   margin-bottom: 1%;
   height: 65%;
 }

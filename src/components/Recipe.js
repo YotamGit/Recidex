@@ -23,8 +23,8 @@ const Recipe = ({ recipe, onEditRecipe, deleteRecipe }) => {
   return (
     <div className="recipe" style={{ direction: recipe.rtl ? "rtl" : "ltr" }}>
       <div className="recipe-header">
-        <h1>{recipe.title}</h1>
-        <h3>source: {recipe.source}</h3>
+        <div style={{ fontSize: "130%" }}>{recipe.title}</div>
+        <div style={{ fontSize: "100%" }}>source: {recipe.source}</div>
       </div>
       <div className="recipe-section recipe-description-container">
         <div className="recipe-title">Description</div>
