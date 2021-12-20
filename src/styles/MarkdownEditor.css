@@ -4,15 +4,13 @@
   padding: 0;
 }
 
-.btn {
+.markdown-btn {
   display: inline-block;
   background: #000;
   color: #fff;
   border: none;
   padding: 10px 20px;
   margin: 5px;
-  margin-left: 40vw;
-  margin-right: 40vw;
   border-radius: 5px;
   cursor: pointer;
   text-decoration: none;
@@ -21,24 +19,35 @@
 }
 
 .markdown-editor {
-  border-radius: 5px;
-  border: 2px solid black;
   display: flex;
   flex-direction: column;
   background-color: white;
+  height: 100%;
+  width: 100%;
 }
 
 .markdown-editor-text-box {
   border-radius: 5px;
   border: 2px solid black;
-  width: 40vw;
-  height: 50vh;
+  width: 100%;
+  height: 80%;
   overflow-y: auto;
   padding: 3%;
+  font-size: 150%;
 }
 
 .markdown-editor-text-box-container {
+  align-items: center;
   display: flex;
   justify-content: space-evenly;
+  flex-direction: column;
+  height: 70%;
+  flex-grow: 1;
+}
+
+.markdown-editor-button-row {
   flex-direction: row;
+  align-items: center;
+  display: flex;
+  justify-content: center;
 }

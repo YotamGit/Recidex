@@ -10,7 +10,7 @@ marked.setOptions({
   smartLists: true,
 });
 
-const RecipeEditor = ({ onEditRecipe, recipe, close }) => {
+const RecipeEditor = ({ onEditRecipe, recipe }) => {
   const [tempTitle, setTempTitle] = useState(recipe.title);
   const [title, setTitle] = useState(tempTitle);
   const [tempSource, setTempSource] = useState(recipe.source);
@@ -63,7 +63,6 @@ const RecipeEditor = ({ onEditRecipe, recipe, close }) => {
         ingredients,
         directions,
       });
-      close();
     }
   };
   return (
@@ -152,7 +151,7 @@ const RecipeEditor = ({ onEditRecipe, recipe, close }) => {
         setRtl={setRtl}
         rtl={rtl}
       />
-      <button onClick={() => onSaveRecipeChanges(close)}>Save Changes</button>
+      <button onClick={onSaveRecipeChanges}>Save Changes</button>
     </div>
   );
 };

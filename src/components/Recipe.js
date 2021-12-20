@@ -1,8 +1,7 @@
 import { useEffect } from "react";
-import RecipeEditor from "./RecipeEditor";
-import Popup from "reactjs-popup";
 import { marked } from "marked";
 import Button from "./Button";
+import "../styles/Recipe.css";
 import { Link } from "react-router-dom";
 
 marked.setOptions({
@@ -48,24 +47,17 @@ const Recipe = ({ recipe, onEditRecipe, deleteRecipe }) => {
           id={recipe.id + "-recipe-directions"}
         />
       </div>
-      <Popup trigger={<button>Edit Recipe</button>} modal nested>
-        {(close) => (
-          <>
-            <button onClick={close}>&times;</button>
-            <RecipeEditor
-              key={recipe.id}
-              recipe={recipe}
-              onEditRecipe={onEditRecipe}
-              close={close}
-            />
-          </>
-        )}
-      </Popup>
-      <Button
-        text="Delete"
-        color="red"
-        onClick={() => deleteRecipe(recipe.id)}
-      />
+      <div className="recipe-footer">
+        <Link className="recipe-btn" to={`/recipes/edit/${recipe.id}`}>
+          Edit
+        </Link>
+
+        <Button
+          text="Delete"
+          color="red"
+          onClick={() => deleteRecipe(recipe.id)}
+        />
+      </div>
     </div>
   );
 };

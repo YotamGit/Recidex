@@ -3,6 +3,7 @@ import Search from "./components/Search";
 import { useEffect, useState } from "react";
 import Recipes from "./components/Recipes";
 import RecipePage from "./components/RecipePage";
+import RecipeEditorPage from "./components/RecipeEditorPage";
 import {
   BrowserRouter as Router,
   Navigate,
@@ -128,9 +129,6 @@ function App() {
             path="/home"
             element={
               <>
-                <Link to="/recipes/1">recipe 1</Link>
-                <Link to="/recipes/2">recipe 2</Link>
-                <Link to="/recipes/3">recipe 3</Link>
                 {recipes.length > 0 ? (
                   <Recipes
                     recipes={recipes}
@@ -151,6 +149,12 @@ function App() {
                 deleteRecipe={deleteRecipe}
                 onEditRecipe={onEditRecipe}
               />
+            }
+          />
+          <Route
+            path="/recipes/edit/:recipe_id"
+            element={
+              <RecipeEditorPage recipes={recipes} onEditRecipe={onEditRecipe} />
             }
           />
         </Routes>

@@ -1,6 +1,10 @@
 import { marked } from "marked";
 import { useState, useEffect } from "react";
 import "../styles/MarkdownEditor.css";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import AppBar from "@mui/material/AppBar";
+
 marked.setOptions({
   gfm: true,
   breaks: true,
@@ -20,17 +24,26 @@ const MarkdownEditor = ({
     defaultRtl ? defaultRtl : false
   );
 
+  const [activeTab, setActiveTab] = useState(0);
+  const handleTabs = (event, value) => {
+    setActiveTab(value);
+  };
+
   useEffect(() => {
     if (defaultText) {
-      document.getElementById("converted-markdown").innerHTML =
-        marked.parse(markdown);
+      if (activeTab === 1) {
+        document.getElementById("converted-markdown").innerHTML =
+          marked.parse(markdown);
+      }
     }
-  }, [markdown, defaultText]);
+  }, [activeTab, markdown, defaultText]);
 
   const markdownToHtml = (markdownText) => {
     setMarkdown(markdownText);
-    document.getElementById("converted-markdown").innerHTML =
-      marked.parse(markdownText);
+    if (activeTab === 1) {
+      document.getElementById("converted-markdown").innerHTML =
+        marked.parse(markdownText);
+    }
     return;
   };
 
@@ -55,8 +68,11 @@ const MarkdownEditor = ({
     <form className="markdown-editor" onSubmit={onSubmit}>
       <h1 style={{ textAlign: "center" }}>{contextText}</h1>
       <div className="markdown-editor-text-box-container">
-        <div>
-          <h3>Markdown</h3>
+        <Tabs value={activeTab} onChange={handleTabs}>
+          <Tab label="Markdown"></Tab>
+          <Tab label="Preview"></Tab>
+        </Tabs>
+        <TabPanel value={activeTab} index={0}>
           <textarea
             className="markdown-editor-text-box"
             type="text"
@@ -65,9 +81,8 @@ const MarkdownEditor = ({
             value={markdown}
             style={{ direction: rightToLeft ? "rtl" : "ltr" }}
           />
-        </div>
-        <div>
-          <h3>Preview</h3>
+        </TabPanel>
+        <TabPanel value={activeTab} index={1}>
           <div
             id="converted-markdown"
             className="markdown-editor-text-box"
@@ -75,20 +90,30 @@ const MarkdownEditor = ({
           >
             Preview
           </div>
+        </TabPanel>
+        <div style={{ textAlign: "center" }}>
+          <label>Set Right To left</label>
+          <input
+            type="checkbox"
+            checked={rightToLeft}
+            value={rightToLeft}
+            onChange={(e) => setRightToLeft(e.currentTarget.checked)}
+          />
+        </div>
+        <div className="markdown-editor-button-row">
+          <input className="markdown-btn" type="submit" value={"Save Edit"} />
+          <button className="markdown-btn" onClick={close}>
+            Close
+          </button>
         </div>
       </div>
-      <div style={{ textAlign: "center" }}>
-        <label>Set Right To left</label>
-        <input
-          type="checkbox"
-          checked={rightToLeft}
-          value={rightToLeft}
-          onChange={(e) => setRightToLeft(e.currentTarget.checked)}
-        />
-      </div>
-      <input className="btn" type="submit" value={"Save Edit"} />
     </form>
   );
 };
 
 export default MarkdownEditor;
+
+function TabPanel(props) {
+  const { children, value, index } = props;
+  return <>{value === index && children}</>;
+}

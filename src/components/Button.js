@@ -1,8 +1,13 @@
 import PropTypes from "prop-types";
+import "../styles/Button.css";
 
 const Button = ({ text, color, onClick }) => {
   return (
-    <button onClick={onClick} style={{ backgroundColor: color }}>
+    <button
+      onClick={onClick}
+      style={{ backgroundColor: color }}
+      className="generic-btn"
+    >
       {text}
     </button>
   );

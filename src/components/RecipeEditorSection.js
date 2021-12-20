@@ -23,10 +23,15 @@ const RecipeEditorSection = ({ sectionTitle, setData, data, setRtl, rtl }) => {
         className="recipe-editor-text-box"
         id={"recipe-editor-" + sectionTitle.toLowerCase()}
       ></div>
-      <Popup trigger={<button>Edit</button>} modal nested>
+      <Popup
+        className="recipe-editor-markdown-editor-popup"
+        contentStyle={{ height: "100%", width: "100%" }}
+        trigger={<button>Edit</button>}
+        modal
+        nested
+      >
         {(close) => (
           <>
-            <button onClick={close}>&times;</button>
             <MarkdownEditor
               contextText={sectionTitle}
               setData={setData}
