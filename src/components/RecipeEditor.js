@@ -3,6 +3,7 @@ import Popup from "reactjs-popup";
 import "../styles/RecipeEditor.css";
 import { marked } from "marked";
 import RecipeEditorSection from "./RecipeEditorSection";
+import { useNavigate } from "react-router-dom";
 
 marked.setOptions({
   gfm: true,
@@ -11,6 +12,8 @@ marked.setOptions({
 });
 
 const RecipeEditor = ({ onEditRecipe, recipe }) => {
+  const navigate = useNavigate();
+
   const [tempTitle, setTempTitle] = useState(recipe.title);
   const [title, setTitle] = useState(tempTitle);
   const [tempSource, setTempSource] = useState(recipe.source);
@@ -20,7 +23,6 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
   const [ingredients, setIngredients] = useState(recipe.ingredients);
   const [directions, setDirections] = useState(recipe.directions);
   const [rtl, setRtl] = useState(recipe.rtl);
-  const id = recipe.id;
 
   useEffect(() => {
     document.getElementById("recipe-editor-description").innerHTML =
@@ -55,14 +57,14 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
     var res = window.confirm("Save?");
     if (res) {
       onEditRecipe({
-        id,
         title,
-        source,
-        rtl,
         description,
         ingredients,
         directions,
+        rtl,
+        source,
       });
+      navigate(-1);
     }
   };
   return (

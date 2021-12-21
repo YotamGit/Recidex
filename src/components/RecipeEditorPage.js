@@ -8,7 +8,6 @@ const RecipeEditorPage = ({ recipes, onEditRecipe }) => {
   const recipe = recipes.filter((recipe) => recipe.id === recipe_id)[0];
   return (
     <div className="recipe-editor-page">
-      <Link to="/home">Home Page</Link>
       {recipe && <Recipe recipe={recipe} onEditRecipe={onEditRecipe} />}
     </div>
   );

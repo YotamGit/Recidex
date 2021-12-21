@@ -4,6 +4,8 @@ import { useState } from "react";
 import Recipes from "./components/Recipes";
 import RecipePage from "./components/RecipePage";
 import RecipeEditorPage from "./components/RecipeEditorPage";
+import AddRecipe from "./components/AddRecipe";
+import Header from "./components/Header";
 import {
   BrowserRouter as Router,
   Navigate,
@@ -87,6 +89,7 @@ function App() {
   ]);
 
   const [search, setSearch] = useState("");
+
   const onRecipeSearch = (text) => {
     setSearch(text);
   };
@@ -109,6 +112,11 @@ function App() {
       setRecipes(recipes.filter((recipe) => recipe.id !== id));
     }
   };
+  const onAddRecipe = (recipe) => {
+    const id = (Math.floor(Math.random() * 1000) + 1).toString();
+    const newRecipe = { id, ...recipe };
+    setRecipes([...recipes, newRecipe]);
+  };
 
   return (
     <Router>
@@ -128,6 +136,7 @@ function App() {
             path="/home"
             element={
               <>
+                <Header onAddRecipe={onAddRecipe} />
                 {recipes.length > 0 ? (
                   <Recipes
                     recipes={recipes}
@@ -143,17 +152,36 @@ function App() {
           <Route
             path="/recipes/:recipe_id"
             element={
-              <RecipePage
-                recipes={recipes}
-                deleteRecipe={deleteRecipe}
-                onEditRecipe={onEditRecipe}
-              />
+              <>
+                <Header onAddRecipe={onAddRecipe} />
+                <RecipePage
+                  recipes={recipes}
+                  deleteRecipe={deleteRecipe}
+                  onEditRecipe={onEditRecipe}
+                />
+              </>
             }
           />
           <Route
             path="/recipes/edit/:recipe_id"
             element={
-              <RecipeEditorPage recipes={recipes} onEditRecipe={onEditRecipe} />
+              <>
+                <Header onAddRecipe={onAddRecipe} />
+                <RecipeEditorPage
+                  recipes={recipes}
+                  onEditRecipe={onEditRecipe}
+                />
+              </>
+            }
+          />
+
+          <Route
+            path="/recipes/new"
+            element={
+              <>
+                <Header onAddRecipe={onAddRecipe} />
+                <AddRecipe onAddRecipe={onAddRecipe} />
+              </>
             }
           />
         </Routes>
