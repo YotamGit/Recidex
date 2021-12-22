@@ -2,12 +2,13 @@ import RecipeEditor from "./RecipeEditor";
 
 const AddRecipe = ({ onAddRecipe }) => {
   const recipeTemplate = {
-    title: "Title",
-    description: "Description",
-    ingredients: `Ingredients`,
-    directions: `Direction`,
+    id: "",
+    title: "",
+    description: "",
+    ingredients: "",
+    directions: "",
     rtl: false,
-    source: "Source",
+    source: "",
   };
 
   return (

@@ -23,6 +23,7 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
   const [ingredients, setIngredients] = useState(recipe.ingredients);
   const [directions, setDirections] = useState(recipe.directions);
   const [rtl, setRtl] = useState(recipe.rtl);
+  const id = recipe.id;
 
   useEffect(() => {
     document.getElementById("recipe-editor-description").innerHTML =
@@ -57,6 +58,7 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
     var res = window.confirm("Save?");
     if (res) {
       onEditRecipe({
+        id,
         title,
         description,
         ingredients,

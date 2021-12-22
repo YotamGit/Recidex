@@ -113,6 +113,7 @@ function App() {
     }
   };
   const onAddRecipe = (recipe) => {
+    delete recipe.id;
     const id = (Math.floor(Math.random() * 1000) + 1).toString();
     const newRecipe = { id, ...recipe };
     setRecipes([...recipes, newRecipe]);
