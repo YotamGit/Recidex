@@ -3,18 +3,12 @@ import "../styles/RecipePage.css";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-const RecipePage = ({ recipes, onEditRecipe, deleteRecipe }) => {
+const RecipePage = ({ recipes, deleteRecipe }) => {
   const { recipe_id } = useParams();
   const recipe = recipes.filter((recipe) => recipe.id === recipe_id)[0];
   return (
     <div className="recipe-page">
-      {recipe && (
-        <Recipe
-          recipe={recipe}
-          onEditRecipe={onEditRecipe}
-          deleteRecipe={deleteRecipe}
-        />
-      )}
+      {recipe && <Recipe recipe={recipe} deleteRecipe={deleteRecipe} />}
     </div>
   );
 };

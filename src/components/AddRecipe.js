@@ -4,6 +4,9 @@ const AddRecipe = ({ onAddRecipe }) => {
   const recipeTemplate = {
     id: "",
     title: "",
+    category: "",
+    difficulty: "",
+    timeframe: "",
     description: "",
     ingredients: "",
     directions: "",

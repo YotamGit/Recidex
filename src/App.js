@@ -17,6 +17,9 @@ function App() {
     {
       id: "1",
       title: "Corn Dogs",
+      category: "Snacks",
+      difficulty: "Easy",
+      duration: "20-30 Minutes",
       description:
         "I made up this recipe many years ago, because I loved the corn dogs you buy at carnivals but could not find a recipe for them. Great served with mustard. ",
       ingredients: `* 1 cup yellow cornmeal
@@ -42,6 +45,9 @@ function App() {
     {
       id: "2",
       title: "עוגיות שוקולד צ'יפס",
+      category: "Desserts",
+      difficulty: "Super Hard",
+      duration: "40 Minutes",
       description:
         "מתכון לעוגיות שוקולד צ'יפס קלות להכנה והכי טעימות שיש! פשוט מערבבים את כל המצרכים, מסדרים ואופים. 10 דקות עבודה ועוד 15 דקות אפייה ויש לכם עוגיות מושלמות. ניתן להכין עם חמאה או שמן (לעוגיות חלביות או פרווה).",
       ingredients: `* 200 גר' חמאה מומסת / 160 מ"ל שמן (שני שליש כוס) לפרווה 
@@ -64,6 +70,9 @@ function App() {
     {
       id: "3",
       title: "Corn Dogs",
+      category: "Curry",
+      difficulty: "Super Easy",
+      duration: "15 Minutes",
       description:
         "I made up this recipe many years ago, because I loved the corn dogs you buy at carnivals but could not find a recipe for them. Great served with mustard. ",
       ingredients: `* 1 cup yellow cornmeal

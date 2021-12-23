@@ -10,7 +10,7 @@ marked.setOptions({
   smartLists: true,
 });
 
-const Recipe = ({ recipe, onEditRecipe, deleteRecipe }) => {
+const Recipe = ({ recipe, deleteRecipe }) => {
   useEffect(() => {
     document.getElementById(recipe.id + "-recipe-description").innerHTML =
       marked.parse(recipe.description ? recipe.description : "");
@@ -24,7 +24,18 @@ const Recipe = ({ recipe, onEditRecipe, deleteRecipe }) => {
     <div className="recipe" style={{ direction: recipe.rtl ? "rtl" : "ltr" }}>
       <div className="recipe-header">
         <div style={{ fontSize: "130%" }}>{recipe.title}</div>
-        <div style={{ fontSize: "100%" }}>source: {recipe.source}</div>
+        <div style={{ fontSize: "80%" }}>source: {recipe.source}</div>
+        <div className="recipe-additional-data-container">
+          <span className="recipe-additional-data">
+            Category: {recipe.category}
+          </span>
+          <span className="recipe-additional-data">
+            Difficulty: {recipe.difficulty}
+          </span>
+          <span className="recipe-additional-data">
+            Duration: {recipe.duration}
+          </span>
+        </div>
       </div>
       <div className="recipe-section recipe-description-container">
         <div className="recipe-title">Description</div>
