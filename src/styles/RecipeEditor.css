@@ -15,39 +15,8 @@
   padding-right: 1%;
 }
 
-.recipe-editor-section {
-  width: 100%;
-  height: 25%;
-  overflow-y: auto;
+.recipe-editor-metadata-section {
   display: flex;
   flex-direction: column;
-}
-.recipe-editor-section.recipe-editor-metadata-section {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  height: 10%;
-}
-
-.recipe-editor-metadata {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  margin: 1%;
-}
-
-.recipe-editor-section.checkbox {
-  width: 100%;
-  height: auto;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-
-.recipe-editor-metadata-editor {
-  border-radius: 5px;
-  border: 2px solid black;
-  background-color: white;
-  width: 40vw;
-  height: 30vh;
+  align-items: center;
 }
