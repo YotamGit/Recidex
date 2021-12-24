@@ -73,7 +73,7 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
           />
           rtl
         </div>
-        <div>
+        <div className="recipe-editor-text-input-container">
           <TextField
             id="outlined"
             label="Title"
@@ -86,7 +86,9 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
             defaultValue={source}
             onChange={(e) => setSource(e.target.value)}
           />
-          <FormControl fullWidth>
+        </div>
+        <div className="recipe-editor-selectors-input-container">
+          <FormControl margin="normal" fullWidth>
             <InputLabel id="category-selector-label">Category</InputLabel>
             <Select
               labelId="category-selector-label"
@@ -101,7 +103,7 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
               <MenuItem value={"Snacks"}>Snacks</MenuItem>
             </Select>
           </FormControl>
-          <FormControl fullWidth>
+          <FormControl margin="normal" fullWidth>
             <InputLabel id="difficulty-selector-label">Difficulty</InputLabel>
             <Select
               labelId="difficulty-selector-label"
@@ -118,7 +120,7 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
               <MenuItem value={"Gordon Ramsay"}>Gordon Ramsay</MenuItem>
             </Select>
           </FormControl>
-          <FormControl fullWidth>
+          <FormControl margin="normal" fullWidth>
             <InputLabel id="duration-selector-label">Duration</InputLabel>
             <Select
               labelId="duration-selector-label"
