@@ -11,6 +11,8 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
 
 marked.setOptions({
   gfm: true,
@@ -34,14 +36,22 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
   const [rtl, setRtl] = useState(recipe.rtl);
   const id = recipe.id;
 
+  const [activeTab, setActiveTab] = useState(0);
+
+  const handleTabs = (event, value) => {
+    setActiveTab(value);
+  };
+
   useEffect(() => {
-    document.getElementById("recipe-editor-description").innerHTML =
-      marked.parse(description);
-    document.getElementById("recipe-editor-ingredients").innerHTML =
-      marked.parse(ingredients);
-    document.getElementById("recipe-editor-directions").innerHTML =
-      marked.parse(directions);
-  }, [description, ingredients, directions]);
+    if (activeTab === 1) {
+      document.getElementById("recipe-editor-description").innerHTML =
+        marked.parse(description);
+      document.getElementById("recipe-editor-ingredients").innerHTML =
+        marked.parse(ingredients);
+      document.getElementById("recipe-editor-directions").innerHTML =
+        marked.parse(directions);
+    }
+  }, [activeTab, description, ingredients, directions]);
 
   const onSaveRecipeChanges = () => {
     var res = window.confirm("Save?");
@@ -140,7 +150,22 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
         </div>
       </div>
       <div style={{ direction: rtl ? "rtl" : "ltr" }}>
-        <RecipeEditorSection
+        <h2>Description</h2>
+        <div
+          className="recipe-editor-text-box"
+          id={"recipe-editor-description"}
+        ></div>
+        <h2>Ingredients</h2>
+        <div
+          className="recipe-editor-text-box"
+          id={"recipe-editor-ingredients"}
+        ></div>
+        <h2>Directions</h2>
+        <div
+          className="recipe-editor-text-box"
+          id={"recipe-editor-direction"}
+        ></div>
+        {/* <RecipeEditorSection
           sectionTitle={"Description"}
           setData={setDescription}
           data={description}
@@ -160,7 +185,7 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
           data={directions}
           setRtl={setRtl}
           rtl={rtl}
-        />
+        /> */}
       </div>
       <button onClick={onSaveRecipeChanges}>Save Changes</button>
     </div>
