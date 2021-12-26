@@ -1,18 +1,19 @@
 import { useState, useEffect } from "react";
-import Popup from "reactjs-popup";
 import "../styles/RecipeEditor.css";
 import { marked } from "marked";
-import RecipeEditorSection from "./RecipeEditorSection";
+import RecipeEditorPreviewSection from "./RecipeEditorPreviewSection";
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
-import Switch from "@mui/material/Switch";
-import TextField from "@mui/material/TextField";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
+import {
+  Tabs,
+  Tab,
+  Select,
+  FormControl,
+  MenuItem,
+  InputLabel,
+  TextField,
+  Switch,
+} from "@mui/material/";
 
 marked.setOptions({
   gfm: true,
@@ -71,6 +72,7 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
       navigate(-1);
     }
   };
+
   return (
     <div className="recipe-editor">
       <div className="recipe-editor-metadata-section">
@@ -149,47 +151,64 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
           </FormControl>
         </div>
       </div>
-      <div style={{ direction: rtl ? "rtl" : "ltr" }}>
-        <h2>Description</h2>
-        <div
-          className="recipe-editor-text-box"
-          id={"recipe-editor-description"}
-        ></div>
-        <h2>Ingredients</h2>
-        <div
-          className="recipe-editor-text-box"
-          id={"recipe-editor-ingredients"}
-        ></div>
-        <h2>Directions</h2>
-        <div
-          className="recipe-editor-text-box"
-          id={"recipe-editor-direction"}
-        ></div>
-        {/* <RecipeEditorSection
-          sectionTitle={"Description"}
-          setData={setDescription}
-          data={description}
-          setRtl={setRtl}
-          rtl={rtl}
-        />
-        <RecipeEditorSection
-          sectionTitle={"Ingredients"}
-          setData={setIngredients}
-          data={ingredients}
-          setRtl={setRtl}
-          rtl={rtl}
-        />
-        <RecipeEditorSection
-          sectionTitle={"Directions"}
-          setData={setDirections}
-          data={directions}
-          setRtl={setRtl}
-          rtl={rtl}
-        /> */}
-      </div>
+      <Tabs
+        centered
+        className="recipe-editor-tabs"
+        value={activeTab}
+        onChange={handleTabs}
+      >
+        <Tab label="Edit"></Tab>
+        <Tab label="Preview"></Tab>
+      </Tabs>
+      <TabPanel value={activeTab} index={0}>
+        <div style={{ direction: rtl ? "rtl" : "ltr" }}>
+          <RecipeEditorPreviewSection
+            sectionTitle="Description"
+            setData={setDescription}
+            data={description}
+            rtl={rtl}
+          />
+          <RecipeEditorPreviewSection
+            sectionTitle="Ingredients"
+            setData={setIngredients}
+            data={ingredients}
+            rtl={rtl}
+          />
+          <RecipeEditorPreviewSection
+            sectionTitle="Directions"
+            setData={setDirections}
+            data={directions}
+            rtl={rtl}
+          />
+        </div>
+      </TabPanel>
+      <TabPanel value={activeTab} index={1}>
+        <div style={{ direction: rtl ? "rtl" : "ltr" }}>
+          <h2>Description</h2>
+          <div
+            className="recipe-editor-text-box"
+            id={"recipe-editor-description"}
+          ></div>
+          <h2>Ingredients</h2>
+          <div
+            className="recipe-editor-text-box"
+            id={"recipe-editor-ingredients"}
+          ></div>
+          <h2>Directions</h2>
+          <div
+            className="recipe-editor-text-box"
+            id={"recipe-editor-directions"}
+          ></div>
+        </div>
+      </TabPanel>
       <button onClick={onSaveRecipeChanges}>Save Changes</button>
     </div>
   );
 };
 
 export default RecipeEditor;
+
+function TabPanel(props) {
+  const { children, value, index } = props;
+  return <>{value === index && children}</>;
+}

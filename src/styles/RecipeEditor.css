@@ -1,9 +1,21 @@
 .recipe-editor {
-  border-radius: 5px;
-  border: 2px solid black;
   display: flex;
   flex-direction: column;
   background-color: white;
+  padding: 5px;
+}
+.recipe-editor-text-input-container {
+  display: flex;
+}
+
+.recipe-editor-metadata-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.recipe-editor-tabs {
+  align-items: center;
   flex-grow: 1;
 }
 
@@ -13,16 +25,6 @@
   overflow-y: auto;
   padding-left: 1%;
   padding-right: 1%;
-}
-
-.recipe-editor-metadata-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.recipe-editor-text-input-container {
-  display: flex;
 }
 
 .recipe-editor-selectors-input-container {
