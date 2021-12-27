@@ -201,7 +201,9 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
           ></div>
         </div>
       </TabPanel>
-      <button onClick={onSaveRecipeChanges}>Save Changes</button>
+      <Button onClick={onSaveRecipeChanges} variant="contained" color="success">
+        Save
+      </Button>
     </div>
   );
 };

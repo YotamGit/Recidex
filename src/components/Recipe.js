@@ -4,6 +4,10 @@ import Button from "./Button";
 import "../styles/Recipe.css";
 import { Link } from "react-router-dom";
 
+//icons
+import EditRoundedIcon from "@mui/icons-material/EditRounded";
+import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
+
 marked.setOptions({
   gfm: true,
   breaks: true,
@@ -59,13 +63,19 @@ const Recipe = ({ recipe, deleteRecipe }) => {
         />
       </div>
       <div className="recipe-footer">
-        <Link className="recipe-btn" to={`/recipes/edit/${recipe.id}`}>
-          Edit
+        <Link to={`/recipes/edit/${recipe.id}`}>
+          <EditRoundedIcon
+            style={{ color: "gray", marginLeft: "1%", fontSize: "3vh" }}
+          />
         </Link>
 
-        <Button
-          text="Delete"
-          color="red"
+        <DeleteForeverRoundedIcon
+          style={{
+            color: "red",
+            margin: "1%",
+            fontSize: "3.5vh",
+            cursor: "pointer",
+          }}
           onClick={() => deleteRecipe(recipe.id)}
         />
       </div>
