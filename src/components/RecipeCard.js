@@ -30,10 +30,11 @@ const RecipeCard = ({ recipe, onEditRecipe, deleteRecipe }) => {
       <div className="recipe">
         <div className="recipe-header">
           <div className="recipe-card-top-button-row">
-            <Link to={`/recipes/${recipe.id}`}>
-              <OpenInFullRoundedIcon
-                style={{ color: "gray", margin: "1%", fontSize: "3.5vh" }}
-              />
+            <Link
+              to={`/recipes/${recipe.id}`}
+              style={{ color: "gray", margin: "1%" }}
+            >
+              <OpenInFullRoundedIcon style={{ fontSize: "3.5vh" }} />
             </Link>
             <DeleteForeverRoundedIcon
               style={{

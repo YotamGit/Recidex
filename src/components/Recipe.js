@@ -27,6 +27,23 @@ const Recipe = ({ recipe, deleteRecipe }) => {
   return (
     <div className="recipe" style={{ direction: recipe.rtl ? "rtl" : "ltr" }}>
       <div className="recipe-header">
+        <div className="recipe-page-top-button-row">
+          <Link
+            to={`/recipes/edit/${recipe.id}`}
+            style={{ color: "gray", margin: "1%" }}
+          >
+            <EditRoundedIcon style={{ fontSize: "4vh" }} />
+          </Link>
+          <DeleteForeverRoundedIcon
+            style={{
+              color: "red",
+              margin: "1%",
+              fontSize: "4vh",
+              cursor: "pointer",
+            }}
+            onClick={() => deleteRecipe(recipe.id)}
+          />
+        </div>
         <div style={{ fontSize: "130%" }}>{recipe.title}</div>
         <div style={{ fontSize: "80%" }}>source: {recipe.source}</div>
         <div className="recipe-additional-data-container">
@@ -60,23 +77,6 @@ const Recipe = ({ recipe, deleteRecipe }) => {
         <div
           className="recipe-text-box"
           id={recipe.id + "-recipe-directions"}
-        />
-      </div>
-      <div className="recipe-footer">
-        <Link to={`/recipes/edit/${recipe.id}`}>
-          <EditRoundedIcon
-            style={{ color: "gray", marginLeft: "1%", fontSize: "3vh" }}
-          />
-        </Link>
-
-        <DeleteForeverRoundedIcon
-          style={{
-            color: "red",
-            margin: "1%",
-            fontSize: "3.5vh",
-            cursor: "pointer",
-          }}
-          onClick={() => deleteRecipe(recipe.id)}
         />
       </div>
     </div>

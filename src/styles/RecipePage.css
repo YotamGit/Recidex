@@ -18,6 +18,13 @@
   font-size: 3.5vh;
   font-weight: 400;
 }
+
+.recipe-page-top-button-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .recipe-page .recipe-title {
   margin-bottom: 1%;
   font-size: 4vh;
