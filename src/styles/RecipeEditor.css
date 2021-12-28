@@ -65,5 +65,6 @@
   margin-bottom: 5px;
   width: 100%;
   max-height: 50%;
+  max-width: 700px;
   object-fit: contain;
 }

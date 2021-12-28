@@ -61,6 +61,8 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
       if (image) {
         document.getElementById("recipe-editor-image").src =
           window.URL.createObjectURL(image);
+      } else {
+        document.getElementById("recipe-editor-image").src = "";
       }
     }
   }, [activeTab, description, ingredients, directions, image]);
