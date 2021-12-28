@@ -3,7 +3,10 @@ import "../styles/RecipeEditor.css";
 import { marked } from "marked";
 import RecipeEditorPreviewSection from "./RecipeEditorPreviewSection";
 import { useNavigate } from "react-router-dom";
-import Button from "@mui/material/Button";
+
+//mui
+import SaveIcon from "@mui/icons-material/Save";
+import Chip from "@mui/material/Chip";
 import {
   Tabs,
   Tab,
@@ -14,6 +17,8 @@ import {
   Input,
   TextField,
   Switch,
+  Box,
+  Button,
 } from "@mui/material/";
 
 marked.setOptions({
@@ -63,7 +68,7 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
   const onSaveRecipeChanges = () => {
     var res = window.confirm("Save?");
     if (res) {
-      onEditRecipe({
+      res = onEditRecipe({
         id,
         title,
         category,
@@ -80,6 +85,15 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
     }
   };
 
+  const onUploadImage = (img) => {
+    setImage(img);
+    if (image) {
+      document.getElementById("image-name").innerHTML = image.name;
+    }
+  };
+  const deleteImage = () => {
+    setImage("");
+  };
   return (
     <div className="recipe-editor">
       <div className="recipe-editor-metadata-section">
@@ -94,12 +108,14 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
         </div>
         <div className="recipe-editor-text-input-container">
           <TextField
+            sx={{ minWidth: 120, margin: "5px" }}
             id="outlined"
             label="Title"
             defaultValue={title}
             onChange={(e) => setTitle(e.target.value)}
           />
           <TextField
+            sx={{ minWidth: 120, margin: "5px" }}
             id="outlined"
             label="Source"
             defaultValue={source}
@@ -107,70 +123,93 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
           />
         </div>
         <div className="recipe-editor-selectors-input-container">
-          <FormControl margin="normal" fullWidth>
-            <InputLabel id="category-selector-label">Category</InputLabel>
-            <Select
-              labelId="category-selector-label"
-              id="category-selector"
-              value={category ? category : ""}
-              label="Category"
-              onChange={(e) => setCategory(e.target.value)}
-            >
-              <MenuItem value={"Curry"}>Curry</MenuItem>
-              <MenuItem value={"Meats"}>Meats</MenuItem>
-              <MenuItem value={"Dairy"}>Dairy</MenuItem>
-              <MenuItem value={"Pasta"}>Pasta</MenuItem>
-              <MenuItem value={"Bread and doughs"}>Bread and doughs</MenuItem>
-              <MenuItem value={"Pastries"}>Pastries</MenuItem>
-              <MenuItem value={"Pizza"}>Pizza</MenuItem>
-              <MenuItem value={"Desserts"}>Desserts</MenuItem>
-              <MenuItem value={"Salad"}>Salad</MenuItem>
-              <MenuItem value={"Soups and Stews"}>Soups and Stews</MenuItem>
-              <MenuItem value={"Drinks"}>Drinks</MenuItem>
-            </Select>
-          </FormControl>
-          <FormControl margin="normal" fullWidth>
-            <InputLabel id="difficulty-selector-label">Difficulty</InputLabel>
-            <Select
-              labelId="difficulty-selector-label"
-              id="difficulty-selector"
-              value={difficulty ? difficulty : ""}
-              label="Difficulty"
-              onChange={(e) => setDifficulty(e.target.value)}
-            >
-              <MenuItem value={"Very Easy"}>Very Easy</MenuItem>
-              <MenuItem value={"Easy"}>Easy</MenuItem>
-              <MenuItem value={"Medium"}>Medium</MenuItem>
-              <MenuItem value={"Hard"}>Hard</MenuItem>
-              <MenuItem value={"Very Hard"}>Very Hard</MenuItem>
-              <MenuItem value={"Gordon Ramsay"}>Gordon Ramsay</MenuItem>
-            </Select>
-          </FormControl>
-          <FormControl margin="normal" fullWidth>
-            <InputLabel id="duration-selector-label">Duration</InputLabel>
-            <Select
-              labelId="duration-selector-label"
-              id="duration-selector"
-              value={duration ? duration : ""}
-              label="Duration"
-              onChange={(e) => setDuration(e.target.value)}
-            >
-              <MenuItem value={"under 10 minutes"}>under 10 minutes</MenuItem>
-              <MenuItem value={"10-20 minutes"}>10-20 minutes</MenuItem>
-              <MenuItem value={"20-40 minutes"}>20-40 minutes</MenuItem>
-              <MenuItem value={"40-60 minutes"}>40-60 minutes</MenuItem>
-              <MenuItem value={"1-2 hours"}>1-2 hours</MenuItem>
-              <MenuItem value={"over 2 hours"}>over 2 hours</MenuItem>
-            </Select>
-          </FormControl>
+          <Box sx={{ minWidth: 120, margin: "5px" }}>
+            <FormControl className="recipe-editor-form-control" fullWidth>
+              <InputLabel id="category-selector-label">Category</InputLabel>
+              <Select
+                labelId="category-selector-label"
+                id="category-selector"
+                value={category ? category : ""}
+                label="Category"
+                onChange={(e) => setCategory(e.target.value)}
+              >
+                <MenuItem value={"Curry"}>Curry</MenuItem>
+                <MenuItem value={"Meats"}>Meats</MenuItem>
+                <MenuItem value={"Dairy"}>Dairy</MenuItem>
+                <MenuItem value={"Pasta"}>Pasta</MenuItem>
+                <MenuItem value={"Bread and doughs"}>Bread and doughs</MenuItem>
+                <MenuItem value={"Pastries"}>Pastries</MenuItem>
+                <MenuItem value={"Pizza"}>Pizza</MenuItem>
+                <MenuItem value={"Desserts"}>Desserts</MenuItem>
+                <MenuItem value={"Salad"}>Salad</MenuItem>
+                <MenuItem value={"Soups and Stews"}>Soups and Stews</MenuItem>
+                <MenuItem value={"Drinks"}>Drinks</MenuItem>
+                <MenuItem value={"Other"}>Other</MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
+
+          <Box sx={{ minWidth: 120, margin: "5px" }}>
+            <FormControl className="recipe-editor-form-control" fullWidth>
+              <InputLabel id="difficulty-selector-label">Difficulty</InputLabel>
+              <Select
+                labelId="difficulty-selector-label"
+                id="difficulty-selector"
+                value={difficulty ? difficulty : ""}
+                label="Difficulty"
+                onChange={(e) => setDifficulty(e.target.value)}
+              >
+                <MenuItem value={"Very Easy"}>Very Easy</MenuItem>
+                <MenuItem value={"Easy"}>Easy</MenuItem>
+                <MenuItem value={"Medium"}>Medium</MenuItem>
+                <MenuItem value={"Hard"}>Hard</MenuItem>
+                <MenuItem value={"Very Hard"}>Very Hard</MenuItem>
+                <MenuItem value={"Gordon Ramsay"}>Gordon Ramsay</MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
+          <Box sx={{ minWidth: 120, margin: "5px" }}>
+            <FormControl className="recipe-editor-form-control" fullWidth>
+              <InputLabel id="duration-selector-label">Duration</InputLabel>
+              <Select
+                labelId="duration-selector-label"
+                id="duration-selector"
+                value={duration ? duration : ""}
+                label="Duration"
+                onChange={(e) => setDuration(e.target.value)}
+              >
+                <MenuItem value={"under 10 minutes"}>under 10 minutes</MenuItem>
+                <MenuItem value={"10-20 minutes"}>10-20 minutes</MenuItem>
+                <MenuItem value={"20-40 minutes"}>20-40 minutes</MenuItem>
+                <MenuItem value={"40-60 minutes"}>40-60 minutes</MenuItem>
+                <MenuItem value={"1-2 hours"}>1-2 hours</MenuItem>
+                <MenuItem value={"over 2 hours"}>over 2 hours</MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
         </div>
-        <div>
-          <label>Upload Image: </label>
-          <input
-            type="file"
-            accept="image/png, image/gif, image/jpeg"
-            onChange={(e) => setImage(e.target.files[0])}
-          />
+        <div className="recipe-editor-image-upload-container">
+          <label htmlFor="image-input">
+            <input
+              id="image-input"
+              type="file"
+              accept="image/png, image/gif, image/jpeg"
+              onChange={(e) => onUploadImage(e.target.files[0])}
+              style={{ display: "none" }}
+            />
+            <Button variant="contained" component="span">
+              Upload Image
+            </Button>
+          </label>
+          {image && (
+            <Chip
+              id="image-name"
+              label={image.name}
+              variant="outlined"
+              onDelete={deleteImage}
+              style={{ margin: "5px" }}
+            />
+          )}
         </div>
       </div>
       <Tabs
@@ -224,7 +263,12 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
           <img alt="" id="recipe-editor-image" />
         </div>
       </TabPanel>
-      <Button onClick={onSaveRecipeChanges} variant="contained" color="success">
+      <Button
+        onClick={onSaveRecipeChanges}
+        variant="contained"
+        color="success"
+        startIcon={<SaveIcon />}
+      >
         Save
       </Button>
     </div>
