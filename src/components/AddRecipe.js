@@ -12,6 +12,7 @@ const AddRecipe = ({ onAddRecipe }) => {
     directions: "",
     rtl: false,
     source: "",
+    image: "",
   };
 
   return (

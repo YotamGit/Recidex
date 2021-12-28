@@ -11,6 +11,7 @@ import {
   FormControl,
   MenuItem,
   InputLabel,
+  Input,
   TextField,
   Switch,
 } from "@mui/material/";
@@ -35,6 +36,7 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
   const [ingredients, setIngredients] = useState(recipe.ingredients);
   const [directions, setDirections] = useState(recipe.directions);
   const [rtl, setRtl] = useState(recipe.rtl);
+  const [image, setImage] = useState(recipe.image);
   const id = recipe.id;
 
   const [activeTab, setActiveTab] = useState(0);
@@ -51,8 +53,12 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
         marked.parse(ingredients);
       document.getElementById("recipe-editor-directions").innerHTML =
         marked.parse(directions);
+      if (image) {
+        document.getElementById("recipe-editor-image").src =
+          window.URL.createObjectURL(image);
+      }
     }
-  }, [activeTab, description, ingredients, directions]);
+  }, [activeTab, description, ingredients, directions, image]);
 
   const onSaveRecipeChanges = () => {
     var res = window.confirm("Save?");
@@ -68,6 +74,7 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
         directions,
         rtl,
         source,
+        image,
       });
       navigate(-1);
     }
@@ -105,7 +112,7 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
             <Select
               labelId="category-selector-label"
               id="category-selector"
-              value={category}
+              value={category ? category : ""}
               label="Category"
               onChange={(e) => setCategory(e.target.value)}
             >
@@ -127,7 +134,7 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
             <Select
               labelId="difficulty-selector-label"
               id="difficulty-selector"
-              value={difficulty}
+              value={difficulty ? difficulty : ""}
               label="Difficulty"
               onChange={(e) => setDifficulty(e.target.value)}
             >
@@ -144,7 +151,7 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
             <Select
               labelId="duration-selector-label"
               id="duration-selector"
-              value={duration}
+              value={duration ? duration : ""}
               label="Duration"
               onChange={(e) => setDuration(e.target.value)}
             >
@@ -156,6 +163,14 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
               <MenuItem value={"over 2 hours"}>over 2 hours</MenuItem>
             </Select>
           </FormControl>
+        </div>
+        <div>
+          <label>Upload Image: </label>
+          <input
+            type="file"
+            accept="image/png, image/gif, image/jpeg"
+            onChange={(e) => setImage(e.target.files[0])}
+          />
         </div>
       </div>
       <Tabs
@@ -206,6 +221,7 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
             className="recipe-editor-text-box"
             id={"recipe-editor-directions"}
           ></div>
+          <img alt="" id="recipe-editor-image" />
         </div>
       </TabPanel>
       <Button onClick={onSaveRecipeChanges} variant="contained" color="success">

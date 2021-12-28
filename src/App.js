@@ -1,7 +1,6 @@
 import Button from "./components/Button";
 import Search from "./components/Search";
 import { useState, useEffect } from "react";
-import Recipes from "./components/Recipes";
 import RecipePage from "./components/RecipePage";
 import RecipeEditorPage from "./components/RecipeEditorPage";
 import AddRecipe from "./components/AddRecipe";
@@ -55,6 +54,7 @@ function App() {
         \nFry 2 or 3 corn dogs at a time until lightly browned, about 3 minutes. Drain on paper towels.`,
         rtl: false,
         source: "sample source 1",
+        image: "",
       },
       {
         id: "2",
@@ -80,6 +80,7 @@ function App() {
         \n נאפה את העוגיות בתנור חם על 170 מעלות במשך כ רבע שעה, העוגיות מוכנות כשהן זהובות ויפות.`,
         rtl: true,
         source: "sample source2",
+        image: "",
       },
       {
         id: "3",
@@ -108,6 +109,7 @@ function App() {
         \nFry 2 or 3 corn dogs at a time until lightly browned, about 3 minutes. Drain on paper towels.`,
         rtl: false,
         source: "sample source 1",
+        image: "",
       },
       {
         id: "4",
@@ -136,6 +138,7 @@ function App() {
         \nFry 2 or 3 corn dogs at a time until lightly browned, about 3 minutes. Drain on paper towels.`,
         rtl: false,
         source: "sample source 1",
+        image: "",
       },
       {
         id: "5",
@@ -164,6 +167,7 @@ function App() {
         \nFry 2 or 3 corn dogs at a time until lightly browned, about 3 minutes. Drain on paper towels.`,
         rtl: false,
         source: "sample source 1",
+        image: "",
       },
     ]);
   };

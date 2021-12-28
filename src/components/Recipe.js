@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { marked } from "marked";
-import Button from "./Button";
 import "../styles/Recipe.css";
 import { Link } from "react-router-dom";
 

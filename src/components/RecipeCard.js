@@ -1,9 +1,7 @@
 import "../styles/RecipeCard.css";
 import { Link } from "react-router-dom";
-import Recipe from "./Recipe";
 import { marked } from "marked";
 import { useEffect } from "react";
-import Button from "./Button";
 
 //mui
 import Chip from "@mui/material/Chip";
@@ -23,7 +21,20 @@ const RecipeCard = ({ recipe, onEditRecipe, deleteRecipe }) => {
   useEffect(() => {
     document.getElementById(recipe.id + "-recipe-description").innerHTML =
       marked.parse(recipe.description ? recipe.description : "");
-  }, [recipe.description, recipe.id]);
+    if (recipe.image) {
+      document.getElementById(recipe.id + "-recipe-card-image").src =
+        window.URL.createObjectURL(recipe.image);
+    }
+
+    // resize description container if recipe has an image
+    document.getElementById(recipe.id + "-recipe-card-image")
+      ? (document.getElementById(
+          recipe.id + "-recipe-card-description-container"
+        ).style.height = "20%")
+      : (document.getElementById(
+          recipe.id + "-recipe-card-description-container"
+        ).style.height = "70%");
+  }, [recipe.id, recipe.description, recipe.image]);
 
   return (
     <div className="recipe-card">
@@ -71,8 +82,11 @@ const RecipeCard = ({ recipe, onEditRecipe, deleteRecipe }) => {
           </div>
         </div>
         <div
-          className="recipe-description-container"
-          style={{ direction: recipe.rtl ? "rtl" : "ltr" }}
+          className="recipe-card-description-container"
+          id={recipe.id + "-recipe-card-description-container"}
+          style={{
+            direction: recipe.rtl ? "rtl" : "ltr",
+          }}
         >
           <div className="recipe-title">Description</div>
           <div
@@ -80,12 +94,13 @@ const RecipeCard = ({ recipe, onEditRecipe, deleteRecipe }) => {
             id={recipe.id + "-recipe-description"}
           />
         </div>
-        <div
-          className="recipe-img"
-          style={{ backgroundColor: "green", height: "60%", width: "100%" }}
-        >
-          IMAGE PLACEHOLDER
-        </div>
+        {recipe.image && (
+          <img
+            className="recipe-card-image"
+            id={recipe.id + "-recipe-card-image"}
+            alt=""
+          />
+        )}
       </div>
     </div>
   );

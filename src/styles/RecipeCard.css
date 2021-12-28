@@ -30,11 +30,11 @@
   font-size: 70% !important;
 }
 
-.recipe-card .recipe-section.recipe-description-container {
+.recipe-card-description-container {
   width: 100%;
-  height: 40%;
-  overflow-y: hidden;
+  height: 70%;
 }
+
 .recipe-card .recipe-title {
   direction: ltr;
   margin-bottom: 1%;
@@ -44,7 +44,7 @@
 }
 
 .recipe-card .recipe-text-box {
-  overflow-y: auto;
+  overflow-y: scroll;
   font-size: 100%;
   padding-left: 4%;
   padding-right: 4%;
@@ -52,7 +52,11 @@
   height: 80%;
 }
 
-.recipe-img {
-  height: 30%;
-  overflow: hidden;
+.recipe-card-image {
+  height: 50%;
+  width: 100%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  object-fit: cover;
 }
