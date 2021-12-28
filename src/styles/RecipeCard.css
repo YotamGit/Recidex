@@ -5,6 +5,13 @@
   height: 70vh;
   margin: 1%;
 }
+
+@media only screen and (max-width: 600px) {
+  .recipe-card {
+    height: 100vh;
+  }
+}
+
 .recipe-card .recipe {
   display: flex;
   flex-direction: column;
