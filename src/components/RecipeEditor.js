@@ -109,10 +109,17 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
               label="Category"
               onChange={(e) => setCategory(e.target.value)}
             >
-              <MenuItem value={"Desserts"}>Desserts</MenuItem>
+              <MenuItem value={"Curry"}>Curry</MenuItem>
+              <MenuItem value={"Meats"}>Meats</MenuItem>
+              <MenuItem value={"Dairy"}>Dairy</MenuItem>
+              <MenuItem value={"Pasta"}>Pasta</MenuItem>
+              <MenuItem value={"Bread and doughs"}>Bread and doughs</MenuItem>
               <MenuItem value={"Pastries"}>Pastries</MenuItem>
-              <MenuItem value={"Soups"}>Soups</MenuItem>
-              <MenuItem value={"Snacks"}>Snacks</MenuItem>
+              <MenuItem value={"Pizza"}>Pizza</MenuItem>
+              <MenuItem value={"Desserts"}>Desserts</MenuItem>
+              <MenuItem value={"Salad"}>Salad</MenuItem>
+              <MenuItem value={"Soups and Stews"}>Soups and Stews</MenuItem>
+              <MenuItem value={"Drinks"}>Drinks</MenuItem>
             </Select>
           </FormControl>
           <FormControl margin="normal" fullWidth>
