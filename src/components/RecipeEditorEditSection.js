@@ -1,5 +1,5 @@
 import TextareaAutosize from "@mui/material/TextareaAutosize";
-const RecipeEditorPreviewSection = ({ sectionTitle, setData, data, rtl }) => {
+const RecipeEditorEditSection = ({ sectionTitle, setData, data, rtl }) => {
   return (
     <div className="recipe-editor-section">
       <h2>{sectionTitle}</h2>
@@ -14,4 +14,4 @@ const RecipeEditorPreviewSection = ({ sectionTitle, setData, data, rtl }) => {
   );
 };
 
-export default RecipeEditorPreviewSection;
+export default RecipeEditorEditSection;

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "../styles/RecipeEditor.css";
 import { marked } from "marked";
-import RecipeEditorPreviewSection from "./RecipeEditorPreviewSection";
+import RecipeEditorEditSection from "./RecipeEditorEditSection";
 import { useNavigate } from "react-router-dom";
 
 //mui
@@ -100,13 +100,13 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
     <div className="recipe-editor">
       <div className="recipe-editor-metadata-section">
         <div>
-          ltr
+          English
           <Switch
             checked={rtl}
             onChange={(e) => setRtl(e.currentTarget.checked)}
             inputProps={{ "aria-label": "controlled" }}
           />
-          rtl
+          עברית
         </div>
         <div className="recipe-editor-text-input-container">
           <TextField
@@ -225,20 +225,20 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
       </Tabs>
       <TabPanel value={activeTab} index={0}>
         <div style={{ direction: rtl ? "rtl" : "ltr" }}>
-          <RecipeEditorPreviewSection
-            sectionTitle="Description"
+          <RecipeEditorEditSection
+            sectionTitle={rtl ? "תיאור" : "Description"}
             setData={setDescription}
             data={description}
             rtl={rtl}
           />
-          <RecipeEditorPreviewSection
-            sectionTitle="Ingredients"
+          <RecipeEditorEditSection
+            sectionTitle={rtl ? "מרכיבים" : "Ingredients"}
             setData={setIngredients}
             data={ingredients}
             rtl={rtl}
           />
-          <RecipeEditorPreviewSection
-            sectionTitle="Directions"
+          <RecipeEditorEditSection
+            sectionTitle={rtl ? "הוראות" : "Directions"}
             setData={setDirections}
             data={directions}
             rtl={rtl}
@@ -247,17 +247,17 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
       </TabPanel>
       <TabPanel value={activeTab} index={1}>
         <div style={{ direction: rtl ? "rtl" : "ltr" }}>
-          <h2>Description</h2>
+          <h2>{rtl ? "תיאור" : "Description"}</h2>
           <div
             className="recipe-editor-text-box"
             id={"recipe-editor-description"}
           ></div>
-          <h2>Ingredients</h2>
+          <h2>{rtl ? "מרכיבים" : "Ingredients"}</h2>
           <div
             className="recipe-editor-text-box"
             id={"recipe-editor-ingredients"}
           ></div>
-          <h2>Directions</h2>
+          <h2>{rtl ? "הוראות" : "Directions"}</h2>
           <div
             className="recipe-editor-text-box"
             id={"recipe-editor-directions"}

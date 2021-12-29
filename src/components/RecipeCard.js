@@ -88,7 +88,9 @@ const RecipeCard = ({ recipe, deleteRecipe }) => {
             direction: recipe.rtl ? "rtl" : "ltr",
           }}
         >
-          <div className="recipe-title">Description</div>
+          <div className="recipe-title">
+            {recipe.rtl ? "תיאור" : "Description"}
+          </div>
           <div
             className="recipe-text-box"
             id={recipe.id + "-recipe-description"}

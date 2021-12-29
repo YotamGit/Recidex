@@ -58,21 +58,27 @@ const Recipe = ({ recipe, deleteRecipe }) => {
         </div>
       </div>
       <div className="recipe-section recipe-description-container">
-        <div className="recipe-title">Description</div>
+        <div className="recipe-title">
+          {recipe.rtl ? "תיאור" : "Description"}
+        </div>
         <div
           className="recipe-text-box"
           id={recipe.id + "-recipe-description"}
         />
       </div>
       <div className="recipe-section">
-        <div className="recipe-title">Ingredients</div>
+        <div className="recipe-title">
+          {recipe.rtl ? "מרכיבים" : "Ingredients"}
+        </div>
         <div
           className="recipe-text-box"
           id={recipe.id + "-recipe-ingredients"}
         />
       </div>
       <div className="recipe-section">
-        <div className="recipe-title">Directions</div>
+        <div className="recipe-title">
+          {recipe.rtl ? "הוראות" : "Directions"}
+        </div>
         <div
           className="recipe-text-box"
           id={recipe.id + "-recipe-directions"}
