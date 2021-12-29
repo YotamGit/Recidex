@@ -9,7 +9,6 @@ import Chip from "@mui/material/Chip";
 //icons
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import OpenInFullRoundedIcon from "@mui/icons-material/OpenInFullRounded";
-import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
 
 marked.setOptions({
   gfm: true,
@@ -47,24 +46,14 @@ const RecipeCard = ({ recipe, deleteRecipe }) => {
             >
               <OpenInFullRoundedIcon style={{ fontSize: "3.5vh" }} />
             </Link>
-            <DeleteForeverRoundedIcon
-              style={{
-                color: "red",
-                margin: "1%",
-                fontSize: "3.5vh",
-                cursor: "pointer",
-              }}
-              onClick={() => deleteRecipe(recipe.id)}
-            />
-          </div>
-          <div style={{ fontSize: "130%" }}>
-            {recipe.title}
-            <Link to={`/recipes/edit/${recipe.id}`}>
-              <EditRoundedIcon
-                style={{ color: "gray", marginLeft: "1%", fontSize: "3vh" }}
-              />
+            <Link
+              to={`/recipes/edit/${recipe.id}`}
+              style={{ color: "gray", margin: "1%" }}
+            >
+              <EditRoundedIcon style={{ fontSize: "3.5vh" }} />
             </Link>
           </div>
+          <div style={{ fontSize: "130%" }}>{recipe.title}</div>
           <div style={{ fontSize: "60%" }}>source: {recipe.source}</div>
           <div className="recipe-additional-data-container">
             <Chip

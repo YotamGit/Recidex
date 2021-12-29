@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { marked } from "marked";
 import "../styles/Recipe.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import IconButton from "@mui/material/IconButton";
 
 //icons
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
-import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
-
+import CloseFullscreenRoundedIcon from "@mui/icons-material/CloseFullscreenRounded";
 marked.setOptions({
   gfm: true,
   breaks: true,
@@ -14,6 +14,8 @@ marked.setOptions({
 });
 
 const Recipe = ({ recipe, deleteRecipe }) => {
+  const navigate = useNavigate();
+
   useEffect(() => {
     document.getElementById(recipe.id + "-recipe-description").innerHTML =
       marked.parse(recipe.description ? recipe.description : "");
@@ -21,27 +23,31 @@ const Recipe = ({ recipe, deleteRecipe }) => {
       marked.parse(recipe.ingredients ? recipe.ingredients : "");
     document.getElementById(recipe.id + "-recipe-directions").innerHTML =
       marked.parse(recipe.directions ? recipe.directions : "");
+
+    var textBoxes = document.getElementsByClassName("recipe-text-box");
+    Array.from(textBoxes).map((textBox) =>
+      textBox
+        .querySelectorAll("input[type=checkbox]")
+        .forEach((input) => (input.disabled = false))
+    );
   }, [recipe.description, recipe.ingredients, recipe.directions, recipe.id]);
 
   return (
     <div className="recipe" style={{ direction: recipe.rtl ? "rtl" : "ltr" }}>
       <div className="recipe-header">
         <div className="recipe-page-top-button-row">
+          <IconButton
+            onClick={() => navigate(-1)}
+            style={{ color: "gray", margin: "1%" }}
+          >
+            <CloseFullscreenRoundedIcon style={{ fontSize: "3.5vh" }} />
+          </IconButton>
           <Link
             to={`/recipes/edit/${recipe.id}`}
             style={{ color: "gray", margin: "1%" }}
           >
-            <EditRoundedIcon style={{ fontSize: "4vh" }} />
+            <EditRoundedIcon style={{ fontSize: "3.5vh" }} />
           </Link>
-          <DeleteForeverRoundedIcon
-            style={{
-              color: "red",
-              margin: "1%",
-              fontSize: "4vh",
-              cursor: "pointer",
-            }}
-            onClick={() => deleteRecipe(recipe.id)}
-          />
         </div>
         <div style={{ fontSize: "130%" }}>{recipe.title}</div>
         <div style={{ fontSize: "80%" }}>source: {recipe.source}</div>
