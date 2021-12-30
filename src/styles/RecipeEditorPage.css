@@ -3,3 +3,8 @@
   flex-direction: column;
   align-items: stretch; */
 }
+.recipe-editor-page-top-button-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

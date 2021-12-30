@@ -247,6 +247,7 @@ function App() {
                 <RecipeEditorPage
                   recipes={recipes}
                   onEditRecipe={onEditRecipe}
+                  deleteRecipe={deleteRecipe}
                 />
               </>
             }
