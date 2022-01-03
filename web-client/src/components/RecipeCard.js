@@ -18,22 +18,22 @@ marked.setOptions({
 
 const RecipeCard = ({ recipe, deleteRecipe }) => {
   useEffect(() => {
-    document.getElementById(recipe.id + "-recipe-description").innerHTML =
+    document.getElementById(recipe._id + "-recipe-description").innerHTML =
       marked.parse(recipe.description ? recipe.description : "");
     if (recipe.image) {
-      document.getElementById(recipe.id + "-recipe-card-image").src =
-        window.URL.createObjectURL(recipe.image);
+      document.getElementById(recipe._id + "-recipe-card-image").src =
+        recipe.image;
     }
 
     // resize description container if recipe has an image
-    document.getElementById(recipe.id + "-recipe-card-image")
+    document.getElementById(recipe._id + "-recipe-card-image")
       ? (document.getElementById(
-          recipe.id + "-recipe-card-description-container"
+          recipe._id + "-recipe-card-description-container"
         ).style.height = "20%")
       : (document.getElementById(
-          recipe.id + "-recipe-card-description-container"
+          recipe._id + "-recipe-card-description-container"
         ).style.height = "70%");
-  }, [recipe.id, recipe.description, recipe.image]);
+  }, [recipe._id, recipe.description, recipe.image]);
 
   return (
     <div className="recipe-card">
@@ -41,13 +41,13 @@ const RecipeCard = ({ recipe, deleteRecipe }) => {
         <div className="recipe-header">
           <div className="recipe-card-top-button-row">
             <Link
-              to={`/recipes/${recipe.id}`}
+              to={`/recipes/${recipe._id}`}
               style={{ color: "gray", margin: "1%" }}
             >
               <OpenInFullRoundedIcon style={{ fontSize: "3.5vh" }} />
             </Link>
             <Link
-              to={`/recipes/edit/${recipe.id}`}
+              to={`/recipes/edit/${recipe._id}`}
               style={{ color: "gray", margin: "1%" }}
             >
               <EditRoundedIcon style={{ fontSize: "3.5vh" }} />
@@ -72,7 +72,7 @@ const RecipeCard = ({ recipe, deleteRecipe }) => {
         </div>
         <div
           className="recipe-card-description-container"
-          id={recipe.id + "-recipe-card-description-container"}
+          id={recipe._id + "-recipe-card-description-container"}
           style={{
             direction: recipe.rtl ? "rtl" : "ltr",
           }}
@@ -82,13 +82,13 @@ const RecipeCard = ({ recipe, deleteRecipe }) => {
           </div>
           <div
             className="recipe-text-box"
-            id={recipe.id + "-recipe-description"}
+            id={recipe._id + "-recipe-description"}
           />
         </div>
         {recipe.image && (
           <img
             className="recipe-card-image"
-            id={recipe.id + "-recipe-card-image"}
+            id={recipe._id + "-recipe-card-image"}
             alt=""
           />
         )}

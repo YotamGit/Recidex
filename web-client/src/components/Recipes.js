@@ -5,7 +5,7 @@ const Recipes = ({ recipes, onEditRecipe, deleteRecipe }) => {
     <div className="recipes-container">
       {recipes.map((recipe) => (
         <RecipeCard
-          key={recipe.id}
+          key={recipe._id}
           recipe={recipe}
           onEditRecipe={onEditRecipe}
           deleteRecipe={deleteRecipe}

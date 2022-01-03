@@ -11,10 +11,10 @@ import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
 const RecipeEditorPage = ({ recipes, onEditRecipe, deleteRecipe }) => {
   const navigate = useNavigate();
   const { recipe_id } = useParams();
-  const recipe = recipes.filter((recipe) => recipe.id === recipe_id)[0];
+  const recipe = recipes.filter((recipe) => recipe._id === recipe_id)[0];
 
   const onDeleteRecipe = () => {
-    deleteRecipe(recipe.id);
+    deleteRecipe(recipe._id);
     navigate("/home");
   };
   return (

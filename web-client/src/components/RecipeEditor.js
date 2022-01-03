@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { decode as base64_decode, encode as base64_encode } from "base-64";
 import "../styles/RecipeEditor.css";
 import { marked } from "marked";
 import RecipeEditorEditSection from "./RecipeEditorEditSection";
@@ -42,13 +43,22 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
   const [directions, setDirections] = useState(recipe.directions);
   const [rtl, setRtl] = useState(recipe.rtl);
   const [image, setImage] = useState(recipe.image);
-  const id = recipe.id;
+  const [imageName, setImageName] = useState(recipe.imageName);
+  const _id = recipe._id;
 
   const [activeTab, setActiveTab] = useState(0);
 
   const handleTabs = (event, value) => {
     setActiveTab(value);
   };
+
+  const toBase64 = (file) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
 
   useEffect(() => {
     if (activeTab === 1) {
@@ -59,19 +69,24 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
       document.getElementById("recipe-editor-directions").innerHTML =
         marked.parse(directions);
       if (image) {
-        document.getElementById("recipe-editor-image").src =
-          window.URL.createObjectURL(image);
+        document.getElementById("recipe-editor-image").src = image;
+        document.getElementById("image-name").label = imageName;
       } else {
         document.getElementById("recipe-editor-image").src = "";
+
+        //document.getElementById("image-name").innerHTML = "";
       }
     }
-  }, [activeTab, description, ingredients, directions, image]);
+    if (image) {
+      document.getElementById("image-name").label = imageName;
+    }
+  }, [activeTab, description, ingredients, directions, image, imageName]);
 
   const onSaveRecipeChanges = () => {
     var res = window.confirm("Save?");
     if (res) {
       res = onEditRecipe({
-        id,
+        _id,
         title,
         category,
         difficulty,
@@ -81,6 +96,7 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
         directions,
         rtl,
         source,
+        imageName,
         image,
       });
       navigate(-1);
@@ -88,12 +104,20 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
   };
 
   const onUploadImage = (img) => {
-    setImage(img);
-    if (image) {
-      document.getElementById("image-name").innerHTML = image.name;
-    }
+    toBase64(img)
+      .then((result) => {
+        setImageName(img.name);
+        setImage(result);
+        document.getElementById("image-name").label = img.name;
+      })
+      .catch((error) => {
+        console.log(error);
+        return "";
+      });
   };
+
   const deleteImage = () => {
+    setImageName("");
     setImage("");
   };
   return (
@@ -206,7 +230,7 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
           {image && (
             <Chip
               id="image-name"
-              label={image.name}
+              label={imageName}
               variant="outlined"
               onDelete={deleteImage}
               style={{ margin: "5px" }}

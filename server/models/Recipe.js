@@ -12,7 +12,7 @@ const RecipeSchema = mongoose.Schema({
   title: String,
   category: String,
   difficulty: String,
-  timeframe: String,
+  duration: String,
   description: String,
   ingredients: String,
   directions: String,
@@ -21,6 +21,7 @@ const RecipeSchema = mongoose.Schema({
     default: false,
   },
   source: String,
+  imageName: String,
   image: String,
 });
 

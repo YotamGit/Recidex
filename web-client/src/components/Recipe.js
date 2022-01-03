@@ -17,11 +17,11 @@ const Recipe = ({ recipe, deleteRecipe }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    document.getElementById(recipe.id + "-recipe-description").innerHTML =
+    document.getElementById(recipe._id + "-recipe-description").innerHTML =
       marked.parse(recipe.description ? recipe.description : "");
-    document.getElementById(recipe.id + "-recipe-ingredients").innerHTML =
+    document.getElementById(recipe._id + "-recipe-ingredients").innerHTML =
       marked.parse(recipe.ingredients ? recipe.ingredients : "");
-    document.getElementById(recipe.id + "-recipe-directions").innerHTML =
+    document.getElementById(recipe._id + "-recipe-directions").innerHTML =
       marked.parse(recipe.directions ? recipe.directions : "");
 
     var textBoxes = document.getElementsByClassName("recipe-text-box");
@@ -30,7 +30,7 @@ const Recipe = ({ recipe, deleteRecipe }) => {
         .querySelectorAll("input[type=checkbox]")
         .forEach((input) => (input.disabled = false))
     );
-  }, [recipe.description, recipe.ingredients, recipe.directions, recipe.id]);
+  }, [recipe.description, recipe.ingredients, recipe.directions, recipe._id]);
 
   return (
     <div className="recipe" style={{ direction: recipe.rtl ? "rtl" : "ltr" }}>
@@ -43,7 +43,7 @@ const Recipe = ({ recipe, deleteRecipe }) => {
             <CloseFullscreenRoundedIcon style={{ fontSize: "3.5vh" }} />
           </IconButton>
           <Link
-            to={`/recipes/edit/${recipe.id}`}
+            to={`/recipes/edit/${recipe._id}`}
             style={{ color: "gray", margin: "1%" }}
           >
             <EditRoundedIcon style={{ fontSize: "3.5vh" }} />
@@ -69,7 +69,7 @@ const Recipe = ({ recipe, deleteRecipe }) => {
         </div>
         <div
           className="recipe-text-box"
-          id={recipe.id + "-recipe-description"}
+          id={recipe._id + "-recipe-description"}
         />
       </div>
       <div className="recipe-section">
@@ -78,7 +78,7 @@ const Recipe = ({ recipe, deleteRecipe }) => {
         </div>
         <div
           className="recipe-text-box"
-          id={recipe.id + "-recipe-ingredients"}
+          id={recipe._id + "-recipe-ingredients"}
         />
       </div>
       <div className="recipe-section">
@@ -87,7 +87,7 @@ const Recipe = ({ recipe, deleteRecipe }) => {
         </div>
         <div
           className="recipe-text-box"
-          id={recipe.id + "-recipe-directions"}
+          id={recipe._id + "-recipe-directions"}
         />
       </div>
     </div>

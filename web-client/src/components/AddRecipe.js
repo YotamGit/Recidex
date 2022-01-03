@@ -2,16 +2,17 @@ import RecipeEditor from "./RecipeEditor";
 
 const AddRecipe = ({ onAddRecipe }) => {
   const recipeTemplate = {
-    id: "",
+    _id: "",
     title: "",
     category: "",
     difficulty: "",
-    timeframe: "",
+    duration: "",
     description: "",
     ingredients: "",
     directions: "",
     rtl: false,
     source: "",
+    imageName: "",
     image: "",
   };
 

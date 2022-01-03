@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 
 const RecipePage = ({ recipes, deleteRecipe }) => {
   const { recipe_id } = useParams();
-  const recipe = recipes.filter((recipe) => recipe.id === recipe_id)[0];
+  const recipe = recipes.filter((recipe) => recipe._id === recipe_id)[0];
   return (
     <div className="recipe-page">
       {recipe && <Recipe recipe={recipe} deleteRecipe={deleteRecipe} />}
