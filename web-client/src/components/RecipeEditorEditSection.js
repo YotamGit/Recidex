@@ -1,4 +1,5 @@
 import TextareaAutosize from "@mui/material/TextareaAutosize";
+
 const RecipeEditorEditSection = ({ sectionTitle, setData, data, rtl }) => {
   return (
     <div className="recipe-editor-section">

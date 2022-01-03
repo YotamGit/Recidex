@@ -4,7 +4,7 @@ import "../styles/RecipeEditorPage.css";
 //mui
 import IconButton from "@mui/material/IconButton";
 
-//icons
+//mui icons
 import CloseFullscreenRoundedIcon from "@mui/icons-material/CloseFullscreenRounded";
 import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
 

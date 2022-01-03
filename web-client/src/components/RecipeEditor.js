@@ -1,26 +1,22 @@
-import { useState, useEffect } from "react";
-import { decode as base64_decode, encode as base64_encode } from "base-64";
 import "../styles/RecipeEditor.css";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { marked } from "marked";
 import RecipeEditorEditSection from "./RecipeEditorEditSection";
-import { useNavigate } from "react-router-dom";
 
 //mui
 import SaveIcon from "@mui/icons-material/Save";
 import Chip from "@mui/material/Chip";
-import {
-  Tabs,
-  Tab,
-  Select,
-  FormControl,
-  MenuItem,
-  InputLabel,
-  Input,
-  TextField,
-  Switch,
-  Box,
-  Button,
-} from "@mui/material/";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Select from "@mui/material/Select";
+import FormControl from "@mui/material/FormControl";
+import MenuItem from "@mui/material/MenuItem";
+import InputLabel from "@mui/material/InputLabel";
+import TextField from "@mui/material/TextField";
+import Switch from "@mui/material/Switch";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 
 marked.setOptions({
   gfm: true,
