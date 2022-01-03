@@ -70,15 +70,9 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
         marked.parse(directions);
       if (image) {
         document.getElementById("recipe-editor-image").src = image;
-        document.getElementById("image-name").label = imageName;
       } else {
         document.getElementById("recipe-editor-image").src = "";
-
-        //document.getElementById("image-name").innerHTML = "";
       }
-    }
-    if (image) {
-      document.getElementById("image-name").label = imageName;
     }
   }, [activeTab, description, ingredients, directions, image, imageName]);
 
@@ -104,16 +98,23 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
   };
 
   const onUploadImage = (img) => {
-    toBase64(img)
-      .then((result) => {
-        setImageName(img.name);
-        setImage(result);
-        document.getElementById("image-name").label = img.name;
-      })
-      .catch((error) => {
-        console.log(error);
-        return "";
-      });
+    if (img.size >= 10485760) {
+      window.alert(
+        `ERROR UPLOADING IMAGE\n\nImage is too large. \nMaximum image size: 10Mb\nUploaded image size is: ${
+          Math.round((img.size / 1024 / 1024 + Number.EPSILON) * 100) / 100
+        } Mb`
+      );
+      return;
+    } else {
+      toBase64(img)
+        .then((result) => {
+          setImageName(img.name);
+          setImage(result);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   };
 
   const deleteImage = () => {
