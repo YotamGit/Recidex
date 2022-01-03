@@ -76,10 +76,10 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
     }
   }, [activeTab, description, ingredients, directions, image, imageName]);
 
-  const onSaveRecipeChanges = () => {
+  const onSaveRecipeChanges = async () => {
     var res = window.confirm("Save?");
     if (res) {
-      res = onEditRecipe({
+      await onEditRecipe({
         _id,
         title,
         category,
@@ -92,8 +92,14 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
         source,
         imageName,
         image,
-      });
-      navigate(-1);
+      })
+        .then((result) => {
+          navigate(-1);
+        })
+        .catch((error) => {
+          window.alert(error);
+          return;
+        });
     }
   };
 

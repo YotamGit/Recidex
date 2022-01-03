@@ -13,9 +13,17 @@ const RecipeEditorPage = ({ recipes, onEditRecipe, deleteRecipe }) => {
   const { recipe_id } = useParams();
   const recipe = recipes.filter((recipe) => recipe._id === recipe_id)[0];
 
-  const onDeleteRecipe = () => {
-    deleteRecipe(recipe._id);
-    navigate("/home");
+  const onDeleteRecipe = async () => {
+    await deleteRecipe(recipe._id)
+      .then((result) => {
+        if (result) {
+          navigate("/home");
+        }
+      })
+      .catch((error) => {
+        window.alert(error);
+        return;
+      });
   };
   return (
     <div className="recipe-editor-page">
