@@ -22,6 +22,9 @@ function App() {
 
   useEffect(() => {
     getRecipes();
+    window.alert(
+      "This is a Production Build, ANY Changes are saved Permanently."
+    );
   }, []);
 
   const onRecipeSearch = (text) => {
@@ -30,7 +33,7 @@ function App() {
 
   const getRecipes = async () => {
     await axios
-      .get("http://localhost:3000/api/recipes/")
+      .get("http://localhost:3001/api/recipes/")
       .then((result) => {
         setRecipes(result.data);
       })
@@ -39,7 +42,7 @@ function App() {
 
   const onEditRecipe = async (recipeData) => {
     await axios
-      .patch(`http://localhost:3000/api/recipes/${recipeData._id}`, recipeData)
+      .patch(`http://localhost:3001/api/recipes/${recipeData._id}`, recipeData)
       .then((result) => {
         setRecipes(
           recipes.map((recipe) =>
@@ -62,7 +65,7 @@ function App() {
     );
     if (remove) {
       await axios
-        .delete(`http://localhost:3000/api/recipes/${id}`)
+        .delete(`http://localhost:3001/api/recipes/${id}`)
         .then((result) => {
           setRecipes(recipes.filter((recipe) => recipe._id !== id));
         })
@@ -78,7 +81,7 @@ function App() {
   const onAddRecipe = async (recipe) => {
     delete recipe.id;
     await axios
-      .post(`http://localhost:3000/api/recipes/new`, recipe)
+      .post(`http://localhost:3001/api/recipes/new`, recipe)
       .then((result) => {
         getRecipes();
       })
