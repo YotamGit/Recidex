@@ -32,22 +32,10 @@ router.get("/:recipe_id", async (req, res) => {
 // SUBMIT A NEW RECIPE
 router.post("/new", async (req, res) => {
   var startTime = performance.now();
-  const recipe = new Recipe({
-    title: req.body.title,
-    category: req.body.category,
-    difficulty: req.body.difficulty,
-    duration: req.body.duration,
-    description: req.body.description,
-    ingredients: req.body.ingredients,
-    directions: req.body.directions,
-    rtl: req.body.rtl,
-    source: req.body.source,
-    imageName: req.body.imageName,
-    image: req.body.image,
-  });
 
+  const record = req.body;
   try {
-    const savedRecipe = await recipe.save();
+    const savedRecipe = await Recipe.create(record);
     res.json(savedRecipe);
   } catch (err) {
     res.json({ message: err });
@@ -60,8 +48,8 @@ router.post("/new", async (req, res) => {
 router.delete("/:recipe_id", async (req, res) => {
   var startTime = performance.now();
   try {
-    const removedRecipe = await Recipe.deleteOne({ _id: req.params.recipe_id });
-    res.json(removedRecipe);
+    const response = await Recipe.deleteOne({ _id: req.params.recipe_id });
+    res.json(response);
   } catch (err) {
     res.json({ message: err });
   }
@@ -73,14 +61,15 @@ router.delete("/:recipe_id", async (req, res) => {
 router.patch("/:recipe_id", async (req, res) => {
   var startTime = performance.now();
   try {
-    const updatedRecipe = await Recipe.updateOne(
+    const response = await Recipe.updateOne(
       { _id: req.params.recipe_id },
       { $set: { ...req.body, last_update_time: Date.now() } }
     );
-    res.json(updatedRecipe);
+    res.json(response);
   } catch (err) {
     res.json({ message: err });
   }
+
   var endTime = performance.now();
   console.log(`Updating Recipe took ${endTime - startTime} milliseconds`);
 });

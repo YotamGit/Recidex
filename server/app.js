@@ -19,8 +19,11 @@ const recipesRoute = require("./routes/recipes");
 app.use("/api/recipes", recipesRoute);
 
 // Connect To DB
-mongoose.connect(process.env.DB_CONNECTION, () =>
+mongoose.connect("mongodb://localhost:27017/Recipes", () =>
   console.log("Connected to DB")
 );
 
-app.listen(3001);
+// Start Server
+app.listen(3001, () => {
+  console.log("Recipe Server up");
+});
