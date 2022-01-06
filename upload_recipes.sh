@@ -17,3 +17,6 @@ cd ..
 ssh $vps_name sudo rm -rf /var/www/recipes-server recipes-server
 scp -r server $vps_name:recipes-server
 ssh $vps_name sudo mv recipes-server /var/www/recipes-server
+
+ssh $vps_name "cd /var/www/recipes-server ; npm install"
+
