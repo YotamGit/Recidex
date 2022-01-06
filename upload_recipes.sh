@@ -19,4 +19,5 @@ scp -r server $vps_name:recipes-server
 ssh $vps_name sudo mv recipes-server /var/www/recipes-server
 
 ssh $vps_name "cd /var/www/recipes-server ; npm install"
+ssh $vps_name sudo pm2 restart recipes-server
 
