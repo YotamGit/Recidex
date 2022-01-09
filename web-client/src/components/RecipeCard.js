@@ -62,6 +62,10 @@ const RecipeCard = ({ recipe, deleteRecipe }) => {
             />
             <Chip
               className="recipe-additional-data"
+              label={"Sub Category: " + recipe.sub_category}
+            />
+            <Chip
+              className="recipe-additional-data"
               label={"Difficulty: " + recipe.difficulty}
             />
             <Chip

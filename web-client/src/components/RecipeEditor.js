@@ -3,19 +3,15 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { marked } from "marked";
 import RecipeEditorEditSection from "./RecipeEditorEditSection";
+import RecipeEditorDropdown from "./RecipeEditorDropdown";
 
 //mui
 import SaveIcon from "@mui/icons-material/Save";
 import Chip from "@mui/material/Chip";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import Select from "@mui/material/Select";
-import FormControl from "@mui/material/FormControl";
-import MenuItem from "@mui/material/MenuItem";
-import InputLabel from "@mui/material/InputLabel";
 import TextField from "@mui/material/TextField";
 import Switch from "@mui/material/Switch";
-import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 
 marked.setOptions({
@@ -26,11 +22,50 @@ marked.setOptions({
 
 const RecipeEditor = ({ onEditRecipe, recipe }) => {
   const navigate = useNavigate();
-
+  const recipe_main_categories = {
+    Proteins: ["Meat", "Chicken", "Fish", "Other"],
+    Salads: [],
+    Asian: ["Japanese", "Chinese", "Thai", "Indian", "Other"],
+    "Soups and Stews": ["Clear Soup", "Thick Soup", "Stew", "Other"],
+    Pasta: [],
+    "Pizza and Focaccia": [],
+    Bread: ["Salty Pastries", "Other"],
+    Drinks: ["Hot", "Cold", "Alcohol", "Other"],
+    Desserts: [
+      "Cookies",
+      "Yeast",
+      "Cakes",
+      "Tarts and Pies",
+      "Cup",
+      "Snacks and Candies",
+    ],
+    Other: [],
+  };
+  const recipe_difficulties = [
+    "Very Easy",
+    "Easy",
+    "Medium",
+    "Hard",
+    "Very Hard",
+    "Gordon Ramsay",
+  ];
+  const recipe_durations = [
+    "under 10 minutes",
+    "10-20 minutes",
+    "20-40 minutes",
+    "40-60 minutes",
+    "1-2 hours",
+    "over 2 hours",
+  ];
   const [title, setTitle] = useState(recipe.title);
   const [source, setSource] = useState(recipe.source);
 
   const [category, setCategory] = useState(recipe.category);
+  const [sub_category, setSubCategory] = useState(recipe.sub_category);
+  const [recipe_sub_categories, setRecipeSubCategories] = useState(
+    recipe_main_categories[category] ? recipe_main_categories[category] : []
+  ); // used to for the sub category dropdown selector
+
   const [difficulty, setDifficulty] = useState(recipe.difficulty);
   const [duration, setDuration] = useState(recipe.duration);
 
@@ -48,14 +83,6 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
     setActiveTab(value);
   };
 
-  const toBase64 = (file) =>
-    new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
-    });
-
   useEffect(() => {
     if (activeTab === 1) {
       document.getElementById("recipe-editor-description").innerHTML =
@@ -72,32 +99,19 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
     }
   }, [activeTab, description, ingredients, directions, image, imageName]);
 
-  const onSaveRecipeChanges = async () => {
-    var res = window.confirm("Save?");
-    if (res) {
-      await onEditRecipe({
-        _id,
-        title,
-        category,
-        difficulty,
-        duration,
-        description,
-        ingredients,
-        directions,
-        rtl,
-        source,
-        imageName,
-        image,
-      })
-        .then((result) => {
-          navigate(-1);
-        })
-        .catch((error) => {
-          window.alert(error);
-          return;
-        });
-    }
+  const onSelectCategory = (value) => {
+    setCategory(value);
+    setRecipeSubCategories(recipe_main_categories[value]);
   };
+
+  // Image to base64 converter for image uplaod
+  const toBase64 = (file) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
 
   const onUploadImage = (img) => {
     if (img.size >= 10485760) {
@@ -123,6 +137,35 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
     setImageName("");
     setImage("");
   };
+
+  const onSaveRecipeChanges = async () => {
+    var res = window.confirm("Save?");
+    if (res) {
+      await onEditRecipe({
+        _id,
+        title,
+        category,
+        sub_category,
+        difficulty,
+        duration,
+        description,
+        ingredients,
+        directions,
+        rtl,
+        source,
+        imageName,
+        image,
+      })
+        .then((result) => {
+          navigate(-1);
+        })
+        .catch((error) => {
+          window.alert(error);
+          return;
+        });
+    }
+  };
+
   return (
     <div className="recipe-editor">
       <div className="recipe-editor-metadata-section">
@@ -152,70 +195,34 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
           />
         </div>
         <div className="recipe-editor-selectors-input-container">
-          <Box sx={{ minWidth: 120, margin: "5px" }}>
-            <FormControl className="recipe-editor-form-control" fullWidth>
-              <InputLabel id="category-selector-label">Category</InputLabel>
-              <Select
-                labelId="category-selector-label"
-                id="category-selector"
-                value={category ? category : ""}
-                label="Category"
-                onChange={(e) => setCategory(e.target.value)}
-              >
-                <MenuItem value={"Curry"}>Curry</MenuItem>
-                <MenuItem value={"Meats"}>Meats</MenuItem>
-                <MenuItem value={"Dairy"}>Dairy</MenuItem>
-                <MenuItem value={"Pasta"}>Pasta</MenuItem>
-                <MenuItem value={"Bread and doughs"}>Bread and doughs</MenuItem>
-                <MenuItem value={"Pastries"}>Pastries</MenuItem>
-                <MenuItem value={"Pizza"}>Pizza</MenuItem>
-                <MenuItem value={"Desserts"}>Desserts</MenuItem>
-                <MenuItem value={"Salad"}>Salad</MenuItem>
-                <MenuItem value={"Soups and Stews"}>Soups and Stews</MenuItem>
-                <MenuItem value={"Drinks"}>Drinks</MenuItem>
-                <MenuItem value={"Other"}>Other</MenuItem>
-              </Select>
-            </FormControl>
-          </Box>
-
-          <Box sx={{ minWidth: 120, margin: "5px" }}>
-            <FormControl className="recipe-editor-form-control" fullWidth>
-              <InputLabel id="difficulty-selector-label">Difficulty</InputLabel>
-              <Select
-                labelId="difficulty-selector-label"
-                id="difficulty-selector"
-                value={difficulty ? difficulty : ""}
-                label="Difficulty"
-                onChange={(e) => setDifficulty(e.target.value)}
-              >
-                <MenuItem value={"Very Easy"}>Very Easy</MenuItem>
-                <MenuItem value={"Easy"}>Easy</MenuItem>
-                <MenuItem value={"Medium"}>Medium</MenuItem>
-                <MenuItem value={"Hard"}>Hard</MenuItem>
-                <MenuItem value={"Very Hard"}>Very Hard</MenuItem>
-                <MenuItem value={"Gordon Ramsay"}>Gordon Ramsay</MenuItem>
-              </Select>
-            </FormControl>
-          </Box>
-          <Box sx={{ minWidth: 120, margin: "5px" }}>
-            <FormControl className="recipe-editor-form-control" fullWidth>
-              <InputLabel id="duration-selector-label">Duration</InputLabel>
-              <Select
-                labelId="duration-selector-label"
-                id="duration-selector"
-                value={duration ? duration : ""}
-                label="Duration"
-                onChange={(e) => setDuration(e.target.value)}
-              >
-                <MenuItem value={"under 10 minutes"}>under 10 minutes</MenuItem>
-                <MenuItem value={"10-20 minutes"}>10-20 minutes</MenuItem>
-                <MenuItem value={"20-40 minutes"}>20-40 minutes</MenuItem>
-                <MenuItem value={"40-60 minutes"}>40-60 minutes</MenuItem>
-                <MenuItem value={"1-2 hours"}>1-2 hours</MenuItem>
-                <MenuItem value={"over 2 hours"}>over 2 hours</MenuItem>
-              </Select>
-            </FormControl>
-          </Box>
+          <RecipeEditorDropdown
+            value={category}
+            items={Object.keys(recipe_main_categories)}
+            label_text={"Category"}
+            id_prefix={"category"}
+            onChange={onSelectCategory}
+          />
+          <RecipeEditorDropdown
+            value={sub_category}
+            items={recipe_sub_categories}
+            label_text={"Sub Category"}
+            id_prefix={"sub_category"}
+            onChange={setSubCategory}
+          />
+          <RecipeEditorDropdown
+            value={difficulty}
+            items={recipe_difficulties}
+            label_text={"Difficulty"}
+            id_prefix={"difficulty"}
+            onChange={setDifficulty}
+          />
+          <RecipeEditorDropdown
+            value={duration}
+            items={recipe_durations}
+            label_text={"Duretion"}
+            id_prefix={"duration"}
+            onChange={setDuration}
+          />
         </div>
         <div className="recipe-editor-image-upload-container">
           <label htmlFor="image-input">

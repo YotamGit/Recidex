@@ -5,6 +5,7 @@ const AddRecipe = ({ onAddRecipe }) => {
     _id: "",
     title: "",
     category: "",
+    sub_category: "",
     difficulty: "",
     duration: "",
     description: "",

@@ -56,6 +56,9 @@ const Recipe = ({ recipe, deleteRecipe }) => {
             Category: {recipe.category}
           </span>
           <span className="recipe-additional-data">
+            Sub Category: {recipe.sub_category}
+          </span>
+          <span className="recipe-additional-data">
             Difficulty: {recipe.difficulty}
           </span>
           <span className="recipe-additional-data">

@@ -12,6 +12,7 @@ const RecipeSchema = mongoose.Schema(
     },
     title: String,
     category: String,
+    sub_category: String,
     difficulty: String,
     duration: String,
     description: String,
