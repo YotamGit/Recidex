@@ -1,4 +1,4 @@
-import Recipes from "./Recipes";
+import Recipes from "./recipes/Recipes";
 
 const Main = ({ recipes, getRecipes, onEditRecipe, deleteRecipe }) => {
   return (

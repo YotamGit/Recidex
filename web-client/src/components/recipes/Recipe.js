@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { marked } from "marked";
-import "../styles/Recipe.css";
+import "../../styles/recipes/Recipe.css";
 import { Link, useNavigate } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 

@@ -1,5 +1,5 @@
 import Recipe from "./Recipe.js";
-import "../styles/RecipePage.css";
+import "../../styles/recipes/RecipePage.css";
 import { useParams } from "react-router-dom";
 
 const RecipePage = ({ recipes, deleteRecipe }) => {

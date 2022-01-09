@@ -9,9 +9,9 @@ import {
 
 import Button from "./components/Button";
 import Search from "./components/Search";
-import RecipePage from "./components/RecipePage";
-import RecipeEditorPage from "./components/RecipeEditorPage";
-import AddRecipe from "./components/AddRecipe";
+import RecipePage from "./components/recipes/RecipePage";
+import RecipeEditorPage from "./components/recipe_editor/RecipeEditorPage";
+import AddRecipe from "./components/recipe_editor/AddRecipe";
 import Header from "./components/Header";
 import Main from "./components/Main";
 

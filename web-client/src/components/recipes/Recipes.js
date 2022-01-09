@@ -1,5 +1,5 @@
 import RecipeCard from "./RecipeCard.js";
-import "../styles/Recipes.css";
+import "../../styles/recipes/Recipes.css";
 const Recipes = ({ recipes, onEditRecipe, deleteRecipe }) => {
   return (
     <div className="recipes-container">

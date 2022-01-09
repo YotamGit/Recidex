@@ -1,6 +1,6 @@
 import RecipeEditor from "./RecipeEditor.js";
 import { useParams, useNavigate } from "react-router-dom";
-import "../styles/RecipeEditorPage.css";
+import "../../styles/recipe_editor/RecipeEditorPage.css";
 //mui
 import IconButton from "@mui/material/IconButton";
 

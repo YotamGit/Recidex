@@ -1,4 +1,4 @@
-import "../styles/RecipeEditor.css";
+import "../../styles/recipe_editor/RecipeEditor.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { marked } from "marked";

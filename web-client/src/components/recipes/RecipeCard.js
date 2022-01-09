@@ -1,4 +1,4 @@
-import "../styles/RecipeCard.css";
+import "../../styles/recipes/RecipeCard.css";
 import { Link } from "react-router-dom";
 import { marked } from "marked";
 import { useEffect } from "react";
