@@ -67,7 +67,8 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
   ); // used to for the sub category dropdown selector
 
   const [difficulty, setDifficulty] = useState(recipe.difficulty);
-  const [duration, setDuration] = useState(recipe.duration);
+  const [prep_time, setPrepTime] = useState(recipe.prep_time);
+  const [total_time, setTotalTime] = useState(recipe.total_time);
 
   const [description, setDescription] = useState(recipe.description);
   const [ingredients, setIngredients] = useState(recipe.ingredients);
@@ -147,7 +148,8 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
         category,
         sub_category,
         difficulty,
-        duration,
+        prep_time,
+        total_time,
         description,
         ingredients,
         directions,
@@ -217,11 +219,18 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
             onChange={setDifficulty}
           />
           <RecipeEditorDropdown
-            value={duration}
+            value={prep_time}
             items={recipe_durations}
-            label_text={"Duretion"}
-            id_prefix={"duration"}
-            onChange={setDuration}
+            label_text={"Prep Time"}
+            id_prefix={"prep-time"}
+            onChange={setPrepTime}
+          />
+          <RecipeEditorDropdown
+            value={total_time}
+            items={recipe_durations}
+            label_text={"Total Time"}
+            id_prefix={"total-time"}
+            onChange={setTotalTime}
           />
         </div>
         <div className="recipe-editor-image-upload-container">

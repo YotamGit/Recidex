@@ -62,7 +62,10 @@ const Recipe = ({ recipe, deleteRecipe }) => {
             Difficulty: {recipe.difficulty}
           </span>
           <span className="recipe-additional-data">
-            Duration: {recipe.duration}
+            Prep Time: {recipe.prep_time}
+          </span>
+          <span className="recipe-additional-data">
+            Total Time: {recipe.total_time}
           </span>
         </div>
       </div>
