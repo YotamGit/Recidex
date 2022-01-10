@@ -1,0 +1,11 @@
+[Unit]
+Description=Periodic backups for Recipes
+BindsTo=mongodb.service
+# Run once immediately
+Requires=recipes-backup.service
+After=mongodb.service
+
+
+[Timer]
+Unit=recipes-backup.service
+OnCalendar=daily
