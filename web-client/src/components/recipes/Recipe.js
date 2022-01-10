@@ -67,6 +67,9 @@ const Recipe = ({ recipe, deleteRecipe }) => {
           <span className="recipe-additional-data">
             Total Time: {recipe.total_time}
           </span>
+          <span className="recipe-additional-data">
+            Servings: {recipe.servings}
+          </span>
         </div>
       </div>
       <div className="recipe-section recipe-description-container">

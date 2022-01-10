@@ -69,6 +69,7 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
   const [difficulty, setDifficulty] = useState(recipe.difficulty);
   const [prep_time, setPrepTime] = useState(recipe.prep_time);
   const [total_time, setTotalTime] = useState(recipe.total_time);
+  const [servings, setServings] = useState(recipe.servings);
 
   const [description, setDescription] = useState(recipe.description);
   const [ingredients, setIngredients] = useState(recipe.ingredients);
@@ -150,6 +151,7 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
         difficulty,
         prep_time,
         total_time,
+        servings,
         description,
         ingredients,
         directions,
@@ -194,6 +196,13 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
             label="Source"
             defaultValue={source}
             onChange={(e) => setSource(e.target.value)}
+          />
+          <TextField
+            sx={{ minWidth: 120, margin: "5px" }}
+            id="outlined"
+            label="Servings"
+            defaultValue={servings}
+            onChange={(e) => setServings(e.target.value)}
           />
         </div>
         <div className="recipe-editor-selectors-input-container">

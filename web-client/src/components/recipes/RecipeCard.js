@@ -76,6 +76,10 @@ const RecipeCard = ({ recipe, deleteRecipe }) => {
               className="recipe-additional-data"
               label={"Total Time: " + recipe.total_time}
             />
+            <Chip
+              className="recipe-additional-data"
+              label={"Servings: " + recipe.servings}
+            />
           </div>
         </div>
         <div

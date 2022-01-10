@@ -16,6 +16,7 @@ const RecipeSchema = mongoose.Schema(
     difficulty: String,
     prep_time: String,
     total_time: String,
+    servings: String,
     description: String,
     ingredients: String,
     directions: String,

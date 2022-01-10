@@ -9,6 +9,7 @@ const AddRecipe = ({ onAddRecipe }) => {
     difficulty: "",
     prep_time: "",
     total_time: "",
+    servings: "",
     description: "",
     ingredients: "",
     directions: "",
