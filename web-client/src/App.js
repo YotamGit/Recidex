@@ -21,40 +21,41 @@ function App() {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    getRecipes();
+    getRecipes({ latest: new Date(), count: 4 });
+
     window.alert(
       "This is a Production Build, ANY Changes are saved Permanently."
     );
   }, []);
 
-  const onRecipeSearch = (text) => {
-    setSearch(text);
-  };
-
-  const getRecipes = async () => {
-    await axios
-      .get("/api/recipes/")
-      .then((result) => {
-        setRecipes(result.data);
-      })
-      .catch((error) => window.alert(error + "\nFailed to Fetch Recipes."));
+  const getRecipes = async (params) => {
+    try {
+      var result = await axios.get("/api/recipes", { params: params });
+      setRecipes([...recipes, ...result.data]);
+      return result.data.length;
+    } catch (error) {
+      window.alert("Failed to Fetch Recipes.\nReason: " + error.message);
+    }
   };
 
   const onEditRecipe = async (recipeData) => {
-    await axios
-      .patch(`/api/recipes/${recipeData._id}`, recipeData)
-      .then((result) => {
-        setRecipes(
-          recipes.map((recipe) =>
-            recipe._id === recipeData._id ? recipeData : recipe
-          )
-        );
-      })
-      .catch((error) => {
-        throw new Error(
-          error + "\nFailed to Edit Recipe In Database, Please Try Again."
-        );
-      });
+    try {
+      var result = await axios.patch(
+        `/api/recipes/${recipeData._id}`,
+        recipeData
+      );
+
+      setRecipes(
+        recipes.map((recipe) =>
+          recipe._id === recipeData._id ? recipeData : recipe
+        )
+      );
+    } catch (error) {
+      throw new Error(
+        "Failed to Edit Recipe In Database, Please Try Again.\nReason: " +
+          error.message
+      );
+    }
   };
 
   const deleteRecipe = async (id) => {
@@ -64,32 +65,30 @@ function App() {
         "?"
     );
     if (remove) {
-      await axios
-        .delete(`/api/recipes/${id}`)
-        .then((result) => {
-          setRecipes(recipes.filter((recipe) => recipe._id !== id));
-        })
-        .catch((error) => {
-          throw new Error(
-            error + "\nFailed to Delete Recipe From Database, Please Try Again."
-          );
-        });
+      try {
+        var result = await axios.delete(`/api/recipes/${id}`);
+        setRecipes(recipes.filter((recipe) => recipe._id !== id));
+      } catch (error) {
+        throw new Error(
+          "Failed to Delete Recipe From Database, Please Try Again.\nReason: " +
+            error.message
+        );
+      }
     }
     return remove;
   };
 
   const onAddRecipe = async (recipe) => {
     delete recipe._id;
-    await axios
-      .post(`/api/recipes/new`, recipe)
-      .then((result) => {
-        getRecipes();
-      })
-      .catch((error) => {
-        throw new Error(
-          error + "\nFailed to Add Recipe To Database, Please Try Again."
-        );
-      });
+    try {
+      var result = await axios.post(`/api/recipes/new`, recipe);
+      getRecipes();
+    } catch (error) {
+      throw new Error(
+        "Failed to Add Recipe To Database, Please Try Again.\nReason: " +
+          error.message
+      );
+    }
   };
 
   return (

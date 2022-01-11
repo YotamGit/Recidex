@@ -23,7 +23,9 @@ const RecipeEditorDropdown = ({
           onChange={(e) => onChange(e.target.value)}
         >
           {items.map((option) => (
-            <MenuItem value={option}>{option}</MenuItem>
+            <MenuItem key={option} value={option}>
+              {option}
+            </MenuItem>
           ))}
         </Select>
       </FormControl>

@@ -6,6 +6,7 @@ const Main = ({ recipes, getRecipes, onEditRecipe, deleteRecipe }) => {
       {recipes.length > 0 ? (
         <Recipes
           recipes={recipes}
+          getRecipes={getRecipes}
           onEditRecipe={onEditRecipe}
           deleteRecipe={deleteRecipe}
         />

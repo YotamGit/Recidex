@@ -4,19 +4,35 @@ const Recipe = require("../models/Recipe");
 
 // Routes
 
-// GET BACK ALL THE RECIPES
+// GET X RECIPES FROM GIVEN DATE
 router.get("/", async (req, res) => {
   var startTime = performance.now();
   try {
-    const recipes = await Recipe.find();
+    if (Object.keys(req.query).length > 0) {
+      console.log(req.query);
+      const recipes = await Recipe.find({
+        creation_time: { $lt: req.query.latest },
+      })
+        .sort({ creation_time: -1 })
+        .limit(parseInt(req.query.count));
 
-    res.json(recipes);
+      res.json(recipes);
+    } else {
+      const recipes = await Recipe.find()
+        .sort({ creation_time: -1 })
+        .limit(parseInt(req.query.count));
+      res.json(recipes);
+    }
   } catch (err) {
     res.json({ message: err });
   }
   var endTime = performance.now();
 
-  console.log(`Sending all Recipes took ${endTime - startTime} milliseconds`);
+  console.log(
+    `Sending ${req.query.count} Recipes took ${
+      endTime - startTime
+    } milliseconds`
+  );
 });
 
 // GET BACK A SPECIFIC RECIPE
