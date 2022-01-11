@@ -7,8 +7,7 @@ import {
   Routes,
 } from "react-router-dom";
 
-import Button from "./components/Button";
-import Search from "./components/Search";
+// import Search from "./components/Search";
 import RecipePage from "./components/recipes/RecipePage";
 import RecipeEditorPage from "./components/recipe_editor/RecipeEditorPage";
 import AddRecipe from "./components/recipe_editor/AddRecipe";
@@ -18,7 +17,7 @@ import Main from "./components/Main";
 function App() {
   const [recipes, setRecipes] = useState([]);
 
-  const [search, setSearch] = useState("");
+  // const [search, setSearch] = useState("");
 
   useEffect(() => {
     getRecipes({ latest: new Date(), count: 4 });
@@ -40,10 +39,7 @@ function App() {
 
   const onEditRecipe = async (recipeData) => {
     try {
-      var result = await axios.patch(
-        `/api/recipes/${recipeData._id}`,
-        recipeData
-      );
+      await axios.patch(`/api/recipes/${recipeData._id}`, recipeData);
 
       setRecipes(
         recipes.map((recipe) =>
@@ -66,7 +62,7 @@ function App() {
     );
     if (remove) {
       try {
-        var result = await axios.delete(`/api/recipes/${id}`);
+        await axios.delete(`/api/recipes/${id}`);
         setRecipes(recipes.filter((recipe) => recipe._id !== id));
       } catch (error) {
         throw new Error(
@@ -81,7 +77,7 @@ function App() {
   const onAddRecipe = async (recipe) => {
     delete recipe._id;
     try {
-      var result = await axios.post(`/api/recipes/new`, recipe);
+      await axios.post(`/api/recipes/new`, recipe);
       getRecipes();
     } catch (error) {
       throw new Error(
