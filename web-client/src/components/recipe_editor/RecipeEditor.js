@@ -184,23 +184,38 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
         </div>
         <div className="recipe-editor-text-input-container">
           <TextField
-            sx={{ minWidth: 120, margin: "5px" }}
+            sx={{
+              minWidth: 120,
+              margin: "5px",
+              direction: rtl ? "rtl" : "ltr",
+            }}
             id="outlined"
             label="Title"
+            variant="standard"
             defaultValue={title}
             onChange={(e) => setTitle(e.target.value)}
           />
           <TextField
-            sx={{ minWidth: 120, margin: "5px" }}
+            sx={{
+              minWidth: 120,
+              margin: "5px",
+              direction: rtl ? "rtl" : "ltr",
+            }}
             id="outlined"
             label="Source"
+            variant="standard"
             defaultValue={source}
             onChange={(e) => setSource(e.target.value)}
           />
           <TextField
-            sx={{ minWidth: 120, margin: "5px" }}
+            sx={{
+              minWidth: 120,
+              margin: "5px",
+              direction: rtl ? "rtl" : "ltr",
+            }}
             id="outlined"
             label="Servings"
+            variant="standard"
             defaultValue={servings}
             onChange={(e) => setServings(e.target.value)}
           />
