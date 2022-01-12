@@ -77,8 +77,8 @@ function App() {
   const onAddRecipe = async (recipe) => {
     delete recipe._id;
     try {
-      await axios.post(`/api/recipes/new`, recipe);
-      getRecipes();
+      var result = await axios.post(`/api/recipes/new`, recipe);
+      setRecipes([result.data, ...recipes]);
     } catch (error) {
       throw new Error(
         "Failed to Add Recipe To Database, Please Try Again.\nReason: " +

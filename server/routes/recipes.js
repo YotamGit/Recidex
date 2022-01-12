@@ -15,7 +15,6 @@ router.get("/", async (req, res) => {
       })
         .sort({ creation_time: -1 })
         .limit(parseInt(req.query.count));
-
       res.json(recipes);
     } else {
       const recipes = await Recipe.find()
