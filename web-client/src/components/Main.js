@@ -1,14 +1,13 @@
 import Recipes from "./recipes/Recipes";
 
-const Main = ({ recipes, getRecipes, onEditRecipe, deleteRecipe }) => {
+const Main = ({ recipes, searchFilters, getRecipes }) => {
   return (
     <div>
       {recipes.length > 0 ? (
         <Recipes
           recipes={recipes}
+          searchFilters={searchFilters}
           getRecipes={getRecipes}
-          onEditRecipe={onEditRecipe}
-          deleteRecipe={deleteRecipe}
         />
       ) : (
         "No Recipes To Show"

@@ -16,15 +16,47 @@ import Main from "./components/Main";
 
 function App() {
   const [recipes, setRecipes] = useState([]);
+  const [searchFilters, setSearchFilters] = useState({});
+  const recipe_categories = {
+    Proteins: ["Meat", "Chicken", "Fish", "Other"],
+    Salads: [],
+    Asian: ["Japanese", "Chinese", "Thai", "Indian", "Other"],
+    "Soups and Stews": ["Clear Soup", "Thick Soup", "Stew", "Other"],
+    Pasta: [],
+    "Pizza and Focaccia": [],
+    Bread: ["Salty Pastries", "Other"],
+    Drinks: ["Hot", "Cold", "Alcohol", "Other"],
+    Desserts: [
+      "Cookies",
+      "Yeast",
+      "Cakes",
+      "Tarts and Pies",
+      "Cup",
+      "Snacks and Candies",
+    ],
+    Other: [],
+  };
+  const recipe_difficulties = [
+    "Very Easy",
+    "Easy",
+    "Medium",
+    "Hard",
+    "Very Hard",
+    "Gordon Ramsay",
+  ];
+  const recipe_durations = [
+    "under 10 minutes",
+    "10-20 minutes",
+    "20-40 minutes",
+    "40-60 minutes",
+    "1-2 hours",
+    "over 2 hours",
+  ];
 
   // const [search, setSearch] = useState("");
 
   useEffect(() => {
     getRecipes({ latest: new Date(), count: 4 });
-
-    window.alert(
-      "This is a Production Build, ANY Changes are saved Permanently."
-    );
   }, []);
 
   const getRecipes = async (params) => {
@@ -34,6 +66,23 @@ function App() {
       return result.data.length;
     } catch (error) {
       window.alert("Failed to Fetch Recipes.\nReason: " + error.message);
+    }
+  };
+
+  const filterRecipes = async (filters) => {
+    setSearchFilters(filters);
+    //if (!Object.values(filters).some((x) => typeof x !== "undefined")) return;
+    var params = {
+      latest: new Date(),
+      count: 4,
+      filters: filters,
+    };
+    try {
+      var result = await axios.get("/api/recipes", { params: params });
+      setRecipes([...result.data]);
+      return result.data.length;
+    } catch (error) {
+      window.alert("Failed to Filter Recipes.\nReason: " + error.message);
     }
   };
 
@@ -103,12 +152,18 @@ function App() {
             path="/home"
             element={
               <>
-                <Header onAddRecipe={onAddRecipe} />
+                <Header
+                  show_add_button={true}
+                  filterRecipes={filterRecipes}
+                  show_filter_button={true}
+                  recipe_categories={recipe_categories}
+                  recipe_difficulties={recipe_difficulties}
+                  recipe_durations={recipe_durations}
+                />
                 <Main
                   recipes={recipes}
+                  searchFilters={searchFilters}
                   getRecipes={getRecipes}
-                  onEditRecipe={onEditRecipe}
-                  deleteRecipe={deleteRecipe}
                 />
               </>
             }
@@ -117,12 +172,16 @@ function App() {
             path="/recipes/:recipe_id"
             element={
               <>
-                <Header onAddRecipe={onAddRecipe} />
-                <RecipePage
-                  recipes={recipes}
-                  deleteRecipe={deleteRecipe}
-                  onEditRecipe={onEditRecipe}
+                <Header
+                  filterRecipes={filterRecipes}
+                  show_add_button={false}
+                  show_filter_button={false}
+                  recipe_categories={recipe_categories}
+                  recipe_difficulties={recipe_difficulties}
+                  recipe_durations={recipe_durations}
                 />
+
+                <RecipePage recipes={recipes} />
               </>
             }
           />
@@ -130,11 +189,21 @@ function App() {
             path="/recipes/edit/:recipe_id"
             element={
               <>
-                <Header onAddRecipe={onAddRecipe} />
+                <Header
+                  filterRecipes={filterRecipes}
+                  show_add_button={false}
+                  show_filter_button={false}
+                  recipe_categories={recipe_categories}
+                  recipe_difficulties={recipe_difficulties}
+                  recipe_durations={recipe_durations}
+                />
                 <RecipeEditorPage
                   recipes={recipes}
                   onEditRecipe={onEditRecipe}
                   deleteRecipe={deleteRecipe}
+                  recipe_categories={recipe_categories}
+                  recipe_difficulties={recipe_difficulties}
+                  recipe_durations={recipe_durations}
                 />
               </>
             }
@@ -144,8 +213,19 @@ function App() {
             path="/recipes/new"
             element={
               <>
-                <Header onAddRecipe={onAddRecipe} />
-                <AddRecipe onAddRecipe={onAddRecipe} />
+                <Header
+                  show_add_button={false}
+                  show_filter_button={false}
+                  recipe_categories={recipe_categories}
+                  recipe_difficulties={recipe_difficulties}
+                  recipe_durations={recipe_durations}
+                />
+                <AddRecipe
+                  onAddRecipe={onAddRecipe}
+                  recipe_categories={recipe_categories}
+                  recipe_difficulties={recipe_difficulties}
+                  recipe_durations={recipe_durations}
+                />
               </>
             }
           />

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { marked } from "marked";
 import RecipeEditorEditSection from "./RecipeEditorEditSection";
-import RecipeEditorDropdown from "./RecipeEditorDropdown";
+import RecipeDropdown from "../RecipeDropdown";
 
 //mui
 import SaveIcon from "@mui/icons-material/Save";
@@ -20,56 +20,26 @@ marked.setOptions({
   smartLists: true,
 });
 
-const RecipeEditor = ({ onEditRecipe, recipe }) => {
+const RecipeEditor = ({
+  onEditRecipe,
+  recipe,
+  recipe_categories,
+  recipe_difficulties,
+  recipe_durations,
+}) => {
   const navigate = useNavigate();
-  const recipe_main_categories = {
-    Proteins: ["Meat", "Chicken", "Fish", "Other"],
-    Salads: [],
-    Asian: ["Japanese", "Chinese", "Thai", "Indian", "Other"],
-    "Soups and Stews": ["Clear Soup", "Thick Soup", "Stew", "Other"],
-    Pasta: [],
-    "Pizza and Focaccia": [],
-    Bread: ["Salty Pastries", "Other"],
-    Drinks: ["Hot", "Cold", "Alcohol", "Other"],
-    Desserts: [
-      "Cookies",
-      "Yeast",
-      "Cakes",
-      "Tarts and Pies",
-      "Cup",
-      "Snacks and Candies",
-    ],
-    Other: [],
-  };
-  const recipe_difficulties = [
-    "Very Easy",
-    "Easy",
-    "Medium",
-    "Hard",
-    "Very Hard",
-    "Gordon Ramsay",
-  ];
-  const recipe_durations = [
-    "under 10 minutes",
-    "10-20 minutes",
-    "20-40 minutes",
-    "40-60 minutes",
-    "1-2 hours",
-    "over 2 hours",
-  ];
+
+  const _id = recipe._id;
   const [title, setTitle] = useState(recipe.title);
   const [source, setSource] = useState(recipe.source);
+  const [servings, setServings] = useState(recipe.servings);
 
   const [category, setCategory] = useState(recipe.category);
   const [sub_category, setSubCategory] = useState(recipe.sub_category);
-  const [recipe_sub_categories, setRecipeSubCategories] = useState(
-    recipe_main_categories[category] ? recipe_main_categories[category] : []
-  ); // used to for the sub category dropdown selector
 
   const [difficulty, setDifficulty] = useState(recipe.difficulty);
   const [prep_time, setPrepTime] = useState(recipe.prep_time);
   const [total_time, setTotalTime] = useState(recipe.total_time);
-  const [servings, setServings] = useState(recipe.servings);
 
   const [description, setDescription] = useState(recipe.description);
   const [ingredients, setIngredients] = useState(recipe.ingredients);
@@ -77,7 +47,6 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
   const [rtl, setRtl] = useState(recipe.rtl);
   const [image, setImage] = useState(recipe.image);
   const [imageName, setImageName] = useState(recipe.imageName);
-  const _id = recipe._id;
 
   const [activeTab, setActiveTab] = useState(0);
 
@@ -100,11 +69,6 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
       }
     }
   }, [activeTab, description, ingredients, directions, image, imageName]);
-
-  const onSelectCategory = (value) => {
-    setCategory(value);
-    setRecipeSubCategories(recipe_main_categories[value]);
-  };
 
   // Image to base64 converter for image uplaod
   const toBase64 = (file) =>
@@ -221,39 +185,46 @@ const RecipeEditor = ({ onEditRecipe, recipe }) => {
           />
         </div>
         <div className="recipe-editor-selectors-input-container">
-          <RecipeEditorDropdown
+          <RecipeDropdown
             value={category}
-            items={Object.keys(recipe_main_categories)}
+            items={Object.keys(recipe_categories)}
             label_text={"Category"}
-            id_prefix={"category"}
-            onChange={onSelectCategory}
+            id_prefix={"editor-category"}
+            class_name={"recipe-editor-form-control"}
+            onChange={setCategory}
           />
-          <RecipeEditorDropdown
+          <RecipeDropdown
             value={sub_category}
-            items={recipe_sub_categories}
+            items={
+              recipe_categories[category] ? recipe_categories[category] : []
+            }
             label_text={"Sub Category"}
-            id_prefix={"sub_category"}
+            id_prefix={"editor-sub_category"}
+            class_name={"recipe-editor-form-control"}
             onChange={setSubCategory}
           />
-          <RecipeEditorDropdown
+          <RecipeDropdown
             value={difficulty}
             items={recipe_difficulties}
             label_text={"Difficulty"}
-            id_prefix={"difficulty"}
+            id_prefix={"editor-difficulty"}
+            class_name={"recipe-editor-form-control"}
             onChange={setDifficulty}
           />
-          <RecipeEditorDropdown
+          <RecipeDropdown
             value={prep_time}
             items={recipe_durations}
             label_text={"Prep Time"}
-            id_prefix={"prep-time"}
+            id_prefix={"editor-prep-time"}
+            class_name={"recipe-editor-form-control"}
             onChange={setPrepTime}
           />
-          <RecipeEditorDropdown
+          <RecipeDropdown
             value={total_time}
             items={recipe_durations}
             label_text={"Total Time"}
-            id_prefix={"total-time"}
+            id_prefix={"editor-total-time"}
+            class_name={"recipe-editor-form-control"}
             onChange={setTotalTime}
           />
         </div>

@@ -16,7 +16,7 @@ marked.setOptions({
   smartLists: true,
 });
 
-const RecipeCard = ({ recipe, deleteRecipe }) => {
+const RecipeCard = ({ recipe }) => {
   useEffect(() => {
     document.getElementById(recipe._id + "-recipe-description").innerHTML =
       marked.parse(recipe.description ? recipe.description : "");

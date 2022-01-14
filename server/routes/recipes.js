@@ -4,22 +4,30 @@ const Recipe = require("../models/Recipe");
 
 // Routes
 
-// GET X RECIPES FROM GIVEN DATE
+// GET X RECIPES FROM GIVEN DATE WITH FILTERS
 router.get("/", async (req, res) => {
   var startTime = performance.now();
   try {
     if (Object.keys(req.query).length > 0) {
-      console.log(req.query);
-      const recipes = await Recipe.find({
-        creation_time: { $lt: req.query.latest },
-      })
-        .sort({ creation_time: -1 })
-        .limit(parseInt(req.query.count));
-      res.json(recipes);
+      if (req.query.filters) {
+        var requestFilters = JSON.parse(req.query.filters);
+        const recipes = await Recipe.find({
+          creation_time: { $lt: req.query.latest },
+          ...requestFilters,
+        })
+          .sort({ creation_time: -1 })
+          .limit(parseInt(req.query.count));
+        res.json(recipes);
+      } else {
+        const recipes = await Recipe.find({
+          creation_time: { $lt: req.query.latest },
+        })
+          .sort({ creation_time: -1 })
+          .limit(parseInt(req.query.count));
+        res.json(recipes);
+      }
     } else {
-      const recipes = await Recipe.find()
-        .sort({ creation_time: -1 })
-        .limit(parseInt(req.query.count));
+      const recipes = await Recipe.find().sort({ creation_time: -1 });
       res.json(recipes);
     }
   } catch (err) {

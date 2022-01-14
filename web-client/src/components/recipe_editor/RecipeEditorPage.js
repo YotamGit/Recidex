@@ -8,7 +8,14 @@ import IconButton from "@mui/material/IconButton";
 import CloseFullscreenRoundedIcon from "@mui/icons-material/CloseFullscreenRounded";
 import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
 
-const RecipeEditorPage = ({ recipes, onEditRecipe, deleteRecipe }) => {
+const RecipeEditorPage = ({
+  recipes,
+  onEditRecipe,
+  deleteRecipe,
+  recipe_categories,
+  recipe_difficulties,
+  recipe_durations,
+}) => {
   const navigate = useNavigate();
   const { recipe_id } = useParams();
   const recipe = recipes.filter((recipe) => recipe._id === recipe_id)[0];
@@ -46,7 +53,13 @@ const RecipeEditorPage = ({ recipes, onEditRecipe, deleteRecipe }) => {
               onClick={() => onDeleteRecipe()}
             />
           </div>
-          <RecipeEditor recipe={recipe} onEditRecipe={onEditRecipe} />
+          <RecipeEditor
+            recipe={recipe}
+            onEditRecipe={onEditRecipe}
+            recipe_categories={recipe_categories}
+            recipe_difficulties={recipe_difficulties}
+            recipe_durations={recipe_durations}
+          />
         </>
       )}
     </div>

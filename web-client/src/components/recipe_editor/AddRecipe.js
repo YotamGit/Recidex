@@ -1,6 +1,19 @@
 import RecipeEditor from "./RecipeEditor";
+import { useNavigate } from "react-router-dom";
 
-const AddRecipe = ({ onAddRecipe }) => {
+//mui
+import IconButton from "@mui/material/IconButton";
+
+//mui icons
+import CloseFullscreenRoundedIcon from "@mui/icons-material/CloseFullscreenRounded";
+
+const AddRecipe = ({
+  onAddRecipe,
+  recipe_categories,
+  recipe_difficulties,
+  recipe_durations,
+}) => {
+  const navigate = useNavigate();
   const recipeTemplate = {
     _id: "",
     title: "",
@@ -20,10 +33,23 @@ const AddRecipe = ({ onAddRecipe }) => {
   };
 
   return (
-    <RecipeEditor
-      onEditRecipe={onAddRecipe}
-      recipe={recipeTemplate}
-    ></RecipeEditor>
+    <>
+      <div className="add-recipe-page-top-button-row">
+        <IconButton
+          onClick={() => navigate(-1)}
+          style={{ color: "gray", margin: "1%" }}
+        >
+          <CloseFullscreenRoundedIcon style={{ fontSize: "3.5vh" }} />
+        </IconButton>
+      </div>
+      <RecipeEditor
+        recipe={recipeTemplate}
+        onEditRecipe={onAddRecipe}
+        recipe_categories={recipe_categories}
+        recipe_difficulties={recipe_difficulties}
+        recipe_durations={recipe_durations}
+      ></RecipeEditor>
+    </>
   );
 };
 

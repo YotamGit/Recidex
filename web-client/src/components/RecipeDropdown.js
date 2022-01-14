@@ -4,16 +4,17 @@ import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 
-const RecipeEditorDropdown = ({
+const RecipeDropdown = ({
   value,
   items,
   label_text,
   id_prefix,
+  class_name,
   onChange,
 }) => {
   return (
     <Box sx={{ minWidth: 120, margin: "5px" }}>
-      <FormControl className="recipe-editor-form-control" fullWidth>
+      <FormControl className={class_name} fullWidth>
         <InputLabel id="category-selector-label">{label_text}</InputLabel>
         <Select
           labelId={`${id_prefix}-selector-label`}
@@ -33,4 +34,4 @@ const RecipeEditorDropdown = ({
   );
 };
 
-export default RecipeEditorDropdown;
+export default RecipeDropdown;

@@ -1,21 +1,14 @@
 import { useEffect } from "react";
 import { marked } from "marked";
 import "../../styles/recipes/Recipe.css";
-import { Link, useNavigate } from "react-router-dom";
-import IconButton from "@mui/material/IconButton";
 
-//icons
-import EditRoundedIcon from "@mui/icons-material/EditRounded";
-import CloseFullscreenRoundedIcon from "@mui/icons-material/CloseFullscreenRounded";
 marked.setOptions({
   gfm: true,
   breaks: true,
   smartLists: true,
 });
 
-const Recipe = ({ recipe, deleteRecipe }) => {
-  const navigate = useNavigate();
-
+const Recipe = ({ recipe }) => {
   useEffect(() => {
     document.getElementById(recipe._id + "-recipe-description").innerHTML =
       marked.parse(recipe.description ? recipe.description : "");
@@ -35,20 +28,6 @@ const Recipe = ({ recipe, deleteRecipe }) => {
   return (
     <div className="recipe" style={{ direction: recipe.rtl ? "rtl" : "ltr" }}>
       <div className="recipe-header">
-        <div className="recipe-page-top-button-row">
-          <IconButton
-            onClick={() => navigate(-1)}
-            style={{ color: "gray", margin: "1%" }}
-          >
-            <CloseFullscreenRoundedIcon style={{ fontSize: "3.5vh" }} />
-          </IconButton>
-          <Link
-            to={`/recipes/edit/${recipe._id}`}
-            style={{ color: "gray", margin: "1%" }}
-          >
-            <EditRoundedIcon style={{ fontSize: "3.5vh" }} />
-          </Link>
-        </div>
         <div style={{ fontSize: "130%" }}>{recipe.title}</div>
         <div style={{ fontSize: "80%" }}>source: {recipe.source}</div>
         <div className="recipe-additional-data-container">

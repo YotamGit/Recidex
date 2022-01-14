@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import RecipeCard from "./RecipeCard.js";
 import "../../styles/recipes/Recipes.css";
-const Recipes = ({ recipes, getRecipes, onEditRecipe, deleteRecipe }) => {
+const Recipes = ({ recipes, searchFilters, getRecipes }) => {
   const [reached_end, setReachedEnd] = useState(
     Object.keys(recipes).length === 0
   );
@@ -17,6 +17,7 @@ const Recipes = ({ recipes, getRecipes, onEditRecipe, deleteRecipe }) => {
         var res = await getRecipes({
           latest: recipes.at(-1).creation_time,
           count: 4,
+          filters: searchFilters,
         });
         setFetching(false);
         setReachedEnd(res === 0);
@@ -35,12 +36,7 @@ const Recipes = ({ recipes, getRecipes, onEditRecipe, deleteRecipe }) => {
   return (
     <div className="recipes-container">
       {recipes.map((recipe) => (
-        <RecipeCard
-          key={recipe._id}
-          recipe={recipe}
-          onEditRecipe={onEditRecipe}
-          deleteRecipe={deleteRecipe}
-        />
+        <RecipeCard key={recipe._id} recipe={recipe} />
       ))}
     </div>
   );
