@@ -1,5 +1,5 @@
 import "../../styles/recipes/RecipeCard.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { marked } from "marked";
 import { useEffect } from "react";
 
@@ -17,6 +17,7 @@ marked.setOptions({
 });
 
 const RecipeCard = ({ recipe }) => {
+  const navigate = useNavigate();
   useEffect(() => {
     document.getElementById(recipe._id + "-recipe-description").innerHTML =
       marked.parse(recipe.description ? recipe.description : "");
@@ -37,22 +38,25 @@ const RecipeCard = ({ recipe }) => {
 
   return (
     <div className="recipe-card">
-      <div className="recipe">
+      <div className="recipe-card-top-button-row">
+        <Link
+          to={`/recipes/${recipe._id}`}
+          style={{ color: "gray", margin: "1%" }}
+        >
+          <OpenInFullRoundedIcon style={{ fontSize: "3.5vh" }} />
+        </Link>
+        <Link
+          to={`/recipes/edit/${recipe._id}`}
+          style={{ color: "gray", margin: "1%" }}
+        >
+          <EditRoundedIcon style={{ fontSize: "3.5vh" }} />
+        </Link>
+      </div>
+      <div
+        className="recipe"
+        onClick={() => navigate(`/recipes/${recipe._id}`)}
+      >
         <div className="recipe-header">
-          <div className="recipe-card-top-button-row">
-            <Link
-              to={`/recipes/${recipe._id}`}
-              style={{ color: "gray", margin: "1%" }}
-            >
-              <OpenInFullRoundedIcon style={{ fontSize: "3.5vh" }} />
-            </Link>
-            <Link
-              to={`/recipes/edit/${recipe._id}`}
-              style={{ color: "gray", margin: "1%" }}
-            >
-              <EditRoundedIcon style={{ fontSize: "3.5vh" }} />
-            </Link>
-          </div>
           <div style={{ fontSize: "130%" }}>{recipe.title}</div>
           <div style={{ fontSize: "60%" }}>source: {recipe.source}</div>
           <div className="recipe-additional-data-container">

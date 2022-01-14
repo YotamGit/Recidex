@@ -12,20 +12,23 @@
   }
 }
 
+.recipe-card-top-button-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  height: 10%;
+}
+
 .recipe-card .recipe {
   display: flex;
   flex-direction: column;
   background-color: white;
   width: 100%;
-  height: 100%;
+  height: 90%;
   flex-grow: 1;
 }
 
-.recipe-card-top-button-row {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
 .recipe-card .recipe-header {
   text-align: center;
   height: 30%;
