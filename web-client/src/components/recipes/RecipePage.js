@@ -12,7 +12,6 @@ const RecipePage = ({ recipes }) => {
   const navigate = useNavigate();
   const { recipe_id } = useParams();
   const recipe = recipes.filter((recipe) => recipe._id === recipe_id)[0];
-
   return (
     <>
       <div className="recipe-page-top-button-row">

@@ -18,6 +18,9 @@ app.use("*", (req, res, next) => {
 const recipesRoute = require("./routes/recipes");
 app.use("/api/recipes", recipesRoute);
 
+const loginRoute = require("./routes/login");
+app.use("/login", loginRoute);
+
 // Connect To DB
 mongoose.connect("mongodb://localhost:27017/Recipes", () =>
   console.log("Connected to DB")

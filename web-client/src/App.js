@@ -1,4 +1,6 @@
 import axios from "axios";
+import Cookies from "universal-cookie";
+
 import { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
@@ -7,14 +9,15 @@ import {
   Routes,
 } from "react-router-dom";
 
-// import Search from "./components/Search";
 import RecipePage from "./components/recipes/RecipePage";
 import RecipeEditorPage from "./components/recipe_editor/RecipeEditorPage";
 import AddRecipe from "./components/recipe_editor/AddRecipe";
 import Header from "./components/Header";
 import Main from "./components/Main";
+import Login from "./components/Login";
 
 function App() {
+  const [signedIn, setSignedIn] = useState(false);
   const [recipes, setRecipes] = useState([]);
   const [searchFilters, setSearchFilters] = useState({});
   const recipe_categories = {
@@ -53,11 +56,11 @@ function App() {
     "over 2 hours",
   ];
 
-  // const [search, setSearch] = useState("");
-
   useEffect(() => {
-    getRecipes({ latest: new Date(), count: 4 });
-  }, []);
+    if (signedIn) {
+      getRecipes({ latest: new Date(), count: 4 });
+    }
+  }, [signedIn]);
 
   const getRecipes = async (params) => {
     try {
@@ -143,90 +146,112 @@ function App() {
           <Route
             path="/"
             element={
+              signedIn ? <Navigate to="/home" /> : <Navigate to="/login" />
+            }
+          />
+          <Route
+            path="/login"
+            element={
               <>
-                <Navigate to="/home" />
+                <Login setSignedIn={setSignedIn} />
               </>
             }
           />
           <Route
             path="/home"
             element={
-              <>
-                <Header
-                  show_add_button={true}
-                  filterRecipes={filterRecipes}
-                  show_filter_button={true}
-                  recipe_categories={recipe_categories}
-                  recipe_difficulties={recipe_difficulties}
-                  recipe_durations={recipe_durations}
-                />
-                <Main
-                  recipes={recipes}
-                  searchFilters={searchFilters}
-                  getRecipes={getRecipes}
-                />
-              </>
+              signedIn ? (
+                <>
+                  <Header
+                    show_add_button={true}
+                    filterRecipes={filterRecipes}
+                    show_filter_button={true}
+                    recipe_categories={recipe_categories}
+                    recipe_difficulties={recipe_difficulties}
+                    recipe_durations={recipe_durations}
+                  />
+                  <Main
+                    recipes={recipes}
+                    searchFilters={searchFilters}
+                    getRecipes={getRecipes}
+                  />
+                </>
+              ) : (
+                <Navigate to="/login" />
+              )
             }
           />
           <Route
             path="/recipes/:recipe_id"
             element={
-              <>
-                <Header
-                  filterRecipes={filterRecipes}
-                  show_add_button={false}
-                  show_filter_button={false}
-                  recipe_categories={recipe_categories}
-                  recipe_difficulties={recipe_difficulties}
-                  recipe_durations={recipe_durations}
-                />
+              signedIn ? (
+                <>
+                  <Header
+                    filterRecipes={filterRecipes}
+                    show_add_button={false}
+                    show_filter_button={false}
+                    recipe_categories={recipe_categories}
+                    recipe_difficulties={recipe_difficulties}
+                    recipe_durations={recipe_durations}
+                  />
 
-                <RecipePage recipes={recipes} />
-              </>
+                  <RecipePage recipes={recipes} />
+                </>
+              ) : (
+                <Navigate to="/login" />
+              )
             }
           />
           <Route
             path="/recipes/edit/:recipe_id"
             element={
-              <>
-                <Header
-                  filterRecipes={filterRecipes}
-                  show_add_button={false}
-                  show_filter_button={false}
-                  recipe_categories={recipe_categories}
-                  recipe_difficulties={recipe_difficulties}
-                  recipe_durations={recipe_durations}
-                />
-                <RecipeEditorPage
-                  recipes={recipes}
-                  onEditRecipe={onEditRecipe}
-                  deleteRecipe={deleteRecipe}
-                  recipe_categories={recipe_categories}
-                  recipe_difficulties={recipe_difficulties}
-                  recipe_durations={recipe_durations}
-                />
-              </>
+              signedIn ? (
+                <>
+                  <Header
+                    filterRecipes={filterRecipes}
+                    show_add_button={false}
+                    show_filter_button={false}
+                    recipe_categories={recipe_categories}
+                    recipe_difficulties={recipe_difficulties}
+                    recipe_durations={recipe_durations}
+                  />
+                  <RecipeEditorPage
+                    recipes={recipes}
+                    onEditRecipe={onEditRecipe}
+                    deleteRecipe={deleteRecipe}
+                    recipe_categories={recipe_categories}
+                    recipe_difficulties={recipe_difficulties}
+                    recipe_durations={recipe_durations}
+                  />
+                </>
+              ) : (
+                <Navigate to="/login" />
+              )
             }
           />
 
           <Route
             path="/recipes/new"
             element={
-              <>
-                <Header
-                  show_add_button={false}
-                  show_filter_button={false}
-                  recipe_categories={recipe_categories}
-                  recipe_difficulties={recipe_difficulties}
-                  recipe_durations={recipe_durations}
-                />
-                <AddRecipe
-                  onAddRecipe={onAddRecipe}
-                  recipe_categories={recipe_categories}
-                  recipe_difficulties={recipe_difficulties}
-                  recipe_durations={recipe_durations}
-                />
-              </>
+              signedIn ? (
+                <>
+                  <Header
+                    show_add_button={false}
+                    show_filter_button={false}
+                    recipe_categories={recipe_categories}
+                    recipe_difficulties={recipe_difficulties}
+                    recipe_durations={recipe_durations}
+                  />
+                  <AddRecipe
+                    onAddRecipe={onAddRecipe}
+                    recipe_categories={recipe_categories}
+                    recipe_difficulties={recipe_difficulties}
+                    recipe_durations={recipe_durations}
+                  />
+                </>
+              ) : (
+                <Navigate to="/login" />
+              )
             }
           />
         </Routes>
