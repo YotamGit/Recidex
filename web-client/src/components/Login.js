@@ -33,7 +33,7 @@ const Login = ({ setSignedIn }) => {
     if (passwordCookie) {
       try {
         var params = { password: passwordCookie };
-        var result = await axios.get("/login", { params: params });
+        var result = await axios.get("/api/login", { params: params });
         if (result.data) {
           setSignedIn(true);
           navigate(-1);
@@ -57,8 +57,8 @@ const Login = ({ setSignedIn }) => {
       // var hash = await bcrypt.hash(plainPassword, salt);
 
       var params = { password: password };
-      var result = await axios.get("/login", { params: params });
-
+      var result = await axios.get("/api/login", { params: params });
+      console.log("res" + result.data);
       if (result.data) {
         cookies.set("password", password, { path: "/" });
         setSignedIn(true);
