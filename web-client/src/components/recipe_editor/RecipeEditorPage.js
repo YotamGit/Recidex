@@ -24,15 +24,6 @@ const RecipeEditorPage = ({
   const { recipe_id } = useParams();
   const recipe = recipes.filter((recipe) => recipe._id === recipe_id)[0];
 
-  // const [recipe, setRecipe] = useState({})
-  // useEffect(() => {
-  //   getRecipe(recipe_id)
-  //     .then((result) => {
-  //       setRecipe(result);
-  //     })
-  //     .catch((error) => window.alert(error));
-  // }, []);
-
   const onDeleteRecipe = async () => {
     try {
       var result = await deleteRecipe(recipe._id);

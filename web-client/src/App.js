@@ -59,6 +59,7 @@ function App() {
 
   useEffect(() => {
     getRecipes({ latest: new Date(), count: 4 });
+    setSignedIn(ping());
   }, []);
 
   const ping = async () => {
@@ -231,7 +232,7 @@ function App() {
                 filterRecipes={filterRecipes}
               />
 
-              <RecipePage getRecipe={getRecipe} />
+              <RecipePage getRecipe={getRecipe} recipes={recipes} />
             </>
           }
         />
