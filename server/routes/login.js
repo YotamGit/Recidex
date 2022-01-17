@@ -1,4 +1,5 @@
 const express = require("express");
+
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 
@@ -11,13 +12,16 @@ const hashPassword =
 router.get("/", async (req, res) => {
   try {
     const correctPassword = await bcrypt.compare(
-      req.query.password,
+      req.cookies.password,
       hashPassword
     );
-    res.json(correctPassword);
     if (correctPassword) {
+      res.status(200);
+      res.json(correctPassword);
       console.log(`Successful Login Attempt at ${new Date()}`);
     } else {
+      res.status(401);
+      res.json(correctPassword);
       console.log(`Failed Login Attempt at ${new Date()}`);
     }
   } catch (err) {

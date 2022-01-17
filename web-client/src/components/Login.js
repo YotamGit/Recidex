@@ -20,6 +20,10 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { paperClasses } from "@mui/material";
 
+// generate a hashed password
+// var salt = await bcrypt.genSalt(10);
+// var hash = await bcrypt.hash(plainPassword, salt);
+
 const Login = ({ setSignedIn }) => {
   const navigate = useNavigate();
 
@@ -32,16 +36,15 @@ const Login = ({ setSignedIn }) => {
     const passwordCookie = cookies.get("password");
     if (passwordCookie) {
       try {
-        var params = { password: passwordCookie };
-        var result = await axios.get("/api/login", { params: params });
+        var result = await axios.get("/api/login");
         if (result.data) {
           setSignedIn(true);
-          navigate(-1);
+          navigate("/home");
         } else {
           setSignedIn(false);
         }
       } catch (error) {
-        window.alert(error);
+        window.alert("Failed to Login.\nReason: " + error.message);
       }
     }
   };
@@ -52,15 +55,9 @@ const Login = ({ setSignedIn }) => {
   const onSubmitPassword = async () => {
     const cookies = new Cookies();
     try {
-      // generate a hashed password
-      // var salt = await bcrypt.genSalt(10);
-      // var hash = await bcrypt.hash(plainPassword, salt);
-
-      var params = { password: password };
-      var result = await axios.get("/api/login", { params: params });
-      console.log("res" + result.data);
+      cookies.set("password", password, { path: "/" });
+      var result = await axios.get("/api/login");
       if (result.data) {
-        cookies.set("password", password, { path: "/" });
         setSignedIn(true);
         navigate("/home");
       } else {
@@ -68,10 +65,9 @@ const Login = ({ setSignedIn }) => {
         setWrongPassword(true);
       }
     } catch (error) {
-      window.alert(error);
+      window.alert("Failed to Login.\nReason: " + error.message);
     }
   };
-  //sx={{ m: 1, width: "25ch" }}
   return (
     <div id="login-container">
       <div className="login-form-input-segment">
@@ -108,6 +104,9 @@ const Login = ({ setSignedIn }) => {
 
         <Button variant="contained" onClick={onSubmitPassword}>
           Submit
+        </Button>
+        <Button style={{ color: "gray" }} onClick={() => navigate("/home")}>
+          Continue as Guest
         </Button>
       </div>
     </div>

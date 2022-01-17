@@ -1,5 +1,7 @@
 import RecipeEditor from "./RecipeEditor.js";
 import { useParams, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+
 import "../../styles/recipe_editor/RecipeEditorPage.css";
 //mui
 import IconButton from "@mui/material/IconButton";
@@ -9,6 +11,8 @@ import CloseFullscreenRoundedIcon from "@mui/icons-material/CloseFullscreenRound
 import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
 
 const RecipeEditorPage = ({
+  signedIn,
+  getRecipe,
   recipes,
   onEditRecipe,
   deleteRecipe,
@@ -20,17 +24,25 @@ const RecipeEditorPage = ({
   const { recipe_id } = useParams();
   const recipe = recipes.filter((recipe) => recipe._id === recipe_id)[0];
 
+  // const [recipe, setRecipe] = useState({})
+  // useEffect(() => {
+  //   getRecipe(recipe_id)
+  //     .then((result) => {
+  //       setRecipe(result);
+  //     })
+  //     .catch((error) => window.alert(error));
+  // }, []);
+
   const onDeleteRecipe = async () => {
-    await deleteRecipe(recipe._id)
-      .then((result) => {
-        if (result) {
-          navigate("/home");
-        }
-      })
-      .catch((error) => {
-        window.alert(error);
-        return;
-      });
+    try {
+      var result = await deleteRecipe(recipe._id);
+
+      if (result) {
+        navigate("/home");
+      }
+    } catch (error) {
+      window.alert(error);
+    }
   };
   return (
     <div className="recipe-editor-page">
@@ -43,16 +55,19 @@ const RecipeEditorPage = ({
             >
               <CloseFullscreenRoundedIcon style={{ fontSize: "3.5vh" }} />
             </IconButton>
-            <DeleteForeverRoundedIcon
-              style={{
-                color: "red",
-                margin: "1%",
-                fontSize: "3.5vh",
-                cursor: "pointer",
-              }}
-              onClick={() => onDeleteRecipe()}
-            />
+            {signedIn && (
+              <DeleteForeverRoundedIcon
+                style={{
+                  color: "red",
+                  margin: "1%",
+                  fontSize: "3.5vh",
+                  cursor: "pointer",
+                }}
+                onClick={() => onDeleteRecipe()}
+              />
+            )}
           </div>
+
           <RecipeEditor
             recipe={recipe}
             onEditRecipe={onEditRecipe}

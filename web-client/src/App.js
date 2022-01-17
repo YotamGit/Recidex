@@ -1,5 +1,4 @@
 import axios from "axios";
-import Cookies from "universal-cookie";
 
 import { useState, useEffect } from "react";
 import {
@@ -7,6 +6,7 @@ import {
   Navigate,
   Route,
   Routes,
+  useNavigate,
 } from "react-router-dom";
 
 import RecipePage from "./components/recipes/RecipePage";
@@ -18,6 +18,7 @@ import Login from "./components/Login";
 
 function App() {
   const [signedIn, setSignedIn] = useState(false);
+  const navigate = useNavigate();
   const [recipes, setRecipes] = useState([]);
   const [searchFilters, setSearchFilters] = useState({});
   const recipe_categories = {
@@ -57,11 +58,17 @@ function App() {
   ];
 
   useEffect(() => {
-    if (signedIn) {
-      getRecipes({ latest: new Date(), count: 4 });
-    }
-  }, [signedIn]);
+    getRecipes({ latest: new Date(), count: 4 });
+  }, []);
 
+  const ping = async () => {
+    try {
+      var result = axios.get("/api/login");
+      return result.data;
+    } catch (error) {
+      console.alert(error);
+    }
+  };
   const getRecipes = async (params) => {
     try {
       var result = await axios.get("/api/recipes", { params: params });
@@ -69,6 +76,15 @@ function App() {
       return result.data.length;
     } catch (error) {
       window.alert("Failed to Fetch Recipes.\nReason: " + error.message);
+    }
+  };
+
+  const getRecipe = async (recipe_id) => {
+    try {
+      const recipe = await axios.get(`/api/recipes/${recipe_id}`);
+      return recipe.data;
+    } catch (error) {
+      window.alert("Failed to Fetch Recipe.\nReason: " + error.message);
     }
   };
 
@@ -98,11 +114,21 @@ function App() {
           recipe._id === recipeData._id ? recipeData : recipe
         )
       );
+      return true;
     } catch (error) {
-      throw new Error(
-        "Failed to Edit Recipe In Database, Please Try Again.\nReason: " +
-          error.message
-      );
+      if (error.response.status === 401) {
+        window.alert(
+          "Failed to Edit Recipe in Database, Please Try Again.\nReason: " +
+            error.response.data
+        );
+        navigate("/login");
+        return false;
+      } else {
+        throw new Error(
+          "Failed to Edit Recipe in Database, Please Try Again.\nReason: " +
+            error.message
+        );
+      }
     }
   };
 
@@ -117,10 +143,19 @@ function App() {
         await axios.delete(`/api/recipes/${id}`);
         setRecipes(recipes.filter((recipe) => recipe._id !== id));
       } catch (error) {
-        throw new Error(
-          "Failed to Delete Recipe From Database, Please Try Again.\nReason: " +
-            error.message
-        );
+        if (error.response.status === 401) {
+          window.alert(
+            "Failed to Delete Recipe from Database, Please Try Again.\nReason: " +
+              error.response.data
+          );
+          navigate("/login");
+          return false;
+        } else {
+          throw new Error(
+            "Failed to Delete Recipe from Database, Please Try Again.\nReason: " +
+              error.message
+          );
+        }
       }
     }
     return remove;
@@ -131,132 +166,126 @@ function App() {
     try {
       var result = await axios.post(`/api/recipes/new`, recipe);
       setRecipes([result.data, ...recipes]);
+      return true;
     } catch (error) {
-      throw new Error(
-        "Failed to Add Recipe To Database, Please Try Again.\nReason: " +
-          error.message
-      );
+      if (error.response.status === 401) {
+        window.alert(
+          "Failed to Add Recipe to Database, Please Try Again.\nReason: " +
+            error.response.data
+        );
+        navigate("/login");
+        return false;
+      } else {
+        throw new Error(
+          "Failed to Add Recipe to Database, Please Try Again.\nReason: " +
+            error.message
+        );
+      }
     }
   };
 
   return (
-    <Router>
-      <div>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              signedIn ? <Navigate to="/home" /> : <Navigate to="/login" />
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              <>
-                <Login setSignedIn={setSignedIn} />
-              </>
-            }
-          />
-          <Route
-            path="/home"
-            element={
-              signedIn ? (
-                <>
-                  <Header
-                    show_add_button={true}
-                    filterRecipes={filterRecipes}
-                    show_filter_button={true}
-                    recipe_categories={recipe_categories}
-                    recipe_difficulties={recipe_difficulties}
-                    recipe_durations={recipe_durations}
-                  />
-                  <Main
-                    recipes={recipes}
-                    searchFilters={searchFilters}
-                    getRecipes={getRecipes}
-                  />
-                </>
-              ) : (
-                <Navigate to="/login" />
-              )
-            }
-          />
-          <Route
-            path="/recipes/:recipe_id"
-            element={
-              signedIn ? (
-                <>
-                  <Header
-                    filterRecipes={filterRecipes}
-                    show_add_button={false}
-                    show_filter_button={false}
-                    recipe_categories={recipe_categories}
-                    recipe_difficulties={recipe_difficulties}
-                    recipe_durations={recipe_durations}
-                  />
+    <div>
+      <Routes>
+        <Route path="/" element={<Navigate to="/login" />} />
+        <Route
+          path="/login"
+          element={
+            <>
+              <Login setSignedIn={setSignedIn} />
+            </>
+          }
+        />
+        <Route
+          path="/home"
+          element={
+            <>
+              <Header
+                signedIn={signedIn}
+                show_add_button={true}
+                show_filter_button={true}
+                recipe_categories={recipe_categories}
+                recipe_difficulties={recipe_difficulties}
+                recipe_durations={recipe_durations}
+                filterRecipes={filterRecipes}
+              />
+              <Main
+                recipes={recipes}
+                searchFilters={searchFilters}
+                getRecipes={getRecipes}
+              />
+            </>
+          }
+        />
+        <Route
+          path="/recipes/:recipe_id"
+          element={
+            <>
+              <Header
+                signedIn={signedIn}
+                show_add_button={false}
+                show_filter_button={false}
+                recipe_categories={recipe_categories}
+                recipe_difficulties={recipe_difficulties}
+                recipe_durations={recipe_durations}
+                filterRecipes={filterRecipes}
+              />
 
-                  <RecipePage recipes={recipes} />
-                </>
-              ) : (
-                <Navigate to="/login" />
-              )
-            }
-          />
-          <Route
-            path="/recipes/edit/:recipe_id"
-            element={
-              signedIn ? (
-                <>
-                  <Header
-                    filterRecipes={filterRecipes}
-                    show_add_button={false}
-                    show_filter_button={false}
-                    recipe_categories={recipe_categories}
-                    recipe_difficulties={recipe_difficulties}
-                    recipe_durations={recipe_durations}
-                  />
-                  <RecipeEditorPage
-                    recipes={recipes}
-                    onEditRecipe={onEditRecipe}
-                    deleteRecipe={deleteRecipe}
-                    recipe_categories={recipe_categories}
-                    recipe_difficulties={recipe_difficulties}
-                    recipe_durations={recipe_durations}
-                  />
-                </>
-              ) : (
-                <Navigate to="/login" />
-              )
-            }
-          />
+              <RecipePage getRecipe={getRecipe} />
+            </>
+          }
+        />
+        <Route
+          path="/recipes/edit/:recipe_id"
+          element={
+            <>
+              <Header
+                signedIn={signedIn}
+                show_add_button={false}
+                show_filter_button={false}
+                recipe_categories={recipe_categories}
+                recipe_difficulties={recipe_difficulties}
+                recipe_durations={recipe_durations}
+                filterRecipes={filterRecipes}
+              />
+              <RecipeEditorPage
+                signedIn={signedIn}
+                getRecipe={getRecipe}
+                recipes={recipes}
+                onEditRecipe={onEditRecipe}
+                deleteRecipe={deleteRecipe}
+                recipe_categories={recipe_categories}
+                recipe_difficulties={recipe_difficulties}
+                recipe_durations={recipe_durations}
+              />
+            </>
+          }
+        />
 
-          <Route
-            path="/recipes/new"
-            element={
-              signedIn ? (
-                <>
-                  <Header
-                    show_add_button={false}
-                    show_filter_button={false}
-                    recipe_categories={recipe_categories}
-                    recipe_difficulties={recipe_difficulties}
-                    recipe_durations={recipe_durations}
-                  />
-                  <AddRecipe
-                    onAddRecipe={onAddRecipe}
-                    recipe_categories={recipe_categories}
-                    recipe_difficulties={recipe_difficulties}
-                    recipe_durations={recipe_durations}
-                  />
-                </>
-              ) : (
-                <Navigate to="/login" />
-              )
-            }
-          />
-        </Routes>
-      </div>
-    </Router>
+        <Route
+          path="/recipes/new"
+          element={
+            <>
+              <Header
+                signedIn={signedIn}
+                show_add_button={false}
+                show_filter_button={false}
+                recipe_categories={recipe_categories}
+                recipe_difficulties={recipe_difficulties}
+                recipe_durations={recipe_durations}
+                filterRecipes={filterRecipes}
+              />
+              <AddRecipe
+                onAddRecipe={onAddRecipe}
+                recipe_categories={recipe_categories}
+                recipe_difficulties={recipe_difficulties}
+                recipe_durations={recipe_durations}
+              />
+            </>
+          }
+        />
+      </Routes>
+    </div>
   );
 }
 

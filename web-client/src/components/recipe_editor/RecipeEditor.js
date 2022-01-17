@@ -107,30 +107,32 @@ const RecipeEditor = ({
   const onSaveRecipeChanges = async () => {
     var res = window.confirm("Save?");
     if (res) {
-      await onEditRecipe({
-        _id,
-        title,
-        category,
-        sub_category,
-        difficulty,
-        prep_time,
-        total_time,
-        servings,
-        description,
-        ingredients,
-        directions,
-        rtl,
-        source,
-        imageName,
-        image,
-      })
-        .then((result) => {
-          navigate(-1);
-        })
-        .catch((error) => {
-          window.alert(error);
-          return;
+      try {
+        var result = await onEditRecipe({
+          _id,
+          title,
+          category,
+          sub_category,
+          difficulty,
+          prep_time,
+          total_time,
+          servings,
+          description,
+          ingredients,
+          directions,
+          rtl,
+          source,
+          imageName,
+          image,
         });
+
+        if (result) {
+          navigate(-1);
+        }
+      } catch (error) {
+        window.alert(error);
+        return;
+      }
     }
   };
 
