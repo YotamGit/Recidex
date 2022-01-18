@@ -12,9 +12,10 @@ const hashPassword =
 router.get("/", async (req, res) => {
   try {
     const correctPassword = await bcrypt.compare(
-      req.cookies.password,
+      req.cookies.password || "",
       hashPassword
     );
+
     if (correctPassword) {
       res.status(200);
       res.json(correctPassword);
@@ -25,6 +26,7 @@ router.get("/", async (req, res) => {
       console.log(`Failed Login Attempt at ${new Date()}`);
     }
   } catch (err) {
+    res.status(500);
     res.json({ message: err });
   }
 });

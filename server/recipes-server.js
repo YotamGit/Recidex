@@ -24,6 +24,7 @@ const authenticate = async (req, res, logMessage, next) => {
       console.log(logMessage);
     }
   } catch (err) {
+    res.status(500);
     res.json({ message: err });
   }
 };

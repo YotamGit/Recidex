@@ -64,10 +64,14 @@ function App() {
 
   const ping = async () => {
     try {
-      var result = axios.get("/api/login");
+      var result = await axios.get("/api/login");
+      console.log(result.data);
+      setSignedIn(true); //check returned stuff
       return result.data;
     } catch (error) {
-      console.alert(error);
+      setSignedIn(false);
+      return false; //check status code
+      window.alert(error);
     }
   };
   const getRecipes = async (params) => {
@@ -188,7 +192,7 @@ function App() {
   return (
     <div>
       <Routes>
-        <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="/" element={<Navigate to="/home" />} />
         <Route
           path="/login"
           element={

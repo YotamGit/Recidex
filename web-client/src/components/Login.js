@@ -65,7 +65,8 @@ const Login = ({ setSignedIn }) => {
         setWrongPassword(true);
       }
     } catch (error) {
-      window.alert("Failed to Login.\nReason: " + error.message);
+      setWrongPassword(true);
+      //window.alert("Failed to Login.\nReason: " + error.message);
     }
   };
   return (
