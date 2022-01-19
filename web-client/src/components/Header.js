@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import "../styles/Header.css";
 
 import FilterDialog from "./FilterDialog";
+import FakeButton from "./FakeButton";
 
 //mui icons
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
@@ -10,6 +11,7 @@ import PatternRoundedIcon from "@mui/icons-material/PatternRounded";
 
 const Header = ({
   signedIn,
+  setSignedIn,
   show_add_button,
   show_filter_button,
   recipe_categories,
@@ -28,11 +30,17 @@ const Header = ({
             <PatternRoundedIcon style={{ fontSize: "3.5vh" }} />
           </Link>
         )}
+
         {show_add_button && signedIn && (
           <Link className="header-btn" to="/recipes/new">
             <AddCircleRoundedIcon style={{ fontSize: "3.5vh" }} />
           </Link>
         )}
+        {/* {!signedIn && (
+          <FakeButton setSignedIn={setSignedIn} className="header-btn">
+            <PatternRoundedIcon style={{ fontSize: "3.5vh" }} />
+          </FakeButton>
+        )} */}
       </div>
       {show_filter_button && (
         <>

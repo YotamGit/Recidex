@@ -195,6 +195,7 @@ function App() {
             <>
               <Header
                 signedIn={signedIn}
+                setSignedIn={setSignedIn}
                 show_add_button={true}
                 show_filter_button={true}
                 recipe_categories={recipe_categories}
@@ -216,6 +217,7 @@ function App() {
             <>
               <Header
                 signedIn={signedIn}
+                setSignedIn={setSignedIn}
                 show_add_button={false}
                 show_filter_button={false}
                 recipe_categories={recipe_categories}
@@ -234,6 +236,7 @@ function App() {
             <>
               <Header
                 signedIn={signedIn}
+                setSignedIn={setSignedIn}
                 show_add_button={false}
                 show_filter_button={false}
                 recipe_categories={recipe_categories}
@@ -260,6 +263,7 @@ function App() {
             <>
               <Header
                 signedIn={signedIn}
+                setSignedIn={setSignedIn}
                 show_add_button={false}
                 show_filter_button={false}
                 recipe_categories={recipe_categories}
