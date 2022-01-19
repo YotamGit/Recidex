@@ -1,10 +1,14 @@
 import React from "react";
-import bcrypt from "bcryptjs";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Cookies from "universal-cookie";
 import "../styles/login.css";
+
+// generate a hashed password
+// import bcrypt from "bcryptjs";
+// var salt = await bcrypt.genSalt(10);
+// var hash = await bcrypt.hash(plainPassword, salt);
 
 //mui
 import Box from "@mui/material/Box";
@@ -20,10 +24,6 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { paperClasses } from "@mui/material";
 
-// generate a hashed password
-// var salt = await bcrypt.genSalt(10);
-// var hash = await bcrypt.hash(plainPassword, salt);
-
 const Login = ({ setSignedIn }) => {
   const navigate = useNavigate();
 
@@ -38,13 +38,17 @@ const Login = ({ setSignedIn }) => {
       try {
         var result = await axios.get("/api/login");
         if (result.data) {
-          setSignedIn(true);
+          setSignedIn(result);
           navigate("/home");
-        } else {
-          setSignedIn(false);
         }
       } catch (error) {
-        window.alert("Failed to Login.\nReason: " + error.message);
+        if (error.response.status === 401) {
+          setSignedIn(false);
+        } else {
+          window.alert(
+            "Error Trying to Log In Automatically.\nReason: " + error.message
+          );
+        }
       }
     }
   };
@@ -60,13 +64,14 @@ const Login = ({ setSignedIn }) => {
       if (result.data) {
         setSignedIn(true);
         navigate("/home");
-      } else {
-        setSignedIn(false);
-        setWrongPassword(true);
       }
     } catch (error) {
-      setWrongPassword(true);
-      //window.alert("Failed to Login.\nReason: " + error.message);
+      if (error.response.status === 401) {
+        setSignedIn(false);
+        setWrongPassword(true);
+      } else {
+        window.alert("Failed to Login.\nReason: " + error.message);
+      }
     }
   };
   return (

@@ -1,8 +1,6 @@
 import Recipe from "./Recipe.js";
 import "../../styles/recipes/RecipePage.css";
-import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
 import IconButton from "@mui/material/IconButton";
 
 //icons

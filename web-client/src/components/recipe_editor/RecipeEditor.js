@@ -94,7 +94,7 @@ const RecipeEditor = ({
           setImage(result);
         })
         .catch((error) => {
-          console.log(error);
+          window.alert("Failed to Upload Image.\nReason: " + error.message);
         });
     }
   };
@@ -105,33 +105,28 @@ const RecipeEditor = ({
   };
 
   const onSaveRecipeChanges = async () => {
-    var res = window.confirm("Save?");
-    if (res) {
-      try {
-        var result = await onEditRecipe({
-          _id,
-          title,
-          category,
-          sub_category,
-          difficulty,
-          prep_time,
-          total_time,
-          servings,
-          description,
-          ingredients,
-          directions,
-          rtl,
-          source,
-          imageName,
-          image,
-        });
+    var save = window.confirm("Save?");
+    if (save) {
+      var result = await onEditRecipe({
+        _id,
+        title,
+        category,
+        sub_category,
+        difficulty,
+        prep_time,
+        total_time,
+        servings,
+        description,
+        ingredients,
+        directions,
+        rtl,
+        source,
+        imageName,
+        image,
+      });
 
-        if (result) {
-          navigate(-1);
-        }
-      } catch (error) {
-        window.alert(error);
-        return;
+      if (result) {
+        navigate(-1);
       }
     }
   };

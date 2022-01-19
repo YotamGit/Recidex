@@ -1,6 +1,5 @@
 import RecipeEditor from "./RecipeEditor.js";
 import { useParams, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
 
 import "../../styles/recipe_editor/RecipeEditorPage.css";
 //mui
@@ -12,7 +11,6 @@ import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
 
 const RecipeEditorPage = ({
   signedIn,
-  getRecipe,
   recipes,
   onEditRecipe,
   deleteRecipe,
@@ -25,14 +23,12 @@ const RecipeEditorPage = ({
   const recipe = recipes.filter((recipe) => recipe._id === recipe_id)[0];
 
   const onDeleteRecipe = async () => {
-    try {
+    var remove = window.confirm("Delete Recipe: " + recipe.title + "?");
+    if (remove) {
       var result = await deleteRecipe(recipe._id);
-
       if (result) {
         navigate("/home");
       }
-    } catch (error) {
-      window.alert(error);
     }
   };
   return (

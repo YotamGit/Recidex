@@ -59,37 +59,31 @@ function App() {
 
   useEffect(() => {
     getRecipes({ latest: new Date(), count: 4 });
-    setSignedIn(ping());
+    ping();
   }, []);
 
   const ping = async () => {
     try {
       var result = await axios.get("/api/login");
-      console.log(result.data);
-      setSignedIn(true); //check returned stuff
-      return result.data;
+      setSignedIn(result); //check returned stuff
     } catch (error) {
-      setSignedIn(false);
-      return false; //check status code
-      window.alert(error);
+      if (error.response.status === 401) {
+        setSignedIn(false);
+      } else {
+        window.alert(
+          "Error Trying to Log In Automatically.\nReason: " + error.message
+        );
+      }
     }
   };
   const getRecipes = async (params) => {
     try {
+      //result = number of recipes received
       var result = await axios.get("/api/recipes", { params: params });
       setRecipes([...recipes, ...result.data]);
       return result.data.length;
     } catch (error) {
       window.alert("Failed to Fetch Recipes.\nReason: " + error.message);
-    }
-  };
-
-  const getRecipe = async (recipe_id) => {
-    try {
-      const recipe = await axios.get(`/api/recipes/${recipe_id}`);
-      return recipe.data;
-    } catch (error) {
-      window.alert("Failed to Fetch Recipe.\nReason: " + error.message);
     }
   };
 
@@ -123,47 +117,41 @@ function App() {
     } catch (error) {
       if (error.response.status === 401) {
         window.alert(
-          "Failed to Edit Recipe in Database, Please Try Again.\nReason: " +
-            error.response.data
+          "Failed to Edit Recipe in Database.\nReason: " + error.response.data
         );
         navigate("/login");
         return false;
       } else {
-        throw new Error(
+        window.alert(
           "Failed to Edit Recipe in Database, Please Try Again.\nReason: " +
             error.message
         );
+        return false;
       }
     }
   };
 
   const deleteRecipe = async (id) => {
-    var remove = window.confirm(
-      "Delete Recipe: " +
-        recipes.filter((recipe) => recipe._id === id)[0].title +
-        "?"
-    );
-    if (remove) {
-      try {
-        await axios.delete(`/api/recipes/${id}`);
-        setRecipes(recipes.filter((recipe) => recipe._id !== id));
-      } catch (error) {
-        if (error.response.status === 401) {
-          window.alert(
-            "Failed to Delete Recipe from Database, Please Try Again.\nReason: " +
-              error.response.data
-          );
-          navigate("/login");
-          return false;
-        } else {
-          throw new Error(
-            "Failed to Delete Recipe from Database, Please Try Again.\nReason: " +
-              error.message
-          );
-        }
+    try {
+      await axios.delete(`/api/recipes/${id}`);
+      setRecipes(recipes.filter((recipe) => recipe._id !== id));
+      return true;
+    } catch (error) {
+      if (error.response.status === 401) {
+        window.alert(
+          "Failed to Delete Recipe from Database.\nReason: " +
+            error.response.data
+        );
+        navigate("/login");
+        return false;
+      } else {
+        window.alert(
+          "Failed to Delete Recipe from Database, Please Try Again.\nReason: " +
+            error.message
+        );
+        return false;
       }
     }
-    return remove;
   };
 
   const onAddRecipe = async (recipe) => {
@@ -236,7 +224,7 @@ function App() {
                 filterRecipes={filterRecipes}
               />
 
-              <RecipePage getRecipe={getRecipe} recipes={recipes} />
+              <RecipePage recipes={recipes} />
             </>
           }
         />
@@ -255,7 +243,6 @@ function App() {
               />
               <RecipeEditorPage
                 signedIn={signedIn}
-                getRecipe={getRecipe}
                 recipes={recipes}
                 onEditRecipe={onEditRecipe}
                 deleteRecipe={deleteRecipe}

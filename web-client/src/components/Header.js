@@ -7,8 +7,6 @@ import FilterDialog from "./FilterDialog";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import AddCircleRoundedIcon from "@mui/icons-material/AddCircleRounded";
 import PatternRoundedIcon from "@mui/icons-material/PatternRounded";
-import { useState, useEffect } from "react";
-import { padding } from "@mui/system";
 
 const Header = ({
   signedIn,

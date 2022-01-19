@@ -9,25 +9,21 @@ const hashPassword =
 // Routes
 
 // GET X RECIPES FROM GIVEN DATE WITH FILTERS
-router.get("/", async (req, res) => {
+router.get("/", async (req, res, next) => {
   try {
-    const correctPassword = await bcrypt.compare(
-      req.cookies.password || "",
-      hashPassword
-    );
+    const correctPassword = req.cookies.password
+      ? await bcrypt.compare(req.cookies.password, hashPassword)
+      : false;
 
     if (correctPassword) {
-      res.status(200);
-      res.json(correctPassword);
+      res.status(200).send(correctPassword);
       console.log(`Successful Login Attempt at ${new Date()}`);
     } else {
-      res.status(401);
-      res.json(correctPassword);
+      res.status(401).send(correctPassword);
       console.log(`Failed Login Attempt at ${new Date()}`);
     }
   } catch (err) {
-    res.status(500);
-    res.json({ message: err });
+    next(err);
   }
 });
 
