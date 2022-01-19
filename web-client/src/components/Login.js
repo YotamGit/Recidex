@@ -22,7 +22,6 @@ import Button from "@mui/material/Button";
 //mui icons
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { paperClasses } from "@mui/material";
 
 const Login = ({ setSignedIn }) => {
   const navigate = useNavigate();
@@ -59,7 +58,11 @@ const Login = ({ setSignedIn }) => {
   const onSubmitPassword = async () => {
     const cookies = new Cookies();
     try {
-      cookies.set("password", password, { path: "/" });
+      cookies.set("password", password, {
+        path: "/",
+        secure: true,
+        maxAge: 60 * 60 * 24 * 7,
+      });
       var result = await axios.get("/api/login");
       if (result.data) {
         setSignedIn(true);
