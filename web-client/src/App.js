@@ -169,7 +169,7 @@ function App() {
         navigate("/login");
         return false;
       } else {
-        throw new Error(
+        window.alert(
           "Failed to Add Recipe to Database, Please Try Again.\nReason: " +
             error.message
         );
