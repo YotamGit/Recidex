@@ -21,7 +21,7 @@ const Header = ({
 }) => {
   return (
     <div className="header">
-      <div>
+      <div id="header-left-button-group">
         <Link className="header-btn" to="/home">
           <HomeRoundedIcon style={{ fontSize: "3.5vh" }} />
         </Link>
@@ -36,11 +36,11 @@ const Header = ({
             <AddCircleRoundedIcon style={{ fontSize: "3.5vh" }} />
           </Link>
         )}
-        {/* {!signedIn && (
+        {!signedIn && (
           <FakeButton setSignedIn={setSignedIn} className="header-btn">
-            <PatternRoundedIcon style={{ fontSize: "3.5vh" }} />
+            <AddCircleRoundedIcon style={{ fontSize: "3.5vh" }} />
           </FakeButton>
-        )} */}
+        )}
       </div>
       {show_filter_button && (
         <>

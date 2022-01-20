@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Login from "./Login";
+import "../styles/FakeButton.css";
 
 //mui
 import Modal from "@mui/material/Modal";
@@ -12,12 +13,18 @@ const FakeButton = ({ children, setSignedIn }) => {
 
   return (
     <>
-      <IconButton onClick={handleOpen} style={{ color: "gray", margin: "1%" }}>
+      <IconButton className="fake-btn" onClick={handleOpen}>
         {children}
       </IconButton>
 
       <Modal open={open} onClose={handleClose}>
-        <Login setSignedIn={setSignedIn} />
+        <div className="login-modal">
+          <Login
+            setSignedIn={setSignedIn}
+            showSignAsGuest={false}
+            navigateAfterLogin={false}
+          />
+        </div>
       </Modal>
     </>
   );

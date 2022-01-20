@@ -23,7 +23,7 @@ import Button from "@mui/material/Button";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
-const Login = ({ setSignedIn }) => {
+const Login = ({ setSignedIn, showSignAsGuest, navigateAfterLogin }) => {
   const navigate = useNavigate();
 
   const [password, setPassword] = useState("");
@@ -38,7 +38,10 @@ const Login = ({ setSignedIn }) => {
         var result = await axios.get("/api/login");
         if (result.data) {
           setSignedIn(result);
-          navigate("/home");
+
+          if (navigateAfterLogin) {
+            navigate("/home");
+          }
         }
       } catch (error) {
         if (error.response.status === 401) {
@@ -66,7 +69,9 @@ const Login = ({ setSignedIn }) => {
       var result = await axios.get("/api/login");
       if (result.data) {
         setSignedIn(true);
-        navigate("/home");
+        if (navigateAfterLogin) {
+          navigate("/home");
+        }
       }
     } catch (error) {
       if (error.response.status === 401) {
@@ -80,6 +85,7 @@ const Login = ({ setSignedIn }) => {
   return (
     <div id="login-container">
       <div className="login-form-input-segment">
+        <h3 style={{ textAlign: "center" }}>Login</h3>
         <FormControl variant="outlined">
           <InputLabel htmlFor="login-password-input">Password</InputLabel>
           <OutlinedInput
@@ -114,9 +120,11 @@ const Login = ({ setSignedIn }) => {
         <Button variant="contained" onClick={onSubmitPassword}>
           Submit
         </Button>
-        <Button style={{ color: "gray" }} onClick={() => navigate("/home")}>
-          Continue as Guest
-        </Button>
+        {showSignAsGuest && (
+          <Button style={{ color: "gray" }} onClick={() => navigate("/home")}>
+            Continue as Guest
+          </Button>
+        )}
       </div>
     </div>
   );

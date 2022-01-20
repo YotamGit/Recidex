@@ -4,6 +4,12 @@
   flex-direction: row;
   justify-content: space-between;
 }
+
+#header-left-button-group {
+  display: flex;
+  flex-direction: row;
+}
+
 .header-btn {
   color: #fff;
   border: none;

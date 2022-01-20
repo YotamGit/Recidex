@@ -185,7 +185,11 @@ function App() {
           path="/login"
           element={
             <>
-              <Login setSignedIn={setSignedIn} />
+              <Login
+                setSignedIn={setSignedIn}
+                showSignAsGuest={true}
+                navigateAfterLogin={true}
+              />
             </>
           }
         />
