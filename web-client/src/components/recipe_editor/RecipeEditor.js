@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { marked } from "marked";
 import RecipeEditorEditSection from "./RecipeEditorEditSection";
 import RecipeDropdown from "../RecipeDropdown";
+import AuthorizedButton from "../AuthorizedButton";
 
 //mui
 import SaveIcon from "@mui/icons-material/Save";
@@ -13,6 +14,7 @@ import Tab from "@mui/material/Tab";
 import TextField from "@mui/material/TextField";
 import Switch from "@mui/material/Switch";
 import Button from "@mui/material/Button";
+import { rgbToHex } from "@mui/material";
 
 marked.setOptions({
   gfm: true,
@@ -21,6 +23,8 @@ marked.setOptions({
 });
 
 const RecipeEditor = ({
+  signedIn,
+  setSignedIn,
   onEditRecipe,
   recipe,
   recipe_categories,
@@ -300,14 +304,15 @@ const RecipeEditor = ({
           <img alt="" id="recipe-editor-image" />
         </div>
       </TabPanel>
-      <Button
+      <AuthorizedButton
         onClick={onSaveRecipeChanges}
-        variant="contained"
-        color="success"
-        startIcon={<SaveIcon />}
+        authorized={signedIn}
+        setSignedIn={setSignedIn}
       >
-        Save
-      </Button>
+        <SaveIcon
+          style={{ width: "100%", backgroundColor: "rgb(97, 204, 70)" }}
+        />
+      </AuthorizedButton>
     </div>
   );
 };

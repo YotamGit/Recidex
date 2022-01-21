@@ -23,7 +23,12 @@ import Button from "@mui/material/Button";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
-const Login = ({ setSignedIn, showSignAsGuest, navigateAfterLogin }) => {
+const Login = ({
+  setSignedIn,
+  showSignAsGuest,
+  navigateAfterLogin,
+  onLogin,
+}) => {
   const navigate = useNavigate();
 
   const [password, setPassword] = useState("");
@@ -72,8 +77,10 @@ const Login = ({ setSignedIn, showSignAsGuest, navigateAfterLogin }) => {
         if (navigateAfterLogin) {
           navigate("/home");
         }
+        onLogin && onLogin();
       }
     } catch (error) {
+      console.log(error);
       if (error.response.status === 401) {
         setSignedIn(false);
         setWrongPassword(true);

@@ -2,8 +2,7 @@ import RecipeEditor from "./RecipeEditor.js";
 import { useParams, useNavigate } from "react-router-dom";
 
 import "../../styles/recipe_editor/RecipeEditorPage.css";
-//mui
-import IconButton from "@mui/material/IconButton";
+import AuthorizedButton from "../AuthorizedButton";
 
 //mui icons
 import CloseFullscreenRoundedIcon from "@mui/icons-material/CloseFullscreenRounded";
@@ -11,6 +10,7 @@ import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
 
 const RecipeEditorPage = ({
   signedIn,
+  setSignedIn,
   recipes,
   onEditRecipe,
   deleteRecipe,
@@ -36,13 +36,25 @@ const RecipeEditorPage = ({
       {recipe && (
         <>
           <div className="recipe-editor-page-top-button-row">
-            <IconButton
+            <AuthorizedButton
               onClick={() => navigate(-1)}
-              style={{ color: "gray", margin: "1%" }}
+              authorized={true}
+              setSignedIn={setSignedIn}
             >
-              <CloseFullscreenRoundedIcon style={{ fontSize: "3.5vh" }} />
-            </IconButton>
-            {signedIn && (
+              <CloseFullscreenRoundedIcon
+                style={{
+                  color: "gray",
+                  margin: "1%",
+                  fontSize: "3.5vh",
+                  cursor: "pointer",
+                }}
+              />
+            </AuthorizedButton>
+            <AuthorizedButton
+              onClick={() => onDeleteRecipe()}
+              authorized={signedIn}
+              setSignedIn={setSignedIn}
+            >
               <DeleteForeverRoundedIcon
                 style={{
                   color: "red",
@@ -50,13 +62,14 @@ const RecipeEditorPage = ({
                   fontSize: "3.5vh",
                   cursor: "pointer",
                 }}
-                onClick={() => onDeleteRecipe()}
               />
-            )}
+            </AuthorizedButton>
           </div>
 
           <RecipeEditor
             recipe={recipe}
+            signedIn={signedIn}
+            setSignedIn={setSignedIn}
             onEditRecipe={onEditRecipe}
             recipe_categories={recipe_categories}
             recipe_difficulties={recipe_difficulties}

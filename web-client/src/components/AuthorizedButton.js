@@ -1,19 +1,22 @@
 import React, { useState } from "react";
 import Login from "./Login";
-import "../styles/FakeButton.css";
+import "../styles/AuthorizedButton.css";
 
 //mui
 import Modal from "@mui/material/Modal";
 import IconButton from "@mui/material/IconButton";
 
-const FakeButton = ({ children, setSignedIn }) => {
+const AuthorizedButton = ({ children, setSignedIn, authorized, onClick }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   return (
     <>
-      <IconButton className="fake-btn" onClick={handleOpen}>
+      <IconButton
+        className="authorized-btn"
+        onClick={authorized ? onClick : handleOpen}
+      >
         {children}
       </IconButton>
 
@@ -23,6 +26,7 @@ const FakeButton = ({ children, setSignedIn }) => {
             setSignedIn={setSignedIn}
             showSignAsGuest={false}
             navigateAfterLogin={false}
+            onLogin={handleClose}
           />
         </div>
       </Modal>
@@ -30,4 +34,4 @@ const FakeButton = ({ children, setSignedIn }) => {
   );
 };
 
-export default FakeButton;
+export default AuthorizedButton;

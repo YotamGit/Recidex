@@ -250,6 +250,7 @@ function App() {
               />
               <RecipeEditorPage
                 signedIn={signedIn}
+                setSignedIn={setSignedIn}
                 recipes={recipes}
                 onEditRecipe={onEditRecipe}
                 deleteRecipe={deleteRecipe}
@@ -277,6 +278,8 @@ function App() {
               />
               <AddRecipe
                 onAddRecipe={onAddRecipe}
+                signedIn={signedIn}
+                setSignedIn={setSignedIn}
                 recipe_categories={recipe_categories}
                 recipe_difficulties={recipe_difficulties}
                 recipe_durations={recipe_durations}

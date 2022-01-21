@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "../styles/Header.css";
 
 import FilterDialog from "./FilterDialog";
-import FakeButton from "./FakeButton";
+import AuthorizedButton from "./AuthorizedButton";
 
 //mui icons
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
@@ -19,6 +19,7 @@ const Header = ({
   recipe_durations,
   filterRecipes,
 }) => {
+  const navigate = useNavigate();
   return (
     <div className="header">
       <div id="header-left-button-group">
@@ -31,15 +32,17 @@ const Header = ({
           </Link>
         )}
 
-        {show_add_button && signedIn && (
-          <Link className="header-btn" to="/recipes/new">
-            <AddCircleRoundedIcon style={{ fontSize: "3.5vh" }} />
-          </Link>
-        )}
-        {!signedIn && (
-          <FakeButton setSignedIn={setSignedIn} className="header-btn">
-            <AddCircleRoundedIcon style={{ fontSize: "3.5vh" }} />
-          </FakeButton>
+        {show_add_button && (
+          <AuthorizedButton
+            onClick={() => navigate("/recipes/new")}
+            authorized={signedIn}
+            setSignedIn={setSignedIn}
+          >
+            <AddCircleRoundedIcon
+              className="header-btn"
+              style={{ fontSize: "3.5vh" }}
+            />
+          </AuthorizedButton>
         )}
       </div>
       {show_filter_button && (
