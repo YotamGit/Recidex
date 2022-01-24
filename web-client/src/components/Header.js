@@ -1,8 +1,8 @@
 import { useNavigate, Link } from "react-router-dom";
 import "../styles/Header.css";
 
-import FilterDialog from "./FilterDialog";
 import AuthorizedButton from "./AuthorizedButton";
+import SearchBar from "./SearchBar";
 
 //mui icons
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
@@ -18,6 +18,7 @@ const Header = ({
   recipe_difficulties,
   recipe_durations,
   filterRecipes,
+  onSearch,
 }) => {
   const navigate = useNavigate();
   return (
@@ -45,16 +46,16 @@ const Header = ({
           </AuthorizedButton>
         )}
       </div>
-      {show_filter_button && (
-        <>
-          <FilterDialog
-            filterRecipes={filterRecipes}
-            recipe_categories={recipe_categories}
-            recipe_difficulties={recipe_difficulties}
-            recipe_durations={recipe_durations}
-          />
-        </>
-      )}
+      <div className="search-bar-section">
+        <SearchBar
+          show_filter_button={show_filter_button}
+          filterRecipes={filterRecipes}
+          recipe_categories={recipe_categories}
+          recipe_difficulties={recipe_difficulties}
+          recipe_durations={recipe_durations}
+          onSearch={onSearch}
+        />
+      </div>
     </div>
   );
 };

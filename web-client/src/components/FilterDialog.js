@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import RecipeDropdown from "./RecipeDropdown";
+import "../styles/FilterDialog.css";
 //mui
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";

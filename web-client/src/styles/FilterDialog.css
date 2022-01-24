@@ -1,0 +1,9 @@
+.header-dialog-action-section {
+  display: flex !important;
+  justify-content: center !important;
+}
+
+.header-dialog-button {
+  cursor: pointer;
+  font-size: 5vh !important;
+}

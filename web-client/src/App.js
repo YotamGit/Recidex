@@ -104,6 +104,8 @@ function App() {
     }
   };
 
+  const searchRecipes = async (searchText) => {};
+
   const onEditRecipe = async (recipeData) => {
     try {
       await axios.patch(`/api/recipes/${recipeData._id}`, recipeData);
@@ -206,6 +208,7 @@ function App() {
                 recipe_difficulties={recipe_difficulties}
                 recipe_durations={recipe_durations}
                 filterRecipes={filterRecipes}
+                onSearch={searchRecipes}
               />
               <Main
                 recipes={recipes}
@@ -228,6 +231,7 @@ function App() {
                 recipe_difficulties={recipe_difficulties}
                 recipe_durations={recipe_durations}
                 filterRecipes={filterRecipes}
+                onSearch={searchRecipes}
               />
 
               <RecipePage recipes={recipes} />
@@ -247,6 +251,7 @@ function App() {
                 recipe_difficulties={recipe_difficulties}
                 recipe_durations={recipe_durations}
                 filterRecipes={filterRecipes}
+                onSearch={searchRecipes}
               />
               <RecipeEditorPage
                 signedIn={signedIn}
@@ -275,6 +280,7 @@ function App() {
                 recipe_difficulties={recipe_difficulties}
                 recipe_durations={recipe_durations}
                 filterRecipes={filterRecipes}
+                onSearch={searchRecipes}
               />
               <AddRecipe
                 onAddRecipe={onAddRecipe}
