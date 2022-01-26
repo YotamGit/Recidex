@@ -9,7 +9,6 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
 
 const Search = ({
-  show_filter_button,
   recipe_categories,
   recipe_difficulties,
   recipe_durations,
@@ -30,24 +29,20 @@ const Search = ({
           <SearchIcon style={{ fontSize: "3.5vh", color: "#fff" }} />
         </IconButton>
 
-        {show_filter_button && (
-          <>
-            <Divider
-              style={{
-                height: "30px",
-                margin: "0.5px",
-                backgroundColor: "white",
-              }}
-              orientation="vertical"
-            />
-            <FilterDialog
-              filterRecipes={filterRecipes}
-              recipe_categories={recipe_categories}
-              recipe_difficulties={recipe_difficulties}
-              recipe_durations={recipe_durations}
-            />
-          </>
-        )}
+        <Divider
+          style={{
+            height: "30px",
+            margin: "0.5px",
+            backgroundColor: "white",
+          }}
+          orientation="vertical"
+        />
+        <FilterDialog
+          filterRecipes={filterRecipes}
+          recipe_categories={recipe_categories}
+          recipe_difficulties={recipe_difficulties}
+          recipe_durations={recipe_durations}
+        />
       </div>
     </div>
   );

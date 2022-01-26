@@ -6,6 +6,8 @@ import RecipeEditorEditSection from "./RecipeEditorEditSection";
 import RecipeDropdown from "../RecipeDropdown";
 import AuthorizedButton from "../AuthorizedButton";
 
+import SanitizeHtml from "sanitize-html";
+
 //mui
 import SaveIcon from "@mui/icons-material/Save";
 import Chip from "@mui/material/Chip";
@@ -14,7 +16,6 @@ import Tab from "@mui/material/Tab";
 import TextField from "@mui/material/TextField";
 import Switch from "@mui/material/Switch";
 import Button from "@mui/material/Button";
-import { rgbToHex } from "@mui/material";
 
 marked.setOptions({
   gfm: true,
@@ -61,11 +62,11 @@ const RecipeEditor = ({
   useEffect(() => {
     if (activeTab === 1) {
       document.getElementById("recipe-editor-description").innerHTML =
-        marked.parse(description);
+        marked.parse(SanitizeHtml(description));
       document.getElementById("recipe-editor-ingredients").innerHTML =
-        marked.parse(ingredients);
+        marked.parse(SanitizeHtml(ingredients));
       document.getElementById("recipe-editor-directions").innerHTML =
-        marked.parse(directions);
+        marked.parse(SanitizeHtml(directions));
       if (image) {
         document.getElementById("recipe-editor-image").src = image;
       } else {

@@ -13,7 +13,7 @@ const Header = ({
   signedIn,
   setSignedIn,
   show_add_button,
-  show_filter_button,
+  show_search,
   recipe_categories,
   recipe_difficulties,
   recipe_durations,
@@ -46,16 +46,17 @@ const Header = ({
           </AuthorizedButton>
         )}
       </div>
-      <div className="search-bar-section">
-        <SearchBar
-          show_filter_button={show_filter_button}
-          filterRecipes={filterRecipes}
-          recipe_categories={recipe_categories}
-          recipe_difficulties={recipe_difficulties}
-          recipe_durations={recipe_durations}
-          onSearch={onSearch}
-        />
-      </div>
+      {show_search && (
+        <div className="search-bar-section">
+          <SearchBar
+            filterRecipes={filterRecipes}
+            recipe_categories={recipe_categories}
+            recipe_difficulties={recipe_difficulties}
+            recipe_durations={recipe_durations}
+            onSearch={onSearch}
+          />
+        </div>
+      )}
     </div>
   );
 };

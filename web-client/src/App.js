@@ -203,7 +203,7 @@ function App() {
                 signedIn={signedIn}
                 setSignedIn={setSignedIn}
                 show_add_button={true}
-                show_filter_button={true}
+                show_search={true}
                 recipe_categories={recipe_categories}
                 recipe_difficulties={recipe_difficulties}
                 recipe_durations={recipe_durations}
@@ -226,7 +226,7 @@ function App() {
                 signedIn={signedIn}
                 setSignedIn={setSignedIn}
                 show_add_button={false}
-                show_filter_button={false}
+                show_search={false}
                 recipe_categories={recipe_categories}
                 recipe_difficulties={recipe_difficulties}
                 recipe_durations={recipe_durations}
@@ -246,7 +246,7 @@ function App() {
                 signedIn={signedIn}
                 setSignedIn={setSignedIn}
                 show_add_button={false}
-                show_filter_button={false}
+                show_search={false}
                 recipe_categories={recipe_categories}
                 recipe_difficulties={recipe_difficulties}
                 recipe_durations={recipe_durations}
@@ -275,7 +275,7 @@ function App() {
                 signedIn={signedIn}
                 setSignedIn={setSignedIn}
                 show_add_button={false}
-                show_filter_button={false}
+                show_search={false}
                 recipe_categories={recipe_categories}
                 recipe_difficulties={recipe_difficulties}
                 recipe_durations={recipe_durations}

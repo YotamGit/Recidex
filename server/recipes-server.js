@@ -53,6 +53,10 @@ app.use("/api/login", loginRoute);
 const recipesRoute = require("./routes/recipes");
 app.use("/api/recipes", recipesRoute);
 
+app.use("*", (req, res) => {
+  res.status(404).send();
+});
+
 // Error handler
 app.use((err, req, res) => {
   res.status(500).send(err);
