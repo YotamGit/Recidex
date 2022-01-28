@@ -34,32 +34,39 @@ const NavDrawer = ({
         </IconButton>
       </div>
       <Divider />
-      <span className="drawer-button-wrapper" onClick={() => navigate("/home")}>
+      <span
+        className="drawer-button-wrapper"
+        onClick={() => {
+          navigate("/home");
+          handleToggleDrawer();
+        }}
+      >
         <HomeRoundedIcon className="drawer-button" />
         Home
       </span>
       {!signedIn && (
         <span
           className="drawer-button-wrapper"
-          onClick={() => navigate("/login")}
+          onClick={() => {
+            navigate("/login");
+            handleToggleDrawer();
+          }}
         >
           <PatternRoundedIcon className="drawer-button" />
           Login
         </span>
       )}
-      {/* <AuthorizedButton
-        onClick={() => navigate("/recipes/new")}
-        authorized={signedIn}
-        setSignedIn={setSignedIn}
-      > */}
+
       <span
         className="drawer-button-wrapper"
-        onClick={() => navigate("/recipes/new")}
+        onClick={() => {
+          navigate("/recipes/new");
+          handleToggleDrawer();
+        }}
       >
         <AddCircleRoundedIcon className="drawer-button" />
         Add Recipe
       </span>
-      {/* </AuthorizedButton> */}
     </Drawer>
   );
 };
