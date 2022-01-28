@@ -1,0 +1,22 @@
+.MuiDrawer-paper {
+  background-color: #1976d2 !important;
+  color: #ffffff !important;
+}
+#drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.drawer-button-wrapper {
+  display: flex;
+  font-size: 1.5rem;
+}
+.drawer-button-wrapper:hover {
+  cursor: pointer;
+  background-color: #ffffff13;
+}
+
+.drawer-button {
+  font-size: 2rem !important;
+}

@@ -1,13 +1,17 @@
-import { useNavigate, Link } from "react-router-dom";
+import { useState } from "react";
 import "../styles/Header.css";
 
-import AuthorizedButton from "./AuthorizedButton";
+import NavDrawer from "./NavDrawer";
+
 import SearchBar from "./SearchBar";
 
+//mui
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import AppBar from "@mui/material/AppBar";
+
 //mui icons
-import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
-import AddCircleRoundedIcon from "@mui/icons-material/AddCircleRounded";
-import PatternRoundedIcon from "@mui/icons-material/PatternRounded";
+import MenuIcon from "@mui/icons-material/Menu";
 
 const Header = ({
   signedIn,
@@ -20,34 +24,24 @@ const Header = ({
   filterRecipes,
   onSearch,
 }) => {
-  const navigate = useNavigate();
-  return (
-    <div className="header">
-      <div id="header-left-button-group">
-        <Link className="header-btn" to="/home">
-          <HomeRoundedIcon style={{ fontSize: "3.5vh" }} />
-        </Link>
-        {!signedIn && (
-          <Link className="header-btn" to="/login">
-            <PatternRoundedIcon style={{ fontSize: "3.5vh" }} />
-          </Link>
-        )}
+  const [openDrawer, setOpenDrawer] = useState(false);
 
-        {show_add_button && (
-          <AuthorizedButton
-            onClick={() => navigate("/recipes/new")}
-            authorized={signedIn}
-            setSignedIn={setSignedIn}
-          >
-            <AddCircleRoundedIcon
-              className="header-btn"
-              style={{ fontSize: "3.5vh" }}
-            />
-          </AuthorizedButton>
-        )}
-      </div>
-      {show_search && (
-        <div className="search-bar-section">
+  const handleToggleDrawer = () => {
+    setOpenDrawer(!openDrawer);
+  };
+
+  return (
+    <AppBar className="app-bar" position="sticky">
+      <Toolbar>
+        <IconButton
+          aria-label="open drawer"
+          onClick={handleToggleDrawer}
+          edge="start"
+        >
+          <MenuIcon style={{ fontSize: "3vh", color: "white" }} />
+        </IconButton>
+        <div className="app-bar-title">Recipes</div>
+        {show_search && (
           <SearchBar
             filterRecipes={filterRecipes}
             recipe_categories={recipe_categories}
@@ -55,9 +49,15 @@ const Header = ({
             recipe_durations={recipe_durations}
             onSearch={onSearch}
           />
-        </div>
-      )}
-    </div>
+        )}
+      </Toolbar>
+      <NavDrawer
+        openDrawer={openDrawer}
+        handleToggleDrawer={handleToggleDrawer}
+        signedIn={signedIn}
+        setSignedIn={setSignedIn}
+      />
+    </AppBar>
   );
 };
 

@@ -1,25 +1,16 @@
-.header {
-  background-color: rgb(46, 46, 100);
+.app-bar {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  height: fit-content;
+}
+.app-bar-title {
+  padding-left: 1%;
+  font-size: 2rem;
+  flex-grow: 1;
 }
 
-#header-left-button-group {
-  display: flex;
-  flex-direction: row;
-}
-
-.header-btn {
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  text-decoration: none;
-  font-family: inherit;
-  text-align: center;
-}
-
-.search-bar-section {
-  width: 60%;
+@media only screen and (max-width: 600px) {
+  .app-bar-title {
+    display: none;
+  }
 }

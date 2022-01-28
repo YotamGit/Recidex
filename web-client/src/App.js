@@ -104,7 +104,9 @@ function App() {
     }
   };
 
-  const searchRecipes = async (searchText) => {};
+  const searchRecipes = async (searchText) => {
+    window.alert("Searching is Not Yet Available");
+  };
 
   const onEditRecipe = async (recipeData) => {
     try {

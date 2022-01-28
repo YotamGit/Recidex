@@ -9,6 +9,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
+import { IconButton } from "@mui/material";
 //mui icons
 import FilterAltRoundedIcon from "@mui/icons-material/FilterAltRounded";
 import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
@@ -54,13 +55,13 @@ const FilterDialog = ({
   };
   return (
     <>
-      <div>
+      <IconButton>
         <FilterAltRoundedIcon
+          className="header-dialog-button"
           onClick={RecipeFilterDialogToggle}
-          className="header-btn"
-          style={{ fontSize: "3.5vh", color: filtered ? "green" : "#fff" }}
+          style={{ color: filtered ? "green" : "#fff" }}
         />
-      </div>
+      </IconButton>
       <Dialog
         fullScreen={fullScreen}
         open={showRecipeFilterDialog}
