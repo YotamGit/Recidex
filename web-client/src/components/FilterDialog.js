@@ -55,10 +55,9 @@ const FilterDialog = ({
   };
   return (
     <>
-      <IconButton>
+      <IconButton onClick={RecipeFilterDialogToggle}>
         <FilterAltRoundedIcon
           className="header-dialog-button"
-          onClick={RecipeFilterDialogToggle}
           style={{ color: filtered ? "green" : "#fff" }}
         />
       </IconButton>

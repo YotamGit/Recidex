@@ -8,9 +8,12 @@ const Main = ({ recipes, searchFilters, getRecipes }) => {
   useEffect(() => {
     const handleScroll = async () => {
       if (
-        window.innerHeight + document.documentElement.scrollTop ===
-        document.documentElement.offsetHeight
+        window.innerHeight + document.documentElement.scrollTop >=
+        document.documentElement.offsetHeight - 1
       ) {
+        // window.alert(
+        //   `${window.innerHeight} + ${document.documentElement.scrollTop} = ${document.documentElement.offsetHeight}`
+        // );
         setFetching(true);
         var res = await getRecipes({
           latest: recipes.at(-1).creation_time,

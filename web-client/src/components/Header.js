@@ -31,33 +31,35 @@ const Header = ({
   };
 
   return (
-    <AppBar className="app-bar" position="sticky">
-      <Toolbar>
-        <IconButton
-          aria-label="open drawer"
-          onClick={handleToggleDrawer}
-          edge="start"
-        >
-          <MenuIcon style={{ fontSize: "3vh", color: "white" }} />
-        </IconButton>
-        <div className="app-bar-title">Recipes</div>
-        {show_search && (
-          <SearchBar
-            filterRecipes={filterRecipes}
-            recipe_categories={recipe_categories}
-            recipe_difficulties={recipe_difficulties}
-            recipe_durations={recipe_durations}
-            onSearch={onSearch}
-          />
-        )}
-      </Toolbar>
+    <>
+      <AppBar className="app-bar" position="sticky">
+        <Toolbar>
+          <IconButton
+            aria-label="open drawer"
+            onClick={handleToggleDrawer}
+            edge="start"
+          >
+            <MenuIcon style={{ fontSize: "3vh", color: "white" }} />
+          </IconButton>
+          <div className="app-bar-title">Recipes</div>
+          {show_search && (
+            <SearchBar
+              filterRecipes={filterRecipes}
+              recipe_categories={recipe_categories}
+              recipe_difficulties={recipe_difficulties}
+              recipe_durations={recipe_durations}
+              onSearch={onSearch}
+            />
+          )}
+        </Toolbar>
+      </AppBar>
       <NavDrawer
         openDrawer={openDrawer}
         handleToggleDrawer={handleToggleDrawer}
         signedIn={signedIn}
         setSignedIn={setSignedIn}
       />
-    </AppBar>
+    </>
   );
 };
 
