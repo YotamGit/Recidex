@@ -9,8 +9,6 @@ import CloseFullscreenRoundedIcon from "@mui/icons-material/CloseFullscreenRound
 
 const AddRecipe = ({
   onAddRecipe,
-  signedIn,
-  setSignedIn,
   recipe_categories,
   recipe_difficulties,
   recipe_durations,
@@ -46,8 +44,6 @@ const AddRecipe = ({
       </div>
       <RecipeEditor
         recipe={recipeTemplate}
-        signedIn={signedIn}
-        setSignedIn={setSignedIn}
         onEditRecipe={onAddRecipe}
         recipe_categories={recipe_categories}
         recipe_difficulties={recipe_difficulties}

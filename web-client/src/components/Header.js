@@ -14,8 +14,6 @@ import AppBar from "@mui/material/AppBar";
 import MenuIcon from "@mui/icons-material/Menu";
 
 const Header = ({
-  signedIn,
-  setSignedIn,
   show_add_button,
   show_search,
   recipe_categories,
@@ -56,8 +54,6 @@ const Header = ({
       <NavDrawer
         openDrawer={openDrawer}
         handleToggleDrawer={handleToggleDrawer}
-        signedIn={signedIn}
-        setSignedIn={setSignedIn}
       />
     </>
   );

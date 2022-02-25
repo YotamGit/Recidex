@@ -24,8 +24,6 @@ marked.setOptions({
 });
 
 const RecipeEditor = ({
-  signedIn,
-  setSignedIn,
   onEditRecipe,
   recipe,
   recipe_categories,
@@ -305,11 +303,7 @@ const RecipeEditor = ({
           <img alt="" id="recipe-editor-image" />
         </div>
       </TabPanel>
-      <AuthorizedButton
-        onClick={onSaveRecipeChanges}
-        authorized={signedIn}
-        setSignedIn={setSignedIn}
-      >
+      <AuthorizedButton onClick={onSaveRecipeChanges}>
         <SaveIcon
           style={{ width: "100%", backgroundColor: "rgb(97, 204, 70)" }}
         />

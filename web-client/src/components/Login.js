@@ -23,12 +23,12 @@ import Button from "@mui/material/Button";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
-const Login = ({
-  setSignedIn,
-  showSignAsGuest,
-  navigateAfterLogin,
-  onLogin,
-}) => {
+//redux
+import { useDispatch } from "react-redux";
+import { setSignedIn } from "../slices/usersSlice";
+
+const Login = ({ showSignAsGuest, navigateAfterLogin, onLogin }) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [password, setPassword] = useState("");
@@ -42,7 +42,7 @@ const Login = ({
       try {
         var result = await axios.get("/api/login");
         if (result.data) {
-          setSignedIn(result);
+          dispatch(setSignedIn(result));
 
           if (navigateAfterLogin) {
             navigate("/home");
@@ -50,7 +50,7 @@ const Login = ({
         }
       } catch (error) {
         if (error.response.status === 401) {
-          setSignedIn(false);
+          dispatch(setSignedIn(false));
         } else {
           window.alert(
             "Error Trying to Log In Automatically.\nReason: " + error.message
@@ -73,7 +73,7 @@ const Login = ({
       });
       var result = await axios.get("/api/login");
       if (result.data) {
-        setSignedIn(true);
+        dispatch(setSignedIn(true));
         if (navigateAfterLogin) {
           navigate("/home");
         }
@@ -82,7 +82,7 @@ const Login = ({
     } catch (error) {
       console.log(error);
       if (error.response.status === 401) {
-        setSignedIn(false);
+        dispatch(setSignedIn(false));
         setWrongPassword(true);
       } else {
         window.alert("Failed to Login.\nReason: " + error.message);

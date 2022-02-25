@@ -16,8 +16,13 @@ import Header from "./components/Header";
 import Main from "./components/Main";
 import Login from "./components/Login";
 
+//redux
+import { useSelector, useDispatch } from "react-redux";
+import { userPing, setSignedIn } from "./slices/usersSlice";
+
 function App() {
-  const [signedIn, setSignedIn] = useState(false);
+  const dispatch = useDispatch();
+  const signedIn = useSelector((state) => state.users.signedIn);
   const navigate = useNavigate();
   const [recipes, setRecipes] = useState([]);
   const [searchFilters, setSearchFilters] = useState({});
@@ -59,23 +64,9 @@ function App() {
 
   useEffect(() => {
     getRecipes({ latest: new Date(), count: 4 });
-    ping();
+    dispatch(userPing());
   }, []);
 
-  const ping = async () => {
-    try {
-      var result = await axios.get("/api/login");
-      setSignedIn(result); //check returned stuff
-    } catch (error) {
-      if (error.response.status === 401) {
-        setSignedIn(false);
-      } else {
-        window.alert(
-          "Error Trying to Log In Automatically.\nReason: " + error.message
-        );
-      }
-    }
-  };
   const getRecipes = async (params) => {
     try {
       //result = number of recipes received
@@ -189,11 +180,7 @@ function App() {
           path="/login"
           element={
             <>
-              <Login
-                setSignedIn={setSignedIn}
-                showSignAsGuest={true}
-                navigateAfterLogin={true}
-              />
+              <Login showSignAsGuest={true} navigateAfterLogin={true} />
             </>
           }
         />
@@ -202,8 +189,6 @@ function App() {
           element={
             <>
               <Header
-                signedIn={signedIn}
-                setSignedIn={setSignedIn}
                 show_add_button={true}
                 show_search={true}
                 recipe_categories={recipe_categories}
@@ -225,8 +210,6 @@ function App() {
           element={
             <>
               <Header
-                signedIn={signedIn}
-                setSignedIn={setSignedIn}
                 show_add_button={false}
                 show_search={false}
                 recipe_categories={recipe_categories}
@@ -245,8 +228,6 @@ function App() {
           element={
             <>
               <Header
-                signedIn={signedIn}
-                setSignedIn={setSignedIn}
                 show_add_button={false}
                 show_search={false}
                 recipe_categories={recipe_categories}
@@ -256,8 +237,6 @@ function App() {
                 onSearch={searchRecipes}
               />
               <RecipeEditorPage
-                signedIn={signedIn}
-                setSignedIn={setSignedIn}
                 recipes={recipes}
                 onEditRecipe={onEditRecipe}
                 deleteRecipe={deleteRecipe}
@@ -274,8 +253,6 @@ function App() {
           element={
             <>
               <Header
-                signedIn={signedIn}
-                setSignedIn={setSignedIn}
                 show_add_button={false}
                 show_search={false}
                 recipe_categories={recipe_categories}
@@ -286,8 +263,6 @@ function App() {
               />
               <AddRecipe
                 onAddRecipe={onAddRecipe}
-                signedIn={signedIn}
-                setSignedIn={setSignedIn}
                 recipe_categories={recipe_categories}
                 recipe_difficulties={recipe_difficulties}
                 recipe_durations={recipe_durations}

@@ -9,8 +9,6 @@ import CloseFullscreenRoundedIcon from "@mui/icons-material/CloseFullscreenRound
 import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
 
 const RecipeEditorPage = ({
-  signedIn,
-  setSignedIn,
   recipes,
   onEditRecipe,
   deleteRecipe,
@@ -36,11 +34,7 @@ const RecipeEditorPage = ({
       {recipe && (
         <>
           <div className="recipe-editor-page-top-button-row">
-            <AuthorizedButton
-              onClick={() => navigate(-1)}
-              authorized={true}
-              setSignedIn={setSignedIn}
-            >
+            <AuthorizedButton onClick={() => navigate(-1)} authorized={true}>
               <CloseFullscreenRoundedIcon
                 style={{
                   color: "gray",
@@ -50,11 +44,7 @@ const RecipeEditorPage = ({
                 }}
               />
             </AuthorizedButton>
-            <AuthorizedButton
-              onClick={() => onDeleteRecipe()}
-              authorized={signedIn}
-              setSignedIn={setSignedIn}
-            >
+            <AuthorizedButton onClick={() => onDeleteRecipe()}>
               <DeleteForeverRoundedIcon
                 style={{
                   color: "red",
@@ -68,8 +58,6 @@ const RecipeEditorPage = ({
 
           <RecipeEditor
             recipe={recipe}
-            signedIn={signedIn}
-            setSignedIn={setSignedIn}
             onEditRecipe={onEditRecipe}
             recipe_categories={recipe_categories}
             recipe_difficulties={recipe_difficulties}

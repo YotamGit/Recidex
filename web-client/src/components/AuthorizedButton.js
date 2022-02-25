@@ -6,7 +6,12 @@ import "../styles/AuthorizedButton.css";
 import Modal from "@mui/material/Modal";
 import IconButton from "@mui/material/IconButton";
 
-const AuthorizedButton = ({ children, setSignedIn, authorized, onClick }) => {
+//redux
+import { useSelector } from "react-redux";
+
+const AuthorizedButton = ({ children, authorized, onClick }) => {
+  const signedIn = useSelector((state) => state.users.signedIn);
+  authorized = typeof authorized === "undefined" ? signedIn : authorized;
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -23,7 +28,6 @@ const AuthorizedButton = ({ children, setSignedIn, authorized, onClick }) => {
       <Modal open={open} onClose={handleClose}>
         <div className="login-modal">
           <Login
-            setSignedIn={setSignedIn}
             showSignAsGuest={false}
             navigateAfterLogin={false}
             onLogin={handleClose}
