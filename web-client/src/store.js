@@ -7,7 +7,7 @@ import filtersReducer from "./slices/filtersSlice";
 const store = configureStore({
   reducer: {
     users: usersReducer,
-    //recipes: recipesReducer,
+    recipes: recipesReducer,
     //filters: filtersReducer,
   },
 });

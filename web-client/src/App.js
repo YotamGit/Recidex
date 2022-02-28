@@ -19,12 +19,14 @@ import Login from "./components/Login";
 //redux
 import { useSelector, useDispatch } from "react-redux";
 import { userPing, setSignedIn } from "./slices/usersSlice";
+import { getRecipes, filterRecipes } from "./slices/recipesSlice";
 
 function App() {
   const dispatch = useDispatch();
   const signedIn = useSelector((state) => state.users.signedIn);
+  const [arecipes, setRecipes] = useState([]); //delete
+  const recipes = useSelector((state) => state.recipes.recipes);
   const navigate = useNavigate();
-  const [recipes, setRecipes] = useState([]);
   const [searchFilters, setSearchFilters] = useState({});
   const recipe_categories = {
     Proteins: ["Meat", "Chicken", "Fish", "Other"],
@@ -63,41 +65,44 @@ function App() {
   ];
 
   useEffect(() => {
-    getRecipes({ latest: new Date(), count: 4 });
+    dispatch(getRecipes({ latest: new Date(), count: 4 }));
     dispatch(userPing());
   }, []);
 
-  const getRecipes = async (params) => {
-    try {
-      //result = number of recipes received
-      var result = await axios.get("/api/recipes", { params: params });
-      setRecipes([...recipes, ...result.data]);
-      return result.data.length;
-    } catch (error) {
-      window.alert("Failed to Fetch Recipes.\nReason: " + error.message);
-    }
-  };
+  // const getRecipes = async (params) => {
+  //   try {
+  //     var result = await axios.get("/api/recipes", { params: params });
+  //     //setRecipes([...recipes, ...result.data]);
+  //     //result = number of recipes received
+  //     return result.data.length;
+  //   } catch (error) {
+  //     window.alert("Failed to Fetch Recipes.\nReason: " + error.message);
+  //   }
+  // };
 
-  const filterRecipes = async (filters) => {
-    setSearchFilters(filters);
-    //if (!Object.values(filters).some((x) => typeof x !== "undefined")) return;
-    var params = {
-      latest: new Date(),
-      count: 4,
-      filters: filters,
-    };
-    try {
-      var result = await axios.get("/api/recipes", { params: params });
-      setRecipes([...result.data]);
-      return result.data.length;
-    } catch (error) {
-      window.alert("Failed to Filter Recipes.\nReason: " + error.message);
-    }
-  };
+  // const filterRecipes = async (filters) => {
+  //   setSearchFilters(filters);
+  //   //if some of the values isnt undefined
+  //   //if (!Object.values(filters).some((x) => typeof x !== "undefined")) return;
 
-  const searchRecipes = async (searchText) => {
-    window.alert("Searching is Not Yet Available");
-  };
+  //   try {
+  //     var result = await axios.get("/api/recipes", {
+  //       params: {
+  //         latest: new Date(),
+  //         count: 4,
+  //         filters: filters,
+  //       },
+  //     });
+  //     setRecipes([...result.data]);
+  //     return result.data.length;
+  //   } catch (error) {
+  //     window.alert("Failed to Filter Recipes.\nReason: " + error.message);
+  //   }
+  // };
+
+  // const searchRecipes = async (searchText) => {
+  //   window.alert("Searching is Not Yet Available");
+  // };
 
   const onEditRecipe = async (recipeData) => {
     try {
