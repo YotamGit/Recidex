@@ -8,7 +8,7 @@ const store = configureStore({
   reducer: {
     users: usersReducer,
     recipes: recipesReducer,
-    //filters: filtersReducer,
+    filters: filtersReducer,
   },
 });
 

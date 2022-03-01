@@ -8,19 +8,22 @@ import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import { useState, useEffect } from "react";
 
+//redux
+import { useDispatch } from "react-redux";
+import { searchRecipes } from "../slices/recipesSlice";
+
 const Search = ({
   recipe_categories,
   recipe_difficulties,
   recipe_durations,
-  filterRecipes,
-  onSearch,
 }) => {
+  const dispatch = useDispatch();
   const [searchText, setsearchText] = useState("");
 
   useEffect(() => {
-    const handleKeyDown = (e) => {
+    const handleKeyDown = async (e) => {
       if (e.code === "Enter") {
-        onSearch(searchText);
+        await dispatch(searchRecipes(searchText));
       }
     };
 
@@ -33,7 +36,7 @@ const Search = ({
       <div className="search-bar-container">
         <IconButton
           className="search-icon-wrapper"
-          onClick={() => onSearch(searchText)}
+          onClick={() => dispatch(searchRecipes(searchText))}
           aria-label="search"
         >
           <SearchIcon style={{ fontSize: "3vh", color: "white" }} />
@@ -46,7 +49,6 @@ const Search = ({
         />
       </div>
       <FilterDialog
-        filterRecipes={filterRecipes}
         recipe_categories={recipe_categories}
         recipe_difficulties={recipe_difficulties}
         recipe_durations={recipe_durations}

@@ -17,6 +17,11 @@ import TextField from "@mui/material/TextField";
 import Switch from "@mui/material/Switch";
 import Button from "@mui/material/Button";
 
+//redux
+
+import { editRecipe, addRecipe, getRecipes } from "../../slices/recipesSlice";
+import { useDispatch } from "react-redux";
+
 marked.setOptions({
   gfm: true,
   breaks: true,
@@ -24,12 +29,13 @@ marked.setOptions({
 });
 
 const RecipeEditor = ({
-  onEditRecipe,
+  action,
   recipe,
   recipe_categories,
   recipe_difficulties,
   recipe_durations,
 }) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const _id = recipe._id;
@@ -109,27 +115,45 @@ const RecipeEditor = ({
 
   const onSaveRecipeChanges = async () => {
     var save = window.confirm("Save?");
+    let recipeData = {
+      _id,
+      title,
+      category,
+      sub_category,
+      difficulty,
+      prep_time,
+      total_time,
+      servings,
+      description,
+      ingredients,
+      directions,
+      rtl,
+      source,
+      imageName,
+      image,
+    };
     if (save) {
-      var result = await onEditRecipe({
-        _id,
-        title,
-        category,
-        sub_category,
-        difficulty,
-        prep_time,
-        total_time,
-        servings,
-        description,
-        ingredients,
-        directions,
-        rtl,
-        source,
-        imageName,
-        image,
-      });
+      switch (action) {
+        case "edit":
+          let editRes = await dispatch(editRecipe(recipeData));
 
-      if (result) {
-        navigate(-1);
+          if (!editRes.error) {
+            navigate(-1);
+          } else if (editRes.payload.statusCode === 401) {
+            navigate("/login");
+          }
+
+          break;
+        case "add":
+          let addRes = await dispatch(addRecipe(recipeData));
+          if (!addRes.error) {
+            navigate("/home");
+          } else if (addRes.payload.statusCode === 401) {
+            navigate("/login");
+          }
+          break;
+        default:
+          throw new Error("Unknown Action");
       }
     }
   };

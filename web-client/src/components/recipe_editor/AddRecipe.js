@@ -8,7 +8,6 @@ import IconButton from "@mui/material/IconButton";
 import CloseFullscreenRoundedIcon from "@mui/icons-material/CloseFullscreenRounded";
 
 const AddRecipe = ({
-  onAddRecipe,
   recipe_categories,
   recipe_difficulties,
   recipe_durations,
@@ -43,8 +42,8 @@ const AddRecipe = ({
         </IconButton>
       </div>
       <RecipeEditor
+        action={"add"}
         recipe={recipeTemplate}
-        onEditRecipe={onAddRecipe}
         recipe_categories={recipe_categories}
         recipe_difficulties={recipe_difficulties}
         recipe_durations={recipe_durations}

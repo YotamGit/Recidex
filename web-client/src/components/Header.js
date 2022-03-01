@@ -19,8 +19,6 @@ const Header = ({
   recipe_categories,
   recipe_difficulties,
   recipe_durations,
-  filterRecipes,
-  onSearch,
 }) => {
   const [openDrawer, setOpenDrawer] = useState(false);
 
@@ -42,11 +40,9 @@ const Header = ({
           <div className="app-bar-title">Recipes</div>
           {show_search && (
             <SearchBar
-              filterRecipes={filterRecipes}
               recipe_categories={recipe_categories}
               recipe_difficulties={recipe_difficulties}
               recipe_durations={recipe_durations}
-              onSearch={onSearch}
             />
           )}
         </Toolbar>

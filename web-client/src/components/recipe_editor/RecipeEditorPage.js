@@ -8,24 +8,31 @@ import AuthorizedButton from "../AuthorizedButton";
 import CloseFullscreenRoundedIcon from "@mui/icons-material/CloseFullscreenRounded";
 import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
 
+//redux
+import { useSelector, useDispatch } from "react-redux";
+import { deleteRecipe } from "../../slices/recipesSlice.js";
 const RecipeEditorPage = ({
-  recipes,
-  onEditRecipe,
-  deleteRecipe,
   recipe_categories,
   recipe_difficulties,
   recipe_durations,
 }) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { recipe_id } = useParams();
-  const recipe = recipes.filter((recipe) => recipe._id === recipe_id)[0];
+
+  const recipe = useSelector(
+    (state) =>
+      state.recipes.recipes.filter((recipe) => recipe._id === recipe_id)[0]
+  );
 
   const onDeleteRecipe = async () => {
     var remove = window.confirm("Delete Recipe: " + recipe.title + "?");
     if (remove) {
-      var result = await deleteRecipe(recipe._id);
-      if (result) {
+      let deleteRes = await dispatch(deleteRecipe(recipe._id));
+      if (!deleteRes.error) {
         navigate("/home");
+      } else if (deleteRes.payload.statusCode === 401) {
+        navigate("/login");
       }
     }
   };
@@ -57,8 +64,8 @@ const RecipeEditorPage = ({
           </div>
 
           <RecipeEditor
+            action={"edit"}
             recipe={recipe}
-            onEditRecipe={onEditRecipe}
             recipe_categories={recipe_categories}
             recipe_difficulties={recipe_difficulties}
             recipe_durations={recipe_durations}

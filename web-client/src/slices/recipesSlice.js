@@ -15,36 +15,80 @@ const initialState = {
 export const getRecipes = createAsyncThunk(
   "recipes/getRecipes",
   async (params, thunkAPI) => {
-    try {
-      var result = await axios.get("/api/recipes", { params: params });
+    var result = await axios.get("/api/recipes", { params: params });
 
-      thunkAPI.dispatch(setFetchedAllRecipes(result.data.length));
-      return result.data;
-    } catch (error) {
-      window.alert("Failed to Fetch Recipes.\nReason: " + error.message);
-    }
+    thunkAPI.dispatch(setFetchedAllRecipes(result.data.length));
+    return result.data;
   }
 );
 
 export const filterRecipes = createAsyncThunk(
   "recipes/filterRecipes",
   async (filters, thunkAPI) => {
-    console.log(filters);
     //if some of the values isnt undefined
     //if (!Object.values(filters).some((x) => typeof x !== "undefined")) return;
     thunkAPI.dispatch(setFilters(filters));
+
+    var result = await axios.get("/api/recipes", {
+      params: {
+        latest: new Date(),
+        count: 4,
+        filters: filters,
+      },
+    });
+    thunkAPI.dispatch(setFetchedAllRecipes(result.data.length));
+    return result.data;
+  }
+);
+
+export const editRecipe = createAsyncThunk(
+  "recipes/editRecipe",
+  async (recipeData, thunkAPI) => {
     try {
-      var result = await axios.get("/api/recipes", {
-        params: {
-          latest: new Date(),
-          count: 4,
-          filters: filters,
-        },
+      await axios.patch(`/api/recipes/${recipeData._id}`, recipeData);
+    } catch (error) {
+      return thunkAPI.rejectWithValue({
+        statusCode: error.response.status,
+        data: error.response.data,
+        message: error.message,
       });
-      thunkAPI.dispatch(setFetchedAllRecipes(result.data.length));
+    }
+    return recipeData;
+  }
+);
+
+export const deleteRecipe = createAsyncThunk(
+  "recipes/deleteRecipe",
+  async (id, thunkAPI) => {
+    try {
+      await axios.delete(`/api/recipes/${id}`);
+    } catch (error) {
+      return thunkAPI.rejectWithValue({
+        statusCode: error.response.status,
+        data: error.response.data,
+        message: error.message,
+      });
+    }
+
+    return thunkAPI
+      .getState()
+      .recipes.recipes.filter((recipe) => recipe._id !== id);
+  }
+);
+
+export const addRecipe = createAsyncThunk(
+  "recipes/addRecipe",
+  async (recipe, thunkAPI) => {
+    delete recipe._id;
+    try {
+      var result = await axios.post(`/api/recipes/new`, recipe);
       return result.data;
     } catch (error) {
-      window.alert("Failed to Filter Recipes.\nReason: " + error.message);
+      return thunkAPI.rejectWithValue({
+        statusCode: error.response.status,
+        data: error.response.data,
+        message: error.message,
+      });
     }
   }
 );
@@ -59,7 +103,7 @@ const recipesSlice = createSlice({
     setRecipes(state, action) {
       state.recipes = action.payload;
     },
-    searchRecipe(state, action) {
+    searchRecipes(state, action) {
       window.alert("Searching is Not Yet Available");
     },
   },
@@ -70,12 +114,72 @@ const recipesSlice = createSlice({
           ? [...state.recipes, ...action.payload]
           : state.recipes;
       })
+      .addCase(getRecipes.rejected, (state, action) => {
+        window.alert(
+          "Failed to Fetch Recipes.\nReason: " + action.error.message
+        );
+      })
       .addCase(filterRecipes.fulfilled, (state, action) => {
         state.recipes = [...action.payload];
+      })
+      .addCase(filterRecipes.rejected, (state, action) => {
+        window.alert(
+          "Failed to Filter Recipes.\nReason: " + action.error.message
+        );
+      })
+      .addCase(editRecipe.fulfilled, (state, action) => {
+        state.recipes.map((recipe) =>
+          recipe._id === action.payload._id ? action.payload : recipe
+        );
+      })
+      .addCase(editRecipe.rejected, (state, action) => {
+        if (action.payload.statusCode === 401) {
+          window.alert(
+            "Failed to Edit Recipe in Database.\nReason: " + action.payload.data
+          );
+        } else {
+          window.alert(
+            "Failed to Edit Recipe in Database, Please Try Again.\nReason: " +
+              action.payload.message
+          );
+        }
+      })
+      .addCase(addRecipe.fulfilled, (state, action) => {
+        state.recipes = [...state.recipes, action.payload];
+      })
+      .addCase(addRecipe.rejected, (state, action) => {
+        if (action.payload.statusCode === 401) {
+          window.alert(
+            "Failed to Add Recipe to Database, Please Try Again.\nReason: " +
+              action.payload.data
+          );
+        } else {
+          window.alert(
+            "Failed to Add Recipe to Database, Please Try Again.\nReason: " +
+              action.payload.message
+          );
+        }
+      })
+      .addCase(deleteRecipe.fulfilled, (state, action) => {
+        state.recipes = action.payload;
+      })
+      .addCase(deleteRecipe.rejected, (state, action) => {
+        if (action.payload.statusCode === 401) {
+          window.alert(
+            "Failed to Delete Recipe from Database.\nReason: " +
+              action.payload.data
+          );
+        } else {
+          window.alert(
+            "Failed to Delete Recipe from Database, Please Try Again.\nReason: " +
+              action.payload.message
+          );
+        }
       });
   },
 });
 
-export const { setFetchedAllRecipes, setRecipes } = recipesSlice.actions;
+export const { setFetchedAllRecipes, setRecipes, searchRecipes } =
+  recipesSlice.actions;
 
 export default recipesSlice.reducer;

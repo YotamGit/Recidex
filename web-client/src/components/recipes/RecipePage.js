@@ -7,10 +7,15 @@ import IconButton from "@mui/material/IconButton";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import CloseFullscreenRoundedIcon from "@mui/icons-material/CloseFullscreenRounded";
 
-const RecipePage = ({ getRecipe, recipes }) => {
+//redux
+import { useSelector } from "react-redux";
+const RecipePage = ({ recipes }) => {
   const navigate = useNavigate();
   const { recipe_id } = useParams();
-  const recipe = recipes.filter((recipe) => recipe._id === recipe_id)[0];
+  const recipe = useSelector(
+    (state) =>
+      state.recipes.recipes.filter((recipe) => recipe._id === recipe_id)[0]
+  );
 
   return (
     <>

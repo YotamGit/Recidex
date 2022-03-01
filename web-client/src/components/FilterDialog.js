@@ -16,12 +16,15 @@ import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
 import DoDisturbOnRoundedIcon from "@mui/icons-material/DoDisturbOnRounded";
 import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
 
+//redux
+import { useDispatch } from "react-redux";
+import { filterRecipes } from "../slices/recipesSlice";
 const FilterDialog = ({
-  filterRecipes,
   recipe_categories,
   recipe_difficulties,
   recipe_durations,
 }) => {
+  const dispatch = useDispatch();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
   const [showRecipeFilterDialog, setShowRecipeFilterDialog] = useState(false);
@@ -37,9 +40,9 @@ const FilterDialog = ({
     setShowRecipeFilterDialog(!showRecipeFilterDialog);
   };
 
-  const handleFilterRecipes = () => {
+  const handleFilterRecipes = async () => {
     var filters = { category, sub_category, difficulty, prep_time, total_time };
-    filterRecipes(filters);
+    await dispatch(filterRecipes(filters));
     setFiltered(
       Object.values(filters).some((filter) => typeof filter !== "undefined")
     );

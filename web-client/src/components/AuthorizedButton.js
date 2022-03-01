@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 
 const AuthorizedButton = ({ children, authorized, onClick }) => {
   const signedIn = useSelector((state) => state.users.signedIn);
-  authorized = typeof authorized === "undefined" ? signedIn : authorized;
+  authorized = authorized || signedIn;
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);

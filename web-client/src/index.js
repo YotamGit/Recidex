@@ -2,9 +2,16 @@ import React from "react";
 import { Provider } from "react-redux";
 import ReactDOM from "react-dom";
 import "./index.css";
-import store from "./store";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
+
+//redux
+import store from "./store";
+import { userPing } from "./slices/usersSlice";
+import { getRecipes } from "./slices/recipesSlice";
+
+store.dispatch(getRecipes({ latest: new Date(), count: 4 }));
+store.dispatch(userPing());
 
 ReactDOM.render(
   <BrowserRouter>

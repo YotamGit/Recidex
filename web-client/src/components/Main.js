@@ -1,9 +1,15 @@
 import Recipes from "./recipes/Recipes";
 import { useEffect, useState } from "react";
 
-const Main = ({ recipes, searchFilters, getRecipes }) => {
-  const [reached_end, setReachedEnd] = useState(false);
+import { useDispatch, useSelector } from "react-redux";
+import { getRecipes } from "../slices/recipesSlice";
+
+const Main = () => {
+  const dispatch = useDispatch();
   const [fetching, setFetching] = useState(false);
+  const selectedFilters = useSelector((state) => state.filters.selectedFilters);
+  const recipes = useSelector((state) => state.recipes.recipes);
+  const reached_end = useSelector((state) => state.recipes.fetchedAllRecipes);
 
   useEffect(() => {
     const handleScroll = async () => {
@@ -15,13 +21,14 @@ const Main = ({ recipes, searchFilters, getRecipes }) => {
         //   `${window.innerHeight} + ${document.documentElement.scrollTop} = ${document.documentElement.offsetHeight}`
         // );
         setFetching(true);
-        var res = await getRecipes({
-          latest: recipes.at(-1).creation_time,
-          count: 4,
-          filters: searchFilters,
-        });
+        await dispatch(
+          getRecipes({
+            latest: recipes.at(-1).creation_time,
+            count: 4,
+            filters: selectedFilters,
+          })
+        );
         setFetching(false);
-        setReachedEnd(res === 0);
 
         if (reached_end) {
           window.alert("No More Recipes to Show");
@@ -37,11 +44,7 @@ const Main = ({ recipes, searchFilters, getRecipes }) => {
   return (
     <div>
       {recipes.length > 0 ? (
-        <Recipes
-          recipes={recipes}
-          searchFilters={searchFilters}
-          getRecipes={getRecipes}
-        />
+        <Recipes />
       ) : (
         "No Recipes To Show" //show skeleton loading animation if fetching is true
       )}
