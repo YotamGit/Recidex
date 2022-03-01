@@ -1,6 +1,3 @@
-import axios from "axios";
-
-import { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Navigate,
@@ -16,17 +13,7 @@ import Header from "./components/Header";
 import Main from "./components/Main";
 import Login from "./components/Login";
 
-//redux
-import { useSelector, useDispatch } from "react-redux";
-import { userPing, setSignedIn } from "./slices/usersSlice";
-
 function App() {
-  const dispatch = useDispatch();
-  const signedIn = useSelector((state) => state.users.signedIn);
-  const [arecipes, setRecipes] = useState([]); //delete
-  const recipes = useSelector((state) => state.recipes.recipes);
-  const navigate = useNavigate();
-  const [searchFilters, setSearchFilters] = useState({});
   const recipe_categories = {
     Proteins: ["Meat", "Chicken", "Fish", "Other"],
     Salads: [],
@@ -62,11 +49,6 @@ function App() {
     "1-2 hours",
     "over 2 hours",
   ];
-
-  // useEffect(() => {
-  //   //dispatch(getRecipes({ latest: new Date(), count: 4 })); //move to index,js
-  //   dispatch(userPing());
-  // }, []);
 
   return (
     <div>

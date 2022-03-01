@@ -8,7 +8,6 @@ const Recipes = () => {
   const recipes = useSelector((state) => state.recipes.recipes);
   return (
     <div className="recipes-container">
-      <div>{recipes.length}</div>
       {recipes.map((recipe) => (
         <RecipeCard key={recipe._id} recipe={recipe} />
       ))}

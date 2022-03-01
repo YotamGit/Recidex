@@ -9,7 +9,7 @@ import CloseFullscreenRoundedIcon from "@mui/icons-material/CloseFullscreenRound
 
 //redux
 import { useSelector } from "react-redux";
-const RecipePage = ({ recipes }) => {
+const RecipePage = () => {
   const navigate = useNavigate();
   const { recipe_id } = useParams();
   const recipe = useSelector(

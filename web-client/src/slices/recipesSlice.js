@@ -53,7 +53,11 @@ export const editRecipe = createAsyncThunk(
         message: error.message,
       });
     }
-    return recipeData;
+    return thunkAPI
+      .getState()
+      .recipes.recipes.map((recipe) =>
+        recipe._id === recipeData._id ? recipeData : recipe
+      );
   }
 );
 
@@ -128,9 +132,7 @@ const recipesSlice = createSlice({
         );
       })
       .addCase(editRecipe.fulfilled, (state, action) => {
-        state.recipes.map((recipe) =>
-          recipe._id === action.payload._id ? action.payload : recipe
-        );
+        state.recipes = action.payload;
       })
       .addCase(editRecipe.rejected, (state, action) => {
         if (action.payload.statusCode === 401) {
@@ -145,7 +147,7 @@ const recipesSlice = createSlice({
         }
       })
       .addCase(addRecipe.fulfilled, (state, action) => {
-        state.recipes = [...state.recipes, action.payload];
+        state.recipes = [action.payload, ...state.recipes];
       })
       .addCase(addRecipe.rejected, (state, action) => {
         if (action.payload.statusCode === 401) {
