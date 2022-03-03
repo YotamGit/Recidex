@@ -1,5 +1,4 @@
-import { useNavigate, Link } from "react-router-dom";
-import AuthorizedButton from "./AuthorizedButton";
+import { useNavigate } from "react-router-dom";
 import "../styles/NavDrawer.css";
 
 //mui

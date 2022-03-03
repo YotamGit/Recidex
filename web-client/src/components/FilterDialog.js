@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import RecipeDropdown from "./RecipeDropdown";
 import "../styles/FilterDialog.css";
 //mui
@@ -17,24 +17,44 @@ import DoDisturbOnRoundedIcon from "@mui/icons-material/DoDisturbOnRounded";
 import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
 
 //redux
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { filterRecipes } from "../slices/recipesSlice";
-const FilterDialog = ({
-  recipe_categories,
-  recipe_difficulties,
-  recipe_durations,
-}) => {
+import { setFilters, setFiltered } from "../slices/filtersSlice";
+
+const FilterDialog = () => {
   const dispatch = useDispatch();
+
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
   const [showRecipeFilterDialog, setShowRecipeFilterDialog] = useState(false);
-  const [filtered, setFiltered] = useState(false);
 
-  const [category, setCategory] = useState();
-  const [sub_category, setSubCategory] = useState();
-  const [difficulty, setDifficulty] = useState();
-  const [prep_time, setPrepTime] = useState();
-  const [total_time, setTotalTime] = useState();
+  const recipe_categories = useSelector(
+    (state) => state.filters.recipe_categories
+  );
+  const recipe_difficulties = useSelector(
+    (state) => state.filters.recipe_difficulties
+  );
+  const recipe_durations = useSelector(
+    (state) => state.filters.recipe_durations
+  );
+
+  const filtered = useSelector((state) => state.filters.filtered);
+
+  const [category, setCategory] = useState(
+    useSelector((state) => state.filters.selectedFilters.category)
+  );
+  const [sub_category, setSubCategory] = useState(
+    useSelector((state) => state.filters.selectedFilters.sub_category)
+  );
+  const [difficulty, setDifficulty] = useState(
+    useSelector((state) => state.filters.selectedFilters.difficulty)
+  );
+  const [prep_time, setPrepTime] = useState(
+    useSelector((state) => state.filters.selectedFilters.prep_time)
+  );
+  const [total_time, setTotalTime] = useState(
+    useSelector((state) => state.filters.selectedFilters.total_time)
+  );
 
   const RecipeFilterDialogToggle = () => {
     setShowRecipeFilterDialog(!showRecipeFilterDialog);
@@ -42,11 +62,16 @@ const FilterDialog = ({
 
   const handleFilterRecipes = async () => {
     var filters = { category, sub_category, difficulty, prep_time, total_time };
-    await dispatch(filterRecipes(filters));
-    setFiltered(
-      Object.values(filters).some((filter) => typeof filter !== "undefined")
-    );
-    RecipeFilterDialogToggle();
+
+    await dispatch(filterRecipes(filters)).then(() => {
+      dispatch(setFilters(filters));
+      dispatch(
+        setFiltered(
+          Object.values(filters).some((filter) => typeof filter !== "undefined")
+        )
+      );
+      RecipeFilterDialogToggle();
+    });
   };
 
   const clearSelections = () => {

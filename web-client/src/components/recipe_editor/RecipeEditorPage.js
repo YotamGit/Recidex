@@ -11,11 +11,7 @@ import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
 //redux
 import { useSelector, useDispatch } from "react-redux";
 import { deleteRecipe } from "../../slices/recipesSlice.js";
-const RecipeEditorPage = ({
-  recipe_categories,
-  recipe_difficulties,
-  recipe_durations,
-}) => {
+const RecipeEditorPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { recipe_id } = useParams();
@@ -63,13 +59,7 @@ const RecipeEditorPage = ({
             </AuthorizedButton>
           </div>
 
-          <RecipeEditor
-            action={"edit"}
-            recipe={recipe}
-            recipe_categories={recipe_categories}
-            recipe_difficulties={recipe_difficulties}
-            recipe_durations={recipe_durations}
-          />
+          <RecipeEditor action={"edit"} recipe={recipe} />
         </>
       )}
     </div>

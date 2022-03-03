@@ -7,11 +7,7 @@ import IconButton from "@mui/material/IconButton";
 //mui icons
 import CloseFullscreenRoundedIcon from "@mui/icons-material/CloseFullscreenRounded";
 
-const AddRecipe = ({
-  recipe_categories,
-  recipe_difficulties,
-  recipe_durations,
-}) => {
+const AddRecipe = () => {
   const navigate = useNavigate();
   const recipeTemplate = {
     _id: "",
@@ -41,13 +37,7 @@ const AddRecipe = ({
           <CloseFullscreenRoundedIcon style={{ fontSize: "3.5vh" }} />
         </IconButton>
       </div>
-      <RecipeEditor
-        action={"add"}
-        recipe={recipeTemplate}
-        recipe_categories={recipe_categories}
-        recipe_difficulties={recipe_difficulties}
-        recipe_durations={recipe_durations}
-      ></RecipeEditor>
+      <RecipeEditor action={"add"} recipe={recipeTemplate}></RecipeEditor>
     </>
   );
 };

@@ -13,13 +13,7 @@ import AppBar from "@mui/material/AppBar";
 //mui icons
 import MenuIcon from "@mui/icons-material/Menu";
 
-const Header = ({
-  show_add_button,
-  show_search,
-  recipe_categories,
-  recipe_difficulties,
-  recipe_durations,
-}) => {
+const Header = ({ show_search }) => {
   const [openDrawer, setOpenDrawer] = useState(false);
 
   const handleToggleDrawer = () => {
@@ -38,13 +32,7 @@ const Header = ({
             <MenuIcon style={{ fontSize: "3vh", color: "white" }} />
           </IconButton>
           <div className="app-bar-title">Recipes</div>
-          {show_search && (
-            <SearchBar
-              recipe_categories={recipe_categories}
-              recipe_difficulties={recipe_difficulties}
-              recipe_durations={recipe_durations}
-            />
-          )}
+          {show_search && <SearchBar />}
         </Toolbar>
       </AppBar>
       <NavDrawer

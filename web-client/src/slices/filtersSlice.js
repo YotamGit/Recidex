@@ -1,4 +1,4 @@
-import axios from "axios";
+//import axios from "axios";
 import {
   createSlice,
   createSelector,
@@ -6,7 +6,14 @@ import {
 } from "@reduxjs/toolkit";
 
 const initialState = {
-  selectedFilters: {},
+  selectedFilters: {
+    category: undefined,
+    sub_category: undefined,
+    difficulty: undefined,
+    prep_time: undefined,
+    total_time: undefined,
+  },
+  filtered: false,
   recipe_categories: {
     Proteins: ["Meat", "Chicken", "Fish", "Other"],
     Salads: [],
@@ -51,9 +58,12 @@ const filtersSlice = createSlice({
     setFilters(state, action) {
       state.selectedFilters = action.payload;
     },
+    setFiltered(state, action) {
+      state.filtered = action.payload;
+    },
   },
 });
 
-export const { setFilters } = filtersSlice.actions;
+export const { setFilters, setFiltered } = filtersSlice.actions;
 
 export default filtersSlice.reducer;

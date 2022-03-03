@@ -19,8 +19,8 @@ import Button from "@mui/material/Button";
 
 //redux
 
-import { editRecipe, addRecipe, getRecipes } from "../../slices/recipesSlice";
-import { useDispatch } from "react-redux";
+import { editRecipe, addRecipe } from "../../slices/recipesSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 marked.setOptions({
   gfm: true,
@@ -28,15 +28,19 @@ marked.setOptions({
   smartLists: true,
 });
 
-const RecipeEditor = ({
-  action,
-  recipe,
-  recipe_categories,
-  recipe_difficulties,
-  recipe_durations,
-}) => {
+const RecipeEditor = ({ action, recipe }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const recipe_categories = useSelector(
+    (state) => state.filters.recipe_categories
+  );
+  const recipe_difficulties = useSelector(
+    (state) => state.filters.recipe_difficulties
+  );
+  const recipe_durations = useSelector(
+    (state) => state.filters.recipe_durations
+  );
 
   const _id = recipe._id;
   const [title, setTitle] = useState(recipe.title);

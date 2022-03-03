@@ -3,7 +3,6 @@ import "../styles/SearchBar.css";
 
 //mui
 import InputBase from "@mui/material/InputBase";
-import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import { useState, useEffect } from "react";
@@ -12,11 +11,7 @@ import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { searchRecipes } from "../slices/recipesSlice";
 
-const Search = ({
-  recipe_categories,
-  recipe_difficulties,
-  recipe_durations,
-}) => {
+const SearchBar = () => {
   const dispatch = useDispatch();
   const [searchText, setsearchText] = useState("");
 
@@ -48,13 +43,9 @@ const Search = ({
           onChange={(e) => setsearchText(e.target.value)}
         />
       </div>
-      <FilterDialog
-        recipe_categories={recipe_categories}
-        recipe_difficulties={recipe_difficulties}
-        recipe_durations={recipe_durations}
-      />
+      <FilterDialog />
     </>
   );
 };
 
-export default Search;
+export default SearchBar;
