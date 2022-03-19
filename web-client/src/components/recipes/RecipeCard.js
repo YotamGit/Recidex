@@ -5,6 +5,7 @@ import { useEffect } from "react";
 
 //mui
 import Chip from "@mui/material/Chip";
+import Divider from "@mui/material/Divider";
 
 //icons
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
@@ -27,13 +28,13 @@ const RecipeCard = ({ recipe }) => {
     }
 
     // resize description container if recipe has an image
-    document.getElementById(recipe._id + "-recipe-card-image")
-      ? (document.getElementById(
-          recipe._id + "-recipe-card-description-container"
-        ).style.height = "20%")
-      : (document.getElementById(
-          recipe._id + "-recipe-card-description-container"
-        ).style.height = "70%");
+    // document.getElementById(recipe._id + "-recipe-card-image")
+    //   ? (document.getElementById(
+    //       recipe._id + "-recipe-card-description-container"
+    //     ).style.height = "20%")
+    //   : (document.getElementById(
+    //       recipe._id + "-recipe-card-description-container"
+    //     ).style.height = "70%");
   }, [recipe._id, recipe.description, recipe.image]);
 
   return (
@@ -57,32 +58,36 @@ const RecipeCard = ({ recipe }) => {
         onClick={() => navigate(`/recipes/${recipe._id}`)}
       >
         <div className="recipe-header">
-          <div style={{ fontSize: "130%" }}>{recipe.title}</div>
-          <div style={{ fontSize: "60%" }}>source: {recipe.source}</div>
-          <div className="recipe-additional-data-container">
+          <div className="recipe-title">{recipe.title}</div>
+
+          <div className="recipe-data-dates">
+            <span className="recipe-data-date">
+              {new Date(recipe.creation_time).toLocaleString("he-IL", {
+                day: "numeric",
+                month: "numeric",
+                year: "numeric",
+              })}
+            </span>
+
+            <Divider orientation="vertical" variant="middle" />
+            <span className="recipe-data-date">
+              {new Date(recipe.last_update_time).toLocaleString("he-IL", {
+                day: "numeric",
+                month: "numeric",
+                year: "numeric",
+              })}
+            </span>
+          </div>
+          <Divider variant="middle" />
+          <div className="recipe-data-chips">
+            <Chip className="recipe-additional-data" label={recipe.category} />
             <Chip
               className="recipe-additional-data"
-              label={"Category: " + recipe.category}
+              label={recipe.sub_category}
             />
             <Chip
               className="recipe-additional-data"
-              label={"Sub Category: " + recipe.sub_category}
-            />
-            <Chip
-              className="recipe-additional-data"
-              label={"Difficulty: " + recipe.difficulty}
-            />
-            <Chip
-              className="recipe-additional-data"
-              label={"Prep Time: " + recipe.prep_time}
-            />
-            <Chip
-              className="recipe-additional-data"
-              label={"Total Time: " + recipe.total_time}
-            />
-            <Chip
-              className="recipe-additional-data"
-              label={"Servings: " + recipe.servings}
+              label={recipe.difficulty}
             />
           </div>
         </div>
@@ -93,13 +98,34 @@ const RecipeCard = ({ recipe }) => {
             direction: recipe.rtl ? "rtl" : "ltr",
           }}
         >
-          <div className="recipe-title">
-            {recipe.rtl ? "תיאור" : "Description"}
+          <div>
+            <div
+              className="recipe-text-box"
+              id={recipe._id + "-recipe-description"}
+            />
+            <div>
+              <div
+                className="recipe-additional-data-field"
+                label={"Servings: " + recipe.servings}
+              />
+              <div
+                className="recipe-additional-data-field"
+                label={"Source: " + recipe.source}
+              />
+              <div
+                className="recipe-additional-data-field"
+                label={"Prep Time: " + recipe.prep_time}
+              />
+              <div
+                className="recipe-additional-data-field"
+                label={"Total Time: " + recipe.total_time}
+              />
+              <div
+                className="recipe-additional-data-field"
+                label={"Author: "}
+              />
+            </div>
           </div>
-          <div
-            className="recipe-text-box"
-            id={recipe._id + "-recipe-description"}
-          />
         </div>
         {recipe.image && (
           <img

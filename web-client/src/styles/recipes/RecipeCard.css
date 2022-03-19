@@ -2,22 +2,14 @@
   border-radius: 5px;
   border: 2px solid black;
   width: 805px;
-  height: 70vh;
+  height: 800px;
   margin: 1%;
 }
 
 @media only screen and (max-width: 600px) {
   .recipe-card {
-    height: 100vh;
+    /* height: 100vh; */
   }
-}
-
-.recipe-card-top-button-row {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-
-  height: 10%;
 }
 
 .recipe-card .recipe {
@@ -30,26 +22,31 @@
 }
 
 .recipe-card .recipe-header {
-  text-align: center;
-  height: 30%;
-  font-size: 3vh;
-  font-weight: 400;
+  background-color: aqua;
+  display: flex;
+  flex-direction: column;
 }
-
-.recipe-additional-data {
-  font-size: 70% !important;
+.recipe-card .recipe-header .recipe-title {
+  font-size: 130%;
+  display: flex;
+  justify-content: center;
 }
-
-.recipe-card-description-container {
-  width: 100%;
+.recipe-card .recipe-data-dates {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.recipe-card .recipe-data-date {
+  padding: 2.5px;
+}
+.recipe-card .recipe-data-chips {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.recipe-card .recipe-data-dates .MuiDivider-middle {
   height: 70%;
-}
-
-.recipe-card .recipe-title {
-  margin-bottom: 1%;
-  font-size: 3vh;
-  font-weight: 400;
-  height: 20%;
 }
 
 .recipe-card .recipe-text-box {
