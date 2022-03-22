@@ -26,15 +26,6 @@ const RecipeCard = ({ recipe }) => {
       document.getElementById(recipe._id + "-recipe-card-image").src =
         recipe.image;
     }
-
-    // resize description container if recipe has an image
-    // document.getElementById(recipe._id + "-recipe-card-image")
-    //   ? (document.getElementById(
-    //       recipe._id + "-recipe-card-description-container"
-    //     ).style.height = "20%")
-    //   : (document.getElementById(
-    //       recipe._id + "-recipe-card-description-container"
-    //     ).style.height = "70%");
   }, [recipe._id, recipe.description, recipe.image]);
 
   return (
@@ -44,13 +35,13 @@ const RecipeCard = ({ recipe }) => {
           to={`/recipes/${recipe._id}`}
           style={{ color: "gray", margin: "1%" }}
         >
-          <OpenInFullRoundedIcon style={{ fontSize: "3.5vh" }} />
+          <OpenInFullRoundedIcon style={{ fontSize: "30px" }} />
         </Link>
         <Link
           to={`/recipes/edit/${recipe._id}`}
           style={{ color: "gray", margin: "1%" }}
         >
-          <EditRoundedIcon style={{ fontSize: "3.5vh" }} />
+          <EditRoundedIcon style={{ fontSize: "30px" }} />
         </Link>
       </div>
       <div
@@ -62,6 +53,7 @@ const RecipeCard = ({ recipe }) => {
 
           <div className="recipe-data-dates">
             <span className="recipe-data-date">
+              <span>Creation: </span>
               {new Date(recipe.creation_time).toLocaleString("he-IL", {
                 day: "numeric",
                 month: "numeric",
@@ -71,6 +63,7 @@ const RecipeCard = ({ recipe }) => {
 
             <Divider orientation="vertical" variant="middle" />
             <span className="recipe-data-date">
+              <span>Updated: </span>
               {new Date(recipe.last_update_time).toLocaleString("he-IL", {
                 day: "numeric",
                 month: "numeric",
@@ -80,60 +73,65 @@ const RecipeCard = ({ recipe }) => {
           </div>
           <Divider variant="middle" />
           <div className="recipe-data-chips">
-            <Chip className="recipe-additional-data" label={recipe.category} />
-            <Chip
-              className="recipe-additional-data"
-              label={recipe.sub_category}
-            />
-            <Chip
-              className="recipe-additional-data"
-              label={recipe.difficulty}
-            />
+            {recipe.category && (
+              <Chip className="recipe-data-chip" label={recipe.category} />
+            )}
+            {recipe.sub_category && (
+              <Chip className="recipe-data-chip" label={recipe.sub_category} />
+            )}
+            {recipe.difficulty && (
+              <Chip className="recipe-data-chip" label={recipe.difficulty} />
+            )}
           </div>
         </div>
-        <div
-          className="recipe-card-description-container"
-          id={recipe._id + "-recipe-card-description-container"}
-          style={{
-            direction: recipe.rtl ? "rtl" : "ltr",
-          }}
-        >
-          <div>
-            <div
-              className="recipe-text-box"
-              id={recipe._id + "-recipe-description"}
-            />
-            <div>
-              <div
-                className="recipe-additional-data-field"
-                label={"Servings: " + recipe.servings}
-              />
-              <div
-                className="recipe-additional-data-field"
-                label={"Source: " + recipe.source}
-              />
-              <div
-                className="recipe-additional-data-field"
-                label={"Prep Time: " + recipe.prep_time}
-              />
-              <div
-                className="recipe-additional-data-field"
-                label={"Total Time: " + recipe.total_time}
-              />
-              <div
-                className="recipe-additional-data-field"
-                label={"Author: "}
-              />
-            </div>
-          </div>
-        </div>
-        {recipe.image && (
-          <img
-            className="recipe-card-image"
-            id={recipe._id + "-recipe-card-image"}
-            alt=""
+        <div className="recipe-main-section">
+          <div
+            className="recipe-description"
+            id={recipe._id + "-recipe-description"}
+            style={{
+              direction: recipe.rtl ? "rtl" : "ltr",
+            }}
           />
-        )}
+          <div className="recipe-additional-data-and-image">
+            <span className="recipe-additional-data">
+              {recipe.prep_time && (
+                <div className="recipe-additional-data-field">
+                  <span className="caption">Prep Time:</span>
+                  <span>{recipe.prep_time}</span>
+                </div>
+              )}
+              {recipe.total_time && (
+                <div className="recipe-additional-data-field">
+                  <span className="caption">Total Time:</span>
+                  <span>{recipe.total_time}</span>
+                </div>
+              )}
+              {recipe.servings && (
+                <div className="recipe-additional-data-field">
+                  <span className="caption">Servings:</span>
+                  <span>{recipe.servings}</span>
+                </div>
+              )}
+              {recipe.source && (
+                <div className="recipe-additional-data-field">
+                  <span className="caption">Source:</span>
+                  <span>{recipe.source}</span>
+                </div>
+              )}
+              <div className="recipe-additional-data-field">
+                <span className="caption">Author:</span>
+                <span>{}</span>
+              </div>
+            </span>
+            {recipe.image && (
+              <img
+                className="recipe-card-image"
+                id={recipe._id + "-recipe-card-image"}
+                alt=""
+              />
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
