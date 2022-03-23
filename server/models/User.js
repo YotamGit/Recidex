@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const UserSchema = mongoose.Schema(
   {
-    role: String,
+    role: { type: String, enum: ["admin", "member", "guest"] },
     firstname: String,
     lastname: String,
     username: String,
@@ -15,7 +15,6 @@ const UserSchema = mongoose.Schema(
       type: Date,
       default: Date.now,
     },
-    liked_recipes: [mongoose.Types.ObjectId],
   },
   { collection: "users" }
 );

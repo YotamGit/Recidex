@@ -9,7 +9,7 @@ const hashPassword =
 // Routes
 
 // GET X RECIPES FROM GIVEN DATE WITH FILTERS
-router.get("/", async (req, res, next) => {
+router.post("/", async (req, res, next) => {
   try {
     const correctPassword = req.cookies.password
       ? await bcrypt.compare(req.cookies.password, hashPassword)

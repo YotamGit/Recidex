@@ -27,6 +27,7 @@ const RecipeSchema = mongoose.Schema(
     source: String,
     imageName: String,
     image: String,
+    users: [{ type: mongoose.Types.ObjectId, ref: "UserModel" }],
   },
   { collection: "recipes" }
 );

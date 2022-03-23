@@ -5,7 +5,8 @@ import RecipeEditorPage from "./components/recipe_editor/RecipeEditorPage";
 import AddRecipe from "./components/recipe_editor/AddRecipe";
 import Header from "./components/Header";
 import Main from "./components/Main";
-import Login from "./components/Login";
+import Login from "./components/Login/Login";
+import Signup from "./components/Login/Signup";
 
 function App() {
   return (
@@ -17,6 +18,14 @@ function App() {
           element={
             <>
               <Login showSignAsGuest={true} navigateAfterLogin={true} />
+            </>
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <>
+              <Signup showSignAsGuest={true} navigateAfterLogin={true} />
             </>
           }
         />

@@ -1,0 +1,30 @@
+#signup-container {
+  background-color: rgb(82, 141, 230);
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signup-form-input-segment {
+  z-index: 999;
+  background-color: rgb(255, 255, 255);
+  border-radius: 5px;
+  border: 2px solid black;
+  height: fit-content;
+  width: 60%;
+  padding: 1%;
+  display: flex;
+  direction: column;
+  justify-content: space-evenly;
+  flex-direction: column;
+}
+@media only screen and (max-width: 600px) {
+  .signup-form-input-segment {
+    border: none;
+    border-radius: 0;
+    width: 100%;
+  }
+}

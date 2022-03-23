@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Cookies from "universal-cookie";
-import "../styles/login.css";
+import "../../styles/login.css";
 
 // generate a hashed password
 // import bcrypt from "bcryptjs";
@@ -25,22 +25,23 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 //redux
 import { useDispatch } from "react-redux";
-import { setSignedIn } from "../slices/usersSlice";
+import { setSignedIn } from "../../slices/usersSlice";
 
 const Login = ({ showSignAsGuest, navigateAfterLogin, onLogin }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [wrongPassword, setWrongPassword] = useState(false);
+  const [wrongCredentials, setWrongCredentials] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
   const autoLogin = async () => {
     const cookies = new Cookies();
-    const passwordCookie = cookies.get("password");
+    const passwordCookie = cookies.get("password"); //get the token instead of the password
     if (passwordCookie) {
       try {
-        var result = await axios.get("/api/login");
+        var result = await axios.post("/api/login");
         if (result.data) {
           dispatch(setSignedIn(result));
 
@@ -66,12 +67,16 @@ const Login = ({ showSignAsGuest, navigateAfterLogin, onLogin }) => {
   const onSubmitPassword = async () => {
     const cookies = new Cookies();
     try {
+      //set the token received from the server instead of straight up the password
       cookies.set("password", password, {
         path: "/",
         secure: true,
         maxAge: 60 * 60 * 24 * 7,
       });
-      var result = await axios.get("/api/login");
+      var result = await axios.post("/api/login", {
+        username: username,
+        password: password,
+      });
       if (result.data) {
         dispatch(setSignedIn(true));
         if (navigateAfterLogin) {
@@ -83,7 +88,7 @@ const Login = ({ showSignAsGuest, navigateAfterLogin, onLogin }) => {
       console.log(error);
       if (error.response.status === 401) {
         dispatch(setSignedIn(false));
-        setWrongPassword(true);
+        setWrongCredentials(true);
       } else {
         window.alert("Failed to Login.\nReason: " + error.message);
       }
@@ -93,6 +98,20 @@ const Login = ({ showSignAsGuest, navigateAfterLogin, onLogin }) => {
     <div id="login-container">
       <div className="login-form-input-segment">
         <h3 style={{ textAlign: "center" }}>Login</h3>
+        <FormControl variant="outlined">
+          <InputLabel htmlFor="login-username-input">Username</InputLabel>
+          <OutlinedInput
+            autoFocus
+            id="login-username-input"
+            type="text"
+            value={username}
+            onChange={(e) => {
+              setUsername(e.target.value);
+            }}
+            label="Username"
+            error={wrongCredentials ? true : false}
+          />
+        </FormControl>
         <FormControl variant="outlined">
           <InputLabel htmlFor="login-password-input">Password</InputLabel>
           <OutlinedInput
@@ -104,7 +123,7 @@ const Login = ({ showSignAsGuest, navigateAfterLogin, onLogin }) => {
               setPassword(e.target.value);
             }}
             label="Password"
-            error={wrongPassword ? true : false}
+            error={wrongCredentials ? true : false}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
@@ -117,15 +136,15 @@ const Login = ({ showSignAsGuest, navigateAfterLogin, onLogin }) => {
               </InputAdornment>
             }
           />
-          {wrongPassword && (
+          {wrongCredentials && (
             <span style={{ color: "red", fontSize: "13px" }}>
-              Wrong Password, Please Try Again
+              Wrong Credentials, Please Try Again
             </span>
           )}
         </FormControl>
 
         <Button variant="contained" onClick={onSubmitPassword}>
-          Submit
+          Sign In
         </Button>
         {showSignAsGuest && (
           <Button style={{ color: "gray" }} onClick={() => navigate("/home")}>

@@ -11,7 +11,7 @@ const initialState = {
 
 export const userPing = createAsyncThunk("user/userPing", async () => {
   try {
-    var result = await axios.get("/api/login");
+    var result = await axios.post("/api/login");
     return result.data;
   } catch (error) {
     if (error.response.status === 401) {
