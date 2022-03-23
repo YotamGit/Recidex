@@ -70,6 +70,7 @@ const Signup = ({ showSignAsGuest, navigateAfterLogin }) => {
   const onSubmitPassword = async () => {
     if (password !== passwordconfirm) {
       setPasswordsMismatch(true);
+      setPasswordConfirm("");
       return;
     }
     const cookies = new Cookies();
@@ -80,6 +81,12 @@ const Signup = ({ showSignAsGuest, navigateAfterLogin }) => {
       //   secure: true,
       //   maxAge: 60 * 60 * 24 * 7,
       // });
+      console.log({
+        firstname: firstname,
+        lastname: lastname,
+        username: username,
+        password: password,
+      });
       var result = await axios.post("/api/login/signup", {
         firstname: firstname,
         lastname: lastname,
@@ -87,6 +94,7 @@ const Signup = ({ showSignAsGuest, navigateAfterLogin }) => {
         password: password,
       });
       if (result.data) {
+        //put token cookie
         //dispatch(setSignedIn(true));
         if (navigateAfterLogin) {
           navigate("/login");

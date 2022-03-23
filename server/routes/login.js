@@ -26,5 +26,23 @@ router.post("/", async (req, res, next) => {
     next(err);
   }
 });
+router.post("/signup", async (req, res, next) => {
+  try {
+    // console.log(req.body);
+    const correctPassword = req.cookies.password
+      ? await bcrypt.compare(req.cookies.password, hashPassword)
+      : false;
+
+    if (correctPassword) {
+      res.status(200).send(correctPassword);
+      console.log(`Successful Login Attempt at ${new Date()}`);
+    } else {
+      res.status(401).send(correctPassword);
+      console.log(`Failed Signup Attempt at ${new Date()}`);
+    }
+  } catch (err) {
+    next(err);
+  }
+});
 
 module.exports = router;
