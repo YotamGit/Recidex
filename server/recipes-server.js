@@ -1,12 +1,15 @@
 const express = require("express");
+const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
 const bcrypt = require("bcryptjs");
 
 const app = express();
 const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
 const cors = require("cors");
-require("dotenv/config");
+
+const authUtils = require("./utils-module").Auth;
+
+dotenv.config();
 
 const hashPassword =
   "$2a$10$HAkbn4j5Zt0aOTEK6juDkOz7wEZOpDc60bBgrK2i2VTmPItii5G56";
@@ -67,6 +70,7 @@ mongoose.connect("mongodb://localhost:27017/Recipes", () =>
 );
 
 // Start Server
-app.listen(3001, () => {
-  console.log("Recipe Server up");
+let PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+  console.log(`Recipe Server is up and running on ${PORT}`);
 });

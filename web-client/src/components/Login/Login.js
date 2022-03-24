@@ -36,34 +36,6 @@ const Login = ({ showSignAsGuest, navigateAfterLogin, onLogin }) => {
   const [wrongCredentials, setWrongCredentials] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  const autoLogin = async () => {
-    const cookies = new Cookies();
-    const passwordCookie = cookies.get("password"); //get the token instead of the password
-    if (passwordCookie) {
-      try {
-        var result = await axios.post("/api/login");
-        if (result.data) {
-          dispatch(setSignedIn(result));
-
-          if (navigateAfterLogin) {
-            navigate("/home");
-          }
-        }
-      } catch (error) {
-        if (error.response.status === 401) {
-          dispatch(setSignedIn(false));
-        } else {
-          window.alert(
-            "Error Trying to Log In Automatically.\nReason: " + error.message
-          );
-        }
-      }
-    }
-  };
-  useEffect(() => {
-    autoLogin();
-  }, []);
-
   const onSubmitPassword = async () => {
     const cookies = new Cookies();
     try {

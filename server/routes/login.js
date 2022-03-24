@@ -4,29 +4,52 @@ const router = express.Router();
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 
-// const hashPassword =
-//   "$2a$10$HAkbn4j5Zt0aOTEK6juDkOz7wEZOpDc60bBgrK2i2VTmPItii5G56";
+const authUtils = require("../utils-module/").Auth;
 
 // Routes
 
-// GET X RECIPES FROM GIVEN DATE WITH FILTERS
+// sign in a user and send back a jwt
 router.post("/", async (req, res, next) => {
   try {
-    const correctPassword = req.cookies.password
-      ? await bcrypt.compare(req.cookies.password, hashPassword)
-      : false;
+    let user = await User.findOne({ username: { $eq: req.body.username } });
+    if (user) {
+      const correctPassword = req.body.password
+        ? await bcrypt.compare(req.body.password, user.password)
+        : false;
 
-    if (correctPassword) {
-      res.status(200).send(correctPassword);
-      console.log(`Successful Login Attempt at ${new Date()}`);
+      if (correctPassword) {
+        res.status(200).send(authUtils.generateToken(user._id));
+        console.log(`Successful Login Attempt at ${new Date()}`);
+      } else {
+        res.status(401).send(false);
+        console.log(`Failed Login Attempt at ${new Date()}`);
+      }
     } else {
-      res.status(401).send(correctPassword);
+      res.status(401).send(false);
       console.log(`Failed Login Attempt at ${new Date()}`);
     }
   } catch (err) {
     next(err);
   }
 });
+
+// a route to check if a given token is valid
+router.post("/ping", async (req, res, next) => {
+  try {
+    let authenticated = authUtils.validateToken(
+      req.body.headers.Authentication
+    );
+    if (authenticated) {
+      res.status(200).send(true);
+    }
+  } catch (err) {
+    res.status(401).send(false);
+    console.log(`Failed Ping Attempt at ${new Date()}`);
+    console.log(err, "\n");
+  }
+});
+
+// sign up a user and then send back a jwt
 router.post("/signup", async (req, res, next) => {
   try {
     let usernameAlreadyExists = await User.findOne({
@@ -49,7 +72,8 @@ router.post("/signup", async (req, res, next) => {
         username: req.body.username,
         password: hashedPassword,
       });
-      res.status(200).json(newUser); //return token
+
+      res.status(200).json(authUtils.generateToken(newUser._id)); //return token
       console.log(`User ${req.body.username} Created at ${new Date()}`);
     }
     // User.deleteMany({}).exec();//delete all users

@@ -25,47 +25,23 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 //redux
 import { useDispatch } from "react-redux";
-import { setSignedIn } from "../../slices/usersSlice";
+import {
+  setSignedIn,
+  setFirstname as setStoreFirstname,
+  setLastname as setStoreLastname,
+} from "../../slices/usersSlice";
 
 const Signup = ({ showSignAsGuest, navigateAfterLogin }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [firstname, setFirstname] = useState();
-  const [lastname, setLastname] = useState();
-  const [username, setUsername] = useState();
-  const [password, setPassword] = useState();
-  const [passwordconfirm, setPasswordConfirm] = useState();
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordconfirm, setPasswordConfirm] = useState("");
   const [passwordsmismatch, setPasswordsMismatch] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-
-  // const autoLogin = async () => {
-  //   const cookies = new Cookies();
-  //   const passwordCookie = cookies.get("password"); //get the token instead of the password
-  //   if (passwordCookie) {
-  //     try {
-  //       var result = await axios.post("/api/login");
-  //       if (result.data) {
-  //         dispatch(setSignedIn(result));
-
-  //         if (navigateAfterLogin) {
-  //           navigate("/home");
-  //         }
-  //       }
-  //     } catch (error) {
-  //       if (error.response.status === 401) {
-  //         dispatch(setSignedIn(false));
-  //       } else {
-  //         window.alert(
-  //           "Error Trying to Log In Automatically.\nReason: " + error.message
-  //         );
-  //       }
-  //     }
-  //   }
-  // };
-  useEffect(() => {
-    //autoLogin();
-  }, []);
 
   const onSubmitPassword = async () => {
     //check existance of required fields
@@ -85,15 +61,8 @@ const Signup = ({ showSignAsGuest, navigateAfterLogin }) => {
       setPasswordConfirm("");
       return;
     }
-    const cookies = new Cookies();
-    try {
-      // //set the token received from the server instead of straight up the password
-      // cookies.set("password", password, {
-      //   path: "/",
-      //   secure: true,
-      //   maxAge: 60 * 60 * 24 * 7,
-      // });
 
+    try {
       var result = await axios.post("/api/login/signup", {
         firstname: firstname,
         lastname: lastname,
@@ -101,32 +70,35 @@ const Signup = ({ showSignAsGuest, navigateAfterLogin }) => {
         password: password,
       });
       if (result.data) {
-        //put token cookie
-        //dispatch(setSignedIn(true));
+        localStorage.setItem("userToken", result.data);
+        dispatch(setStoreFirstname(firstname));
+        dispatch(setStoreLastname(lastname));
+        dispatch(setSignedIn(true));
         if (navigateAfterLogin) {
-          navigate("/login");
+          navigate("/home");
         }
       }
     } catch (error) {
-      window.alert("Failed to Sign Up.\nReason: " + error.message);
-      // if (error.response.status === 401) {
-      //   dispatch(setSignedIn(false));
-      //   setWrongCredentials(true);
-      // } else {
-      //   window.alert("Failed to Login.\nReason: " + error.message);
-      // }
+      console.log(error);
+      if (error.response.status === 409) {
+        window.alert("Failed to Sign Up.\nReason: " + error.response.data);
+        localStorage.clear(); //not sure if required
+        dispatch(setSignedIn(false)); //not sure if required
+      } else {
+        window.alert("Failed to Sign Up.\nReason: " + error.message);
+      }
     }
   };
   return (
-    <div id="login-container">
-      <div className="login-form-input-segment">
+    <div id="signup-container">
+      <div className="signup-form-input-segment">
         <h3 style={{ textAlign: "center" }}>Signup</h3>
         <div>
           <FormControl variant="outlined">
-            <InputLabel htmlFor="login-firstname-input">First Name</InputLabel>
+            <InputLabel htmlFor="signup-firstname-input">First Name</InputLabel>
             <OutlinedInput
               autoFocus
-              id="login-firstname-input"
+              id="signup-firstname-input"
               type="text"
               value={firstname}
               onChange={(e) => {
@@ -136,9 +108,9 @@ const Signup = ({ showSignAsGuest, navigateAfterLogin }) => {
             />
           </FormControl>
           <FormControl variant="outlined">
-            <InputLabel htmlFor="login-lastname-input">Last Name</InputLabel>
+            <InputLabel htmlFor="signup-lastname-input">Last Name</InputLabel>
             <OutlinedInput
-              id="login-lastname-input"
+              id="signup-lastname-input"
               type="text"
               value={lastname}
               onChange={(e) => {
@@ -150,9 +122,9 @@ const Signup = ({ showSignAsGuest, navigateAfterLogin }) => {
         </div>
         <div>
           <FormControl variant="outlined">
-            <InputLabel htmlFor="login-username-input">Username</InputLabel>
+            <InputLabel htmlFor="signup-username-input">Username</InputLabel>
             <OutlinedInput
-              id="login-username-input"
+              id="signup-username-input"
               type="text"
               value={username}
               onChange={(e) => {
@@ -162,9 +134,9 @@ const Signup = ({ showSignAsGuest, navigateAfterLogin }) => {
             />
           </FormControl>
           <FormControl variant="outlined">
-            <InputLabel htmlFor="login-password-input">Password</InputLabel>
+            <InputLabel htmlFor="signup-password-input">Password</InputLabel>
             <OutlinedInput
-              id="login-password-input"
+              id="signup-password-input"
               type={showPassword ? "text" : "password"}
               value={password}
               onChange={(e) => {
@@ -185,11 +157,11 @@ const Signup = ({ showSignAsGuest, navigateAfterLogin }) => {
             />
           </FormControl>
           <FormControl variant="outlined">
-            <InputLabel htmlFor="login-passwordconfirm-input">
+            <InputLabel htmlFor="signup-passwordconfirm-input">
               Confirm Password
             </InputLabel>
             <OutlinedInput
-              id="login-passwordconfirm-input"
+              id="signup-passwordconfirm-input"
               type={showPassword ? "text" : "password"}
               value={passwordconfirm}
               onChange={(e) => {

@@ -7,11 +7,18 @@ import {
 
 const initialState = {
   signedIn: false,
+  firstname: "",
+  lastname: "",
 };
 
 export const userPing = createAsyncThunk("user/userPing", async () => {
   try {
-    var result = await axios.post("/api/login");
+    var result = await axios.post("/api/login/ping", {
+      headers: {
+        Authentication: localStorage.getItem("userToken"),
+      },
+    });
+
     return result.data;
   } catch (error) {
     if (error.response.status === 401) {
@@ -32,6 +39,14 @@ const usersSlice = createSlice({
       const signedIn = action.payload;
       state.signedIn = signedIn;
     },
+    setFirstname(state, action) {
+      const firstname = action.payload;
+      state.firstname = firstname;
+    },
+    setLastname(state, action) {
+      const lastname = action.payload;
+      state.lastname = lastname;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(userPing.fulfilled, (state, action) => {
@@ -40,6 +55,6 @@ const usersSlice = createSlice({
   },
 });
 
-export const { setSignedIn } = usersSlice.actions;
+export const { setSignedIn, setFirstname, setLastname } = usersSlice.actions;
 
 export default usersSlice.reducer;
