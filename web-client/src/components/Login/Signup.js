@@ -31,11 +31,11 @@ const Signup = ({ showSignAsGuest, navigateAfterLogin }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordconfirm, setPasswordConfirm] = useState("");
+  const [firstname, setFirstname] = useState();
+  const [lastname, setLastname] = useState();
+  const [username, setUsername] = useState();
+  const [password, setPassword] = useState();
+  const [passwordconfirm, setPasswordConfirm] = useState();
   const [passwordsmismatch, setPasswordsMismatch] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -68,6 +68,18 @@ const Signup = ({ showSignAsGuest, navigateAfterLogin }) => {
   }, []);
 
   const onSubmitPassword = async () => {
+    //check existance of required fields
+    if (
+      firstname === undefined ||
+      lastname === undefined ||
+      username === undefined ||
+      password === undefined
+    ) {
+      //print error required fields
+      window.alert("Please all of the fields.");
+      return;
+    }
+    //confirm the user passwords
     if (password !== passwordconfirm) {
       setPasswordsMismatch(true);
       setPasswordConfirm("");
@@ -81,12 +93,7 @@ const Signup = ({ showSignAsGuest, navigateAfterLogin }) => {
       //   secure: true,
       //   maxAge: 60 * 60 * 24 * 7,
       // });
-      console.log({
-        firstname: firstname,
-        lastname: lastname,
-        username: username,
-        password: password,
-      });
+
       var result = await axios.post("/api/login/signup", {
         firstname: firstname,
         lastname: lastname,
@@ -118,7 +125,6 @@ const Signup = ({ showSignAsGuest, navigateAfterLogin }) => {
           <FormControl variant="outlined">
             <InputLabel htmlFor="login-firstname-input">First Name</InputLabel>
             <OutlinedInput
-              required
               autoFocus
               id="login-firstname-input"
               type="text"

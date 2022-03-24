@@ -1,10 +1,11 @@
 const express = require("express");
 
 const router = express.Router();
+const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 
-const hashPassword =
-  "$2a$10$HAkbn4j5Zt0aOTEK6juDkOz7wEZOpDc60bBgrK2i2VTmPItii5G56";
+// const hashPassword =
+//   "$2a$10$HAkbn4j5Zt0aOTEK6juDkOz7wEZOpDc60bBgrK2i2VTmPItii5G56";
 
 // Routes
 
@@ -28,18 +29,32 @@ router.post("/", async (req, res, next) => {
 });
 router.post("/signup", async (req, res, next) => {
   try {
-    // console.log(req.body);
-    const correctPassword = req.cookies.password
-      ? await bcrypt.compare(req.cookies.password, hashPassword)
-      : false;
+    let usernameAlreadyExists = await User.findOne({
+      username: { $eq: req.body.username },
+    });
+    if (usernameAlreadyExists) {
+      console.log(
+        `Failed to Create User ${
+          req.body.username
+        } at ${new Date()}, User Already Exists`
+      );
 
-    if (correctPassword) {
-      res.status(200).send(correctPassword);
-      console.log(`Successful Login Attempt at ${new Date()}`);
+      res.status(409).send("The User already exists. Try a different Username");
     } else {
-      res.status(401).send(correctPassword);
-      console.log(`Failed Signup Attempt at ${new Date()}`);
+      let hashedPassword = await bcrypt.hash(req.body.password, 10);
+      const newUser = await User.create({
+        role: "member",
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        username: req.body.username,
+        password: hashedPassword,
+      });
+      res.status(200).json(newUser); //return token
+      console.log(`User ${req.body.username} Created at ${new Date()}`);
     }
+    // User.deleteMany({}).exec();//delete all users
+    // var users = await User.find({}); // get all users
+    // console.log(users);
   } catch (err) {
     next(err);
   }
