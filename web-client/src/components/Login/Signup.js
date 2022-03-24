@@ -1,8 +1,7 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import Cookies from "universal-cookie";
 import "../../styles/Signup.css";
 
 // generate a hashed password
@@ -27,6 +26,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useDispatch } from "react-redux";
 import {
   setSignedIn,
+  setUserId,
   setFirstname as setStoreFirstname,
   setLastname as setStoreLastname,
 } from "../../slices/usersSlice";
@@ -69,8 +69,10 @@ const Signup = ({ showSignAsGuest, navigateAfterLogin }) => {
         username: username,
         password: password,
       });
+      console.log(result.data);
       if (result.data) {
-        localStorage.setItem("userToken", result.data);
+        localStorage.setItem("userToken", result.data.token);
+        dispatch(setUserId(result.data.userData.userId));
         dispatch(setStoreFirstname(firstname));
         dispatch(setStoreLastname(lastname));
         dispatch(setSignedIn(true));

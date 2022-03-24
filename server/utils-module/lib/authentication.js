@@ -1,10 +1,12 @@
 const jwt = require("jsonwebtoken");
 
-exports.generateToken = (userId) => {
+exports.generateToken = (userData) => {
   let jwtSecretKey = process.env.JWT_SECRET_KEY;
   let data = {
     time: Date(),
-    userId: userId,
+    firstname: userData.firstname,
+    lastname: userData.lastname,
+    userId: userData._id,
   };
   const token = jwt.sign(data, jwtSecretKey);
 

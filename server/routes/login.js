@@ -18,7 +18,14 @@ router.post("/", async (req, res, next) => {
         : false;
 
       if (correctPassword) {
-        res.status(200).send(authUtils.generateToken(user._id));
+        res.status(200).json({
+          token: authUtils.generateToken(user),
+          userData: {
+            firstname: user.firstname,
+            lastname: user.lastname,
+            userId: user.userId,
+          },
+        }); //send user datraatatatatat
         console.log(`Successful Login Attempt at ${new Date()}`);
       } else {
         res.status(401).send(false);
@@ -40,7 +47,15 @@ router.post("/ping", async (req, res, next) => {
       req.body.headers.Authentication
     );
     if (authenticated) {
-      res.status(200).send(true);
+      res.status(200).json({
+        authenticated: true,
+        userData: {
+          firstname: authenticated.firstname,
+          lastname: authenticated.lastname,
+          userId: authenticated.userId,
+        },
+      });
+      console.log(`Successful Ping Attempt at ${new Date()}`);
     }
   } catch (err) {
     res.status(401).send(false);
@@ -73,7 +88,12 @@ router.post("/signup", async (req, res, next) => {
         password: hashedPassword,
       });
 
-      res.status(200).json(authUtils.generateToken(newUser._id)); //return token
+      res.status(200).json({
+        token: authUtils.generateToken(newUser),
+        userData: {
+          userId: newUser._id,
+        },
+      }); //return token
       console.log(`User ${req.body.username} Created at ${new Date()}`);
     }
     // User.deleteMany({}).exec();//delete all users

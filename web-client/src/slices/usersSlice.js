@@ -7,6 +7,7 @@ import {
 
 const initialState = {
   signedIn: false,
+  userId: "",
   firstname: "",
   lastname: "",
 };
@@ -18,7 +19,6 @@ export const userPing = createAsyncThunk("user/userPing", async () => {
         Authentication: localStorage.getItem("userToken"),
       },
     });
-
     return result.data;
   } catch (error) {
     if (error.response.status === 401) {
@@ -39,6 +39,10 @@ const usersSlice = createSlice({
       const signedIn = action.payload;
       state.signedIn = signedIn;
     },
+    setUserId(state, action) {
+      const userId = action.payload;
+      state.userId = userId;
+    },
     setFirstname(state, action) {
       const firstname = action.payload;
       state.firstname = firstname;
@@ -50,11 +54,15 @@ const usersSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(userPing.fulfilled, (state, action) => {
-      state.signedIn = action.payload;
+      state.signedIn = action.payload.authenticated;
+      state.firstname = action.payload.userData.firstname;
+      state.lastname = action.payload.userData.lastname;
+      state.userId = action.payload.userData.userId;
     });
   },
 });
 
-export const { setSignedIn, setFirstname, setLastname } = usersSlice.actions;
+export const { setSignedIn, setUserId, setFirstname, setLastname } =
+  usersSlice.actions;
 
 export default usersSlice.reducer;
