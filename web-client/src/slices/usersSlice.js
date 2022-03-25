@@ -19,6 +19,7 @@ export const userPing = createAsyncThunk("user/userPing", async () => {
         Authentication: localStorage.getItem("userToken"),
       },
     });
+    console.log(result.data);
     return result.data;
   } catch (error) {
     if (error.response.status === 401) {
@@ -55,9 +56,11 @@ const usersSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(userPing.fulfilled, (state, action) => {
       state.signedIn = action.payload.authenticated;
-      state.firstname = action.payload.userData.firstname;
-      state.lastname = action.payload.userData.lastname;
-      state.userId = action.payload.userData.userId;
+      if (action.payload.authenticated) {
+        state.firstname = action.payload.userData.firstname;
+        state.lastname = action.payload.userData.lastname;
+        state.userId = action.payload.userData.userId;
+      }
     });
   },
 });

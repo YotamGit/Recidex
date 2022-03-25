@@ -25,7 +25,12 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 //redux
 import { useDispatch } from "react-redux";
-import { setSignedIn } from "../../slices/usersSlice";
+import {
+  setSignedIn,
+  setFirstname,
+  setLastname,
+  setUserId,
+} from "../../slices/usersSlice";
 
 const Login = ({ showSignAsGuest, navigateAfterLogin, onLogin }) => {
   const dispatch = useDispatch();
@@ -39,17 +44,15 @@ const Login = ({ showSignAsGuest, navigateAfterLogin, onLogin }) => {
   const onSubmitPassword = async () => {
     const cookies = new Cookies();
     try {
-      //set the token received from the server instead of straight up the password
-      cookies.set("password", password, {
-        path: "/",
-        secure: true,
-        maxAge: 60 * 60 * 24 * 7,
-      });
       var result = await axios.post("/api/login", {
         username: username,
         password: password,
       });
       if (result.data) {
+        localStorage.setItem("userToken", result.data.token);
+        dispatch(setUserId(result.data.userData.userId));
+        dispatch(setFirstname(result.data.userData.firstname));
+        dispatch(setLastname(result.data.userData.lastname));
         dispatch(setSignedIn(true));
         if (navigateAfterLogin) {
           navigate("/home");
@@ -57,9 +60,9 @@ const Login = ({ showSignAsGuest, navigateAfterLogin, onLogin }) => {
         onLogin && onLogin();
       }
     } catch (error) {
-      console.log(error);
       if (error.response.status === 401) {
-        dispatch(setSignedIn(false));
+        localStorage.clear(); //not sure if required
+        dispatch(setSignedIn(false)); //not sure if required
         setWrongCredentials(true);
       } else {
         window.alert("Failed to Login.\nReason: " + error.message);

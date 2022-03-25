@@ -25,7 +25,7 @@ router.post("/", async (req, res, next) => {
             lastname: user.lastname,
             userId: user.userId,
           },
-        }); //send user datraatatatatat
+        });
         console.log(`Successful Login Attempt at ${new Date()}`);
       } else {
         res.status(401).send(false);
@@ -58,9 +58,9 @@ router.post("/ping", async (req, res, next) => {
       console.log(`Successful Ping Attempt at ${new Date()}`);
     }
   } catch (err) {
-    res.status(401).send(false);
+    res.status(401).json({ authenticatef: false });
     console.log(`Failed Ping Attempt at ${new Date()}`);
-    console.log(err, "\n");
+    console.log(err, "\n"); //maybe remove this log
   }
 });
 

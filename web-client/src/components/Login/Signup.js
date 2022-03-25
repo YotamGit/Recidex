@@ -69,7 +69,6 @@ const Signup = ({ showSignAsGuest, navigateAfterLogin }) => {
         username: username,
         password: password,
       });
-      console.log(result.data);
       if (result.data) {
         localStorage.setItem("userToken", result.data.token);
         dispatch(setUserId(result.data.userData.userId));
@@ -81,7 +80,6 @@ const Signup = ({ showSignAsGuest, navigateAfterLogin }) => {
         }
       }
     } catch (error) {
-      console.log(error);
       if (error.response.status === 409) {
         window.alert("Failed to Sign Up.\nReason: " + error.response.data);
         localStorage.clear(); //not sure if required
