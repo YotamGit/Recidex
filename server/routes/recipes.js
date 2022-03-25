@@ -66,7 +66,6 @@ router.post("/new", async (req, res, next) => {
 
 // DELETE A SPECIFIC RECIPE
 router.post("/delete/:recipe_id", async (req, res, next) => {
-  var startTime = performance.now();
   try {
     console.log(req.params);
     const recipe = await Recipe.findById(req.params.recipe_id);
@@ -75,10 +74,18 @@ router.post("/delete/:recipe_id", async (req, res, next) => {
       recipe
     );
     console.log(isOwner);
-    // const response = await Recipe.deleteOne({ _id: req.params.recipe_id });
-    // res.status(200).json(response);
-    // var endTime = performance.now();
-    // console.log(`Deleting Recipe took ${endTime - startTime} milliseconds`);
+    if (isOwner) {
+      var startTime = performance.now();
+
+      const response = await Recipe.deleteOne({ _id: req.params.recipe_id });
+      res.status(200).json(response);
+      var endTime = performance.now();
+      console.log(`Deleting Recipe took ${endTime - startTime} milliseconds`);
+    } else {
+      res
+        .status(401)
+        .send("Cannot delete recipe. You are not the Owner of this Recipe");
+    }
   } catch (err) {
     next(err);
   }
