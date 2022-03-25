@@ -45,7 +45,12 @@ export const editRecipe = createAsyncThunk(
   "recipes/editRecipe",
   async (recipeData, thunkAPI) => {
     try {
-      await axios.patch(`/api/recipes/${recipeData._id}`, recipeData);
+      await axios.patch(`/api/recipes/${recipeData._id}`, {
+        headers: {
+          Authentication: localStorage.getItem("userToken"),
+        },
+        recipeData,
+      });
     } catch (error) {
       return thunkAPI.rejectWithValue({
         statusCode: error.response.status,
@@ -65,7 +70,11 @@ export const deleteRecipe = createAsyncThunk(
   "recipes/deleteRecipe",
   async (id, thunkAPI) => {
     try {
-      await axios.delete(`/api/recipes/${id}`);
+      await axios.post(`/api/recipes/delete/${id}`, {
+        headers: {
+          Authentication: localStorage.getItem("userToken"),
+        },
+      });
     } catch (error) {
       return thunkAPI.rejectWithValue({
         statusCode: error.response.status,
@@ -85,7 +94,12 @@ export const addRecipe = createAsyncThunk(
   async (recipe, thunkAPI) => {
     delete recipe._id;
     try {
-      var result = await axios.post(`/api/recipes/new`, recipe);
+      var result = await axios.post(`/api/recipes/new`, {
+        headers: {
+          Authentication: localStorage.getItem("userToken"),
+        },
+        recipe,
+      });
       return result.data;
     } catch (error) {
       return thunkAPI.rejectWithValue({

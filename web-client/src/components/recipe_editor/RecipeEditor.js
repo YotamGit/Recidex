@@ -331,7 +331,7 @@ const RecipeEditor = ({ action, recipe }) => {
           <img alt="" id="recipe-editor-image" />
         </div>
       </TabPanel>
-      <AuthorizedButton onClick={onSaveRecipeChanges}>
+      <AuthorizedButton authorized={true} onClick={onSaveRecipeChanges}>
         <SaveIcon
           style={{ width: "100%", backgroundColor: "rgb(97, 204, 70)" }}
         />

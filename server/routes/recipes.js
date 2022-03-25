@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const Recipe = require("../models/Recipe");
+const {
+  authenticateRecipeOwnership,
+} = require("../utils-module/lib/authentication");
 
 // Routes
 
@@ -47,9 +50,11 @@ router.get("/", async (req, res, next) => {
 router.post("/new", async (req, res, next) => {
   var startTime = performance.now();
 
-  const record = req.body;
   try {
-    const savedRecipe = await Recipe.create(record);
+    const savedRecipe = await Recipe.create({
+      ...req.body.recipe,
+      owner: req.body.headers.validatedToken.userId,
+    });
     res.status(200).json(savedRecipe);
 
     var endTime = performance.now();
@@ -60,13 +65,20 @@ router.post("/new", async (req, res, next) => {
 });
 
 // DELETE A SPECIFIC RECIPE
-router.delete("/:recipe_id", async (req, res, next) => {
+router.post("/delete/:recipe_id", async (req, res, next) => {
   var startTime = performance.now();
   try {
-    const response = await Recipe.deleteOne({ _id: req.params.recipe_id });
-    res.status(200).json(response);
-    var endTime = performance.now();
-    console.log(`Deleting Recipe took ${endTime - startTime} milliseconds`);
+    console.log(req.params);
+    const recipe = await Recipe.findById(req.params.recipe_id);
+    const isOwner = authenticateRecipeOwnership(
+      req.body.headers.validatedToken,
+      recipe
+    );
+    console.log(isOwner);
+    // const response = await Recipe.deleteOne({ _id: req.params.recipe_id });
+    // res.status(200).json(response);
+    // var endTime = performance.now();
+    // console.log(`Deleting Recipe took ${endTime - startTime} milliseconds`);
   } catch (err) {
     next(err);
   }

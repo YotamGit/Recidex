@@ -8,6 +8,7 @@ exports.generateToken = (userData) => {
     lastname: userData.lastname,
     userId: userData._id,
   };
+  console.log(data);
   const token = jwt.sign(data, jwtSecretKey);
 
   return token;
@@ -22,26 +23,25 @@ exports.validateToken = (token) => {
 
 //check if the user is real using the token
 exports.authenticateUser = (req, res, next) => {
-  let tokenHeaderKey = process.env.TOKEN_HEADER_KEY;
   try {
-    let authenticated = validateToken(req.header(tokenHeaderKey));
-    // const correctPassword = req.cookies.password
-    //   ? await bcrypt.compare(req.cookies.password, hashPassword)
-    //   : false;
-    // if (correctPassword) {
-    //   next();
-    // } else {
-    //   res.status(401).send("Unauthorized, Login Required.");
-    //   console.log(
-    //     `\n${Date()} - Unauthorized ${req.method} Request, Url: ${
-    //       req.originalUrl
-    //     }`
-    //   );
-    // }
+    let token = this.validateToken(req.body.headers.Authentication);
+    req.body.headers.validatedToken = token;
+    console.log(`Authorized API access User ${token.userId} at ${new Date()}`);
+    next();
   } catch (err) {
-    next(err);
+    console.log(`Unauthorized API access at ${new Date()}`);
+    res.status(401).send("Unauthorized, provide valid credentials.");
   }
 };
 
 //check that the user owns the recipe or is an admin
-exports.authenticateRecipeOwnership = (req, res, next) => {};
+exports.authenticateRecipeOwnership = (validatedToken, recipe) => {
+  console.log(validatedToken.userId);
+  console.log(recipe.owner);
+  //use === and convert validated token id to string. with == there is no need
+  if (validatedToken.userId == recipe.owner) {
+    return true;
+  } else {
+    return false;
+  }
+};

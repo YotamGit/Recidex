@@ -58,7 +58,7 @@ router.post("/ping", async (req, res, next) => {
       console.log(`Successful Ping Attempt at ${new Date()}`);
     }
   } catch (err) {
-    res.status(401).json({ authenticatef: false });
+    res.status(401).json({ authenticated: false });
     console.log(`Failed Ping Attempt at ${new Date()}`);
     console.log(err, "\n"); //maybe remove this log
   }

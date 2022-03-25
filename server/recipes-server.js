@@ -45,9 +45,9 @@ app.use("*", (req, res, next) => {
 });
 
 // Authentication Middlewares
-app.post("/api/recipes/new", authenticate);
-app.delete("/api/recipes/*", authenticate);
-app.patch("/api/recipes/*", authenticate);
+app.post("/api/recipes/new", authUtils.authenticateUser);
+app.post("/api/recipes/delete/*", authUtils.authenticateUser);
+app.patch("/api/recipes/*", authUtils.authenticateUser);
 
 // Import Routes
 const loginRoute = require("./routes/login");
