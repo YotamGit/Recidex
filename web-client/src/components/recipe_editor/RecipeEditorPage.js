@@ -27,8 +27,6 @@ const RecipeEditorPage = () => {
       let deleteRes = await dispatch(deleteRecipe(recipe._id));
       if (!deleteRes.error) {
         navigate("/home");
-      } else if (deleteRes.payload.statusCode === 401) {
-        navigate("/login");
       }
     }
   };

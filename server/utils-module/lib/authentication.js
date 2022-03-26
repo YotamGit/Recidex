@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const User = require("../../models/User");
 
 exports.generateToken = (userData) => {
   let jwtSecretKey = process.env.JWT_SECRET_KEY;
@@ -8,7 +9,6 @@ exports.generateToken = (userData) => {
     lastname: userData.lastname,
     userId: userData._id,
   };
-  console.log(data);
   const token = jwt.sign(data, jwtSecretKey);
 
   return token;
@@ -35,13 +35,9 @@ exports.authenticateUser = (req, res, next) => {
 };
 
 //check that the user owns the recipe or is an admin
-exports.authenticateRecipeOwnership = (validatedToken, recipe) => {
-  console.log(validatedToken.userId);
-  console.log(recipe.owner);
-  //use === and convert validated token id to string. with == there is no need
-  if (validatedToken.userId == recipe.owner) {
-    return true;
-  } else {
-    return false;
-  }
+exports.authenticateRecipeOwnership = async (validatedToken, recipe) => {
+  //to use use === convert validated token id to string.
+  //with == there is no need to do so.
+  let user = await User.findById(validatedToken.userId);
+  return validatedToken.userId == recipe.owner || user.role === "admin";
 };

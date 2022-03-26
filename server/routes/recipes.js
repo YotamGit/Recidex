@@ -12,12 +12,14 @@ router.get("/", async (req, res, next) => {
   var startTime = performance.now();
   try {
     if (Object.keys(req.query).length > 0) {
-      const recipes = await Recipe.find({
+      let recipes = await Recipe.find({
         creation_time: { $lt: req.query.latest },
         ...JSON.parse(req.query.filters || "{}"),
       })
+        .populate("owner", "firstname lastname")
         .sort({ creation_time: -1 })
         .limit(parseInt(req.query.count));
+
       res.sentCount = Object.keys(recipes).length;
       res.status(200).json(recipes);
     } else {
@@ -55,7 +57,16 @@ router.post("/new", async (req, res, next) => {
       ...req.body.recipe,
       owner: req.body.headers.validatedToken.userId,
     });
-    res.status(200).json(savedRecipe);
+
+    // find the recipe again in order to populate the owner with the names and send it to the client
+    res
+      .status(200)
+      .json(
+        await Recipe.findById(savedRecipe._id).populate(
+          "owner",
+          "firstname lastname"
+        )
+      );
 
     var endTime = performance.now();
     console.log(`Adding new Recipe took ${endTime - startTime} milliseconds`);
@@ -67,18 +78,17 @@ router.post("/new", async (req, res, next) => {
 // DELETE A SPECIFIC RECIPE
 router.post("/delete/:recipe_id", async (req, res, next) => {
   try {
-    console.log(req.params);
     const recipe = await Recipe.findById(req.params.recipe_id);
-    const isOwner = authenticateRecipeOwnership(
+    const isOwner = await authenticateRecipeOwnership(
       req.body.headers.validatedToken,
       recipe
     );
-    console.log(isOwner);
     if (isOwner) {
       var startTime = performance.now();
 
       const response = await Recipe.deleteOne({ _id: req.params.recipe_id });
       res.status(200).json(response);
+
       var endTime = performance.now();
       console.log(`Deleting Recipe took ${endTime - startTime} milliseconds`);
     } else {
@@ -93,16 +103,28 @@ router.post("/delete/:recipe_id", async (req, res, next) => {
 
 // UPDATE A SPECIFIC RECIPE
 router.patch("/:recipe_id", async (req, res, next) => {
-  var startTime = performance.now();
   try {
-    const response = await Recipe.updateOne(
-      { _id: req.params.recipe_id },
-      { $set: { ...req.body, last_update_time: Date.now() } }
+    const recipe = await Recipe.findById(req.params.recipe_id);
+    const isOwner = await authenticateRecipeOwnership(
+      req.body.headers.validatedToken,
+      recipe
     );
-    res.status(200).json(response);
+    if (isOwner) {
+      var startTime = performance.now();
 
-    var endTime = performance.now();
-    console.log(`Updating Recipe took ${endTime - startTime} milliseconds`);
+      const response = await Recipe.updateOne(
+        { _id: req.params.recipe_id },
+        { $set: { ...req.body, last_update_time: Date.now() } }
+      );
+      res.status(200).json(response);
+
+      var endTime = performance.now();
+      console.log(`Updating Recipe took ${endTime - startTime} milliseconds`);
+    } else {
+      res
+        .status(401)
+        .send("Cannot edit recipe. You are not the Owner of this Recipe");
+    }
   } catch (err) {
     next(err);
   }

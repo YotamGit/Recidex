@@ -51,6 +51,13 @@ const usersSlice = createSlice({
       const lastname = action.payload;
       state.lastname = lastname;
     },
+    clearUser(state, action) {
+      state.firstname = "";
+      state.lastname = "";
+      state.signedIn = false;
+      state.userId = "";
+      localStorage.clear();
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(userPing.fulfilled, (state, action) => {
@@ -64,7 +71,7 @@ const usersSlice = createSlice({
   },
 });
 
-export const { setSignedIn, setUserId, setFirstname, setLastname } =
+export const { setSignedIn, setUserId, setFirstname, setLastname, clearUser } =
   usersSlice.actions;
 
 export default usersSlice.reducer;

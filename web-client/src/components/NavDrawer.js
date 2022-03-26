@@ -16,9 +16,11 @@ import PatternRoundedIcon from "@mui/icons-material/PatternRounded";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 
 //redux
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { clearUser } from "../slices/usersSlice";
 
 const NavDrawer = ({ openDrawer, handleToggleDrawer }) => {
+  const dispatch = useDispatch();
   const signedIn = useSelector((state) => state.users.signedIn);
   const navigate = useNavigate();
   return (
@@ -49,8 +51,7 @@ const NavDrawer = ({ openDrawer, handleToggleDrawer }) => {
           <span
             className="drawer-button-wrapper"
             onClick={() => {
-              //log user out
-              navigate("/home");
+              dispatch(clearUser());
               handleToggleDrawer();
             }}
           >

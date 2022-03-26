@@ -37,19 +37,40 @@ const Signup = ({ showSignAsGuest, navigateAfterLogin }) => {
 
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
+
+  const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
+
   const [password, setPassword] = useState("");
   const [passwordconfirm, setPasswordConfirm] = useState("");
-  const [passwordsmismatch, setPasswordsMismatch] = useState(false);
+
+  const [invalidEmail, setInvalidEmail] = useState(false);
+  const [passwordsMismatch, setPasswordsMismatch] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  const onSubmitPassword = async () => {
+  //move to utils
+  const validateEmail = (mail) => {
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
+      return true;
+    }
+    return false;
+  };
+
+  const onSubmit = async () => {
+    //validate email
+    if (!validateEmail(email)) {
+      setInvalidEmail(true);
+      return;
+    } else {
+      setInvalidEmail(false);
+    }
     //check existance of required fields
     if (
-      firstname === undefined ||
-      lastname === undefined ||
-      username === undefined ||
-      password === undefined
+      firstname === "" ||
+      lastname === "" ||
+      email === "" ||
+      username === "" ||
+      password === ""
     ) {
       //print error required fields
       window.alert("Please all of the fields.");
@@ -66,6 +87,7 @@ const Signup = ({ showSignAsGuest, navigateAfterLogin }) => {
       var result = await axios.post("/api/login/signup", {
         firstname: firstname,
         lastname: lastname,
+        email: email,
         username: username,
         password: password,
       });
@@ -134,6 +156,28 @@ const Signup = ({ showSignAsGuest, navigateAfterLogin }) => {
             />
           </FormControl>
           <FormControl variant="outlined">
+            <InputLabel htmlFor="signup-email-input">
+              Email (for future password reset)
+            </InputLabel>
+            <OutlinedInput
+              autoFocus
+              id="signup-email-input"
+              type="text"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+              label="Email"
+            />
+            {invalidEmail && (
+              <span style={{ color: "red", fontSize: "13px" }}>
+                Invalid Email, Please Try Again
+              </span>
+            )}
+          </FormControl>
+        </div>
+        <div>
+          <FormControl variant="outlined">
             <InputLabel htmlFor="signup-password-input">Password</InputLabel>
             <OutlinedInput
               id="signup-password-input"
@@ -180,14 +224,14 @@ const Signup = ({ showSignAsGuest, navigateAfterLogin }) => {
                 </InputAdornment>
               }
             />
-            {passwordsmismatch && (
+            {passwordsMismatch && (
               <span style={{ color: "red", fontSize: "13px" }}>
                 Passwords do not match, Please Try Again
               </span>
             )}
           </FormControl>
         </div>
-        <Button variant="contained" onClick={onSubmitPassword}>
+        <Button variant="contained" onClick={onSubmit}>
           Sign Up
         </Button>
         {showSignAsGuest && (

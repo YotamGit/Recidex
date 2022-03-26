@@ -83,6 +83,7 @@ const RecipeEditor = ({ action, recipe }) => {
     }
   }, [activeTab, description, ingredients, directions, image, imageName]);
 
+  // move to utils
   // Image to base64 converter for image uplaod
   const toBase64 = (file) =>
     new Promise((resolve, reject) => {
@@ -143,8 +144,6 @@ const RecipeEditor = ({ action, recipe }) => {
 
           if (!editRes.error) {
             navigate(-1);
-          } else if (editRes.payload.statusCode === 401) {
-            navigate("/login");
           }
 
           break;
@@ -152,8 +151,6 @@ const RecipeEditor = ({ action, recipe }) => {
           let addRes = await dispatch(addRecipe(recipeData));
           if (!addRes.error) {
             navigate("/home");
-          } else if (addRes.payload.statusCode === 401) {
-            navigate("/login");
           }
           break;
         default:
@@ -331,7 +328,7 @@ const RecipeEditor = ({ action, recipe }) => {
           <img alt="" id="recipe-editor-image" />
         </div>
       </TabPanel>
-      <AuthorizedButton authorized={true} onClick={onSaveRecipeChanges}>
+      <AuthorizedButton onClick={onSaveRecipeChanges}>
         <SaveIcon
           style={{ width: "100%", backgroundColor: "rgb(97, 204, 70)" }}
         />

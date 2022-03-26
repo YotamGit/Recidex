@@ -126,6 +126,9 @@ const Login = ({ showSignAsGuest, navigateAfterLogin, onLogin }) => {
             Continue as Guest
           </Button>
         )}
+        <Button style={{ color: "gray" }} onClick={() => navigate("/signup")}>
+          Sign Up
+        </Button>
       </div>
     </div>
   );

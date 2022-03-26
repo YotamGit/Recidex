@@ -84,6 +84,7 @@ router.post("/signup", async (req, res, next) => {
         role: "member",
         firstname: req.body.firstname,
         lastname: req.body.lastname,
+        email: req.body.email,
         username: req.body.username,
         password: hashedPassword,
       });
@@ -93,7 +94,7 @@ router.post("/signup", async (req, res, next) => {
         userData: {
           userId: newUser._id,
         },
-      }); //return token
+      });
       console.log(`User ${req.body.username} Created at ${new Date()}`);
     }
     // User.deleteMany({}).exec();//delete all users

@@ -11,6 +11,9 @@ import Divider from "@mui/material/Divider";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import OpenInFullRoundedIcon from "@mui/icons-material/OpenInFullRounded";
 
+//redux
+import { useSelector } from "react-redux";
+
 marked.setOptions({
   gfm: true,
   breaks: true,
@@ -19,6 +22,7 @@ marked.setOptions({
 
 const RecipeCard = ({ recipe }) => {
   const navigate = useNavigate();
+
   useEffect(() => {
     document.getElementById(recipe._id + "-recipe-description").innerHTML =
       marked.parse(recipe.description ? recipe.description : "");
@@ -119,8 +123,10 @@ const RecipeCard = ({ recipe }) => {
                 </div>
               )}
               <div className="recipe-additional-data-field">
-                <span className="caption">Author:</span>
-                <span>{}</span>
+                <span className="caption">Owner:</span>
+                <span>
+                  {recipe.owner.firstname + " " + recipe.owner.lastname}
+                </span>
               </div>
             </span>
             {recipe.image && (
