@@ -11,29 +11,6 @@ const authUtils = require("./utils-module").Auth;
 
 dotenv.config();
 
-const hashPassword =
-  "$2a$10$HAkbn4j5Zt0aOTEK6juDkOz7wEZOpDc60bBgrK2i2VTmPItii5G56";
-
-const authenticate = async (req, res, next) => {
-  try {
-    const correctPassword = req.cookies.password
-      ? await bcrypt.compare(req.cookies.password, hashPassword)
-      : false;
-    if (correctPassword) {
-      next();
-    } else {
-      res.status(401).send("Unauthorized, Login Required.");
-      console.log(
-        `\n${Date()} - Unauthorized ${req.method} Request, Url: ${
-          req.originalUrl
-        }`
-      );
-    }
-  } catch (err) {
-    next(err);
-  }
-};
-
 // Middlewares
 app.use(cors());
 app.use(cookieParser());
@@ -47,7 +24,7 @@ app.use("*", (req, res, next) => {
 // Authentication Middlewares
 app.post("/api/recipes/new", authUtils.authenticateUser);
 app.post("/api/recipes/delete/*", authUtils.authenticateUser);
-app.patch("/api/recipes/*", authUtils.authenticateUser);
+app.post("/api/recipes/edit/*", authUtils.authenticateUser);
 
 // Import Routes
 const loginRoute = require("./routes/login");

@@ -45,7 +45,7 @@ export const editRecipe = createAsyncThunk(
   "recipes/editRecipe",
   async (recipeData, thunkAPI) => {
     try {
-      await axios.patch(`/api/recipes/${recipeData._id}`, {
+      let response = await axios.post(`/api/recipes/edit/${recipeData._id}`, {
         headers: {
           Authentication: localStorage.getItem("userToken"),
         },
@@ -58,10 +58,11 @@ export const editRecipe = createAsyncThunk(
         message: error.message,
       });
     }
+
     return thunkAPI
       .getState()
       .recipes.recipes.map((recipe) =>
-        recipe._id === recipeData._id ? recipeData : recipe
+        recipe._id === recipeData._id ? { ...recipe, ...recipeData } : recipe
       );
   }
 );

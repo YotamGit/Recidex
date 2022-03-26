@@ -137,6 +137,7 @@ const RecipeEditor = ({ action, recipe }) => {
       imageName,
       image,
     };
+
     if (save) {
       switch (action) {
         case "edit":

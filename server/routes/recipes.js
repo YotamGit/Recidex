@@ -102,7 +102,7 @@ router.post("/delete/:recipe_id", async (req, res, next) => {
 });
 
 // UPDATE A SPECIFIC RECIPE
-router.patch("/:recipe_id", async (req, res, next) => {
+router.post("/edit/:recipe_id", async (req, res, next) => {
   try {
     const recipe = await Recipe.findById(req.params.recipe_id);
     const isOwner = await authenticateRecipeOwnership(
@@ -111,10 +111,14 @@ router.patch("/:recipe_id", async (req, res, next) => {
     );
     if (isOwner) {
       var startTime = performance.now();
-
       const response = await Recipe.updateOne(
         { _id: req.params.recipe_id },
-        { $set: { ...req.body, last_update_time: Date.now() } }
+        {
+          $set: {
+            ...req.body.recipeData,
+            last_update_time: Date.now(),
+          },
+        }
       );
       res.status(200).json(response);
 
