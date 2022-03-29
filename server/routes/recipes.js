@@ -1,4 +1,5 @@
 const express = require("express");
+const sanitizeHtml = require("sanitize-html");
 const router = express.Router();
 const Recipe = require("../models/Recipe");
 const {
@@ -51,8 +52,12 @@ router.get("/", async (req, res, next) => {
 // SUBMIT A NEW RECIPE
 router.post("/new", async (req, res, next) => {
   var startTime = performance.now();
-
   try {
+    //sanitize html
+    req.body.recipe.description = sanitizeHtml(req.body.recipe.description);
+    req.body.recipe.ingredients = sanitizeHtml(req.body.recipe.ingredients);
+    req.body.recipe.directions = sanitizeHtml(req.body.recipe.directions);
+
     const savedRecipe = await Recipe.create({
       ...req.body.recipe,
       owner: req.body.headers.validatedToken.userId,
@@ -111,6 +116,18 @@ router.post("/edit/:recipe_id", async (req, res, next) => {
     );
     if (isOwner) {
       var startTime = performance.now();
+
+      //sanitize html
+      req.body.recipeData.description = sanitizeHtml(
+        req.body.recipeData.description
+      );
+      req.body.recipeData.ingredients = sanitizeHtml(
+        req.body.recipeData.ingredients
+      );
+      req.body.recipeData.directions = sanitizeHtml(
+        req.body.recipeData.directions
+      );
+
       const response = await Recipe.updateOne(
         { _id: req.params.recipe_id },
         {
