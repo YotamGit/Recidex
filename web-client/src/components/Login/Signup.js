@@ -1,4 +1,11 @@
 import React from "react";
+//utils
+import {
+  validUsername,
+  validPassword,
+  validEmail,
+} from "../../utils-module/validation";
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -49,21 +56,8 @@ const Signup = ({ showSignAsGuest, navigateAfterLogin }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   //move to utils
-  const validateEmail = (mail) => {
-    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
-      return true;
-    }
-    return false;
-  };
 
-  const onSubmit = async () => {
-    //validate email
-    if (!validateEmail(email)) {
-      setInvalidEmail(true);
-      return;
-    } else {
-      setInvalidEmail(false);
-    }
+  const validateInput = () => {
     //check existance of required fields
     if (
       firstname === "" ||
@@ -74,15 +68,42 @@ const Signup = ({ showSignAsGuest, navigateAfterLogin }) => {
     ) {
       //print error required fields
       window.alert("Please all of the fields.");
-      return;
+      return false;
     }
+
+    if (!validUsername(username)) {
+      window.alert(
+        "Invalid Username. \nUsername must be at least 6 characters long."
+      );
+      return false;
+    }
+
+    if (!validPassword(password)) {
+      window.alert(
+        "Invalid Password. \nPassword must be between 6 and 16 characters long."
+      );
+      return false;
+    }
+
+    if (!validEmail(email)) {
+      setInvalidEmail(true);
+      return false;
+    } else {
+      setInvalidEmail(false);
+    }
+
     //confirm the user passwords
     if (password !== passwordconfirm) {
       setPasswordsMismatch(true);
       setPasswordConfirm("");
+      return false;
+    }
+    return true;
+  };
+  const onSubmit = async () => {
+    if (!validateInput()) {
       return;
     }
-
     try {
       var result = await axios.post("/api/login/signup", {
         firstname: firstname,
