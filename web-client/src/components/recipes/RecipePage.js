@@ -1,11 +1,14 @@
 import Recipe from "./Recipe.js";
 import "../../styles/recipes/RecipePage.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import IconButton from "@mui/material/IconButton";
 
 //icons
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import CloseFullscreenRoundedIcon from "@mui/icons-material/CloseFullscreenRounded";
+import LocalPrintshopIcon from "@mui/icons-material/LocalPrintshop";
+
+//mui
+import IconButton from "@mui/material/IconButton";
 
 //redux
 import { useSelector } from "react-redux";
@@ -29,6 +32,9 @@ const RecipePage = () => {
               <CloseFullscreenRoundedIcon style={{ fontSize: "3.5vh" }} />
             </IconButton>
 
+            <IconButton onClick={() => window.print()}>
+              <LocalPrintshopIcon style={{ fontSize: "3.5vh" }} />
+            </IconButton>
             <Link
               to={`/recipes/edit/${recipe._id}`}
               style={{ color: "gray", margin: "1%" }}
