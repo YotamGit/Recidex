@@ -10,7 +10,6 @@ import store from "./store";
 import { userPing } from "./slices/usersSlice";
 import { getRecipes } from "./slices/recipesSlice";
 
-store.dispatch(getRecipes({ latest: new Date(), count: 4 }));
 store.dispatch(userPing());
 
 ReactDOM.render(

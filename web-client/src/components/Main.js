@@ -3,13 +3,14 @@ import { useEffect, useState } from "react";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
-import { getRecipes } from "../slices/recipesSlice";
+import { filterRecipes, getRecipes } from "../slices/recipesSlice";
+import { setOwner } from "../slices/filtersSlice";
 
 //mui
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
 
-const Main = () => {
+const Main = ({ ownerOnly }) => {
   const dispatch = useDispatch();
   const [fetching, setFetching] = useState(false);
   const selectedFilters = useSelector((state) => state.filters.selectedFilters);
@@ -17,6 +18,7 @@ const Main = () => {
   const fetchedAllRecipes = useSelector(
     (state) => state.recipes.fetchedAllRecipes
   );
+  const owner = useSelector((state) => state.users.userId);
 
   const loadRecipes = async () => {
     if (recipes.length > 0) {
@@ -35,6 +37,22 @@ const Main = () => {
     }
   };
 
+  const initialRecipesLoad = async () => {
+    try {
+      dispatch(setOwner(ownerOnly && owner ? owner : undefined));
+
+      await dispatch(
+        filterRecipes({
+          ...selectedFilters,
+          owner: ownerOnly && owner ? owner : undefined,
+        })
+      );
+    } catch (error) {}
+  };
+  useEffect(() => {
+    initialRecipesLoad();
+  }, [owner, ownerOnly]);
+
   useEffect(() => {
     const handleScroll = async () => {
       if (
@@ -44,15 +62,13 @@ const Main = () => {
         // window.alert(
         //   `${window.innerHeight} + ${document.documentElement.scrollTop} = ${document.documentElement.offsetHeight}`
         // );
-
         await loadRecipes();
       }
-
       return;
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [recipes, fetchedAllRecipes, getRecipes]);
+  }, [recipes, fetchedAllRecipes]);
 
   return (
     <div

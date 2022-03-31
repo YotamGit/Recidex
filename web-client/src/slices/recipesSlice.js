@@ -27,8 +27,6 @@ export const filterRecipes = createAsyncThunk(
   async (filters, thunkAPI) => {
     //if some of the values isnt undefined
     //if (!Object.values(filters).some((x) => typeof x !== "undefined")) return;
-    thunkAPI.dispatch(setFilters(filters));
-
     var result = await axios.get("/api/recipes", {
       params: {
         latest: new Date(),
@@ -36,6 +34,7 @@ export const filterRecipes = createAsyncThunk(
         filters: filters,
       },
     });
+    thunkAPI.dispatch(setFilters(filters));
     thunkAPI.dispatch(setFetchedAllRecipes(result.data.length));
     return result.data;
   }

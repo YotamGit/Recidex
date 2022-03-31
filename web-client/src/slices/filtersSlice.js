@@ -12,6 +12,7 @@ const initialState = {
     difficulty: undefined,
     prep_time: undefined,
     total_time: undefined,
+    owner: undefined,
   },
   filtered: false,
   recipe_categories: {
@@ -56,14 +57,20 @@ const filtersSlice = createSlice({
   initialState,
   reducers: {
     setFilters(state, action) {
-      state.selectedFilters = action.payload;
+      state.selectedFilters = { ...state.selectedFilters, ...action.payload };
     },
     setFiltered(state, action) {
       state.filtered = action.payload;
     },
+    setOwner(state, action) {
+      state.selectedFilters = {
+        ...state.selectedFilters,
+        owner: action.payload,
+      };
+    },
   },
 });
 
-export const { setFilters, setFiltered } = filtersSlice.actions;
+export const { setFilters, setFiltered, setOwner } = filtersSlice.actions;
 
 export default filtersSlice.reducer;

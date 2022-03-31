@@ -34,7 +34,16 @@ function App() {
           element={
             <>
               <Header show_search={true} />
-              <Main />
+              <Main ownerOnly={false} />
+            </>
+          }
+        />
+        <Route
+          path="/myrecipes"
+          element={
+            <>
+              <Header show_search={true} />
+              <Main ownerOnly={true} />
             </>
           }
         />

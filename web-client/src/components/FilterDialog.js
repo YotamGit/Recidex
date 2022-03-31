@@ -40,6 +40,8 @@ const FilterDialog = () => {
 
   const filtered = useSelector((state) => state.filters.filtered);
 
+  const owner = useSelector((state) => state.filters.selectedFilters.owner);
+
   const [category, setCategory] = useState(
     useSelector((state) => state.filters.selectedFilters.category)
   );
@@ -61,10 +63,16 @@ const FilterDialog = () => {
   };
 
   const handleFilterRecipes = async () => {
-    var filters = { category, sub_category, difficulty, prep_time, total_time };
+    var filters = {
+      category,
+      sub_category,
+      difficulty,
+      prep_time,
+      total_time,
+      owner,
+    };
 
     await dispatch(filterRecipes(filters)).then(() => {
-      dispatch(setFilters(filters));
       dispatch(
         setFiltered(
           Object.values(filters).some((filter) => typeof filter !== "undefined")
