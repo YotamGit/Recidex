@@ -2,11 +2,12 @@ import "../../styles/recipe_editor/RecipeEditor.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { marked } from "marked";
+import SanitizeHtml from "sanitize-html";
+
 import RecipeEditorEditSection from "./RecipeEditorEditSection";
 import RecipeDropdown from "../RecipeDropdown";
 import AuthorizedButton from "../AuthorizedButton";
-
-import SanitizeHtml from "sanitize-html";
+import { toBase64 } from "../../utils-module/images";
 
 //mui
 import SaveIcon from "@mui/icons-material/Save";
@@ -18,7 +19,6 @@ import Switch from "@mui/material/Switch";
 import Button from "@mui/material/Button";
 
 //redux
-
 import { editRecipe, addRecipe } from "../../slices/recipesSlice";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -83,15 +83,18 @@ const RecipeEditor = ({ action, recipe }) => {
     }
   }, [activeTab, description, ingredients, directions, image, imageName]);
 
-  // move to utils
-  // Image to base64 converter for image uplaod
-  const toBase64 = (file) =>
-    new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
-    });
+  //prompt user before leaving/closing/refreshing the page
+  //does not prevent go back to previous page event
+  useEffect(() => {
+    const unloadCallback = (event) => {
+      event.preventDefault();
+      event.returnValue = "";
+      return "";
+    };
+
+    window.addEventListener("beforeunload", unloadCallback);
+    return () => window.removeEventListener("beforeunload", unloadCallback);
+  }, []);
 
   const onUploadImage = (img) => {
     if (img.size >= 10485760) {

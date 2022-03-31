@@ -55,8 +55,6 @@ const Signup = ({ showSignAsGuest, navigateAfterLogin }) => {
   const [passwordsMismatch, setPasswordsMismatch] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  //move to utils
-
   const validateInput = () => {
     //check existance of required fields
     if (
