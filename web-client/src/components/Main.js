@@ -14,7 +14,9 @@ const Main = () => {
   const [fetching, setFetching] = useState(false);
   const selectedFilters = useSelector((state) => state.filters.selectedFilters);
   const recipes = useSelector((state) => state.recipes.recipes);
-  const reached_end = useSelector((state) => state.recipes.fetchedAllRecipes);
+  const fetchedAllRecipes = useSelector(
+    (state) => state.recipes.fetchedAllRecipes
+  );
 
   const loadRecipes = async () => {
     if (recipes.length > 0) {
@@ -28,7 +30,7 @@ const Main = () => {
       );
       setFetching(false);
     }
-    if (reached_end) {
+    if (fetchedAllRecipes) {
       window.alert("No More Recipes to Show");
     }
   };
@@ -50,7 +52,7 @@ const Main = () => {
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [recipes, reached_end, getRecipes]);
+  }, [recipes, fetchedAllRecipes, getRecipes]);
 
   return (
     <div
@@ -66,7 +68,7 @@ const Main = () => {
       ) : (
         "No Recipes To Show" //show skeleton loading animation if fetching is true
       )}
-      {!reached_end && (
+      {!fetchedAllRecipes && (
         <div>
           {fetching ? (
             <CircularProgress />
