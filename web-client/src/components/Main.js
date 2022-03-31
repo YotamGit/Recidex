@@ -38,15 +38,20 @@ const Main = ({ ownerOnly }) => {
   };
 
   const initialRecipesLoad = async () => {
+    console.log(typeof owner, ownerOnly);
     try {
-      dispatch(setOwner(ownerOnly && owner ? owner : undefined));
+      //before the owner loads it receives the value of an empty string, which results in 2 requests to the api.
+      //we want to skip that scenario in order to send a request only when there is an owner or the owner is undefined.
+      if (owner !== "") {
+        dispatch(setOwner(ownerOnly && owner ? owner : undefined));
 
-      await dispatch(
-        filterRecipes({
-          ...selectedFilters,
-          owner: ownerOnly && owner ? owner : undefined,
-        })
-      );
+        await dispatch(
+          filterRecipes({
+            ...selectedFilters,
+            owner: ownerOnly && owner ? owner : undefined,
+          })
+        );
+      }
     } catch (error) {}
   };
   useEffect(() => {
