@@ -19,6 +19,7 @@ const Main = ({ ownerOnly }) => {
     (state) => state.recipes.fetchedAllRecipes
   );
   const owner = useSelector((state) => state.users.userId);
+  const attemptSignIn = useSelector((state) => state.users.attemptSignIn);
 
   const loadRecipes = async () => {
     if (recipes.length > 0) {
@@ -39,7 +40,6 @@ const Main = ({ ownerOnly }) => {
 
   const initialRecipesLoad = async () => {
     try {
-      //first request is sent before the userid loads into the state, then another request is sent with the user id(or not, depends on ownerOnly) and overwrites the previous response.
       dispatch(setOwner(ownerOnly && owner ? owner : undefined));
 
       await dispatch(
@@ -50,9 +50,13 @@ const Main = ({ ownerOnly }) => {
       );
     } catch (error) {}
   };
+
   useEffect(() => {
+    if (attemptSignIn) {
+      return;
+    }
     initialRecipesLoad();
-  }, [owner, ownerOnly]);
+  }, [owner, ownerOnly, attemptSignIn]);
 
   useEffect(() => {
     const handleScroll = async () => {

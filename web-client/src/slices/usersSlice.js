@@ -7,6 +7,7 @@ import {
 
 const initialState = {
   signedIn: false,
+  attemptSignIn: false,
   userId: undefined,
   firstname: undefined,
   lastname: undefined,
@@ -39,6 +40,10 @@ const usersSlice = createSlice({
       const signedIn = action.payload;
       state.signedIn = signedIn;
     },
+    setAttemptSignIn(state, action) {
+      const attemptSignIn = action.payload;
+      state.attemptSignIn = attemptSignIn;
+    },
     setUserId(state, action) {
       const userId = action.payload;
       state.userId = userId;
@@ -52,26 +57,37 @@ const usersSlice = createSlice({
       state.lastname = lastname;
     },
     clearUser(state, action) {
-      state.firstname = "";
-      state.lastname = "";
+      state.firstname = undefined;
+      state.lastname = undefined;
       state.signedIn = false;
-      state.userId = "";
+      state.userId = undefined;
       localStorage.clear();
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(userPing.fulfilled, (state, action) => {
-      state.signedIn = action.payload.authenticated;
-      if (action.payload.authenticated) {
-        state.firstname = action.payload.userData.firstname;
-        state.lastname = action.payload.userData.lastname;
-        state.userId = action.payload.userData.userId;
-      }
-    });
+    builder
+      .addCase(userPing.pending, (state, action) => {
+        state.attemptSignIn = true;
+      })
+      .addCase(userPing.fulfilled, (state, action) => {
+        state.attemptSignIn = false;
+        state.signedIn = action.payload.authenticated;
+        if (action.payload.authenticated) {
+          state.firstname = action.payload.userData.firstname;
+          state.lastname = action.payload.userData.lastname;
+          state.userId = action.payload.userData.userId;
+        }
+      });
   },
 });
 
-export const { setSignedIn, setUserId, setFirstname, setLastname, clearUser } =
-  usersSlice.actions;
+export const {
+  attemptSignIn,
+  setSignedIn,
+  setUserId,
+  setFirstname,
+  setLastname,
+  clearUser,
+} = usersSlice.actions;
 
 export default usersSlice.reducer;
