@@ -7,9 +7,9 @@ import {
 
 const initialState = {
   signedIn: false,
-  userId: "",
-  firstname: "",
-  lastname: "",
+  userId: undefined,
+  firstname: undefined,
+  lastname: undefined,
 };
 
 export const userPing = createAsyncThunk("user/userPing", async () => {

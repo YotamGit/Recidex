@@ -38,20 +38,16 @@ const Main = ({ ownerOnly }) => {
   };
 
   const initialRecipesLoad = async () => {
-    console.log(typeof owner, ownerOnly);
     try {
-      //before the owner loads it receives the value of an empty string, which results in 2 requests to the api.
-      //we want to skip that scenario in order to send a request only when there is an owner or the owner is undefined.
-      if (owner !== "") {
-        dispatch(setOwner(ownerOnly && owner ? owner : undefined));
+      //first request is sent before the userid loads into the state, then another request is sent with the user id(or not, depends on ownerOnly) and overwrites the previous response.
+      dispatch(setOwner(ownerOnly && owner ? owner : undefined));
 
-        await dispatch(
-          filterRecipes({
-            ...selectedFilters,
-            owner: ownerOnly && owner ? owner : undefined,
-          })
-        );
-      }
+      await dispatch(
+        filterRecipes({
+          ...selectedFilters,
+          owner: ownerOnly && owner ? owner : undefined,
+        })
+      );
     } catch (error) {}
   };
   useEffect(() => {
@@ -95,7 +91,7 @@ const Main = ({ ownerOnly }) => {
             <CircularProgress />
           ) : (
             <Button variant="contained" component="div" onClick={loadRecipes}>
-              Load Recipes
+              Load More Recipes
             </Button>
           )}
         </div>
