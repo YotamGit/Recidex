@@ -128,6 +128,12 @@ router.post("/edit/:recipe_id", async (req, res, next) => {
         req.body.recipeData.directions
       );
 
+      //delete certain fields for security reasons(other fields are limited b)
+      delete req.body.recipeData.creation_time;
+      delete req.body.recipeData.last_update_time;
+      delete req.body.recipeData.owner;
+      delete req.body.recipeData.users;
+
       const response = await Recipe.updateOne(
         { _id: req.params.recipe_id },
         {
@@ -137,6 +143,7 @@ router.post("/edit/:recipe_id", async (req, res, next) => {
           },
         }
       );
+
       res.status(200).json(response);
 
       var endTime = performance.now();

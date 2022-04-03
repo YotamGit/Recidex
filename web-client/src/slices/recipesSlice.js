@@ -12,6 +12,7 @@ const initialState = {
   fetchedAllRecipes: false,
 };
 
+// adds the recipes to the existing recipes list
 export const getRecipes = createAsyncThunk(
   "recipes/getRecipes",
   async (params, thunkAPI) => {
@@ -22,6 +23,7 @@ export const getRecipes = createAsyncThunk(
   }
 );
 
+// overwrites the existing recipes list with the new recipes
 export const filterRecipes = createAsyncThunk(
   "recipes/filterRecipes",
   async (filters, thunkAPI) => {

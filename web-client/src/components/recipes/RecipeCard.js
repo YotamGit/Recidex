@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { marked } from "marked";
 import { useEffect } from "react";
 
+import Favorite from "../favorite";
+
 //mui
 import Chip from "@mui/material/Chip";
 import Divider from "@mui/material/Divider";
@@ -22,6 +24,7 @@ marked.setOptions({
 
 const RecipeCard = ({ recipe }) => {
   const navigate = useNavigate();
+  const signedIn = useSelector((state) => state.users.signedIn);
 
   useEffect(() => {
     document.getElementById(recipe._id + "-recipe-description").innerHTML =
@@ -48,13 +51,18 @@ const RecipeCard = ({ recipe }) => {
           <EditRoundedIcon style={{ fontSize: "30px" }} />
         </Link>
       </div>
-      <div
-        className="recipe"
-        onClick={() => navigate(`/recipes/${recipe._id}`)}
-      >
+      <div className="recipe">
         <div className="recipe-header">
-          <div className="recipe-title">{recipe.title}</div>
+          <div>
+            <span
+              className="recipe-title"
+              onClick={() => navigate(`/recipes/${recipe._id}`)}
+            >
+              {recipe.title}
+            </span>
 
+            {signedIn && <Favorite recipeId={recipe._id} />}
+          </div>
           <div className="recipe-data-dates">
             <span className="recipe-data-date">
               <span>Creation: </span>
