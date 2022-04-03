@@ -26,14 +26,11 @@ router.post("/", async (req, res, next) => {
             userId: user.userId,
           },
         });
-        console.log(`Successful Login Attempt at ${new Date()}`);
       } else {
         res.status(401).send(false);
-        console.log(`Failed Login Attempt at ${new Date()}`);
       }
     } else {
       res.status(401).send(false);
-      console.log(`Failed Login Attempt at ${new Date()}`);
     }
   } catch (err) {
     next(err);
@@ -43,24 +40,23 @@ router.post("/", async (req, res, next) => {
 // a route to check if a given token is valid
 router.post("/ping", async (req, res, next) => {
   try {
-    let authenticated = authUtils.validateToken(
+    let validatedToken = authUtils.validateToken(
       req.body.headers.Authentication
     );
-    if (authenticated) {
+    if (validatedToken) {
       res.status(200).json({
         authenticated: true,
         userData: {
-          firstname: authenticated.firstname,
-          lastname: authenticated.lastname,
-          userId: authenticated.userId,
+          firstname: validatedToken.firstname,
+          lastname: validatedToken.lastname,
+          userId: validatedToken.userId,
         },
       });
-      console.log(`Successful Ping Attempt at ${new Date()}`);
+    } else {
+      res.status(401).json({ authenticated: false });
     }
   } catch (err) {
-    res.status(401).json({ authenticated: false });
-    console.log(`Failed Ping Attempt at ${new Date()}`);
-    console.log(err, "\n"); //maybe remove this log
+    next(err);
   }
 });
 
@@ -71,12 +67,6 @@ router.post("/signup", async (req, res, next) => {
       username: { $eq: req.body.username },
     });
     if (usernameAlreadyExists) {
-      console.log(
-        `Failed to Create User ${
-          req.body.username
-        } at ${new Date()}, User Already Exists`
-      );
-
       res.status(409).send("The User already exists. Try a different Username");
     } else {
       let hashedPassword = await bcrypt.hash(req.body.password, 10);
@@ -95,7 +85,6 @@ router.post("/signup", async (req, res, next) => {
           userId: newUser._id,
         },
       });
-      console.log(`User ${req.body.username} Created at ${new Date()}`);
     }
     // User.deleteMany({}).exec();//delete all users
     // var users = await User.find({}); // get all users

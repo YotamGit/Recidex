@@ -16,9 +16,12 @@ exports.generateToken = (userData) => {
 
 exports.validateToken = (token) => {
   let jwtSecretKey = process.env.JWT_SECRET_KEY;
-  const verified = jwt.verify(token, jwtSecretKey);
-
-  return verified;
+  try {
+    const verified = jwt.verify(token, jwtSecretKey);
+    return verified;
+  } catch (error) {
+    return undefined;
+  }
 };
 
 //check if the user is real using the token

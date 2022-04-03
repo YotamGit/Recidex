@@ -10,7 +10,6 @@ const {
 
 // GET X RECIPES FROM GIVEN DATE WITH FILTERS
 router.get("/", async (req, res, next) => {
-  var startTime = performance.now();
   try {
     if (Object.keys(req.query).length > 0) {
       let recipes = await Recipe.find({
@@ -27,13 +26,6 @@ router.get("/", async (req, res, next) => {
       const recipes = await Recipe.find().sort({ creation_time: -1 });
       res.status(200).json(recipes);
     }
-
-    var endTime = performance.now();
-    console.log(
-      `Sending ${res.sentCount} Recipes took ${
-        endTime - startTime
-      } milliseconds`
-    );
   } catch (err) {
     next(err);
   }
@@ -51,7 +43,6 @@ router.get("/", async (req, res, next) => {
 
 // SUBMIT A NEW RECIPE
 router.post("/new", async (req, res, next) => {
-  var startTime = performance.now();
   try {
     //sanitize html
     req.body.recipe.description = sanitizeHtml(req.body.recipe.description);
@@ -72,9 +63,6 @@ router.post("/new", async (req, res, next) => {
           "firstname lastname"
         )
       );
-
-    var endTime = performance.now();
-    console.log(`Adding new Recipe took ${endTime - startTime} milliseconds`);
   } catch (err) {
     next(err);
   }
@@ -89,13 +77,8 @@ router.post("/delete/:recipe_id", async (req, res, next) => {
       recipe
     );
     if (isOwner) {
-      var startTime = performance.now();
-
       const response = await Recipe.deleteOne({ _id: req.params.recipe_id });
       res.status(200).json(response);
-
-      var endTime = performance.now();
-      console.log(`Deleting Recipe took ${endTime - startTime} milliseconds`);
     } else {
       res
         .status(401)
@@ -115,8 +98,6 @@ router.post("/edit/:recipe_id", async (req, res, next) => {
       recipe
     );
     if (isOwner) {
-      var startTime = performance.now();
-
       //sanitize html
       req.body.recipeData.description = sanitizeHtml(
         req.body.recipeData.description
@@ -145,9 +126,6 @@ router.post("/edit/:recipe_id", async (req, res, next) => {
       );
 
       res.status(200).json(response);
-
-      var endTime = performance.now();
-      console.log(`Updating Recipe took ${endTime - startTime} milliseconds`);
     } else {
       res
         .status(401)
@@ -161,8 +139,6 @@ router.post("/edit/:recipe_id", async (req, res, next) => {
 // FAVORITE A RECIPE FOR A USER
 router.post("/edit/favorite/:recipe_id", async (req, res, next) => {
   try {
-    var startTime = performance.now();
-
     var users = Recipe.findById({ _id: req.params.recipe_id }).users;
 
     var index = users.indexOf(req.body.validatedToken.userId);
@@ -189,9 +165,6 @@ router.post("/edit/favorite/:recipe_id", async (req, res, next) => {
       default:
         res.status(400).send("favorite field is missing or not boolean");
     }
-
-    var endTime = performance.now();
-    console.log(`Favoriting Recipe took ${endTime - startTime} milliseconds`);
   } catch (err) {
     next(err);
   }

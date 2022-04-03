@@ -18,11 +18,16 @@ app.use(cookieParser());
 app.use(express.json({ limit: "50mb" })); //parse requests
 app.use(mongoSanitize());
 app.use("*", (req, res, next) => {
-  console.log(`\n${Date()} - ${req.method} Request, Url: ${req.originalUrl}`);
+  var startTime = performance.now();
+  process.stdout.write(
+    `${new Date().toISOString()} ${req.method} ${req.originalUrl}`
+  );
   next();
+  var endTime = performance.now();
+  console.log(` ${res.statusCode} ${Math.round(endTime - startTime)}ms`);
 });
 
-// Authentication Middlewares
+// Authentication
 app.post("/api/recipes/new", authUtils.authenticateUser);
 app.post("/api/recipes/delete/*", authUtils.authenticateUser);
 app.post("/api/recipes/edit/*", authUtils.authenticateUser);
@@ -40,7 +45,8 @@ app.use("*", (req, res) => {
 });
 
 // Error handler
-app.use((err, req, res) => {
+app.use((err, req, res, next) => {
+  console.log("##################################");
   res.status(500).send(err);
 });
 // Connect To DB
