@@ -26,6 +26,7 @@ app.use("*", (req, res, next) => {
 app.post("/api/recipes/new", authUtils.authenticateUser);
 app.post("/api/recipes/delete/*", authUtils.authenticateUser);
 app.post("/api/recipes/edit/*", authUtils.authenticateUser);
+app.post("/api/recipes/edit/favorite/*", authUtils.authenticateUser);
 
 // Import Routes
 const loginRoute = require("./routes/login");

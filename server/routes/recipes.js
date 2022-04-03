@@ -157,4 +157,43 @@ router.post("/edit/:recipe_id", async (req, res, next) => {
     next(err);
   }
 });
+
+// FAVORITE A RECIPE FOR A USER
+router.post("/edit/favorite/:recipe_id", async (req, res, next) => {
+  try {
+    var startTime = performance.now();
+
+    var users = Recipe.findById({ _id: req.params.recipe_id }).users;
+
+    var index = users.indexOf(req.body.validatedToken.userId);
+    switch (req.body.favorite) {
+      case true:
+        if (index < 0) {
+          var res = Recipe.updateOne(
+            { _id: req.params.recipe_id },
+            { users: users.push(req.body.validatedToken.userId) }
+          );
+        }
+        res.status(200);
+        break;
+      case false:
+        if (index >= 0) {
+          var res = Recipe.updateOne(
+            { _id: req.params.recipe_id },
+            { users: users.splice(index, req.body.validatedToken.userId) }
+          );
+        }
+        res.status(200);
+
+        break;
+      default:
+        res.status(400).send("favorite field is missing or not boolean");
+    }
+
+    var endTime = performance.now();
+    console.log(`Favoriting Recipe took ${endTime - startTime} milliseconds`);
+  } catch (err) {
+    next(err);
+  }
+});
 module.exports = router;

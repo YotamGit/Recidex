@@ -28,7 +28,7 @@ const RecipeSchema = mongoose.Schema(
     owner: { type: mongoose.Types.ObjectId, ref: "UserModel", required: true },
     imageName: String,
     image: String,
-    users: [{ type: mongoose.Types.ObjectId, ref: "UserModel" }],
+    user_favorites: [{ type: mongoose.Types.ObjectId, ref: "UserModel" }],
   },
   { collection: "recipes" }
 );
