@@ -29,10 +29,12 @@ exports.authenticateUser = (req, res, next) => {
   try {
     let token = this.validateToken(req.body.headers.Authentication);
     req.body.headers.validatedToken = token;
-    console.log(`Authorized API access User ${token.userId} at ${new Date()}`);
+    // console.log(
+    //   `\n${new Date().toISOString()} Authorized API access User ${token.userId}`
+    // );
     next();
   } catch (err) {
-    console.log(`Unauthorized API access at ${new Date()}`);
+    // console.log(`\n${new Date().toISOString()} Unauthorized API access`);
     res.status(401).send("Unauthorized, provide valid credentials.");
   }
 };

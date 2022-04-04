@@ -46,7 +46,6 @@ app.use("*", (req, res) => {
 
 // Error handler
 app.use((err, req, res, next) => {
-  console.log("##################################");
   res.status(500).send(err);
 });
 // Connect To DB

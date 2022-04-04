@@ -113,7 +113,7 @@ router.post("/edit/:recipe_id", async (req, res, next) => {
       delete req.body.recipeData.creation_time;
       delete req.body.recipeData.last_update_time;
       delete req.body.recipeData.owner;
-      delete req.body.recipeData.users;
+      delete req.body.recipeData.favorited_by;
 
       const response = await Recipe.updateOne(
         { _id: req.params.recipe_id },
@@ -139,33 +139,35 @@ router.post("/edit/:recipe_id", async (req, res, next) => {
 // FAVORITE A RECIPE FOR A USER
 router.post("/edit/favorite/:recipe_id", async (req, res, next) => {
   try {
-    var users = Recipe.findById({ _id: req.params.recipe_id }).users;
-
-    var index = users.indexOf(req.body.validatedToken.userId);
+    const users = (await Recipe.findById({ _id: req.params.recipe_id }))
+      .favorited_by;
+    var index = users.indexOf(req.body.headers.validatedToken.userId);
     switch (req.body.favorite) {
       case true:
         if (index < 0) {
-          var res = Recipe.updateOne(
+          users.push(req.body.headers.validatedToken.userId);
+          await Recipe.updateOne(
             { _id: req.params.recipe_id },
-            { users: users.push(req.body.validatedToken.userId) }
+            { favorited_by: users }
           );
         }
-        res.status(200);
+        res.status(200).json(users);
         break;
       case false:
         if (index >= 0) {
-          var res = Recipe.updateOne(
+          users.splice(index, 1);
+          await Recipe.updateOne(
             { _id: req.params.recipe_id },
-            { users: users.splice(index, req.body.validatedToken.userId) }
+            { favorited_by: users }
           );
         }
-        res.status(200);
-
+        res.status(200).json(users);
         break;
       default:
         res.status(400).send("favorite field is missing or not boolean");
     }
   } catch (err) {
+    console.log(err);
     next(err);
   }
 });

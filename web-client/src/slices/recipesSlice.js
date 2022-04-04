@@ -113,6 +113,36 @@ export const addRecipe = createAsyncThunk(
   }
 );
 
+export const favoriteRecipe = createAsyncThunk(
+  "recipes/favoriteRecipe",
+  async (params, thunkAPI) => {
+    try {
+      var res = await axios.post(
+        `/api/recipes/edit/favorite/${params.recipeId}`,
+        {
+          headers: {
+            Authentication: localStorage.getItem("userToken"),
+          },
+          favorite: params.favorite,
+        }
+      );
+      return thunkAPI
+        .getState()
+        .recipes.recipes.map((recipe) =>
+          recipe._id === params.recipeId
+            ? { ...recipe, favorited_by: res.data }
+            : recipe
+        );
+    } catch (error) {
+      return thunkAPI.rejectWithValue({
+        statusCode: error.response.status,
+        data: error.response.data,
+        message: error.message,
+      });
+    }
+  }
+);
+
 const recipesSlice = createSlice({
   name: "recipes",
   initialState,
@@ -193,6 +223,15 @@ const recipesSlice = createSlice({
               action.payload.message
           );
         }
+      })
+      .addCase(favoriteRecipe.fulfilled, (state, action) => {
+        state.recipes = action.payload;
+      })
+      .addCase(favoriteRecipe.rejected, (state, action) => {
+        window.alert(
+          "Failed to Favorite Recipe, Please Try Again.\nReason: " +
+            action.payload.message
+        );
       });
   },
 });

@@ -60,8 +60,6 @@ const RecipeCard = ({ recipe }) => {
             >
               {recipe.title}
             </span>
-
-            {signedIn && <Favorite recipeId={recipe._id} />}
           </div>
           <div className="recipe-data-dates">
             <span className="recipe-data-date">
@@ -146,6 +144,11 @@ const RecipeCard = ({ recipe }) => {
             )}
           </div>
         </div>
+      </div>
+      <div className="recipe-card-bottom-button-row">
+        {signedIn && (
+          <Favorite recipeId={recipe._id} favorited_by={recipe.favorited_by} />
+        )}
       </div>
     </div>
   );
