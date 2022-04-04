@@ -39,11 +39,20 @@ function App() {
           }
         />
         <Route
-          path="/myrecipes"
+          path="/my-recipes"
           element={
             <>
               <Header show_search={true} />
-              <Main ownerOnly={true} />
+              <Main ownerOnly={true} favoritesOnly={false} />
+            </>
+          }
+        />
+        <Route
+          path="/favorites"
+          element={
+            <>
+              <Header show_search={true} />
+              <Main ownerOnly={true} favoritesOnly={true} />
             </>
           }
         />

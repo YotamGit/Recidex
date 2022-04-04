@@ -10,8 +10,9 @@ import { setOwner } from "../slices/filtersSlice";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
 
-const Main = ({ ownerOnly }) => {
+const Main = ({ ownerOnly, favoritesOnly }) => {
   const dispatch = useDispatch();
+
   const [fetching, setFetching] = useState(false);
   const selectedFilters = useSelector((state) => state.filters.selectedFilters);
   const recipes = useSelector((state) => state.recipes.recipes);
@@ -29,6 +30,8 @@ const Main = ({ ownerOnly }) => {
           latest: recipes.at(-1).creation_time,
           count: 4,
           filters: selectedFilters,
+          favoritesOnly: favoritesOnly || undefined,
+          userId: owner,
         })
       );
       setFetching(false);
@@ -40,14 +43,31 @@ const Main = ({ ownerOnly }) => {
 
   const initialRecipesLoad = async () => {
     try {
-      dispatch(setOwner(ownerOnly && owner ? owner : undefined));
-
-      await dispatch(
-        filterRecipes({
-          ...selectedFilters,
-          owner: ownerOnly && owner ? owner : undefined,
-        })
-      );
+      if (favoritesOnly) {
+        //request for the favorites page
+        dispatch(setOwner(undefined));
+        await dispatch(
+          filterRecipes({
+            filters: {
+              ...selectedFilters,
+              owner: undefined,
+            },
+            favoritesOnly: favoritesOnly,
+            userId: owner,
+          })
+        );
+      } else {
+        //request for home/myrecipes pages depends on the ownerOnly flag
+        dispatch(setOwner(ownerOnly && owner ? owner : undefined));
+        await dispatch(
+          filterRecipes({
+            filters: {
+              ...selectedFilters,
+              owner: ownerOnly && owner ? owner : undefined,
+            },
+          })
+        );
+      }
     } catch (error) {}
   };
 
@@ -56,7 +76,7 @@ const Main = ({ ownerOnly }) => {
       return;
     }
     initialRecipesLoad();
-  }, [owner, ownerOnly, attemptSignIn]);
+  }, [owner, ownerOnly, favoritesOnly, attemptSignIn]);
 
   useEffect(() => {
     const handleScroll = async () => {

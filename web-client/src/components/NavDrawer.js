@@ -15,6 +15,7 @@ import AddCircleRoundedIcon from "@mui/icons-material/AddCircleRounded";
 import PatternRoundedIcon from "@mui/icons-material/PatternRounded";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
+import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
@@ -52,12 +53,26 @@ const NavDrawer = ({ openDrawer, handleToggleDrawer }) => {
           <span
             className="drawer-button-wrapper"
             onClick={() => {
-              navigate("/myrecipes");
+              navigate("/my-recipes");
               handleToggleDrawer();
             }}
           >
             <MenuBookIcon className="drawer-button" />
             My Recipes
+          </span>
+        </>
+      )}
+      {signedIn && (
+        <>
+          <span
+            className="drawer-button-wrapper"
+            onClick={() => {
+              navigate("/favorites");
+              handleToggleDrawer();
+            }}
+          >
+            <FavoriteRoundedIcon className="drawer-button" />
+            Favorites
           </span>
         </>
       )}

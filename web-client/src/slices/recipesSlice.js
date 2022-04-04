@@ -16,7 +16,9 @@ const initialState = {
 export const getRecipes = createAsyncThunk(
   "recipes/getRecipes",
   async (params, thunkAPI) => {
-    var result = await axios.get("/api/recipes", { params: params });
+    var result = await axios.get("/api/recipes", {
+      params: params,
+    });
 
     thunkAPI.dispatch(setFetchedAllRecipes(result.data.length));
     return result.data;
@@ -26,17 +28,20 @@ export const getRecipes = createAsyncThunk(
 // overwrites the existing recipes list with the new recipes
 export const filterRecipes = createAsyncThunk(
   "recipes/filterRecipes",
-  async (filters, thunkAPI) => {
+  async (args, thunkAPI) => {
+    console.log(args);
     //if some of the values isnt undefined
     //if (!Object.values(filters).some((x) => typeof x !== "undefined")) return;
     var result = await axios.get("/api/recipes", {
       params: {
         latest: new Date(),
         count: 4,
-        filters: filters,
+        filters: args.filters,
+        favoritesOnly: args.favoritesOnly || undefined,
+        userId: args.userId,
       },
     });
-    thunkAPI.dispatch(setFilters(filters));
+    thunkAPI.dispatch(setFilters(args.filters));
     thunkAPI.dispatch(setFetchedAllRecipes(result.data.length));
     return result.data;
   }

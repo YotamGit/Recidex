@@ -11,9 +11,14 @@ const {
 // GET X RECIPES FROM GIVEN DATE WITH FILTERS
 router.get("/", async (req, res, next) => {
   try {
+    console.log(req.body);
     if (Object.keys(req.query).length > 0) {
+      var favoritesOnlyQuery = req.query.favoritesOnly
+        ? { favorited_by: req.query.userId }
+        : {};
       let recipes = await Recipe.find({
         creation_time: { $lt: req.query.latest },
+        ...favoritesOnlyQuery,
         ...JSON.parse(req.query.filters || "{}"),
       })
         .populate("owner", "firstname lastname")
