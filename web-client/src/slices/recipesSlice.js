@@ -35,12 +35,12 @@ export const filterRecipes = createAsyncThunk(
       params: {
         latest: new Date(),
         count: 4,
-        filters: args.filters,
-        favoritesOnly: args.favoritesOnly || undefined,
-        userId: args.userId || undefined,
+        filters: undefined || args.filters,
+        favoritesOnly: undefined || args.favoritesOnly,
+        userId: undefined || args.userId,
       },
     });
-    thunkAPI.dispatch(setFilters(args.filters));
+    args && thunkAPI.dispatch(setFilters(args.filters));
     thunkAPI.dispatch(setFetchedAllRecipes(result.data.length));
     return result.data;
   }

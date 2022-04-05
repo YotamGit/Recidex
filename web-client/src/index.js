@@ -8,7 +8,6 @@ import { BrowserRouter } from "react-router-dom";
 //redux
 import store from "./store";
 import { userPing } from "./slices/usersSlice";
-import { getRecipes } from "./slices/recipesSlice";
 
 store.dispatch(userPing());
 

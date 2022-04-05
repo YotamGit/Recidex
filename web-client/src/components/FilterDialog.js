@@ -19,7 +19,7 @@ import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { filterRecipes } from "../slices/recipesSlice";
-import { setFilters, setFiltered } from "../slices/filtersSlice";
+import { setFiltered } from "../slices/filtersSlice";
 
 const FilterDialog = () => {
   const dispatch = useDispatch();

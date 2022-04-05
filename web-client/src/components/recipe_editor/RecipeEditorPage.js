@@ -1,5 +1,8 @@
 import RecipeEditor from "./RecipeEditor.js";
 import { useParams, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+
+import { getRecipe } from "../../utils-module/recipes.js";
 
 import "../../styles/recipe_editor/RecipeEditorPage.css";
 import AuthorizedButton from "../AuthorizedButton";
@@ -16,9 +19,11 @@ const RecipeEditorPage = () => {
   const navigate = useNavigate();
   const { recipe_id } = useParams();
 
-  const recipe = useSelector(
-    (state) =>
-      state.recipes.recipes.filter((recipe) => recipe._id === recipe_id)[0]
+  const [recipe, setRecipe] = useState(
+    useSelector(
+      (state) =>
+        state.recipes.recipes.filter((recipe) => recipe._id === recipe_id)[0]
+    )
   );
 
   const onDeleteRecipe = async () => {
@@ -30,6 +35,15 @@ const RecipeEditorPage = () => {
       }
     }
   };
+
+  useEffect(() => {
+    if (recipe === undefined) {
+      getRecipe(recipe_id).then((res) => {
+        setRecipe(res);
+      });
+    }
+  }, []);
+
   return (
     <div className="recipe-editor-page">
       {recipe && (

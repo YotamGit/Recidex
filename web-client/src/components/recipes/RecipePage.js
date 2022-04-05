@@ -1,6 +1,10 @@
 import Recipe from "./Recipe.js";
 import "../../styles/recipes/RecipePage.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+
+//utils
+import { getRecipe } from "../../utils-module/recipes.js";
 
 //icons
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
@@ -15,10 +19,20 @@ import { useSelector } from "react-redux";
 const RecipePage = () => {
   const navigate = useNavigate();
   const { recipe_id } = useParams();
-  const recipe = useSelector(
-    (state) =>
-      state.recipes.recipes.filter((recipe) => recipe._id === recipe_id)[0]
+  const [recipe, setRecipe] = useState(
+    useSelector(
+      (state) =>
+        state.recipes.recipes.filter((recipe) => recipe._id === recipe_id)[0]
+    )
   );
+
+  useEffect(() => {
+    if (recipe === undefined) {
+      getRecipe(recipe_id).then((res) => {
+        setRecipe(res);
+      });
+    }
+  }, []);
 
   return (
     <>

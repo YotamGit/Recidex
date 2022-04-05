@@ -36,14 +36,14 @@ router.get("/", async (req, res, next) => {
 });
 
 // GET BACK A SPECIFIC RECIPE
-// router.get("/:recipe_id", async (req, res, next) => {
-//   try {
-//     const recipe = await Recipe.findById(req.params.recipe_id);
-//     res.status(200).json(recipe);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
+router.get("/:recipe_id", async (req, res, next) => {
+  try {
+    const recipe = await Recipe.findById(req.params.recipe_id);
+    res.status(200).json(recipe);
+  } catch (err) {
+    next(err);
+  }
+});
 
 // SUBMIT A NEW RECIPE
 router.post("/new", async (req, res, next) => {
