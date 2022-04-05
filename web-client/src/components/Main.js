@@ -9,6 +9,7 @@ import { setOwner } from "../slices/filtersSlice";
 //mui
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
+import Alert from "@mui/material/Alert";
 
 const Main = ({ ownerOnly, favoritesOnly }) => {
   const dispatch = useDispatch();
@@ -35,9 +36,6 @@ const Main = ({ ownerOnly, favoritesOnly }) => {
         })
       );
       setFetching(false);
-    }
-    if (fetchedAllRecipes) {
-      window.alert("No More Recipes to Show");
     }
   };
 
@@ -109,7 +107,7 @@ const Main = ({ ownerOnly, favoritesOnly }) => {
       ) : (
         "No Recipes To Show" //show skeleton loading animation if fetching is true
       )}
-      {!fetchedAllRecipes && (
+      {!fetchedAllRecipes ? (
         <div>
           {fetching ? (
             <CircularProgress />
@@ -119,6 +117,9 @@ const Main = ({ ownerOnly, favoritesOnly }) => {
             </Button>
           )}
         </div>
+      ) : (
+        //switch to alert
+        <Alert severity="info">No more recipes to show</Alert>
       )}
     </div>
   );
