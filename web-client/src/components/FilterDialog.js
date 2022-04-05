@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import RecipeDropdown from "./RecipeDropdown";
 import "../styles/FilterDialog.css";
 //mui
@@ -71,15 +71,16 @@ const FilterDialog = () => {
       total_time,
       owner,
     };
-
-    await dispatch(filterRecipes(filters)).then(() => {
+    var filterRes = await dispatch(filterRecipes({ filters }));
+    if (!filterRes.error) {
       dispatch(
         setFiltered(
           Object.values(filters).some((filter) => typeof filter !== "undefined")
         )
       );
+
       RecipeFilterDialogToggle();
-    });
+    }
   };
 
   const clearSelections = () => {
@@ -89,6 +90,12 @@ const FilterDialog = () => {
     setPrepTime();
     setTotalTime();
   };
+
+  useEffect(() => {
+    clearSelections();
+    dispatch(setFiltered(false));
+  }, []);
+
   return (
     <>
       <IconButton onClick={RecipeFilterDialogToggle}>

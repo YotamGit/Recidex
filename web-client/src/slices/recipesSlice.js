@@ -29,7 +29,6 @@ export const getRecipes = createAsyncThunk(
 export const filterRecipes = createAsyncThunk(
   "recipes/filterRecipes",
   async (args, thunkAPI) => {
-    console.log(args);
     //if some of the values isnt undefined
     //if (!Object.values(filters).some((x) => typeof x !== "undefined")) return;
     var result = await axios.get("/api/recipes", {
@@ -38,7 +37,7 @@ export const filterRecipes = createAsyncThunk(
         count: 4,
         filters: args.filters,
         favoritesOnly: args.favoritesOnly || undefined,
-        userId: args.userId,
+        userId: args.userId || undefined,
       },
     });
     thunkAPI.dispatch(setFilters(args.filters));

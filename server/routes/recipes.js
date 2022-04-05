@@ -11,7 +11,6 @@ const {
 // GET X RECIPES FROM GIVEN DATE WITH FILTERS
 router.get("/", async (req, res, next) => {
   try {
-    console.log(req.body);
     if (Object.keys(req.query).length > 0) {
       var favoritesOnlyQuery = req.query.favoritesOnly
         ? { favorited_by: req.query.userId }
@@ -172,7 +171,6 @@ router.post("/edit/favorite/:recipe_id", async (req, res, next) => {
         res.status(400).send("favorite field is missing or not boolean");
     }
   } catch (err) {
-    console.log(err);
     next(err);
   }
 });
