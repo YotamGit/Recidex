@@ -15,7 +15,7 @@
   /* box-shadow: 0px 0px 4px 0px #6a6a9f; */
   /* border-bottom: 1.5px solid white; */
   color: inherit;
-  width: 20ch;
+  width: 25ch;
   transition: width 0.2s;
 }
 
@@ -38,4 +38,7 @@
   .search-bar-container {
     width: 100%;
   }
+}
+.search-bar-container .MuiOutlinedInput-notchedOutline{
+  border: none;
 }

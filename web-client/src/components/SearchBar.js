@@ -88,7 +88,7 @@ const SearchBar = () => {
               onChange={(e) => {
                 setSearchText(e.target.value);
               }}
-              label="Search Recipes"
+              placeholder="Search Recipes"
               InputProps={{
                 ...params.InputProps,
                 endAdornment: (
