@@ -3,8 +3,14 @@ import { useEffect, useState } from "react";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
-import { filterRecipes, getRecipes } from "../slices/recipesSlice";
-import { setOwner } from "../slices/filtersSlice";
+import { getRecipes } from "../slices/recipesSlice";
+import {
+  setOwner,
+  setfavoritesOnly,
+  setSearchText,
+  resetFilters,
+  setFiltered,
+} from "../slices/filtersSlice";
 
 //mui
 import Button from "@mui/material/Button";
@@ -15,7 +21,6 @@ const Main = ({ ownerOnly, favoritesOnly }) => {
   const dispatch = useDispatch();
 
   const [fetching, setFetching] = useState(false);
-  const selectedFilters = useSelector((state) => state.filters.selectedFilters);
   const recipes = useSelector((state) => state.recipes.recipes);
   const fetchedAllRecipes = useSelector(
     (state) => state.recipes.fetchedAllRecipes
@@ -28,11 +33,11 @@ const Main = ({ ownerOnly, favoritesOnly }) => {
       setFetching(true);
       await dispatch(
         getRecipes({
-          latest: recipes.at(-1).creation_time,
-          count: 4,
-          filters: selectedFilters,
-          favoritesOnly: favoritesOnly || undefined,
-          userId: owner,
+          replace: false,
+          args: {
+            latest: recipes.at(-1).creation_time,
+            userId: owner,
+          },
         })
       );
       setFetching(false);
@@ -45,24 +50,21 @@ const Main = ({ ownerOnly, favoritesOnly }) => {
         //request for the favorites page
         dispatch(setOwner(undefined));
         await dispatch(
-          filterRecipes({
-            filters: {
-              ...selectedFilters,
-              owner: undefined,
+          getRecipes({
+            replace: true,
+            args: {
+              userId: owner,
             },
-            favoritesOnly: favoritesOnly,
-            userId: owner,
           })
         );
       } else {
         //request for home/myrecipes pages depends on the ownerOnly flag
         dispatch(setOwner(ownerOnly && owner ? owner : undefined));
+
         await dispatch(
-          filterRecipes({
-            filters: {
-              ...selectedFilters,
-              owner: ownerOnly && owner ? owner : undefined,
-            },
+          getRecipes({
+            replace: true,
+            args: {},
           })
         );
       }
@@ -70,9 +72,17 @@ const Main = ({ ownerOnly, favoritesOnly }) => {
   };
 
   useEffect(() => {
+    dispatch(setSearchText(undefined));
+    dispatch(resetFilters());
+    dispatch(setFiltered(false));
+  }, []);
+
+  useEffect(() => {
     if (attemptSignIn) {
       return;
     }
+
+    dispatch(setfavoritesOnly(favoritesOnly));
     initialRecipesLoad();
   }, [owner, ownerOnly, favoritesOnly, attemptSignIn]);
 

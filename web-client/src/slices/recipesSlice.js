@@ -5,44 +5,40 @@ import {
   createAsyncThunk,
 } from "@reduxjs/toolkit";
 
-import { setFilters } from "./filtersSlice";
+import { setFilters, setSearchText } from "./filtersSlice";
 
 const initialState = {
   recipes: [],
   fetchedAllRecipes: false,
 };
 
-// adds the recipes to the existing recipes list
+// get recipes from the server
+// params - {replace:Boolean, args:{filters to pass to the db}}, see implementation...
 export const getRecipes = createAsyncThunk(
   "recipes/getRecipes",
   async (params, thunkAPI) => {
-    var result = await axios.get("/api/recipes", {
-      params: params,
-    });
-
-    thunkAPI.dispatch(setFetchedAllRecipes(result.data.length));
-    return result.data;
-  }
-);
-
-// overwrites the existing recipes list with the new recipes
-export const filterRecipes = createAsyncThunk(
-  "recipes/filterRecipes",
-  async (args, thunkAPI) => {
-    //if some of the values isnt undefined
+    //if some of the values arent undefined
     //if (!Object.values(filters).some((x) => typeof x !== "undefined")) return;
+    params.args &&
+      params.args?.filters &&
+      thunkAPI.dispatch(setFilters(params.args.filters));
+
+    var { searchText, favoritesOnly } = thunkAPI.getState().filters;
+    var selecetedfilters = thunkAPI.getState().filters.selectedFilters;
+
     var result = await axios.get("/api/recipes", {
       params: {
-        latest: new Date(),
+        latest: params.args.latest || new Date(),
         count: 4,
-        filters: undefined || args.filters,
-        favoritesOnly: undefined || args.favoritesOnly,
-        userId: undefined || args.userId,
+        ...params.args,
+        userId: params.args?.userId,
+        filters: selecetedfilters,
+        searchText: searchText,
+        favoritesOnly: favoritesOnly,
       },
     });
-    args && thunkAPI.dispatch(setFilters(args.filters));
     thunkAPI.dispatch(setFetchedAllRecipes(result.data.length));
-    return result.data;
+    return { replace: params.replace, data: result.data };
   }
 );
 
@@ -157,16 +153,17 @@ const recipesSlice = createSlice({
     setRecipes(state, action) {
       state.recipes = action.payload;
     },
-    searchRecipes(state, action) {
-      window.alert("Searching is Not Yet Available");
-    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(getRecipes.fulfilled, (state, action) => {
-        state.recipes = action.payload
-          ? [...state.recipes, ...action.payload]
-          : state.recipes;
+        if (action.payload.replace) {
+          state.recipes = [...action.payload.data];
+        } else {
+          state.recipes = action.payload.data
+            ? [...state.recipes, ...action.payload.data]
+            : state.recipes;
+        }
       })
       .addCase(getRecipes.rejected, (state, action) => {
         window.alert(
@@ -240,7 +237,6 @@ const recipesSlice = createSlice({
   },
 });
 
-export const { setFetchedAllRecipes, setRecipes, searchRecipes } =
-  recipesSlice.actions;
+export const { setFetchedAllRecipes, setRecipes } = recipesSlice.actions;
 
 export default recipesSlice.reducer;

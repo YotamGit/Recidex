@@ -14,6 +14,8 @@ const initialState = {
     total_time: undefined,
     owner: undefined,
   },
+  favoritesOnly: undefined,
+  searchText: undefined,
   filtered: false,
   recipe_categories: {
     Proteins: ["Meat", "Chicken", "Fish", "Other"],
@@ -59,8 +61,19 @@ const filtersSlice = createSlice({
     setFilters(state, action) {
       state.selectedFilters = { ...state.selectedFilters, ...action.payload };
     },
+    setSearchText(state, action) {
+      state.searchText = action.payload;
+    },
+    setfavoritesOnly(state, action) {
+      state.favoritesOnly = action.payload;
+    },
     setFiltered(state, action) {
       state.filtered = action.payload;
+    },
+    resetFilters(state, action) {
+      Object.keys(state.selectedFilters).forEach((key) => {
+        state.selectedFilters[key] = undefined;
+      });
     },
     setOwner(state, action) {
       state.selectedFilters = {
@@ -71,6 +84,13 @@ const filtersSlice = createSlice({
   },
 });
 
-export const { setFilters, setFiltered, setOwner } = filtersSlice.actions;
+export const {
+  setFilters,
+  setFiltered,
+  setOwner,
+  setSearchText,
+  setfavoritesOnly,
+  resetFilters,
+} = filtersSlice.actions;
 
 export default filtersSlice.reducer;

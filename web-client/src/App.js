@@ -34,7 +34,7 @@ function App() {
           element={
             <>
               <Header show_search={true} />
-              <Main ownerOnly={false} />
+              <Main ownerOnly={false} favoritesOnly={false} />
             </>
           }
         />

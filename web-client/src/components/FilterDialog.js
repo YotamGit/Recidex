@@ -18,8 +18,8 @@ import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
-import { filterRecipes } from "../slices/recipesSlice";
-import { setFiltered } from "../slices/filtersSlice";
+import { getRecipes } from "../slices/recipesSlice";
+import { setFiltered, setFilters } from "../slices/filtersSlice";
 
 const FilterDialog = () => {
   const dispatch = useDispatch();
@@ -27,6 +27,7 @@ const FilterDialog = () => {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
   const [showRecipeFilterDialog, setShowRecipeFilterDialog] = useState(false);
+  const searchText = useSelector((state) => state.filters.searchText);
 
   const recipe_categories = useSelector(
     (state) => state.filters.recipe_categories
@@ -71,7 +72,8 @@ const FilterDialog = () => {
       total_time,
       owner,
     };
-    var filterRes = await dispatch(filterRecipes({ filters }));
+    dispatch(setFilters(filters));
+    var filterRes = await dispatch(getRecipes({ replace: true, args: {} }));
     if (!filterRes.error) {
       dispatch(
         setFiltered(
@@ -93,7 +95,6 @@ const FilterDialog = () => {
 
   useEffect(() => {
     clearSelections();
-    dispatch(setFiltered(false));
   }, []);
 
   return (

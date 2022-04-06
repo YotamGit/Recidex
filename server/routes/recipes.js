@@ -12,9 +12,11 @@ const {
 router.get("/", async (req, res, next) => {
   try {
     if (Object.keys(req.query).length > 0) {
-      var favoritesOnlyQuery = req.query.favoritesOnly
-        ? { favorited_by: req.query.userId }
-        : {};
+      var favoritesOnlyQuery =
+        req.query.favoritesOnly === "true"
+          ? { favorited_by: req.query.userId }
+          : {};
+
       let recipes = await Recipe.find({
         creation_time: { $lt: req.query.latest },
         ...favoritesOnlyQuery,

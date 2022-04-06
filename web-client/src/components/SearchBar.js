@@ -13,7 +13,8 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 //redux
 import { useDispatch } from "react-redux";
-import { searchRecipes } from "../slices/recipesSlice";
+import { filterRecipes } from "../slices/recipesSlice";
+import { setSearchText as setStoreSearchText } from "../slices/filtersSlice";
 
 const SearchBar = () => {
   const dispatch = useDispatch();
@@ -23,11 +24,15 @@ const SearchBar = () => {
   const [titles, setTitles] = useState([]);
   const loading = openOptions && titles.length === 0;
 
+  const searchRecipes = async () => {
+    dispatch(setStoreSearchText(searchText));
+    await dispatch(filterRecipes());
+  };
   //detect enter key to search
   useEffect(() => {
     const handleKeyDown = async (e) => {
       if (e.code === "Enter") {
-        await dispatch(searchRecipes(searchText));
+        await searchRecipes();
       }
     };
     window.addEventListener("keydown", handleKeyDown);
@@ -67,7 +72,7 @@ const SearchBar = () => {
       <div className="search-bar-container">
         <IconButton
           className="search-icon-wrapper"
-          onClick={() => dispatch(searchRecipes(searchText))}
+          onClick={() => searchRecipes()}
           aria-label="search"
         >
           <SearchIcon style={{ fontSize: "3vh", color: "white" }} />
