@@ -13,7 +13,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 //redux
 import { useDispatch } from "react-redux";
-import { filterRecipes } from "../slices/recipesSlice";
+import { getRecipes } from "../slices/recipesSlice";
 import { setSearchText as setStoreSearchText } from "../slices/filtersSlice";
 
 const SearchBar = () => {
@@ -26,7 +26,7 @@ const SearchBar = () => {
 
   const searchRecipes = async () => {
     dispatch(setStoreSearchText(searchText));
-    await dispatch(filterRecipes());
+    await dispatch(getRecipes({ replace: true, args: {} }));
   };
   //detect enter key to search
   useEffect(() => {

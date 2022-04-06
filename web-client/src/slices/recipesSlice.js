@@ -170,14 +170,6 @@ const recipesSlice = createSlice({
           "Failed to Fetch Recipes.\nReason: " + action.error.message
         );
       })
-      .addCase(filterRecipes.fulfilled, (state, action) => {
-        state.recipes = [...action.payload];
-      })
-      .addCase(filterRecipes.rejected, (state, action) => {
-        window.alert(
-          "Failed to Filter Recipes.\nReason: " + action.error.message
-        );
-      })
       .addCase(editRecipe.fulfilled, (state, action) => {
         state.recipes = action.payload;
       })
