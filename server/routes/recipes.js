@@ -36,10 +36,20 @@ router.get("/", async (req, res, next) => {
 });
 
 // GET BACK A SPECIFIC RECIPE
-router.get("/:recipe_id", async (req, res, next) => {
+router.get("/id/:recipe_id", async (req, res, next) => {
   try {
     const recipe = await Recipe.findById(req.params.recipe_id);
     res.status(200).json(recipe);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// GET ALL RECIPE TITLES
+router.get("/titles", async (req, res, next) => {
+  try {
+    const titles = await Recipe.find({}).distinct("title");
+    res.status(200).send(titles);
   } catch (err) {
     next(err);
   }

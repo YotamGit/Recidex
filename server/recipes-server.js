@@ -20,11 +20,13 @@ app.use(mongoSanitize());
 app.use("*", (req, res, next) => {
   var startTime = performance.now();
   process.stdout.write(
-    `${new Date().toISOString()} ${req.method} ${req.originalUrl}`
+    `\n${new Date().toISOString()} ${req.method} ${req.originalUrl}`
   );
   next();
   var endTime = performance.now();
-  console.log(` ${res.statusCode} ${Math.round(endTime - startTime)}ms`);
+  process.stdout.write(
+    ` ${res.statusCode} ${Math.round(endTime - startTime)}ms`
+  );
 });
 
 // Authentication
@@ -46,8 +48,11 @@ app.use("*", (req, res) => {
 
 // Error handler
 app.use((err, req, res, next) => {
+  // console.log(err);
   res.status(500).send(err);
+  process.stdout.write(` SERVER ERROR - ${res.statusCode}`);
 });
+
 // Connect To DB
 mongoose.connect("mongodb://localhost:27017/Recipes", () =>
   console.log("Connected to DB")
