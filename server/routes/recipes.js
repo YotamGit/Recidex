@@ -17,10 +17,15 @@ router.get("/", async (req, res, next) => {
           ? { favorited_by: req.query.userId }
           : {};
 
+      var textSearchQuery = req.query?.searchText
+        ? { title: { $regex: req.query.searchText, $options: "mi" } }
+        : {};
+
       let recipes = await Recipe.find({
         creation_time: { $lt: req.query.latest },
+        ...textSearchQuery,
         ...favoritesOnlyQuery,
-        ...JSON.parse(req.query.filters || "{}"),
+        ...JSON.parse(req.query.filters),
       })
         .populate("owner", "firstname lastname")
         .sort({ creation_time: -1 })

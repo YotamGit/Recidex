@@ -62,7 +62,7 @@ const filtersSlice = createSlice({
       state.selectedFilters = { ...state.selectedFilters, ...action.payload };
     },
     setSearchText(state, action) {
-      state.searchText = action.payload;
+      state.searchText = action.payload === "" ? undefined : action.payload;
     },
     setfavoritesOnly(state, action) {
       state.favoritesOnly = action.payload;
