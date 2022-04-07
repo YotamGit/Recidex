@@ -87,6 +87,7 @@ const SearchBar = () => {
           onChange={(e, value) => {
             setSearchText(value);
           }}
+          value={searchText}
           renderInput={(params) => (
             <TextField
               {...params}
