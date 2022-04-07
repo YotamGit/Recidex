@@ -36,7 +36,6 @@ const Main = ({ ownerOnly, favoritesOnly }) => {
           replace: false,
           args: {
             latest: recipes.at(-1).creation_time,
-            userId: owner,
           },
         })
       );
@@ -52,15 +51,12 @@ const Main = ({ ownerOnly, favoritesOnly }) => {
         await dispatch(
           getRecipes({
             replace: true,
-            args: {
-              userId: owner,
-            },
+            args: {},
           })
         );
       } else {
         //request for home/myrecipes pages depends on the ownerOnly flag
         dispatch(setOwner(ownerOnly && owner ? owner : undefined));
-
         await dispatch(
           getRecipes({
             replace: true,

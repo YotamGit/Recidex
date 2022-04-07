@@ -23,18 +23,19 @@ export const getRecipes = createAsyncThunk(
       params.args?.filters &&
       thunkAPI.dispatch(setFilters(params.args.filters));
 
+    var userId = thunkAPI.getState().users.userId;
     var { searchText, favoritesOnly } = thunkAPI.getState().filters;
     var selecetedfilters = thunkAPI.getState().filters.selectedFilters;
 
     var result = await axios.get("/api/recipes", {
       params: {
-        latest: params.args.latest || new Date(),
+        latest: params.args?.latest || new Date(),
         count: 4,
-        ...params.args,
-        userId: params.args?.userId,
-        filters: selecetedfilters,
-        searchText: searchText,
         favoritesOnly: favoritesOnly,
+        userId: favoritesOnly ? userId : undefined,
+        searchText: searchText,
+        ...params.args,
+        filters: selecetedfilters,
       },
     });
     thunkAPI.dispatch(setFetchedAllRecipes(result.data.length));
