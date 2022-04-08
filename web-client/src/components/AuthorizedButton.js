@@ -9,7 +9,7 @@ import IconButton from "@mui/material/IconButton";
 //redux
 import { useSelector } from "react-redux";
 
-const AuthorizedButton = ({ children, authorized, onClick }) => {
+const AuthorizedButton = ({ children, authorized, onClick, disabled }) => {
   const signedIn = useSelector((state) => state.users.signedIn);
   authorized = authorized || signedIn;
   const [open, setOpen] = useState(false);
@@ -19,6 +19,14 @@ const AuthorizedButton = ({ children, authorized, onClick }) => {
   return (
     <>
       <IconButton
+        style={
+          disabled
+            ? {
+                pointerEvents: "none",
+                opacity: "0.6",
+              }
+            : {}
+        }
         className="authorized-btn"
         onClick={authorized ? onClick : handleOpen}
       >

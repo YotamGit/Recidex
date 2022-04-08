@@ -7,6 +7,9 @@ import { getRecipe } from "../../utils-module/recipes.js";
 import "../../styles/recipe_editor/RecipeEditorPage.css";
 import AuthorizedButton from "../AuthorizedButton";
 
+//mui
+import IconButton from "@mui/material/IconButton";
+
 //mui icons
 import CloseFullscreenRoundedIcon from "@mui/icons-material/CloseFullscreenRounded";
 import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
@@ -49,7 +52,7 @@ const RecipeEditorPage = () => {
       {recipe && (
         <>
           <div className="recipe-editor-page-top-button-row">
-            <AuthorizedButton onClick={() => navigate(-1)} authorized={true}>
+            <IconButton onClick={() => navigate(-1)}>
               <CloseFullscreenRoundedIcon
                 style={{
                   color: "gray",
@@ -58,7 +61,7 @@ const RecipeEditorPage = () => {
                   cursor: "pointer",
                 }}
               />
-            </AuthorizedButton>
+            </IconButton>
             <AuthorizedButton onClick={() => onDeleteRecipe()}>
               <DeleteForeverRoundedIcon
                 style={{

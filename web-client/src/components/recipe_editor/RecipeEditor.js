@@ -62,6 +62,7 @@ const RecipeEditor = ({ action, recipe }) => {
   const [imageName, setImageName] = useState(recipe.imageName);
 
   const [activeTab, setActiveTab] = useState(0);
+  const [disableButtons, setDisableButtons] = useState(false);
 
   const handleTabs = (event, value) => {
     setActiveTab(value);
@@ -144,7 +145,9 @@ const RecipeEditor = ({ action, recipe }) => {
     if (save) {
       switch (action) {
         case "edit":
+          setDisableButtons(true);
           let editRes = await dispatch(editRecipe(recipeData));
+          setDisableButtons(false);
 
           if (!editRes.error) {
             navigate(-1);
@@ -152,7 +155,10 @@ const RecipeEditor = ({ action, recipe }) => {
 
           break;
         case "add":
+          setDisableButtons(true);
           let addRes = await dispatch(addRecipe(recipeData));
+          setDisableButtons(false);
+
           if (!addRes.error) {
             navigate("/home");
           }
@@ -332,7 +338,7 @@ const RecipeEditor = ({ action, recipe }) => {
           <img alt="" id="recipe-editor-image" />
         </div>
       </TabPanel>
-      <AuthorizedButton onClick={onSaveRecipeChanges}>
+      <AuthorizedButton disabled={disableButtons} onClick={onSaveRecipeChanges}>
         <SaveIcon
           style={{ width: "100%", backgroundColor: "rgb(97, 204, 70)" }}
         />
