@@ -5,7 +5,7 @@ import {
   createAsyncThunk,
 } from "@reduxjs/toolkit";
 
-import { setFilters, setSearchText } from "./filtersSlice";
+import { setFilters } from "./filtersSlice";
 
 const initialState = {
   recipes: [],

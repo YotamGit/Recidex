@@ -14,7 +14,9 @@ import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import OpenInFullRoundedIcon from "@mui/icons-material/OpenInFullRounded";
 
 //redux
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setFilters, setFiltered } from "../../slices/filtersSlice";
+import { getRecipes } from "../../slices/recipesSlice";
 
 marked.setOptions({
   gfm: true,
@@ -23,7 +25,9 @@ marked.setOptions({
 });
 
 const RecipeCard = ({ recipe }) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const signedIn = useSelector((state) => state.users.signedIn);
 
   useEffect(() => {
@@ -34,6 +38,52 @@ const RecipeCard = ({ recipe }) => {
         recipe.image;
     }
   }, [recipe._id, recipe.description, recipe.image]);
+
+  const chipCategoryOnClick = async () => {
+    dispatch(
+      setFilters({
+        category: recipe.category,
+        sub_category: undefined,
+        difficulty: undefined,
+        prep_time: undefined,
+        total_time: undefined,
+      })
+    );
+    var filterRes = await dispatch(getRecipes({ replace: true, args: {} }));
+    if (!filterRes.error) {
+      dispatch(setFiltered(true));
+    }
+  };
+  const chipSubCategoryOnClick = async () => {
+    dispatch(
+      setFilters({
+        category: undefined,
+        sub_category: recipe.sub_category,
+        difficulty: undefined,
+        prep_time: undefined,
+        total_time: undefined,
+      })
+    );
+    var filterRes = await dispatch(getRecipes({ replace: true, args: {} }));
+    if (!filterRes.error) {
+      dispatch(setFiltered(true));
+    }
+  };
+  const chipDifficultyOnClick = async () => {
+    dispatch(
+      setFilters({
+        category: undefined,
+        sub_category: undefined,
+        difficulty: recipe.difficulty,
+        prep_time: undefined,
+        total_time: undefined,
+      })
+    );
+    var filterRes = await dispatch(getRecipes({ replace: true, args: {} }));
+    if (!filterRes.error) {
+      dispatch(setFiltered(true));
+    }
+  };
 
   return (
     <div className="recipe-card">
@@ -84,13 +134,25 @@ const RecipeCard = ({ recipe }) => {
           <Divider variant="middle" />
           <div className="recipe-data-chips">
             {recipe.category && (
-              <Chip className="recipe-data-chip" label={recipe.category} />
+              <Chip
+                className="recipe-data-chip"
+                label={recipe.category}
+                onClick={chipCategoryOnClick}
+              />
             )}
             {recipe.sub_category && (
-              <Chip className="recipe-data-chip" label={recipe.sub_category} />
+              <Chip
+                className="recipe-data-chip"
+                label={recipe.sub_category}
+                onClick={chipSubCategoryOnClick}
+              />
             )}
             {recipe.difficulty && (
-              <Chip className="recipe-data-chip" label={recipe.difficulty} />
+              <Chip
+                className="recipe-data-chip"
+                label={recipe.difficulty}
+                onClick={chipDifficultyOnClick}
+              />
             )}
           </div>
         </div>
