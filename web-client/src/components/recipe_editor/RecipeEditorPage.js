@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { getRecipe } from "../../utils-module/recipes.js";
 
 import "../../styles/recipe_editor/RecipeEditorPage.css";
-import AuthorizedButton from "../AuthorizedButton";
+import AuthorizedButton from "../Login/AuthorizedButton";
 
 //mui
 import IconButton from "@mui/material/IconButton";

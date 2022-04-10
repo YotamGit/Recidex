@@ -1,10 +1,12 @@
-exports.validUsername = (username) => {
-  return username.length >= 6;
-};
-exports.validPassword = (password) => {
-  return password.length >= 6 && password.length <= 16;
-};
+import * as EmailValidator from "email-validator";
 
-exports.validEmail = (email) => {
-  return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
-};
+export function validUsername(username) {
+  return username.length >= 6;
+}
+export function validPassword(password) {
+  return password.length >= 6 && password.length <= 16;
+}
+
+export function validEmail(email) {
+  return EmailValidator.validate(email);
+}

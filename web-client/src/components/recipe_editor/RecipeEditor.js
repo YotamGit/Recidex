@@ -6,7 +6,7 @@ import SanitizeHtml from "sanitize-html";
 
 import RecipeEditorEditSection from "./RecipeEditorEditSection";
 import RecipeDropdown from "../RecipeDropdown";
-import AuthorizedButton from "../AuthorizedButton";
+import AuthorizedButton from "../Login/AuthorizedButton";
 import { toBase64 } from "../../utils-module/images";
 
 //mui

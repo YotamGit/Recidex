@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { marked } from "marked";
 import { useEffect } from "react";
 
-import Favorite from "../favorite";
+import Favorite from "../Favorite";
 
 //mui
 import Chip from "@mui/material/Chip";
