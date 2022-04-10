@@ -66,6 +66,7 @@ const Login = ({ showSignAsGuest, navigateAfterLogin, onLogin }) => {
   };
   return (
     <div id="login-page">
+      <img className="recipes-logo" src={RecipesLogo}></img>
       <div className="login-section">
         <div className="title">Sign in</div>
         <div className="form-input-segment">
@@ -139,7 +140,6 @@ const Login = ({ showSignAsGuest, navigateAfterLogin, onLogin }) => {
           </Button>
         </div>
       </div>
-      <img className="recipes-logo" src={RecipesLogo}></img>
     </div>
   );
 };

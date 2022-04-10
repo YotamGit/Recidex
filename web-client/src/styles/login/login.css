@@ -69,6 +69,7 @@
     width: 100%;
   }
   #login-page .recipes-logo{
+    height:30vh;
     top:-5%;
   }
 }

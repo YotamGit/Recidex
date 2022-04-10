@@ -1,5 +1,6 @@
-#signup-container {
-  background-color: rgb(82, 141, 230);
+#signup-page {
+  background-color: var(--sign-in-background);
+ 
   height: 100%;
   width: 100%;
   position: absolute;
@@ -7,24 +8,88 @@
   justify-content: center;
   align-items: center;
 }
-
-.signup-form-input-segment {
-  z-index: 999;
-  background-color: rgb(255, 255, 255);
-  border-radius: 5px;
-  border: 2px solid black;
-  height: fit-content;
-  width: 60%;
-  padding: 1%;
-  display: flex;
-  direction: column;
-  justify-content: space-evenly;
-  flex-direction: column;
+#signup-page .title {
+  text-align: center;
+  font-size: 30px;
 }
+#signup-page .signup-section {
+  height:max-content;
+  width:fit-content;
+  z-index: 999;
+  background-color: rgb(240, 240, 240);
+  border-radius: 5px;
+  box-shadow: 0px 0px 7px 1px;
+  padding: 10px 25px 25px 25px;
+}
+#signup-page .form-input-segment {
+  display:grid;
+  grid-template-areas: 
+  "first-name last-name"
+  "username email"
+  "password password"
+  "confirm-password confirm-password";
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap:5px;
+  margin-bottom:30px;
+  
+}
+#signup-page #signup-firstname-input {
+  grid-area: first-name;
+}
+#signup-page #signup-lastname-input {
+  grid-area: last-name;
+}
+#signup-page #signup-email-input {
+  grid-area: email;
+}
+#signup-page #signup-username-input {
+  grid-area: username;
+}
+#signup-page #signup-password-input {
+  grid-area: password;
+}
+#signup-page #signup-passwordconfirm-input {
+  grid-area: confirm-password;
+}
+
+/*button grid*/
+#signup-page .button-section {
+  display:grid;
+  grid-template-areas: 
+  "top top"
+  "left right";
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap:5px;
+}
+
+#signup-page .main-button-1 {
+  grid-area:top;
+}
+#signup-page .extra-button-1 {
+  grid-area: right;
+  background-color: var(--neutral-btn);
+}
+
+#signup-page .extra-button-2 {
+  grid-area: left;
+  background-color: var(--neutral-btn) ;
+}
+
+#signup-page .recipes-logo{
+  height:35vh;
+  position:absolute;
+  top:-8%;
+}
+
 @media only screen and (max-width: 600px) {
-  .signup-form-input-segment {
+  #signup-page .signup-section {
     border: none;
     border-radius: 0;
+    box-shadow: none;
     width: 100%;
+  }
+  #signup-page .recipes-logo{
+    height:25vh;
+    top:-5%;
   }
 }

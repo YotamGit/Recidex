@@ -1,4 +1,6 @@
-import React from "react";
+import "../../styles/login/Signup.css";
+import RecipesLogo from "../../utils-module/Photos/Recipes.svg";
+
 //utils
 import {
   validUsername,
@@ -9,7 +11,6 @@ import {
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "../../styles/login/Signup.css";
 
 //mui
 
@@ -126,15 +127,14 @@ const Signup = ({ showSignAsGuest, navigateAfterLogin }) => {
     }
   };
   return (
-    <div id="signup-container">
-      <div className="signup-form-input-segment">
-        <h3 style={{ textAlign: "center" }}>Signup</h3>
-        <div>
-          <FormControl variant="outlined">
+    <div id="signup-page">
+      <img className="recipes-logo" src={RecipesLogo}></img>
+      <div className="signup-section">
+        <div className="title">Sign up</div>
+        <div className="form-input-segment">
+          <FormControl id="signup-firstname-input" variant="outlined">
             <InputLabel htmlFor="signup-firstname-input">First Name</InputLabel>
             <OutlinedInput
-              autoFocus
-              id="signup-firstname-input"
               type="text"
               value={firstname}
               onChange={(e) => {
@@ -143,10 +143,9 @@ const Signup = ({ showSignAsGuest, navigateAfterLogin }) => {
               label="Firstname"
             />
           </FormControl>
-          <FormControl variant="outlined">
+          <FormControl id="signup-lastname-input" variant="outlined">
             <InputLabel htmlFor="signup-lastname-input">Last Name</InputLabel>
             <OutlinedInput
-              id="signup-lastname-input"
               type="text"
               value={lastname}
               onChange={(e) => {
@@ -155,27 +154,12 @@ const Signup = ({ showSignAsGuest, navigateAfterLogin }) => {
               label="Lastname"
             />
           </FormControl>
-        </div>
-        <div>
-          <FormControl variant="outlined">
-            <InputLabel htmlFor="signup-username-input">Username</InputLabel>
-            <OutlinedInput
-              id="signup-username-input"
-              type="text"
-              value={username}
-              onChange={(e) => {
-                setUsername(e.target.value);
-              }}
-              label="Username"
-            />
-          </FormControl>
-          <FormControl variant="outlined">
+
+          <FormControl id="signup-email-input" variant="outlined">
             <InputLabel htmlFor="signup-email-input">
-              Email (for future password reset)
+              Email (password reset)
             </InputLabel>
             <OutlinedInput
-              autoFocus
-              id="signup-email-input"
               type="text"
               value={email}
               onChange={(e) => {
@@ -189,12 +173,20 @@ const Signup = ({ showSignAsGuest, navigateAfterLogin }) => {
               </span>
             )}
           </FormControl>
-        </div>
-        <div>
-          <FormControl variant="outlined">
+          <FormControl id="signup-username-input" variant="outlined">
+            <InputLabel htmlFor="signup-username-input">Username</InputLabel>
+            <OutlinedInput
+              type="text"
+              value={username}
+              onChange={(e) => {
+                setUsername(e.target.value);
+              }}
+              label="Username"
+            />
+          </FormControl>
+          <FormControl id="signup-password-input" variant="outlined">
             <InputLabel htmlFor="signup-password-input">Password</InputLabel>
             <OutlinedInput
-              id="signup-password-input"
               type={showPassword ? "text" : "password"}
               value={password}
               onChange={(e) => {
@@ -214,12 +206,12 @@ const Signup = ({ showSignAsGuest, navigateAfterLogin }) => {
               }
             />
           </FormControl>
-          <FormControl variant="outlined">
+
+          <FormControl id="signup-passwordconfirm-input" variant="outlined">
             <InputLabel htmlFor="signup-passwordconfirm-input">
               Confirm Password
             </InputLabel>
             <OutlinedInput
-              id="signup-passwordconfirm-input"
               type={showPassword ? "text" : "password"}
               value={passwordconfirm}
               onChange={(e) => {
@@ -245,14 +237,31 @@ const Signup = ({ showSignAsGuest, navigateAfterLogin }) => {
             )}
           </FormControl>
         </div>
-        <Button variant="contained" onClick={onSubmit}>
-          Sign Up
-        </Button>
-        {showSignAsGuest && (
-          <Button style={{ color: "gray" }} onClick={() => navigate("/home")}>
-            Continue as Guest
+        <div className="button-section">
+          <Button
+            className="main-button-1"
+            variant="contained"
+            onClick={onSubmit}
+          >
+            Sign Up
           </Button>
-        )}
+          {showSignAsGuest && (
+            <Button
+              className="extra-button-1"
+              variant="contained"
+              onClick={() => navigate("/home")}
+            >
+              Continue as Guest
+            </Button>
+          )}
+          <Button
+            className="extra-button-2"
+            variant="contained"
+            onClick={() => navigate("/login")}
+          >
+            Sign In
+          </Button>
+        </div>
       </div>
     </div>
   );
