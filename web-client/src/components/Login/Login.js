@@ -2,13 +2,9 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import Cookies from "universal-cookie";
-import "../../styles/login.css";
 
-// generate a hashed password
-// import bcrypt from "bcryptjs";
-// var salt = await bcrypt.genSalt(10);
-// var hash = await bcrypt.hash(plainPassword, salt);
+import "../../styles/login/login.css";
+import RecipesLogo from "../../utils-module/Photos/Recipes.svg";
 
 //mui
 
@@ -42,7 +38,6 @@ const Login = ({ showSignAsGuest, navigateAfterLogin, onLogin }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const onSubmitPassword = async () => {
-    const cookies = new Cookies();
     try {
       var result = await axios.post("/api/login", {
         username: username,
@@ -70,66 +65,81 @@ const Login = ({ showSignAsGuest, navigateAfterLogin, onLogin }) => {
     }
   };
   return (
-    <div id="login-container">
-      <div className="login-form-input-segment">
-        <h3 style={{ textAlign: "center" }}>Login</h3>
-        <FormControl variant="outlined">
-          <InputLabel htmlFor="login-username-input">Username</InputLabel>
-          <OutlinedInput
-            autoFocus
-            id="login-username-input"
-            type="text"
-            value={username}
-            onChange={(e) => {
-              setUsername(e.target.value);
-            }}
-            label="Username"
-            error={wrongCredentials ? true : false}
-          />
-        </FormControl>
-        <FormControl variant="outlined">
-          <InputLabel htmlFor="login-password-input">Password</InputLabel>
-          <OutlinedInput
-            autoFocus
-            id="login-password-input"
-            type={showPassword ? "text" : "password"}
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-            label="Password"
-            error={wrongCredentials ? true : false}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={() => setShowPassword(!showPassword)}
-                  edge="start"
-                >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-          />
-          {wrongCredentials && (
-            <span style={{ color: "red", fontSize: "13px" }}>
-              Wrong Credentials, Please Try Again
-            </span>
-          )}
-        </FormControl>
-
-        <Button variant="contained" onClick={onSubmitPassword}>
-          Sign In
-        </Button>
-        {showSignAsGuest && (
-          <Button style={{ color: "gray" }} onClick={() => navigate("/home")}>
-            Continue as Guest
+    <div id="login-page">
+      <div className="login-section">
+        <div className="title">Sign in</div>
+        <div className="form-input-segment">
+          <FormControl variant="outlined">
+            <InputLabel htmlFor="login-username-input">Username</InputLabel>
+            <OutlinedInput
+              id="login-username-input"
+              type="text"
+              value={username}
+              onChange={(e) => {
+                setUsername(e.target.value);
+              }}
+              label="Username"
+              error={wrongCredentials ? true : false}
+            />
+          </FormControl>
+          <FormControl variant="outlined">
+            <InputLabel htmlFor="login-password-input">Password</InputLabel>
+            <OutlinedInput
+              id="login-password-input"
+              type={showPassword ? "text" : "password"}
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+              label="Password"
+              error={wrongCredentials ? true : false}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={() => setShowPassword(!showPassword)}
+                    edge="start"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+            {wrongCredentials && (
+              <span style={{ color: "red", fontSize: "13px" }}>
+                Wrong Credentials, Please Try Again
+              </span>
+            )}
+          </FormControl>
+        </div>
+        <div className="button-section">
+          <Button
+            className="main-button-1"
+            variant="contained"
+            onClick={onSubmitPassword}
+          >
+            Sign In
           </Button>
-        )}
-        <Button style={{ color: "gray" }} onClick={() => navigate("/signup")}>
-          Sign Up
-        </Button>
+
+          {showSignAsGuest && (
+            <Button
+              className="extra-button-1"
+              variant="contained"
+              onClick={() => navigate("/home")}
+            >
+              Continue as Guest
+            </Button>
+          )}
+          <Button
+            className="extra-button-2"
+            variant="contained"
+            onClick={() => navigate("/signup")}
+          >
+            Sign Up
+          </Button>
+        </div>
       </div>
+      <img className="recipes-logo" src={RecipesLogo}></img>
     </div>
   );
 };

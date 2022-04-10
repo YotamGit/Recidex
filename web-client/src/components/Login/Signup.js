@@ -9,12 +9,7 @@ import {
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "../../styles/Signup.css";
-
-// generate a hashed password
-// import bcrypt from "bcryptjs";
-// var salt = await bcrypt.genSalt(10);
-// var hash = await bcrypt.hash(plainPassword, salt);
+import "../../styles/login/Signup.css";
 
 //mui
 

@@ -1,0 +1,74 @@
+#login-page {
+  background-color: var(--sign-in-background);
+ 
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#login-page .title {
+  text-align: center;
+  font-size: 30px;
+}
+#login-page .login-section {
+  height:max-content;
+  width:fit-content;
+  z-index: 999;
+  background-color: rgb(240, 240, 240);
+  border-radius: 5px;
+  box-shadow: 0px 0px 7px 1px;
+  padding: 10px 25px 25px 25px;
+}
+#login-page .form-input-segment {
+  margin-bottom:30px;
+  display: flex;
+  flex-direction: column;
+  
+}
+#login-page .form-input-segment>* {
+  padding: 5px;
+}
+
+/*button grid*/
+#login-page .button-section {
+
+  display:grid;
+  grid-template-areas: 
+  "top top"
+  "left right";
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap:5px;
+}
+
+#login-page .main-button-1 {
+  grid-area:top;
+}
+#login-page .extra-button-1 {
+  grid-area: right;
+  background-color: var(--neutral-btn);
+}
+
+#login-page .extra-button-2 {
+  grid-area: left;
+  background-color: var(--neutral-btn) ;
+}
+
+#login-page .recipes-logo{
+  height:47vh;
+  position:absolute;
+  top:-10%;
+}
+
+@media only screen and (max-width: 600px) {
+  #login-page .login-section {
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    width: 100%;
+  }
+  #login-page .recipes-logo{
+    top:-5%;
+  }
+}

@@ -13,7 +13,6 @@
 .login-modal {
   height: 300px;
   width: 600px;
-
   position: fixed;
   top: 50%;
   left: 50%;
@@ -24,7 +23,10 @@
   height: 100%;
   width: 100%;
 }
-.login-modal > #login-container {
+.login-modal .recipes-logo {
+  display:none;
+}
+.login-modal > #login-page {
   background: none;
 }
 
