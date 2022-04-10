@@ -56,9 +56,9 @@
 }
 
 #login-page .recipes-logo{
-  height:47vh;
+  height:35vh;
   position:absolute;
-  top:-10%;
+  top:-8%;
 }
 
 @media only screen and (max-width: 600px) {
@@ -69,7 +69,7 @@
     width: 100%;
   }
   #login-page .recipes-logo{
-    height:30vh;
+    height:25vh;
     top:-5%;
   }
 }
