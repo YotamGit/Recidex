@@ -4,6 +4,7 @@ import { marked } from "marked";
 import { useEffect } from "react";
 
 import Favorite from "../Favorite";
+import ImagePlaceholder from "../../utils-module/Photos/recipeImagePlaceholder.png";
 
 //mui
 import Chip from "@mui/material/Chip";
@@ -197,13 +198,14 @@ const RecipeCard = ({ recipe }) => {
                 </span>
               </div>
             </span>
-            {recipe.image && (
-              <img
-                className="recipe-card-image"
-                id={recipe._id + "-recipe-card-image"}
-                alt=""
-              />
-            )}
+            {/* {recipe.image && ( */}
+            <img
+              className="recipe-card-image"
+              src={ImagePlaceholder}
+              id={recipe._id + "-recipe-card-image"}
+              alt=""
+            />
+            {/* )} */}
           </div>
         </div>
       </div>
