@@ -1,16 +1,32 @@
-.MuiDrawer-paper {
-  background-color: #1976d2 !important;
-  color: #ffffff !important;
+#drawer .MuiDrawer-paper {
+  background-color: #1976d2;
+  color: #ffffff;
+  width: 300px;
 }
+
 #drawer-header {
   display: flex;
   align-items: center;
   justify-content: flex-end;
 }
+#drawer .user-name {
+  flex-grow:1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding:5px;
+  font-size: 1.2rem;
+}
+
+#drawer .active-page{
+  opacity:0.5;
+  margin-left:15px;
+}
 
 .drawer-button-wrapper {
   display: flex;
   font-size: 1.5rem;
+  padding-bottom: 2%;
 }
 .drawer-button-wrapper:hover {
   cursor: pointer;
@@ -19,4 +35,12 @@
 
 .drawer-button {
   font-size: 2rem !important;
+}
+
+
+@media only screen and (max-width: 600px) {
+  #drawer .MuiDrawer-paper {
+    
+    width: 100vw;
+  }
 }

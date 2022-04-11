@@ -33,7 +33,7 @@ function App() {
           path="/home"
           element={
             <>
-              <Header show_search={true} />
+              <Header pageName={"Home"} show_search={true} />
               <Main ownerOnly={false} favoritesOnly={false} />
             </>
           }
@@ -42,7 +42,7 @@ function App() {
           path="/my-recipes"
           element={
             <>
-              <Header show_search={true} />
+              <Header pageName={"My Recipes"} show_search={true} />
               <Main ownerOnly={true} favoritesOnly={false} />
             </>
           }
@@ -51,7 +51,7 @@ function App() {
           path="/favorites"
           element={
             <>
-              <Header show_search={true} />
+              <Header pageName={"Favorites"} show_search={true} />
               <Main ownerOnly={true} favoritesOnly={true} />
             </>
           }
@@ -60,7 +60,7 @@ function App() {
           path="/recipes/:recipe_id"
           element={
             <>
-              <Header show_search={false} />
+              <Header pageName={"Recipe"} show_search={false} />
 
               <RecipePage />
             </>
@@ -70,7 +70,7 @@ function App() {
           path="/recipes/edit/:recipe_id"
           element={
             <>
-              <Header show_search={false} />
+              <Header pageName={"Edit Recipe"} show_search={false} />
               <RecipeEditorPage />
             </>
           }
@@ -80,7 +80,7 @@ function App() {
           path="/recipes/new"
           element={
             <>
-              <Header show_search={false} />
+              <Header pageName={"Add Recipe"} show_search={false} />
               <AddRecipe />
             </>
           }

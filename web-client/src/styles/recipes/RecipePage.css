@@ -53,6 +53,7 @@
 .recipe-page .recipe-section.recipe-description-container .recipe-title {
   margin-bottom: 1%;
   height: 35%;
+  cursor:nwse-resize;
 }
 .recipe-page .recipe-section.recipe-description-container .recipe-text-box {
   margin-bottom: 1%;

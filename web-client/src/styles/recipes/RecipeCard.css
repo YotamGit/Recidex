@@ -38,6 +38,7 @@
   font-size: 130%;
   display: flex;
   justify-content: center;
+  cursor:nesw-resize;
 }
 .recipe-card .recipe-data-dates {
   display: flex;
