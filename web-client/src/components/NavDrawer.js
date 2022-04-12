@@ -13,11 +13,11 @@ import IconButton from "@mui/material/IconButton";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import AddCircleRoundedIcon from "@mui/icons-material/AddCircleRounded";
-import PatternRoundedIcon from "@mui/icons-material/PatternRounded";
+import LoginRoundedIcon from "@mui/icons-material/LoginRounded";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
-
+import PersonAddAltRoundedIcon from "@mui/icons-material/PersonAddAltRounded";
 //redux
 import { useSelector, useDispatch } from "react-redux";
 import { clearUser } from "../slices/usersSlice";
@@ -121,7 +121,7 @@ const NavDrawer = ({ openDrawer, handleToggleDrawer }) => {
               handleToggleDrawer();
             }}
           >
-            <PatternRoundedIcon className="drawer-button" />
+            <LoginRoundedIcon className="drawer-button" />
             Login
           </span>
           <span
@@ -131,7 +131,7 @@ const NavDrawer = ({ openDrawer, handleToggleDrawer }) => {
               handleToggleDrawer();
             }}
           >
-            <PatternRoundedIcon className="drawer-button" />
+            <PersonAddAltRoundedIcon className="drawer-button" />
             Signup
           </span>
         </>
