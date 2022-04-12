@@ -1,8 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/Header.css";
+import RecipesLogo from "../utils-module/Photos/Recipes.svg";
 
 import NavDrawer from "./NavDrawer";
-
 import SearchBar from "./SearchBar";
 
 //mui
@@ -14,27 +15,41 @@ import AppBar from "@mui/material/AppBar";
 import MenuIcon from "@mui/icons-material/Menu";
 
 const Header = ({ pageName, show_search }) => {
+  const navigate = useNavigate();
+
   const [openDrawer, setOpenDrawer] = useState(false);
+  const [maximizeSearch, setMaximizeSearch] = useState(false);
+
   const handleToggleDrawer = () => {
     setOpenDrawer(!openDrawer);
   };
 
   return (
     <>
-      <AppBar className="app-bar" position="sticky">
-        <Toolbar>
+      <AppBar position="sticky">
+        <Toolbar className="app-bar">
           <IconButton
             aria-label="open drawer"
             onClick={handleToggleDrawer}
             edge="start"
           >
-            <MenuIcon style={{ fontSize: "3vh", color: "white" }} />
+            <MenuIcon style={{ fontSize: "30px", color: "white" }} />
           </IconButton>
-          <span className="app-bar-title">
-            <span>{pageName}</span>
-          </span>
 
-          {show_search && <SearchBar />}
+          <div className="content">
+            <span
+              style={maximizeSearch ? { display: "none" } : {}}
+              className="page-title"
+            >
+              <img
+                className="logo"
+                src={RecipesLogo}
+                onClick={() => navigate("/home")}
+              ></img>
+              <span>&nbsp;{pageName}</span>
+            </span>
+            {show_search && <SearchBar setExpanded={setMaximizeSearch} />}
+          </div>
         </Toolbar>
       </AppBar>
       <NavDrawer

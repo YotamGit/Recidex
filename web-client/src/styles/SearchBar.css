@@ -1,25 +1,38 @@
 .search-bar-container {
+ 
+  display: flex;
+  justify-content: space-between;
+}
+
+.search-container {
+  flex-grow: 1;
   height: 40px;
+  padding-left:5px;
+  padding-right:5px;
   position: relative;
   border-radius: 5px;
   background-color: rgba(255, 255, 255, 0.336);
-  margin-left: 0;
   width: auto;
   display: flex;
   align-items: center;
   flex-direction: row;
-  padding: 2px;
 }
 
+.search-bar-container .MuiButtonBase-root {
+  padding:0px !important;
+}
+.search-bar-container .MuiAutocomplete-inputRoot {
+  padding-right:43px !important;
+}
 .search-bar-search-field {
-  /* box-shadow: 0px 0px 4px 0px #6a6a9f; */
-  /* border-bottom: 1.5px solid white; */
+  flex-grow: 1;
+  flex-shrink: 1;
   color: inherit;
   width: 25ch;
   transition: width 0.2s;
 }
 
-.search-bar-container:hover {
+.search-container:hover {
   background-color: rgba(255, 255, 255, 0.466);
 }
 .search-icon-wrapepr {
@@ -29,16 +42,19 @@
   align-items: center;
   justify-content: center;
 }
-
-@media only screen and (max-width: 600px) {
-  .search-bar-search-field {
-    width: 100%;
-  }
-
-  .search-bar-container {
-    width: 100%;
-  }
-}
-.search-bar-container .MuiOutlinedInput-notchedOutline{
+.search-container .MuiOutlinedInput-notchedOutline{
   border: none;
 }
+
+
+ @media only screen and (max-width: 600px) {
+  .search-bar-container {
+  position:relative;
+  width:100%;
+}
+  .search-bar-search-field {
+    width:100%;
+    position:relative;
+  }
+  
+} 

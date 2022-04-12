@@ -1,5 +1,5 @@
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
 import "../styles/NavDrawer.css";
 
 //mui
@@ -25,11 +25,16 @@ import { clearUser } from "../slices/usersSlice";
 const NavDrawer = ({ openDrawer, handleToggleDrawer }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const { firstname, lastname } = useSelector((state) => state.users);
   const signedIn = useSelector((state) => state.users.signedIn);
 
-  const [activePage, setActivePage] = useState("");
+  const [activePage, setActivePage] = useState(location.pathname);
+
+  useEffect(() => {
+    setActivePage(location.pathname);
+  }, [location]);
 
   return (
     <Drawer
@@ -52,11 +57,10 @@ const NavDrawer = ({ openDrawer, handleToggleDrawer }) => {
       <Divider />
       <span
         className={`${
-          activePage === "home" && "active-page"
+          activePage === "/home" && "active-page"
         } drawer-button-wrapper`}
         onClick={() => {
           navigate("/home");
-          setActivePage("home");
           handleToggleDrawer();
         }}
       >
@@ -67,11 +71,10 @@ const NavDrawer = ({ openDrawer, handleToggleDrawer }) => {
         <>
           <span
             className={`${
-              activePage === "my-recipes" && "active-page"
+              activePage === "/my-recipes" && "active-page"
             } drawer-button-wrapper`}
             onClick={() => {
               navigate("/my-recipes");
-              setActivePage("my-recipes");
               handleToggleDrawer();
             }}
           >
@@ -84,11 +87,10 @@ const NavDrawer = ({ openDrawer, handleToggleDrawer }) => {
         <>
           <span
             className={`${
-              activePage === "favorites" && "active-page"
+              activePage === "/favorites" && "active-page"
             } drawer-button-wrapper`}
             onClick={() => {
               navigate("/favorites");
-              setActivePage("favorites");
               handleToggleDrawer();
             }}
           >
@@ -137,11 +139,10 @@ const NavDrawer = ({ openDrawer, handleToggleDrawer }) => {
 
       <span
         className={`${
-          activePage === "add-recipe" && "active-page"
+          activePage === "/recipes/new" && "active-page"
         } drawer-button-wrapper`}
         onClick={() => {
           navigate("/recipes/new");
-          setActivePage("add-recipe");
           handleToggleDrawer();
         }}
       >

@@ -1,16 +1,29 @@
 .app-bar {
+  height:64px;
+  padding:15px !important;
+  overflow-x: auto;
+  overflow-y: hidden;
+  }
+.app-bar .content {
+  flex-grow:1;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 }
-.app-bar-title {
-  padding-left: 1%;
+.app-bar .page-title {
+  
+  display: flex;
+  padding-left: 5px;
+  padding-right: 5px;
   font-size: 2rem;
-  flex-grow: 1;
+  flex-direction: row;
+  align-items: center;
 }
 
-@media only screen and (max-width: 600px) {
-  .app-bar-title {
-    display: none;
-  }
+.app-bar .logo {
+  filter:invert(100%);
+  overflow: hidden;
+  width:103px;
+  cursor:pointer;
 }

@@ -6,11 +6,6 @@
   margin: 1%;
 }
 
-@media only screen and (max-width: 600px) {
-  .recipe-card {
-    width:100%;
-  }
-}
 
 .recipe-card .recipe-card-top-button-row {
   height: 7%;
@@ -96,8 +91,14 @@
 .recipe-card .recipe-additional-data {
   width: 40%;
   word-break:break-all;
-  }
+}
 .recipe-card .recipe-additional-data-field .caption {
   font-weight: 650;
   margin-right: 4px;
+}
+
+@media only screen and (max-width: 600px) {
+  .recipe-card {
+    width:100%;
+  }
 }

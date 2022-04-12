@@ -20,6 +20,7 @@
   border-radius: 5px;
   box-shadow: 0px 0px 7px 1px;
   padding: 10px 25px 25px 25px;
+  margin-top:10%;
 }
 #signup-page .form-input-segment {
   display:grid;
@@ -76,9 +77,9 @@
 }
 
 #signup-page .recipes-logo{
-  height:35vh;
+  height:27vh;
   position:absolute;
-  top:-8%;
+  top:0%;
 }
 
 @media only screen and (max-width: 600px) {
@@ -89,7 +90,7 @@
     width: 100%;
   }
   #signup-page .recipes-logo{
-    height:25vh;
-    top:-5%;
+    height:17vh;
+    top:0%;
   }
 }

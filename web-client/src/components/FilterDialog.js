@@ -25,7 +25,7 @@ const FilterDialog = () => {
   const dispatch = useDispatch();
 
   const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const [showRecipeFilterDialog, setShowRecipeFilterDialog] = useState(false);
 
   const recipe_categories = useSelector(
@@ -98,7 +98,6 @@ const FilterDialog = () => {
 
   return (
     <>
-      {category}
       <IconButton onClick={RecipeFilterDialogToggle}>
         <FilterAltRoundedIcon
           className="header-dialog-button"
