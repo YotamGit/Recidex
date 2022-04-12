@@ -185,12 +185,6 @@ const RecipeCard = ({ recipe }) => {
                   <span>{recipe.servings}</span>
                 </div>
               )}
-              {recipe.source && (
-                <div className="recipe-additional-data-field">
-                  <span className="caption">Source:</span>
-                  <span>{recipe.source}</span>
-                </div>
-              )}
               <div className="recipe-additional-data-field">
                 <span className="caption">Owner:</span>
                 <span>
