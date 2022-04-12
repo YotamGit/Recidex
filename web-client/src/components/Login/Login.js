@@ -37,6 +37,17 @@ const Login = ({ showSignAsGuest, navigateAfterLogin, onLogin }) => {
   const [wrongCredentials, setWrongCredentials] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
+  //detect enter key to sign in
+  useEffect(() => {
+    const handleKeyDown = async (e) => {
+      if (e.code === "Enter") {
+        onSubmitPassword();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [username, password]);
+
   const onSubmitPassword = async () => {
     try {
       var result = await axios.post("/api/login", {

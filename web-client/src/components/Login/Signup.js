@@ -8,7 +8,7 @@ import {
   validEmail,
 } from "../../utils-module/validation";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -51,6 +51,17 @@ const Signup = ({ showSignAsGuest, navigateAfterLogin }) => {
   const [passwordsMismatch, setPasswordsMismatch] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
+  //detect enter key to sign up
+  useEffect(() => {
+    const handleKeyDown = async (e) => {
+      if (e.code === "Enter") {
+        onSubmit();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [firstname, lastname, email, username, password, passwordconfirm]);
+
   const validateInput = () => {
     //check existance of required fields
     if (
@@ -61,7 +72,7 @@ const Signup = ({ showSignAsGuest, navigateAfterLogin }) => {
       password === ""
     ) {
       //print error required fields
-      window.alert("Please all of the fields.");
+      window.alert("Please fill all of the fields.");
       return false;
     }
 
