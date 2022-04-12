@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Header.css";
 import RecipesLogo from "../utils-module/Photos/Recipes.svg";
@@ -23,6 +23,12 @@ const Header = ({ pageName, show_search }) => {
   const handleToggleDrawer = () => {
     setOpenDrawer(!openDrawer);
   };
+
+  useEffect(() => {
+    if (!show_search) {
+      setMaximizeSearch(false);
+    }
+  }, [show_search]);
 
   return (
     <>
