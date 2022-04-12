@@ -84,6 +84,9 @@ const Main = ({ ownerOnly, favoritesOnly }) => {
 
   useEffect(() => {
     const handleScroll = async () => {
+      if (fetching) {
+        return;
+      }
       if (
         window.innerHeight + document.documentElement.scrollTop >=
         document.documentElement.offsetHeight - 1
@@ -91,13 +94,14 @@ const Main = ({ ownerOnly, favoritesOnly }) => {
         // window.alert(
         //   `${window.innerHeight} + ${document.documentElement.scrollTop} = ${document.documentElement.offsetHeight}`
         // );
+
         await loadRecipes();
       }
       return;
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [recipes, fetchedAllRecipes]);
+  }, [recipes, fetchedAllRecipes, fetching]);
 
   return (
     <div
