@@ -4,6 +4,7 @@
   width: 505px;
   height: 500px;
   margin: 1%;
+  background-color: var(--recipe-card);
 }
 
 .recipe-card .icon {
@@ -67,7 +68,7 @@
 
 .recipe-card .recipe-data-chip {
   margin: 1%;
-  background-color: var(--recipes-background)
+  background-color: var(--chips);
 }
 
 /*recipe main section*/

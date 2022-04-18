@@ -3,6 +3,7 @@
   padding:15px !important;
   overflow-x: auto;
   overflow-y: hidden;
+  background-color: var(--app-bar);
   }
 .app-bar .content {
   flex-grow:1;

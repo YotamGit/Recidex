@@ -23,10 +23,12 @@ app.use("*", (req, res, next) => {
     `\n${new Date().toISOString()} ${req.method} ${req.originalUrl}`
   );
   next();
-  var endTime = performance.now();
-  process.stdout.write(
-    ` ${res.statusCode} ${Math.round(endTime - startTime)}ms`
-  );
+  res.on("finish", () => {
+    var endTime = performance.now();
+    process.stdout.write(
+      ` ${res.statusCode} ${Math.round(endTime - startTime)}ms`
+    );
+  });
 });
 
 // Authentication
@@ -48,7 +50,6 @@ app.use("*", (req, res) => {
 
 // Error handler
 app.use((err, req, res, next) => {
-  // console.log(err);
   res.status(500).send(err);
   process.stdout.write(` SERVER ERROR - ${res.statusCode}`);
 });
