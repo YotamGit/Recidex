@@ -23,7 +23,7 @@ export const userPing = createAsyncThunk("user/userPing", async () => {
     return result.data;
   } catch (error) {
     if (error.response.status === 401) {
-      return false;
+      return error.response.data;
     } else {
       window.alert(
         "Error Trying to Log In Automatically.\nReason: " + error.message
@@ -71,8 +71,9 @@ const usersSlice = createSlice({
       })
       .addCase(userPing.fulfilled, (state, action) => {
         state.attemptSignIn = false;
-        state.signedIn = action.payload.authenticated;
-        if (action.payload.authenticated) {
+        console.log(action);
+        state.signedIn = action.payload?.authenticated || false;
+        if (action.payload?.authenticated) {
           state.firstname = action.payload.userData.firstname;
           state.lastname = action.payload.userData.lastname;
           state.userId = action.payload.userData.userId;

@@ -51,7 +51,6 @@ app.use("*", (req, res) => {
 // Error handler
 app.use((err, req, res, next) => {
   res.status(500).send(err);
-  process.stdout.write(` SERVER ERROR - ${res.statusCode}`);
 });
 
 // Connect To DB

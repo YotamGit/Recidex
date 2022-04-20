@@ -96,6 +96,7 @@
 
 .recipe-card-image {
   height: 80%;
+  max-height:300px;
   width: 100%;
   display: block;
   object-fit: cover;
