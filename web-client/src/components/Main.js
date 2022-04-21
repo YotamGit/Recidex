@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { getRecipes } from "../slices/recipesSlice";
-import { setFullscreen } from "../slices/utilitySlice";
 import {
   setOwner,
   setfavoritesOnly,
@@ -18,16 +17,11 @@ import {
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
 import Alert from "@mui/material/Alert";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import { useTheme } from "@mui/material/styles";
 
 const Main = ({ ownerOnly, favoritesOnly }) => {
   const dispatch = useDispatch();
-
-  const theme = useTheme();
-  const fullscreen = useMediaQuery(theme.breakpoints.up("sm"));
-
   const [fetching, setFetching] = useState(false);
+
   const recipes = useSelector((state) => state.recipes.recipes);
   const fetchedAllRecipes = useSelector(
     (state) => state.recipes.fetchedAllRecipes
@@ -35,6 +29,7 @@ const Main = ({ ownerOnly, favoritesOnly }) => {
 
   const owner = useSelector((state) => state.users.userId);
   const attemptSignIn = useSelector((state) => state.users.attemptSignIn);
+  const routeHistory = useSelector((state) => state.utilities.routeHistory);
 
   const loadRecipes = async () => {
     if (recipes.length > 0) {
@@ -79,20 +74,19 @@ const Main = ({ ownerOnly, favoritesOnly }) => {
     dispatch(setSearchText(undefined));
     dispatch(resetFilters());
     dispatch(setFiltered(false));
-    dispatch(setFullscreen(fullscreen));
   }, []);
-
-  useEffect(() => {
-    dispatch(setFullscreen(fullscreen));
-  }, [fullscreen]);
 
   useEffect(() => {
     if (attemptSignIn) {
       return;
     }
 
-    dispatch(setfavoritesOnly(favoritesOnly));
-    initialRecipesLoad();
+    if (
+      ["/home", "/my-recipes", "/favorites"].includes(routeHistory.slice(-1)[0])
+    ) {
+      dispatch(setfavoritesOnly(favoritesOnly));
+      initialRecipesLoad();
+    }
   }, [owner, ownerOnly, favoritesOnly, attemptSignIn]);
 
   useEffect(() => {

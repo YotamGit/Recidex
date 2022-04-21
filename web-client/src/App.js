@@ -1,4 +1,9 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import { useEffect } from "react";
+
+//redux
+import { useDispatch } from "react-redux";
+import { addRouteToHistory, setFullscreen } from "./slices/utilitySlice";
 
 import RecipePage from "./components/recipes/RecipePage";
 import RecipeEditorPage from "./components/recipe_editor/RecipeEditorPage";
@@ -8,7 +13,25 @@ import Main from "./components/Main";
 import Login from "./components/Login/Login";
 import Signup from "./components/Login/Signup";
 
+//mui
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
+
 function App() {
+  const dispatch = useDispatch();
+  const location = useLocation();
+
+  const theme = useTheme();
+  const fullscreen = useMediaQuery(theme.breakpoints.up("sm"));
+
+  useEffect(() => {
+    dispatch(addRouteToHistory(location.pathname));
+  }, [location]);
+
+  useEffect(() => {
+    dispatch(setFullscreen(fullscreen));
+  }, [fullscreen]);
+
   return (
     <div>
       <Routes>

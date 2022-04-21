@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   fullscreen: undefined,
+  routeHistory: [],
 };
 
 const utilitySlice = createSlice({
@@ -11,9 +12,12 @@ const utilitySlice = createSlice({
     setFullscreen(state, action) {
       state.fullscreen = action.payload;
     },
+    addRouteToHistory(state, action) {
+      state.routeHistory.push(action.payload);
+    },
   },
 });
 
-export const { setFullscreen } = utilitySlice.actions;
+export const { setFullscreen, addRouteToHistory } = utilitySlice.actions;
 
 export default utilitySlice.reducer;

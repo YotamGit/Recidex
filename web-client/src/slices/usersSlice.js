@@ -71,7 +71,6 @@ const usersSlice = createSlice({
       })
       .addCase(userPing.fulfilled, (state, action) => {
         state.attemptSignIn = false;
-        console.log(action);
         state.signedIn = action.payload?.authenticated || false;
         if (action.payload?.authenticated) {
           state.firstname = action.payload.userData.firstname;
