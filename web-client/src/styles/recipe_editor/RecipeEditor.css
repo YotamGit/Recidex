@@ -58,6 +58,10 @@
   padding-right: 1%;
 }
 
+.recipe-editor-text-box li {
+  list-style-type: none;
+}
+
 #recipe-editor-image {
   display: block;
   margin-left: auto;
