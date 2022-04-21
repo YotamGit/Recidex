@@ -81,7 +81,10 @@ const Recipe = ({ recipe }) => {
           {recipe.image && (
             <img className="image" src={recipe.image} alt=""></img>
           )}
-          <div className="recipe-additional-data-container">
+          <div
+            className="recipe-additional-data-container"
+            style={{ direction: "ltr" }}
+          >
             <span className="recipe-additional-data">
               <span className="adittional-data-title">Category:</span>{" "}
               {recipe.category}
@@ -135,7 +138,9 @@ const Recipe = ({ recipe }) => {
       <div className="recipe-footer">
         {recipe.source && (
           <>
-            <span className="recipe-footer-title">Source:</span>{" "}
+            <span className="recipe-footer-title">
+              {recipe.rtl ? "מקור:" : "Source:"}
+            </span>{" "}
             {isURL(recipe.source) ? (
               <a href={recipe.source}>{recipe.source}</a>
             ) : (
