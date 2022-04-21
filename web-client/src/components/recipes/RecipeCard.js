@@ -106,7 +106,7 @@ const RecipeCard = ({ recipe }) => {
           <EditRoundedIcon className="icon" />
         </Link>
       </div>
-      <div className="recipe">
+      <div className="recipe-body">
         <div className="recipe-header">
           <div>
             <span

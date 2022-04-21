@@ -29,41 +29,47 @@ const Recipe = ({ recipe }) => {
   return (
     <div className="recipe" style={{ direction: recipe.rtl ? "rtl" : "ltr" }}>
       <div className="recipe-header">
-        <div style={{ textAlign: recipe.rtl ? "right" : "left" }}>
+        <div
+          className="recipe-title"
+          style={{ textAlign: recipe.rtl ? "right" : "left" }}
+        >
           {recipe.title}
         </div>
         <div
-          className="recipe-text-box"
+          className="recipe-description"
           id={recipe._id + "-recipe-description"}
         />
 
-        <span className="recipe-additional-data">
+        <span className="recipe-owner">
           By: {recipe.owner.firstname + " " + recipe.owner.lastname}
         </span>
       </div>
       <div className="recipe-body">
-        {recipe.image && (
-          <img className="image" src={recipe.image} alt=""></img>
-        )}
-        <div className="recipe-additional-data-container">
-          <span className="recipe-additional-data">
-            Category: {recipe.category}
-          </span>
-          <span className="recipe-additional-data">
-            Sub Category: {recipe.sub_category}
-          </span>
-          <span className="recipe-additional-data">
-            Difficulty: {recipe.difficulty}
-          </span>
-          <span className="recipe-additional-data">
-            Prep Time: {recipe.prep_time}
-          </span>
-          <span className="recipe-additional-data">
-            Total Time: {recipe.total_time}
-          </span>
-          <span className="recipe-additional-data">
-            Servings: {recipe.servings}
-          </span>
+        <div className="recipe-image-and-additional-data-container">
+          {recipe.image && (
+            <img className="image" src={recipe.image} alt=""></img>
+          )}
+          <div className="recipe-additional-data-container">
+            <span className="recipe-additional-data">
+              Category: {recipe.category}
+            </span>
+            <span className="recipe-additional-data">
+              Sub Category: {recipe.sub_category}
+            </span>
+            <span className="recipe-additional-data">
+              Difficulty: {recipe.difficulty}
+            </span>
+
+            <span className="recipe-additional-data">
+              Prep Time: {recipe.prep_time}
+            </span>
+            <span className="recipe-additional-data">
+              Total Time: {recipe.total_time}
+            </span>
+            <span className="recipe-additional-data">
+              Servings: {recipe.servings}
+            </span>
+          </div>
         </div>
         <div className="recipe-main-data-container">
           <div className="recipe-section">
