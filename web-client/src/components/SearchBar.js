@@ -17,14 +17,14 @@ import { useTheme } from "@mui/material/styles";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 //redux
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getRecipes } from "../slices/recipesSlice";
 import { setSearchText as setStoreSearchText } from "../slices/filtersSlice";
 
 const SearchBar = ({ setExpanded }) => {
   const dispatch = useDispatch();
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.up("sm"));
+  const fullscreen = useSelector((state) => state.utilities.fullscreen);
+  const filtered = useSelector((state) => state.filters.filtered);
 
   const [maximizeSearch, setMaximizeSearch] = useState(false);
 
@@ -80,7 +80,7 @@ const SearchBar = ({ setExpanded }) => {
 
   return (
     <>
-      {fullScreen || maximizeSearch ? (
+      {fullscreen || maximizeSearch ? (
         <div className="search-bar-container">
           <div className="search-container">
             <IconButton
@@ -145,7 +145,9 @@ const SearchBar = ({ setExpanded }) => {
             }}
             aria-label="search"
           >
-            <SearchIcon style={{ fontSize: "30px", color: "white" }} />
+            <SearchIcon
+              style={{ fontSize: "30px", color: filtered ? "#89FFAC" : "#fff" }}
+            />
           </IconButton>
         </>
       )}
