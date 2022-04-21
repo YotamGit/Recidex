@@ -23,13 +23,28 @@ const Recipe = ({ recipe }) => {
         .querySelectorAll("input[type=checkbox]")
         .forEach((input) => (input.disabled = false))
     );
+    console.log(recipe);
   }, [recipe.description, recipe.ingredients, recipe.directions, recipe._id]);
 
   return (
     <div className="recipe" style={{ direction: recipe.rtl ? "rtl" : "ltr" }}>
       <div className="recipe-header">
-        <div style={{ fontSize: "130%" }}>{recipe.title}</div>
-        <div style={{ fontSize: "80%" }}>source: {recipe.source}</div>
+        <div style={{ textAlign: recipe.rtl ? "right" : "left" }}>
+          {recipe.title}
+        </div>
+        <div
+          className="recipe-text-box"
+          id={recipe._id + "-recipe-description"}
+        />
+
+        <span className="recipe-additional-data">
+          By: {recipe.owner.firstname + " " + recipe.owner.lastname}
+        </span>
+      </div>
+      <div className="recipe-body">
+        {recipe.image && (
+          <img className="image" src={recipe.image} alt=""></img>
+        )}
         <div className="recipe-additional-data-container">
           <span className="recipe-additional-data">
             Category: {recipe.category}
@@ -50,33 +65,25 @@ const Recipe = ({ recipe }) => {
             Servings: {recipe.servings}
           </span>
         </div>
-      </div>
-      <div className="recipe-section recipe-description-container">
-        <div className="recipe-title">
-          {recipe.rtl ? "תיאור" : "Description"}
+        <div className="recipe-main-data-container">
+          <div className="recipe-section">
+            <div>{recipe.rtl ? "מרכיבים" : "Ingredients"}</div>
+            <div
+              className="recipe-text-box"
+              id={recipe._id + "-recipe-ingredients"}
+            />
+          </div>
+          <div className="recipe-section">
+            <div>{recipe.rtl ? "הוראות" : "Directions"}</div>
+            <div
+              className="recipe-text-box"
+              id={recipe._id + "-recipe-directions"}
+            />
+          </div>
         </div>
-        <div
-          className="recipe-text-box"
-          id={recipe._id + "-recipe-description"}
-        />
       </div>
-      <div className="recipe-section">
-        <div className="recipe-title">
-          {recipe.rtl ? "מרכיבים" : "Ingredients"}
-        </div>
-        <div
-          className="recipe-text-box"
-          id={recipe._id + "-recipe-ingredients"}
-        />
-      </div>
-      <div className="recipe-section">
-        <div className="recipe-title">
-          {recipe.rtl ? "הוראות" : "Directions"}
-        </div>
-        <div
-          className="recipe-text-box"
-          id={recipe._id + "-recipe-directions"}
-        />
+      <div className="recipe-footer">
+        <span>source: {recipe.source}</span>
       </div>
     </div>
   );

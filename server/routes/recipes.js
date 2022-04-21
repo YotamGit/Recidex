@@ -45,7 +45,10 @@ router.get("/", async (req, res, next) => {
 // GET BACK A SPECIFIC RECIPE
 router.get("/id/:recipe_id", async (req, res, next) => {
   try {
-    const recipe = await Recipe.findById(req.params.recipe_id);
+    const recipe = await Recipe.findById(req.params.recipe_id).populate(
+      "owner",
+      "firstname lastname"
+    );
     res.status(200).json(recipe);
   } catch (err) {
     next(err);

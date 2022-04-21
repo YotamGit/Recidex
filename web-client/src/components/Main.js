@@ -83,7 +83,10 @@ const Main = ({ ownerOnly, favoritesOnly }) => {
     }
 
     if (
-      ["/home", "/my-recipes", "/favorites"].includes(routeHistory.slice(-1)[0])
+      ["/home", "/my-recipes", "/favorites"].includes(
+        routeHistory.slice(-1)[0]
+      ) ||
+      (recipes.length === 0 && !fetchedAllRecipes)
     ) {
       dispatch(setfavoritesOnly(favoritesOnly));
       initialRecipesLoad();
