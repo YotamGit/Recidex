@@ -27,6 +27,7 @@ const RecipePage = () => {
   );
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     if (recipe === undefined) {
       getRecipe(recipe_id).then((res) => {
         setRecipe(res);
