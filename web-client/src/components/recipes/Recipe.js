@@ -1,6 +1,17 @@
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { marked } from "marked";
 import "../../styles/recipes/Recipe.css";
+
+import Favorite from "../Favorite";
+
+import isURL from "validator/lib/isURL";
+
+//mui
+import Divider from "@mui/material/Divider";
+
+//redux
+import { useSelector } from "react-redux";
 
 marked.setOptions({
   gfm: true,
@@ -9,6 +20,8 @@ marked.setOptions({
 });
 
 const Recipe = ({ recipe }) => {
+  const signedIn = useSelector((state) => state.users.signedIn);
+
   useEffect(() => {
     document.getElementById(recipe._id + "-recipe-description").innerHTML =
       marked.parse(recipe.description ? recipe.description : "");
@@ -23,26 +36,45 @@ const Recipe = ({ recipe }) => {
         .querySelectorAll("input[type=checkbox]")
         .forEach((input) => (input.disabled = false))
     );
-    console.log(recipe);
   }, [recipe.description, recipe.ingredients, recipe.directions, recipe._id]);
 
   return (
     <div className="recipe" style={{ direction: recipe.rtl ? "rtl" : "ltr" }}>
-      <div className="recipe-header">
-        <div
-          className="recipe-title"
-          style={{ textAlign: recipe.rtl ? "right" : "left" }}
-        >
+      <div
+        className="recipe-header"
+        style={{ textAlign: recipe.rtl ? "right" : "left" }}
+      >
+        <div className="recipe-title">
           {recipe.title}
+          {signedIn && (
+            <Favorite
+              recipeId={recipe._id}
+              favorited_by={recipe.favorited_by}
+            />
+          )}
         </div>
         <div
           className="recipe-description"
           id={recipe._id + "-recipe-description"}
         />
-
-        <span className="recipe-owner">
-          By: {recipe.owner.firstname + " " + recipe.owner.lastname}
-        </span>
+        <div>
+          <div className="recipe-owner">
+            <span>{recipe.rtl ? "העלה:" : "By:"}</span>{" "}
+            <span style={{ fontSize: "120%" }}>
+              {recipe.owner.firstname + " " + recipe.owner.lastname}
+            </span>
+          </div>
+          <div className="recipe-time">
+            <span>{recipe.rtl ? "עודכן:" : "Updated:"}</span>{" "}
+            <span>
+              {new Date(recipe.last_update_time).toLocaleString("he-IL", {
+                day: "numeric",
+                month: "numeric",
+                year: "numeric",
+              })}
+            </span>
+          </div>
+        </div>
       </div>
       <div className="recipe-body">
         <div className="recipe-image-and-additional-data-container">
@@ -51,36 +83,48 @@ const Recipe = ({ recipe }) => {
           )}
           <div className="recipe-additional-data-container">
             <span className="recipe-additional-data">
-              Category: {recipe.category}
+              <span className="adittional-data-title">Category:</span>{" "}
+              {recipe.category}
             </span>
             <span className="recipe-additional-data">
-              Sub Category: {recipe.sub_category}
+              <span className="adittional-data-title">Sub Category:</span>{" "}
+              {recipe.sub_category}
             </span>
             <span className="recipe-additional-data">
-              Difficulty: {recipe.difficulty}
+              <span className="adittional-data-title">Difficulty:</span>{" "}
+              {recipe.difficulty}
             </span>
 
             <span className="recipe-additional-data">
-              Prep Time: {recipe.prep_time}
+              <span className="adittional-data-title">Prep Time:</span>{" "}
+              {recipe.prep_time}
             </span>
             <span className="recipe-additional-data">
-              Total Time: {recipe.total_time}
+              <span className="adittional-data-title">Total Time:</span>{" "}
+              {recipe.total_time}
             </span>
             <span className="recipe-additional-data">
-              Servings: {recipe.servings}
+              <span className="adittional-data-title">Servings:</span>{" "}
+              {recipe.servings}
             </span>
           </div>
         </div>
         <div className="recipe-main-data-container">
           <div className="recipe-section">
-            <div>{recipe.rtl ? "מרכיבים" : "Ingredients"}</div>
+            <div className="recipe-sub-title">
+              {recipe.rtl ? "מרכיבים" : "Ingredients"}
+            </div>
+            <Divider style={{ backgroundColor: "gray" }} variant="fullWidth" />
             <div
               className="recipe-text-box"
               id={recipe._id + "-recipe-ingredients"}
             />
           </div>
           <div className="recipe-section">
-            <div>{recipe.rtl ? "הוראות" : "Directions"}</div>
+            <div className="recipe-sub-title">
+              {recipe.rtl ? "הוראות" : "Directions"}
+            </div>
+            <Divider style={{ backgroundColor: "gray" }} variant="fullWidth" />
             <div
               className="recipe-text-box"
               id={recipe._id + "-recipe-directions"}
@@ -89,7 +133,16 @@ const Recipe = ({ recipe }) => {
         </div>
       </div>
       <div className="recipe-footer">
-        <span>source: {recipe.source}</span>
+        {recipe.source && (
+          <>
+            <span className="recipe-footer-title">Source:</span>{" "}
+            {isURL(recipe.source) ? (
+              <a href={recipe.source}>{recipe.source}</a>
+            ) : (
+              <span>{recipe.source}</span>
+            )}
+          </>
+        )}
       </div>
     </div>
   );

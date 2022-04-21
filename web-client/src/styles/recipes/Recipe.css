@@ -1,35 +1,37 @@
 .recipe {
   width:60%;
   margin:auto;
-  border:solid 1px black;
 }
 
 /*header styling*/
 .recipe .recipe-header {
-  direction: ltr;
   display: flex;
   flex-direction: column;
 }
 .recipe .recipe-title{
+  display:flex;
   font-size: 3rem;
   font-weight: 640;
   font-style:italic;
 }
 .recipe .recipe-description{
   font-size: 130%;
-  font-weight: 640;
+  font-weight: 600;
   font-style:italic;
 }
 .recipe .recipe-owner{
-  font-size: 130%;
-  padding-bottom: 5%;
+  font-size: 110%;
+}
+.recipe .recipe-time {
+  color:rgb(145, 145, 145);
+  font-style:italic;
+  
 }
 
 /*body styling*/
 .recipe .recipe-body {
   width:90%;
   margin:auto;
-  border:solid 1px black;
 }
 
 .recipe .recipe-image-and-additional-data-container{
@@ -37,13 +39,18 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  gap:2%;
-  margin-bottom:10px;
-  margin-top:10px;
+  /* gap:2%; */
+  margin-bottom:40px;
+  margin-top:40px;
+  row-gap: 10px;
+
+}
+.recipe .recipe-image-and-additional-data-container > *{
+  margin-inline: 1%;
 }
 .recipe .image {
   width:100%;
-  max-width: 500px;
+  max-width: 600px;
   height:100%;
   object-fit: cover;
   border-radius: 10px;
@@ -57,14 +64,49 @@
   border-radius: 5px;
   padding-left:10px;
   padding-right:10px;
-  
 }
 .recipe .recipe-additional-data{
   
   word-break: break-word;
 }
+.recipe .adittional-data-title{
+  font-weight:650;
+  text-decoration: underline;
+}
 
-.recipe .recipe-main-data-container{
-  border:solid 1px black;
-  
+.recipe .recipe-section:nth-child(n) {
+  margin-bottom:50px;
+}
+.recipe .recipe-sub-title{
+  font-size: 1.3rem;
+  font-weight: 600;
+  font-style:italic;
+}
+
+/*footer styling*/
+.recipe .recipe-footer{
+  margin-bottom:20px;
+}
+.recipe .recipe-footer-title{
+  font-weight:650;
+  text-decoration: underline;
+}
+
+@media only screen and (max-width: 600px) {
+  .recipe {
+    width:90%;
+  }
+  .recipe .recipe-body {
+    width:100%;
+  }
+  .recipe .recipe-image-and-additional-data-container{
+    
+    flex-direction: column;
+    align-items: center;
+    margin-top:30px;
+    margin-bottom:30px;
+  }
+  .recipe .recipe-additional-data-container{
+    margin-top:10px; 
+  }
 }

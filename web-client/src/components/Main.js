@@ -71,6 +71,7 @@ const Main = ({ ownerOnly, favoritesOnly }) => {
   };
 
   useEffect(() => {
+    //for some reason this is called only once when moving between the main pages.(if the main element exists then this is called only once even if moving pages)
     dispatch(setSearchText(undefined));
     dispatch(resetFilters());
     dispatch(setFiltered(false));
