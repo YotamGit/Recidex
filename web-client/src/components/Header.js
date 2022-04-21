@@ -51,6 +51,7 @@ const Header = ({ pageName, show_search }) => {
                 className="logo"
                 src={RecipesLogo}
                 onClick={() => navigate("/home")}
+                alt=""
               ></img>
               <span>&nbsp;{pageName}</span>
             </span>

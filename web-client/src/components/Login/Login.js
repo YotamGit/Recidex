@@ -46,6 +46,7 @@ const Login = ({ showSignAsGuest, navigateAfterLogin, onLogin }) => {
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [username, password]);
 
   const onSubmitPassword = async () => {
@@ -63,12 +64,10 @@ const Login = ({ showSignAsGuest, navigateAfterLogin, onLogin }) => {
         if (navigateAfterLogin) {
           navigate("/home");
         }
-        onLogin && onLogin();
+        onLogin && onLogin(); //for closing login modal
       }
     } catch (error) {
       if (error.response.status === 401) {
-        localStorage.clear(); //not sure if required
-        dispatch(setSignedIn(false)); //not sure if required
         setWrongCredentials(true);
       } else {
         window.alert("Failed to Login.\nReason: " + error.message);
@@ -77,7 +76,7 @@ const Login = ({ showSignAsGuest, navigateAfterLogin, onLogin }) => {
   };
   return (
     <div id="login-page">
-      <img className="recipes-logo" src={RecipesLogo}></img>
+      <img className="recipes-logo" src={RecipesLogo} alt=""></img>
       <div className="login-section">
         <div className="title">Sign in</div>
         <div className="form-input-segment">

@@ -47,6 +47,7 @@ const SearchBar = ({ setExpanded }) => {
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchText]);
 
   // get recipe titles when dropdown is opened

@@ -74,6 +74,7 @@ const Main = ({ ownerOnly, favoritesOnly }) => {
     dispatch(setSearchText(undefined));
     dispatch(resetFilters());
     dispatch(setFiltered(false));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -87,6 +88,7 @@ const Main = ({ ownerOnly, favoritesOnly }) => {
       dispatch(setfavoritesOnly(favoritesOnly));
       initialRecipesLoad();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [owner, ownerOnly, favoritesOnly, attemptSignIn]);
 
   useEffect(() => {
@@ -108,6 +110,7 @@ const Main = ({ ownerOnly, favoritesOnly }) => {
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [recipes, fetchedAllRecipes, fetching]);
 
   return (

@@ -26,10 +26,12 @@ function App() {
 
   useEffect(() => {
     dispatch(addRouteToHistory(location.pathname));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
 
   useEffect(() => {
     dispatch(setFullscreen(fullscreen));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fullscreen]);
 
   return (

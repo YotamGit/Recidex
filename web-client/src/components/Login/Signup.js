@@ -60,6 +60,7 @@ const Signup = ({ showSignAsGuest, navigateAfterLogin }) => {
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [firstname, lastname, email, username, password, passwordconfirm]);
 
   const validateInput = () => {
@@ -105,6 +106,7 @@ const Signup = ({ showSignAsGuest, navigateAfterLogin }) => {
     }
     return true;
   };
+
   const onSubmit = async () => {
     if (!validateInput()) {
       return;
@@ -130,8 +132,6 @@ const Signup = ({ showSignAsGuest, navigateAfterLogin }) => {
     } catch (error) {
       if (error.response.status === 409) {
         window.alert("Failed to Sign Up.\nReason: " + error.response.data);
-        localStorage.clear(); //not sure if required
-        dispatch(setSignedIn(false)); //not sure if required
       } else {
         window.alert("Failed to Sign Up.\nReason: " + error.message);
       }
@@ -139,7 +139,7 @@ const Signup = ({ showSignAsGuest, navigateAfterLogin }) => {
   };
   return (
     <div id="signup-page">
-      <img className="recipes-logo" src={RecipesLogo}></img>
+      <img className="recipes-logo" src={RecipesLogo} alt=""></img>
       <div className="signup-section">
         <div className="title">Sign up</div>
         <div className="form-input-segment">
