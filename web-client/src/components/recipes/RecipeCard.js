@@ -62,7 +62,7 @@ const RecipeCard = ({ recipe }) => {
   const chipSubCategoryOnClick = async () => {
     dispatch(
       setFilters({
-        category: undefined,
+        category: recipe.category,
         sub_category: recipe.sub_category,
         difficulty: undefined,
         prep_time: undefined,

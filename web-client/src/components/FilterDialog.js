@@ -4,12 +4,10 @@ import RecipeDropdown from "./RecipeDropdown";
 import "../styles/FilterDialog.css";
 //mui
 import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import { useTheme } from "@mui/material/styles";
-import { IconButton } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
 //mui icons
 import FilterAltRoundedIcon from "@mui/icons-material/FilterAltRounded";
 import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
@@ -24,9 +22,10 @@ import { setFiltered, setFilters } from "../slices/filtersSlice";
 const FilterDialog = () => {
   const dispatch = useDispatch();
 
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const fullscreen = useSelector((state) => state.utilities.fullscreen);
   const [showRecipeFilterDialog, setShowRecipeFilterDialog] = useState(false);
+
+  const selectedFilters = useSelector((state) => state.filters.selectedFilters);
 
   const recipe_categories = useSelector(
     (state) => state.filters.recipe_categories
@@ -42,21 +41,11 @@ const FilterDialog = () => {
 
   const owner = useSelector((state) => state.filters.selectedFilters.owner);
 
-  const [category, setCategory] = useState(
-    useSelector((state) => state.filters.selectedFilters.category)
-  );
-  const [sub_category, setSubCategory] = useState(
-    useSelector((state) => state.filters.selectedFilters.sub_category)
-  );
-  const [difficulty, setDifficulty] = useState(
-    useSelector((state) => state.filters.selectedFilters.difficulty)
-  );
-  const [prep_time, setPrepTime] = useState(
-    useSelector((state) => state.filters.selectedFilters.prep_time)
-  );
-  const [total_time, setTotalTime] = useState(
-    useSelector((state) => state.filters.selectedFilters.total_time)
-  );
+  const [category, setCategory] = useState(selectedFilters.category);
+  const [sub_category, setSubCategory] = useState(selectedFilters.sub_category);
+  const [difficulty, setDifficulty] = useState(selectedFilters.difficulty);
+  const [prep_time, setPrepTime] = useState(selectedFilters.prep_time);
+  const [total_time, setTotalTime] = useState(selectedFilters.total_time);
 
   const RecipeFilterDialogToggle = () => {
     setShowRecipeFilterDialog(!showRecipeFilterDialog);
@@ -96,6 +85,14 @@ const FilterDialog = () => {
     clearSelections();
   }, []);
 
+  useEffect(() => {
+    setCategory(selectedFilters.category);
+    setSubCategory(selectedFilters.sub_category);
+    setDifficulty(selectedFilters.difficulty);
+    setPrepTime(selectedFilters.prep_time);
+    setTotalTime(selectedFilters.total_time);
+  }, [selectedFilters]);
+
   return (
     <>
       <IconButton onClick={RecipeFilterDialogToggle}>
@@ -105,7 +102,7 @@ const FilterDialog = () => {
         />
       </IconButton>
       <Dialog
-        fullScreen={fullScreen}
+        fullScreen={!fullscreen}
         open={showRecipeFilterDialog}
         onClose={RecipeFilterDialogToggle}
         aria-labelledby="recipe-filter-dialog-title"
