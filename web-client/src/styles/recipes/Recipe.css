@@ -39,6 +39,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: flex-start;
   margin-bottom:40px;
   margin-top:40px;
   row-gap: 10px;
@@ -59,7 +60,6 @@
   width:225px;
   max-width: 600px;
   max-height:400px;
-  flex-grow: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -67,9 +67,10 @@
   border-radius: 10px;
   padding-left:10px;
   padding-right:10px;
+  
 }
 .recipe .recipe-additional-data{
-  margin-bottom:5px;
+  margin-bottom:10px;
   word-break: break-word;
 }
 .recipe .adittional-data-title{
@@ -98,6 +99,13 @@
   text-decoration: underline;
 }
 
+/*solves the headache of making the div grow only when it wraps to a new row*/
+@media only screen and (max-width: 1600px) {
+  .recipe .recipe-additional-data-container{
+    width:100%;
+  }
+}
+
 @media only screen and (max-width: 600px) {
   .recipe {
     width:90%;
@@ -122,7 +130,5 @@
   .recipe .recipe-additional-data-container{
     margin-top:10px; 
     width:100%;
-  }
-  .recipe .recipe-additional-data{
   }
 }

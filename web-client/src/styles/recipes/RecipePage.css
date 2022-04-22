@@ -11,4 +11,20 @@
 
 
 @media print {
+  .MuiAppBar-root, .MuiAppBar-root * {
+    display:none;
+  }
+  
+  .recipe-page-top-button-row,
+  .recipe .recipe-header *:not(.recipe .recipe-title), 
+  .recipe .recipe-image-and-additional-data-container,
+  .recipe .recipe-footer {
+    display:none;
+  }
+
+  .recipe,
+  .recipe .recipe-body {
+    width:100%;
+  }
+ 
 }
