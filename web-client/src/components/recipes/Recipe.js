@@ -86,29 +86,29 @@ const Recipe = ({ recipe }) => {
             style={{ direction: "ltr" }}
           >
             <span className="recipe-additional-data">
-              <span className="adittional-data-title">Category:</span>{" "}
+              <span className="additional-data-title">Category:</span>{" "}
               {recipe.category}
             </span>
             <span className="recipe-additional-data">
-              <span className="adittional-data-title">Sub Category:</span>{" "}
+              <span className="additional-data-title">Sub Category:</span>{" "}
               {recipe.sub_category}
             </span>
             <span className="recipe-additional-data">
-              <span className="adittional-data-title">Difficulty:</span>{" "}
+              <span className="additional-data-title">Difficulty:</span>{" "}
               {recipe.difficulty}
             </span>
 
             <span className="recipe-additional-data">
-              <span className="adittional-data-title">Prep Time:</span>{" "}
+              <span className="additional-data-title">Prep Time:</span>{" "}
               {recipe.prep_time}
             </span>
             <span className="recipe-additional-data">
-              <span className="adittional-data-title">Total Time:</span>{" "}
+              <span className="additional-data-title">Total Time:</span>{" "}
               {recipe.total_time}
             </span>
             <span className="recipe-additional-data">
-              <span className="adittional-data-title">Servings:</span>{" "}
-              {recipe.servings}
+              <span className="additional-data-title">Servings:</span>{" "}
+              <span dir={recipe.rtl ? "rtl" : "ltr"}>{recipe.servings}</span>
             </span>
           </div>
         </div>
