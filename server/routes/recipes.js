@@ -1,11 +1,9 @@
-const express = require("express");
-const sanitizeHtml = require("sanitize-html");
+import express from "express";
+import sanitizeHtml from "sanitize-html";
 const router = express.Router();
-const Recipe = require("../models/Recipe");
-const {
-  authenticateRecipeOwnership,
-} = require("../utils-module/lib/authentication");
-const { reduceImgQuality } = require("../utils-module/lib/images");
+import { Recipe } from "../models/Recipe.js";
+import { authenticateRecipeOwnership } from "../utils-module/authentication.js";
+import { reduceImgQuality } from "../utils-module/images.js";
 
 // Routes
 
@@ -192,4 +190,4 @@ router.post("/edit/favorite/:recipe_id", async (req, res, next) => {
     next(err);
   }
 });
-module.exports = router;
+export default router;

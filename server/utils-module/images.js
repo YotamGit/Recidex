@@ -1,7 +1,7 @@
-const Jimp = require("jimp");
-const Buffer = require("buffer");
+import Jimp from "jimp";
+import Buffer from "buffer";
 
-exports.reduceImgQuality = (image) => {
+export function reduceImgQuality(image) {
   var buffer = Buffer.from(image, "base64");
   console.log(buffer);
   // Jimp.read(buffer)
@@ -13,6 +13,6 @@ exports.reduceImgQuality = (image) => {
   //     console.log(err);
   //     // Handle an exception.
   //   });
-};
+}
 
-exports.convertBase64 = (image) => {};
+// exports.convertBase64 = (image) => {};

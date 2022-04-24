@@ -1,10 +1,13 @@
-const express = require("express");
+import express from "express";
 
 const router = express.Router();
-const User = require("../models/User");
-const bcrypt = require("bcryptjs");
+import { User } from "../models/User.js";
+import bcrypt from "bcryptjs";
 
-const authUtils = require("../utils-module/").Auth;
+import {
+  generateToken,
+  validateToken,
+} from "../utils-module/authentication.js";
 
 // Routes
 
@@ -19,7 +22,7 @@ router.post("/", async (req, res, next) => {
 
       if (correctPassword) {
         res.status(200).json({
-          token: authUtils.generateToken(user),
+          token: generateToken(user),
           userData: {
             firstname: user.firstname,
             lastname: user.lastname,
@@ -40,7 +43,7 @@ router.post("/", async (req, res, next) => {
 // a route to check if a given token is valid
 router.post("/ping", async (req, res, next) => {
   try {
-    let validatedToken = authUtils.validateToken(req.cookies.userToken);
+    let validatedToken = validateToken(req.cookies.userToken);
     if (validatedToken) {
       res.status(200).json({
         authenticated: true,
@@ -78,7 +81,7 @@ router.post("/signup", async (req, res, next) => {
       });
 
       res.status(200).json({
-        token: authUtils.generateToken(newUser),
+        token: generateToken(newUser),
         userData: {
           userId: newUser._id,
         },
@@ -92,4 +95,4 @@ router.post("/signup", async (req, res, next) => {
   }
 });
 
-module.exports = router;
+export default router;

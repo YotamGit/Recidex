@@ -1,14 +1,17 @@
-const express = require("express");
-const dotenv = require("dotenv");
-const cookieParser = require("cookie-parser");
-const mongoSanitize = require("express-mongo-sanitize");
-const bcrypt = require("bcryptjs");
-const cors = require("cors");
+import express from "express";
+import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
+import mongoSanitize from "express-mongo-sanitize";
+import cors from "cors";
 
 const app = express();
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-const authUtils = require("./utils-module").Auth;
+import { authenticateUser } from "./utils-module/authentication.js";
+
+//route imports
+import loginRoute from "./routes/login.js";
+import recipesRoute from "./routes/recipes.js";
 
 dotenv.config();
 
@@ -35,16 +38,13 @@ app.use("*", (req, res, next) => {
 });
 
 // Authentication
-app.post("/api/recipes/new", authUtils.authenticateUser);
-app.post("/api/recipes/delete/*", authUtils.authenticateUser);
-app.post("/api/recipes/edit/*", authUtils.authenticateUser);
-app.post("/api/recipes/edit/favorite/*", authUtils.authenticateUser);
+app.post("/api/recipes/new", authenticateUser);
+app.post("/api/recipes/delete/*", authenticateUser);
+app.post("/api/recipes/edit/*", authenticateUser);
+app.post("/api/recipes/edit/favorite/*", authenticateUser);
 
-// Import Routes
-const loginRoute = require("./routes/login");
+// Route middlewares
 app.use("/api/login", loginRoute);
-
-const recipesRoute = require("./routes/recipes");
 app.use("/api/recipes", recipesRoute);
 
 app.use("*", (req, res) => {
