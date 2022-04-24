@@ -9,13 +9,3 @@ export function toBase64(file) {
     reader.onerror = (error) => reject(error);
   });
 }
-
-export async function getRecipeImage(recipeId) {
-  try {
-    let image = await axios.get(`/api/recipes/image/${recipeId}`);
-    return image.data.image;
-  } catch (error) {
-    window.alert("Unable to Fetch Recipe Image");
-    return undefined;
-  }
-}

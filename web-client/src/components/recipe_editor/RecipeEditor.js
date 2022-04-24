@@ -8,7 +8,6 @@ import RecipeEditorEditSection from "./RecipeEditorEditSection";
 import RecipeDropdown from "../RecipeDropdown";
 import AuthorizedButton from "../Login/AuthorizedButton";
 import { toBase64 } from "../../utils-module/images";
-import { getRecipeImage } from "../../utils-module/images";
 
 //mui
 import SaveIcon from "@mui/icons-material/Save";
@@ -59,8 +58,8 @@ const RecipeEditor = ({ action, recipe }) => {
   const [ingredients, setIngredients] = useState(recipe.ingredients);
   const [directions, setDirections] = useState(recipe.directions);
   const [rtl, setRtl] = useState(recipe.rtl);
-  const [image, setImage] = useState(recipe.image);
   const [imageName, setImageName] = useState(recipe.imageName);
+  const [image, setImage] = useState(undefined);
 
   const [activeTab, setActiveTab] = useState(0);
   const [disableButtons, setDisableButtons] = useState(false);
@@ -71,17 +70,17 @@ const RecipeEditor = ({ action, recipe }) => {
 
   useEffect(() => {
     if (activeTab === 1) {
-      document.getElementById("recipe-editor-description").innerHTML =
-        marked.parse(SanitizeHtml(description));
-      document.getElementById("recipe-editor-ingredients").innerHTML =
-        marked.parse(SanitizeHtml(ingredients));
-      document.getElementById("recipe-editor-directions").innerHTML =
-        marked.parse(SanitizeHtml(directions));
-      if (image) {
-        document.getElementById("recipe-editor-image").src = image;
-      } else {
-        document.getElementById("recipe-editor-image").src = "";
-      }
+      // document.getElementById("recipe-editor-description").innerHTML =
+      //   marked.parse(SanitizeHtml(description));
+      // document.getElementById("recipe-editor-ingredients").innerHTML =
+      //   marked.parse(SanitizeHtml(ingredients));
+      // document.getElementById("recipe-editor-directions").innerHTML =
+      //   marked.parse(SanitizeHtml(directions));
+      // if (image) {
+      //   document.getElementById("recipe-editor-image").src = image;
+      // } else {
+      //   document.getElementById("recipe-editor-image").src = "";
+      // }
     }
   }, [activeTab, description, ingredients, directions, image, imageName]);
 
@@ -98,11 +97,6 @@ const RecipeEditor = ({ action, recipe }) => {
     return () => window.removeEventListener("beforeunload", unloadCallback);
   }, []);
 
-  useEffect(() => {
-    action === "edit" &&
-      getRecipeImage(recipe._id).then((img) => setImage(img));
-  }, []);
-
   const onUploadImage = async (img) => {
     try {
       var result = await toBase64(img);
@@ -115,7 +109,7 @@ const RecipeEditor = ({ action, recipe }) => {
 
   const deleteImage = () => {
     setImageName("");
-    setImage("");
+    setImage(false);
   };
 
   const onSaveRecipeChanges = async () => {
@@ -272,7 +266,7 @@ const RecipeEditor = ({ action, recipe }) => {
               Upload Image
             </Button>
           </label>
-          {image && (
+          {imageName && (
             <Chip
               id="image-name"
               label={imageName}
@@ -319,19 +313,29 @@ const RecipeEditor = ({ action, recipe }) => {
           <h2>{rtl ? "תיאור" : "Description"}</h2>
           <div
             className="recipe-editor-text-box"
-            id={"recipe-editor-description"}
+            dangerouslySetInnerHTML={{
+              __html: marked.parse(SanitizeHtml(description)),
+            }}
           ></div>
           <h2>{rtl ? "מרכיבים" : "Ingredients"}</h2>
           <div
             className="recipe-editor-text-box"
-            id={"recipe-editor-ingredients"}
+            dangerouslySetInnerHTML={{
+              __html: marked.parse(SanitizeHtml(ingredients)),
+            }}
           ></div>
           <h2>{rtl ? "הוראות" : "Directions"}</h2>
           <div
             className="recipe-editor-text-box"
-            id={"recipe-editor-directions"}
+            dangerouslySetInnerHTML={{
+              __html: marked.parse(SanitizeHtml(directions)),
+            }}
           ></div>
-          <img alt="" id="recipe-editor-image" />
+          <img
+            alt=""
+            id="recipe-editor-image"
+            src={image || `/api/recipes/image/${recipe._id}?${Date.now()}`}
+          />
         </div>
       </TabPanel>
       <AuthorizedButton disabled={disableButtons} onClick={onSaveRecipeChanges}>

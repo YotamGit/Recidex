@@ -1,0 +1,13 @@
+{
+  "name": "migrations",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mongodb": "^4.5.0",
+    "sharp": "^0.30.4"
+  }
+}

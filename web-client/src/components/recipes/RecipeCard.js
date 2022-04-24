@@ -3,8 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { marked } from "marked";
 import { useEffect, useState } from "react";
 
-import { getRecipeImage } from "../../utils-module/images";
-
 import Favorite from "../Favorite";
 import ImagePlaceholder from "../../utils-module/Photos/recipeImagePlaceholder.png";
 
@@ -43,16 +41,6 @@ const RecipeCard = ({ recipe }) => {
     document.getElementById(recipe._id + "-recipe-description").innerHTML =
       marked.parse(recipe.description ? recipe.description : "");
   }, [recipe._id, recipe.description]);
-
-  useEffect(() => {
-    if (imgSrc) {
-      document.getElementById(recipe._id + "-recipe-card-image").src = imgSrc;
-    }
-  }, [recipe._id, imgSrc]);
-
-  useEffect(() => {
-    getRecipeImage(recipe._id).then((image) => setImgSrc(image));
-  }, []);
 
   const chipCategoryOnClick = async () => {
     dispatch(
@@ -182,7 +170,7 @@ const RecipeCard = ({ recipe }) => {
           <div className="recipe-additional-data-and-image">
             <img
               className="recipe-card-image"
-              src={ImagePlaceholder}
+              src={`/api/recipes/image/${recipe._id}?${Date.now()}`}
               style={
                 !recipe.imageName && !fullscreen ? { height: "150px" } : {}
               }

@@ -20,7 +20,6 @@ import { useSelector } from "react-redux";
 const RecipePage = () => {
   const navigate = useNavigate();
   const { recipe_id } = useParams();
-  const [image, setImage] = useState("");
   const [recipe, setRecipe] = useState(
     useSelector(
       (state) =>
@@ -36,9 +35,6 @@ const RecipePage = () => {
         setRecipe(res);
       });
     }
-    getRecipeImage(recipe_id).then((image) => {
-      setImage(image);
-    });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -66,7 +62,7 @@ const RecipePage = () => {
             </Link>
           </div>
           <div className="recipe-page">
-            {recipe && <Recipe recipe={recipe} image={image} />}
+            {recipe && <Recipe recipe={recipe} />}
           </div>
         </>
       )}

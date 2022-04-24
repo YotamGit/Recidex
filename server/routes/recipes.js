@@ -57,12 +57,15 @@ router.get("/id/:recipe_id", async (req, res, next) => {
 // GET BACK A SPECIFIC RECIPE IMAGE
 router.get("/image/:recipe_id", async (req, res, next) => {
   try {
-    const image = await Recipe.findById(req.params.recipe_id).select([
+    const recipe = await Recipe.findById(req.params.recipe_id).select([
       "image",
       "-_id",
     ]);
 
-    res.status(200).send(image);
+    res
+      .status(200)
+      .set({ "Content-Type": "image/webp" })
+      .send(new Buffer.from(recipe.image));
   } catch (err) {
     next(err);
   }
@@ -184,6 +187,9 @@ router.post("/edit/:recipe_id", async (req, res, next) => {
         } catch (err) {
           res.status(400).send("Cannot edit recipe. Invalid Image");
         }
+      } else if (req.body.recipeData.image === false) {
+        //false means the image is to be deleted
+        req.body.recipeData.image = null;
       }
 
       const response = await Recipe.updateOne(
@@ -195,7 +201,6 @@ router.post("/edit/:recipe_id", async (req, res, next) => {
           },
         }
       );
-
       res.status(200).json(response);
     } else {
       res

@@ -27,7 +27,10 @@ const RecipeSchema = mongoose.Schema(
     source: String,
     owner: { type: mongoose.Types.ObjectId, ref: "UserModel", required: true },
     imageName: String,
-    image: String,
+    image: {
+      type: Buffer,
+      default: undefined,
+    },
     favorited_by: [{ type: mongoose.Types.ObjectId, ref: "UserModel" }],
   },
   { collection: "recipes" }
