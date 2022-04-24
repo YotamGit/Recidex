@@ -16,6 +16,7 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.2",
     "express-mongo-sanitize": "^2.2.0",
+    "jimp": "^0.16.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.1.4",
     "nodemon": "^2.0.15",

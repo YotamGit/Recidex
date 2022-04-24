@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookies from "universal-cookie";
 import {
   createSlice,
   createSelector,
@@ -15,11 +16,7 @@ const initialState = {
 
 export const userPing = createAsyncThunk("user/userPing", async () => {
   try {
-    var result = await axios.post("/api/login/ping", {
-      headers: {
-        Authentication: localStorage.getItem("userToken"),
-      },
-    });
+    var result = await axios.post("/api/login/ping", {});
     return result.data;
   } catch (error) {
     if (error.response.status === 401) {
@@ -61,7 +58,8 @@ const usersSlice = createSlice({
       state.lastname = undefined;
       state.signedIn = false;
       state.userId = undefined;
-      localStorage.clear();
+      const cookies = new Cookies();
+      cookies.remove("userToken", { path: "/" });
     },
   },
   extraReducers: (builder) => {

@@ -47,12 +47,10 @@ export const editRecipe = createAsyncThunk(
   "recipes/editRecipe",
   async (recipeData, thunkAPI) => {
     try {
-      let response = await axios.post(`/api/recipes/edit/${recipeData._id}`, {
-        headers: {
-          Authentication: localStorage.getItem("userToken"),
-        },
-        recipeData,
-      });
+      let response = await axios.post(
+        `/api/recipes/edit/${recipeData._id}`,
+        recipeData
+      );
     } catch (error) {
       return thunkAPI.rejectWithValue({
         statusCode: error.response.status,
@@ -73,11 +71,7 @@ export const deleteRecipe = createAsyncThunk(
   "recipes/deleteRecipe",
   async (id, thunkAPI) => {
     try {
-      await axios.post(`/api/recipes/delete/${id}`, {
-        headers: {
-          Authentication: localStorage.getItem("userToken"),
-        },
-      });
+      await axios.post(`/api/recipes/delete/${id}`);
     } catch (error) {
       return thunkAPI.rejectWithValue({
         statusCode: error.response.status,
@@ -98,9 +92,6 @@ export const addRecipe = createAsyncThunk(
     delete recipe._id;
     try {
       var result = await axios.post(`/api/recipes/new`, {
-        headers: {
-          Authentication: localStorage.getItem("userToken"),
-        },
         recipe,
       });
       return result.data;
@@ -121,9 +112,6 @@ export const favoriteRecipe = createAsyncThunk(
       var res = await axios.post(
         `/api/recipes/edit/favorite/${params.recipeId}`,
         {
-          headers: {
-            Authentication: localStorage.getItem("userToken"),
-          },
           favorite: params.favorite,
         }
       );

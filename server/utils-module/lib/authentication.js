@@ -27,8 +27,8 @@ exports.validateToken = (token) => {
 //check if the user is real using the token
 exports.authenticateUser = (req, res, next) => {
   try {
-    let token = this.validateToken(req.body.headers.Authentication);
-    req.body.headers.validatedToken = token;
+    let token = this.validateToken(req.cookies.userToken);
+    req.headers.validatedToken = token;
     // console.log(
     //   `\n${new Date().toISOString()} Authorized API access User ${token.userId}`
     // );

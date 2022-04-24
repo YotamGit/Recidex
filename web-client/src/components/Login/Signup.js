@@ -10,6 +10,8 @@ import {
 
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Cookies from "universal-cookie";
+
 import axios from "axios";
 
 //mui
@@ -120,7 +122,14 @@ const Signup = ({ showSignAsGuest, navigateAfterLogin }) => {
         password: password,
       });
       if (result.data) {
-        localStorage.setItem("userToken", result.data.token);
+        var expiration_date = new Date();
+        expiration_date.setFullYear(expiration_date.getFullYear() + 2);
+        const cookies = new Cookies();
+        cookies.set("userToken", result.data.token, {
+          path: "/",
+          expires: expiration_date,
+          sameSite: "Strict",
+        });
         dispatch(setUserId(result.data.userData.userId));
         dispatch(setStoreFirstname(firstname));
         dispatch(setStoreLastname(lastname));

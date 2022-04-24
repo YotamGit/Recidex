@@ -5,6 +5,7 @@ const Recipe = require("../models/Recipe");
 const {
   authenticateRecipeOwnership,
 } = require("../utils-module/lib/authentication");
+const { reduceImgQuality } = require("../utils-module/lib/images");
 
 // Routes
 
@@ -75,7 +76,7 @@ router.post("/new", async (req, res, next) => {
 
     const savedRecipe = await Recipe.create({
       ...req.body.recipe,
-      owner: req.body.headers.validatedToken.userId,
+      owner: req.headers.validatedToken.userId,
     });
 
     // find the recipe again in order to populate the owner with the names and send it to the client
@@ -97,7 +98,7 @@ router.post("/delete/:recipe_id", async (req, res, next) => {
   try {
     const recipe = await Recipe.findById(req.params.recipe_id);
     const isOwner = await authenticateRecipeOwnership(
-      req.body.headers.validatedToken,
+      req.headers.validatedToken,
       recipe
     );
     if (isOwner) {
@@ -118,27 +119,24 @@ router.post("/edit/:recipe_id", async (req, res, next) => {
   try {
     const recipe = await Recipe.findById(req.params.recipe_id);
     const isOwner = await authenticateRecipeOwnership(
-      req.body.headers.validatedToken,
+      req.headers.validatedToken,
       recipe
     );
     if (isOwner) {
       //sanitize html
-      req.body.recipeData.description = sanitizeHtml(
-        req.body.recipeData.description
-      );
-      req.body.recipeData.ingredients = sanitizeHtml(
-        req.body.recipeData.ingredients
-      );
-      req.body.recipeData.directions = sanitizeHtml(
-        req.body.recipeData.directions
-      );
+      req.body.description = sanitizeHtml(req.body.description);
+      req.body.ingredients = sanitizeHtml(req.body.ingredients);
+      req.body.directions = sanitizeHtml(req.body.directions);
 
       //delete certain fields for security reasons(other fields are limited b)
-      delete req.body.recipeData.creation_time;
-      delete req.body.recipeData.last_update_time;
-      delete req.body.recipeData.owner;
-      delete req.body.recipeData.favorited_by;
+      delete req.body.creation_time;
+      delete req.body.last_update_time;
+      delete req.body.owner;
+      delete req.body.favorited_by;
 
+      // res.status(200).send();
+      // // reduceImgQuality(req.body.recipeData.image);
+      // return;
       const response = await Recipe.updateOne(
         { _id: req.params.recipe_id },
         {
@@ -165,11 +163,11 @@ router.post("/edit/favorite/:recipe_id", async (req, res, next) => {
   try {
     const users = (await Recipe.findById({ _id: req.params.recipe_id }))
       .favorited_by;
-    var index = users.indexOf(req.body.headers.validatedToken.userId);
+    var index = users.indexOf(req.headers.validatedToken.userId);
     switch (req.body.favorite) {
       case true:
         if (index < 0) {
-          users.push(req.body.headers.validatedToken.userId);
+          users.push(req.headers.validatedToken.userId);
           await Recipe.updateOne(
             { _id: req.params.recipe_id },
             { favorited_by: users }

@@ -40,9 +40,7 @@ router.post("/", async (req, res, next) => {
 // a route to check if a given token is valid
 router.post("/ping", async (req, res, next) => {
   try {
-    let validatedToken = authUtils.validateToken(
-      req.body.headers.Authentication
-    );
+    let validatedToken = authUtils.validateToken(req.cookies.userToken);
     if (validatedToken) {
       res.status(200).json({
         authenticated: true,

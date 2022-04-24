@@ -1,4 +1,5 @@
 :root {
+  --app-bar:rgb(25,118,210);
   --sign-in-background: rgb(240, 240, 240);
   --recipes-background: rgb(240, 240, 240);
   --recipe-card: rgb(240, 240, 240);
@@ -6,7 +7,6 @@
   --agree-btn:rgb(52, 163, 238);
   --disagree-btn:rgb(52, 163, 238);
   --neutral-btn:rgb(155, 155, 155);
-  --app-bar:rgb(25,118,210);
 }
 
 
