@@ -97,7 +97,7 @@ const RecipeEditor = ({ action, recipe }) => {
     return () => window.removeEventListener("beforeunload", unloadCallback);
   }, []);
 
-  const onUploadImage = (img) => {
+  const onUploadImage = async (img) => {
     if (img.size >= 10485760) {
       window.alert(
         `ERROR UPLOADING IMAGE\n\nImage is too large. \nMaximum image size: 10Mb\nUploaded image size is: ${
@@ -106,14 +106,13 @@ const RecipeEditor = ({ action, recipe }) => {
       );
       return;
     } else {
-      toBase64(img)
-        .then((result) => {
-          setImageName(img.name);
-          setImage(result);
-        })
-        .catch((error) => {
-          window.alert("Failed to Upload Image.\nReason: " + error.message);
-        });
+      try {
+        var result = await toBase64(img);
+        setImageName(img.name);
+        setImage(result);
+      } catch (error) {
+        window.alert("Failed to Upload Image.\nReason: " + error.message);
+      }
     }
   };
 

@@ -134,8 +134,8 @@ router.post("/edit/:recipe_id", async (req, res, next) => {
       delete req.body.owner;
       delete req.body.favorited_by;
 
+      // reduceImgQuality(req.body.recipeData.image);
       // res.status(200).send();
-      // // reduceImgQuality(req.body.recipeData.image);
       // return;
       const response = await Recipe.updateOne(
         { _id: req.params.recipe_id },
