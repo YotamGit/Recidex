@@ -1,3 +1,5 @@
+import axios from "axios";
+
 // Image to base64 converter for image uplaod
 export function toBase64(file) {
   return new Promise((resolve, reject) => {
@@ -6,4 +8,14 @@ export function toBase64(file) {
     reader.onload = () => resolve(reader.result);
     reader.onerror = (error) => reject(error);
   });
+}
+
+export async function getRecipeImage(recipeId) {
+  try {
+    let image = await axios.get(`/api/recipes/image/${recipeId}`);
+    return image.data.image;
+  } catch (error) {
+    window.alert("Unable to Fetch Recipe Image");
+    return undefined;
+  }
 }

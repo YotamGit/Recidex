@@ -19,7 +19,7 @@ marked.setOptions({
   smartLists: true,
 });
 
-const Recipe = ({ recipe }) => {
+const Recipe = ({ recipe, image }) => {
   const signedIn = useSelector((state) => state.users.signedIn);
 
   useEffect(() => {
@@ -78,9 +78,7 @@ const Recipe = ({ recipe }) => {
       </div>
       <div className="recipe-body">
         <div className="recipe-image-and-additional-data-container">
-          {recipe.image && (
-            <img className="image" src={recipe.image} alt=""></img>
-          )}
+          {image && <img className="image" src={image} alt=""></img>}
           <div
             className="recipe-additional-data-container"
             style={{ direction: "ltr" }}

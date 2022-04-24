@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 //utils
 import { getRecipe } from "../../utils-module/recipes.js";
+import { getRecipeImage } from "../../utils-module/images.js";
 
 //icons
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
@@ -19,6 +20,7 @@ import { useSelector } from "react-redux";
 const RecipePage = () => {
   const navigate = useNavigate();
   const { recipe_id } = useParams();
+  const [image, setImage] = useState("");
   const [recipe, setRecipe] = useState(
     useSelector(
       (state) =>
@@ -28,11 +30,16 @@ const RecipePage = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    //fetch recipe if the page refeshes/loads from url
     if (recipe === undefined) {
       getRecipe(recipe_id).then((res) => {
         setRecipe(res);
       });
     }
+    getRecipeImage(recipe_id).then((image) => {
+      setImage(image);
+    });
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -59,7 +66,7 @@ const RecipePage = () => {
             </Link>
           </div>
           <div className="recipe-page">
-            {recipe && <Recipe recipe={recipe} />}
+            {recipe && <Recipe recipe={recipe} image={image} />}
           </div>
         </>
       )}

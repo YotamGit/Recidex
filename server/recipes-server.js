@@ -25,11 +25,11 @@ app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use(mongoSanitize());
 app.use("*", (req, res, next) => {
   var startTime = performance.now();
-  process.stdout.write(
-    `\n${new Date().toISOString()} ${req.method} ${req.originalUrl}`
-  );
   next();
   res.on("finish", () => {
+    process.stdout.write(
+      `\n${new Date().toISOString()} ${req.method} ${req.originalUrl}`
+    );
     var endTime = performance.now();
     process.stdout.write(
       ` ${res.statusCode} ${Math.round(endTime - startTime)}ms`

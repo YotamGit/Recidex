@@ -26,6 +26,7 @@ router.get("/", async (req, res, next) => {
         ...favoritesOnlyQuery,
         ...JSON.parse(req.query.filters),
       })
+        .select("-image")
         .populate("owner", "firstname lastname")
         .sort({ creation_time: -1 })
         .limit(parseInt(req.query.count));
@@ -44,11 +45,24 @@ router.get("/", async (req, res, next) => {
 // GET BACK A SPECIFIC RECIPE
 router.get("/id/:recipe_id", async (req, res, next) => {
   try {
-    const recipe = await Recipe.findById(req.params.recipe_id).populate(
-      "owner",
-      "firstname lastname"
-    );
+    const recipe = await Recipe.findById(req.params.recipe_id)
+      .select("-image")
+      .populate("owner", "firstname lastname");
     res.status(200).json(recipe);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// GET BACK A SPECIFIC RECIPE IMAGE
+router.get("/image/:recipe_id", async (req, res, next) => {
+  try {
+    const image = await Recipe.findById(req.params.recipe_id).select([
+      "image",
+      "-_id",
+    ]);
+
+    res.status(200).send(image);
   } catch (err) {
     next(err);
   }
@@ -99,7 +113,7 @@ router.post("/new", async (req, res, next) => {
       ...req.body.recipeData,
       owner: req.headers.validatedToken.userId,
     });
-
+    delete savedRecipe.image;
     // find the recipe again in order to populate the owner with the names and send it to the client
     res
       .status(200)

@@ -8,6 +8,7 @@ import RecipeEditorEditSection from "./RecipeEditorEditSection";
 import RecipeDropdown from "../RecipeDropdown";
 import AuthorizedButton from "../Login/AuthorizedButton";
 import { toBase64 } from "../../utils-module/images";
+import { getRecipeImage } from "../../utils-module/images";
 
 //mui
 import SaveIcon from "@mui/icons-material/Save";
@@ -95,6 +96,11 @@ const RecipeEditor = ({ action, recipe }) => {
 
     window.addEventListener("beforeunload", unloadCallback);
     return () => window.removeEventListener("beforeunload", unloadCallback);
+  }, []);
+
+  useEffect(() => {
+    action === "edit" &&
+      getRecipeImage(recipe._id).then((img) => setImage(img));
   }, []);
 
   const onUploadImage = async (img) => {
