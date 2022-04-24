@@ -47,7 +47,6 @@ export const editRecipe = createAsyncThunk(
   "recipes/editRecipe",
   async (recipeData, thunkAPI) => {
     try {
-      console.log(recipeData);
       let response = await axios.post(`/api/recipes/edit/${recipeData._id}`, {
         recipeData,
       });
@@ -88,11 +87,11 @@ export const deleteRecipe = createAsyncThunk(
 
 export const addRecipe = createAsyncThunk(
   "recipes/addRecipe",
-  async (recipe, thunkAPI) => {
-    delete recipe._id;
+  async (recipeData, thunkAPI) => {
+    delete recipeData._id;
     try {
       var result = await axios.post(`/api/recipes/new`, {
-        recipe,
+        recipeData,
       });
       return result.data;
     } catch (error) {

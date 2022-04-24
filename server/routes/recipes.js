@@ -68,12 +68,35 @@ router.get("/titles", async (req, res, next) => {
 router.post("/new", async (req, res, next) => {
   try {
     //sanitize html
-    req.body.recipe.description = sanitizeHtml(req.body.recipe.description);
-    req.body.recipe.ingredients = sanitizeHtml(req.body.recipe.ingredients);
-    req.body.recipe.directions = sanitizeHtml(req.body.recipe.directions);
+    req.body.recipeData.description = sanitizeHtml(
+      req.body.recipeData.description
+    );
+    req.body.recipeData.ingredients = sanitizeHtml(
+      req.body.recipeData.ingredients
+    );
+    req.body.recipeData.directions = sanitizeHtml(
+      req.body.recipeData.directions
+    );
+
+    //delete certain fields for security reasons(other fields are limited b)
+    delete req.body.recipeData.creation_time;
+    delete req.body.recipeData.last_update_time;
+    delete req.body.recipeData.owner;
+    delete req.body.recipeData.favorited_by;
+
+    //reduce image quality if present
+    if (req.body.recipeData.image) {
+      try {
+        req.body.recipeData.image = await reduceImgQuality(
+          req.body.recipeData.image
+        );
+      } catch (err) {
+        res.status(400).send("Cannot edit recipe. Invalid Image");
+      }
+    }
 
     const savedRecipe = await Recipe.create({
-      ...req.body.recipe,
+      ...req.body.recipeData,
       owner: req.headers.validatedToken.userId,
     });
 
@@ -122,19 +145,33 @@ router.post("/edit/:recipe_id", async (req, res, next) => {
     );
     if (isOwner) {
       //sanitize html
-      req.body.description = sanitizeHtml(req.body.description);
-      req.body.ingredients = sanitizeHtml(req.body.ingredients);
-      req.body.directions = sanitizeHtml(req.body.directions);
+      req.body.recipeData.description = sanitizeHtml(
+        req.body.recipeData.description
+      );
+      req.body.recipeData.ingredients = sanitizeHtml(
+        req.body.recipeData.ingredients
+      );
+      req.body.recipeData.directions = sanitizeHtml(
+        req.body.recipeData.directions
+      );
 
       //delete certain fields for security reasons(other fields are limited b)
-      delete req.body.creation_time;
-      delete req.body.last_update_time;
-      delete req.body.owner;
-      delete req.body.favorited_by;
+      delete req.body.recipeData.creation_time;
+      delete req.body.recipeData.last_update_time;
+      delete req.body.recipeData.owner;
+      delete req.body.recipeData.favorited_by;
 
-      // reduceImgQuality(req.body.recipeData.image);
-      // res.status(200).send();
-      // return;
+      //reduce image quality if present
+      if (req.body.recipeData.image) {
+        try {
+          req.body.recipeData.image = await reduceImgQuality(
+            req.body.recipeData.image
+          );
+        } catch (err) {
+          res.status(400).send("Cannot edit recipe. Invalid Image");
+        }
+      }
+
       const response = await Recipe.updateOne(
         { _id: req.params.recipe_id },
         {

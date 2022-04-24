@@ -1,18 +1,13 @@
-import Jimp from "jimp";
-import Buffer from "buffer";
+import sharp from "sharp";
 
-export function reduceImgQuality(image) {
-  var buffer = Buffer.from(image, "base64");
-  console.log(buffer);
-  // Jimp.read(buffer)
-  //   .then((image) => {
-  //     // console.log(image);
-  //     // Do stuff with the image.
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //     // Handle an exception.
-  //   });
+export async function reduceImgQuality(base64Image) {
+  let parts = base64Image.split(";");
+  let mimType = parts[0].split(":")[1];
+  let imageData = parts[1].split(",")[1];
+  var img = new Buffer.from(imageData, "base64");
+  var resizedImageBuffer = await sharp(img).resize(1000).toBuffer();
+
+  let resizedImageData = resizedImageBuffer.toString("base64");
+  let resizedBase64 = `data:${mimType};base64,${resizedImageData}`;
+  return resizedBase64;
 }
-
-// exports.convertBase64 = (image) => {};

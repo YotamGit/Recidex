@@ -98,21 +98,12 @@ const RecipeEditor = ({ action, recipe }) => {
   }, []);
 
   const onUploadImage = async (img) => {
-    if (img.size >= 10485760) {
-      window.alert(
-        `ERROR UPLOADING IMAGE\n\nImage is too large. \nMaximum image size: 10Mb\nUploaded image size is: ${
-          Math.round((img.size / 1024 / 1024 + Number.EPSILON) * 100) / 100
-        } Mb`
-      );
-      return;
-    } else {
-      try {
-        var result = await toBase64(img);
-        setImageName(img.name);
-        setImage(result);
-      } catch (error) {
-        window.alert("Failed to Upload Image.\nReason: " + error.message);
-      }
+    try {
+      var result = await toBase64(img);
+      setImageName(img.name);
+      setImage(result);
+    } catch (error) {
+      window.alert("Failed to Upload Image.\nReason: " + error.message);
     }
   };
 
