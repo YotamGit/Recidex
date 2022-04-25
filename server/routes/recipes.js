@@ -67,7 +67,7 @@ router.get("/image/:recipe_id", async (req, res, next) => {
       .set({ "Content-Type": "image/webp" })
       .send(new Buffer.from(recipe.image));
   } catch (err) {
-    next(err);
+    res.status(204).send("No Image Found");
   }
 });
 

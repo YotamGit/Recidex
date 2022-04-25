@@ -35,13 +35,6 @@ const RecipeCard = ({ recipe }) => {
   const signedIn = useSelector((state) => state.users.signedIn);
   const fullscreen = useSelector((state) => state.utilities.fullscreen);
 
-  const [imgSrc, setImgSrc] = useState();
-
-  useEffect(() => {
-    document.getElementById(recipe._id + "-recipe-description").innerHTML =
-      marked.parse(recipe.description ? recipe.description : "");
-  }, [recipe._id, recipe.description]);
-
   const chipCategoryOnClick = async () => {
     dispatch(
       setFilters({
@@ -162,19 +155,26 @@ const RecipeCard = ({ recipe }) => {
         <div className="recipe-main-section">
           <div
             className="recipe-description"
-            id={recipe._id + "-recipe-description"}
             style={{
               direction: recipe.rtl ? "rtl" : "ltr",
+            }}
+            dangerouslySetInnerHTML={{
+              __html: marked.parse(
+                recipe.description ? recipe.description : ""
+              ),
             }}
           />
           <div className="recipe-additional-data-and-image">
             <img
               className="recipe-card-image"
-              src={`/api/recipes/image/${recipe._id}?${Date.now()}`}
+              src={
+                recipe.imageName
+                  ? `/api/recipes/image/${recipe._id}?${Date.now()}`
+                  : ImagePlaceholder
+              }
               style={
                 !recipe.imageName && !fullscreen ? { height: "150px" } : {}
               }
-              id={recipe._id + "-recipe-card-image"}
               alt=""
             />
             <div className="recipe-additional-data">

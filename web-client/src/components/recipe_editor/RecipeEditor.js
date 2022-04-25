@@ -68,22 +68,6 @@ const RecipeEditor = ({ action, recipe }) => {
     setActiveTab(value);
   };
 
-  useEffect(() => {
-    if (activeTab === 1) {
-      // document.getElementById("recipe-editor-description").innerHTML =
-      //   marked.parse(SanitizeHtml(description));
-      // document.getElementById("recipe-editor-ingredients").innerHTML =
-      //   marked.parse(SanitizeHtml(ingredients));
-      // document.getElementById("recipe-editor-directions").innerHTML =
-      //   marked.parse(SanitizeHtml(directions));
-      // if (image) {
-      //   document.getElementById("recipe-editor-image").src = image;
-      // } else {
-      //   document.getElementById("recipe-editor-image").src = "";
-      // }
-    }
-  }, [activeTab, description, ingredients, directions, image, imageName]);
-
   //prompt user before leaving/closing/refreshing the page
   //does not prevent go back to previous page event
   useEffect(() => {
@@ -333,7 +317,6 @@ const RecipeEditor = ({ action, recipe }) => {
           ></div>
           <img
             alt=""
-            id="recipe-editor-image"
             src={image || `/api/recipes/image/${recipe._id}?${Date.now()}`}
           />
         </div>

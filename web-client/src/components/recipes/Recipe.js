@@ -23,13 +23,7 @@ const Recipe = ({ recipe }) => {
   const signedIn = useSelector((state) => state.users.signedIn);
 
   useEffect(() => {
-    document.getElementById(recipe._id + "-recipe-description").innerHTML =
-      marked.parse(recipe.description ? recipe.description : "");
-    document.getElementById(recipe._id + "-recipe-ingredients").innerHTML =
-      marked.parse(recipe.ingredients ? recipe.ingredients : "");
-    document.getElementById(recipe._id + "-recipe-directions").innerHTML =
-      marked.parse(recipe.directions ? recipe.directions : "");
-
+    //activate checkboxes
     var textBoxes = document.getElementsByClassName("recipe-text-box");
     Array.from(textBoxes).map((textBox) =>
       textBox
@@ -55,7 +49,9 @@ const Recipe = ({ recipe }) => {
         </div>
         <div
           className="recipe-description"
-          id={recipe._id + "-recipe-description"}
+          dangerouslySetInnerHTML={{
+            __html: marked.parse(recipe.description ? recipe.description : ""),
+          }}
         />
         <div>
           <div className="recipe-owner">
@@ -122,7 +118,11 @@ const Recipe = ({ recipe }) => {
             <Divider style={{ backgroundColor: "gray" }} variant="fullWidth" />
             <div
               className="recipe-text-box"
-              id={recipe._id + "-recipe-ingredients"}
+              dangerouslySetInnerHTML={{
+                __html: marked.parse(
+                  recipe.ingredients ? recipe.ingredients : ""
+                ),
+              }}
             />
           </div>
           <div className="recipe-section">
@@ -132,7 +132,11 @@ const Recipe = ({ recipe }) => {
             <Divider style={{ backgroundColor: "gray" }} variant="fullWidth" />
             <div
               className="recipe-text-box"
-              id={recipe._id + "-recipe-directions"}
+              dangerouslySetInnerHTML={{
+                __html: marked.parse(
+                  recipe.directions ? recipe.directions : ""
+                ),
+              }}
             />
           </div>
         </div>

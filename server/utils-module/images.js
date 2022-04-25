@@ -10,7 +10,4 @@ export async function reduceImgQuality(base64Image) {
     .toFormat("webp")
     .toBuffer();
   return resizedImageBuffer;
-  // let resizedImageData = resizedImageBuffer.toString("base64");
-  // let resizedBase64 = `data:${mimType};base64,${resizedImageData}`;
-  // return resizedBase64;
 }
