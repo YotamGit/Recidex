@@ -9,6 +9,11 @@
   justify-content: space-between;
 }
 
+.recipe-page-top-button-row .icon {
+  margin:1% !important;
+  font-size: 35px !important;
+}
+
 
 @media print {
   .MuiAppBar-root, .MuiAppBar-root * {

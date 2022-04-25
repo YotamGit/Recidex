@@ -57,21 +57,17 @@ const RecipeEditorPage = () => {
           <div className="recipe-editor-page-top-button-row">
             <IconButton onClick={() => navigate(-1)}>
               <CloseFullscreenRoundedIcon
+                className="icon"
                 style={{
                   color: "gray",
-                  margin: "1%",
-                  fontSize: "3.5vh",
-                  cursor: "pointer",
                 }}
               />
             </IconButton>
             <AuthorizedButton type={"icon"} onClick={() => onDeleteRecipe()}>
               <DeleteForeverRoundedIcon
+                className="icon"
                 style={{
                   color: "red",
-                  margin: "1%",
-                  fontSize: "3.5vh",
-                  cursor: "pointer",
                 }}
               />
             </AuthorizedButton>

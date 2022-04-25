@@ -1,14 +1,3 @@
-.authorized-btn {
-  color: rgba(255, 255, 255, 0.253);
-  border: none;
-  cursor: pointer;
-  text-decoration: none;
-  font-family: inherit;
-  text-align: center;
-  padding: 0px !important;
-  margin: 0px !important;
-  height: fit-content;
-}
 
 .login-modal {
   height: 300px;

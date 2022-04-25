@@ -74,11 +74,13 @@ const Recipe = ({ recipe }) => {
       </div>
       <div className="recipe-body">
         <div className="recipe-image-and-additional-data-container">
-          <img
-            className="image"
-            src={`/api/recipes/image/${recipe._id}?${Date.now()}`}
-            alt=""
-          />
+          {recipe.imageName && (
+            <img
+              className="image"
+              src={`/api/recipes/image/${recipe._id}?${Date.now()}`}
+              alt=""
+            />
+          )}
           <div
             className="recipe-additional-data-container"
             style={{ direction: "ltr" }}

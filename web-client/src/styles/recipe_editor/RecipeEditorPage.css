@@ -8,3 +8,7 @@
   flex-direction: row;
   justify-content: space-between;
 }
+.recipe-editor-page-top-button-row .icon {
+  margin:1% !important;
+  font-size: 35px !important;
+}

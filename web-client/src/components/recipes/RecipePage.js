@@ -41,29 +41,25 @@ const RecipePage = () => {
   return (
     <>
       {recipe && (
-        <>
+        <div className="recipe-page">
           <div className="recipe-page-top-button-row">
-            <IconButton
-              onClick={() => navigate(-1)}
-              style={{ color: "gray", margin: "1%" }}
-            >
-              <CloseFullscreenRoundedIcon style={{ fontSize: "3.5vh" }} />
+            <IconButton onClick={() => navigate(-1)} style={{ color: "gray" }}>
+              <CloseFullscreenRoundedIcon className="icon" />
             </IconButton>
 
             <IconButton onClick={() => window.print()}>
-              <LocalPrintshopIcon style={{ fontSize: "3.5vh" }} />
+              <LocalPrintshopIcon className="icon" />
             </IconButton>
-            <Link
-              to={`/recipes/edit/${recipe._id}`}
-              style={{ color: "gray", margin: "1%" }}
+
+            <IconButton
+              onClick={() => navigate(`/recipes/edit/${recipe._id}`)}
+              style={{ color: "gray" }}
             >
-              <EditRoundedIcon style={{ fontSize: "3.5vh" }} />
-            </Link>
+              <EditRoundedIcon className="icon" />
+            </IconButton>
           </div>
-          <div className="recipe-page">
-            {recipe && <Recipe recipe={recipe} />}
-          </div>
-        </>
+          {recipe && <Recipe recipe={recipe} />}
+        </div>
       )}
     </>
   );

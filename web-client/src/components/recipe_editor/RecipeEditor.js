@@ -306,22 +306,26 @@ const RecipeEditor = ({ action, recipe }) => {
             innerHtml={marked.parse(SanitizeHtml(directions))}
             rtl={rtl}
           />
-          <img
-            className="recipe-editor-image"
-            alt=""
-            src={image || `/api/recipes/image/${recipe._id}?${Date.now()}`}
-          />
+          {imageName && (
+            <img
+              className="recipe-editor-image"
+              alt=""
+              src={image || `/api/recipes/image/${recipe._id}?${Date.now()}`}
+            />
+          )}
         </div>
       </TabPanel>
-      <AuthorizedButton
-        type={"button"}
-        disabled={disableButtons}
-        onClick={onSaveRecipeChanges}
-      >
-        <Button variant="contained" component="span">
-          Submit
-        </Button>
-      </AuthorizedButton>
+      <div style={{ textAlign: "center" }}>
+        <AuthorizedButton
+          type={"button"}
+          disabled={disableButtons}
+          onClick={onSaveRecipeChanges}
+        >
+          <Button variant="contained" component="span">
+            Submit
+          </Button>
+        </AuthorizedButton>
+      </div>
     </div>
   );
 };
