@@ -1,6 +1,7 @@
 import "../styles/Main.css";
 import Recipes from "./recipes/Recipes";
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
@@ -20,6 +21,7 @@ import Alert from "@mui/material/Alert";
 
 const Main = ({ ownerOnly, favoritesOnly }) => {
   const dispatch = useDispatch();
+  const location = useLocation();
   const [fetching, setFetching] = useState(false);
 
   const recipes = useSelector((state) => state.recipes.recipes);
@@ -83,17 +85,25 @@ const Main = ({ ownerOnly, favoritesOnly }) => {
       return;
     }
 
+    var lastMainPageVisited = [...routeHistory]
+      .slice(0, routeHistory.length - 1)
+      .reverse()
+      .find((element) =>
+        ["/home", "/my-recipes", "/favorites"].includes(element)
+      );
+
     if (
       ["/home", "/my-recipes", "/favorites"].includes(
         routeHistory.slice(-1)[0]
       ) ||
+      location.pathname !== lastMainPageVisited ||
       (recipes.length === 0 && !fetchedAllRecipes)
     ) {
       dispatch(setfavoritesOnly(favoritesOnly));
       initialRecipesLoad();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [owner, ownerOnly, favoritesOnly, attemptSignIn]);
+  }, [owner, ownerOnly, favoritesOnly, attemptSignIn, location]);
 
   useEffect(() => {
     const handleScroll = async () => {
