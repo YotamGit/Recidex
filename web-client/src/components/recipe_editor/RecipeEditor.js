@@ -5,12 +5,12 @@ import { marked } from "marked";
 import SanitizeHtml from "sanitize-html";
 
 import RecipeEditorEditSection from "./RecipeEditorEditSection";
+import RecipeEditorPreviewSection from "./RecipeEditorPreviewSection";
 import RecipeDropdown from "../RecipeDropdown";
 import AuthorizedButton from "../Login/AuthorizedButton";
 import { toBase64 } from "../../utils-module/images";
 
 //mui
-import SaveIcon from "@mui/icons-material/Save";
 import Chip from "@mui/material/Chip";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -162,7 +162,6 @@ const RecipeEditor = ({ action, recipe }) => {
               margin: "5px",
               direction: rtl ? "rtl" : "ltr",
             }}
-            id="outlined"
             label="Title"
             variant="standard"
             defaultValue={title}
@@ -174,7 +173,6 @@ const RecipeEditor = ({ action, recipe }) => {
               margin: "5px",
               direction: rtl ? "rtl" : "ltr",
             }}
-            id="outlined"
             label="Source"
             variant="standard"
             defaultValue={source}
@@ -186,7 +184,6 @@ const RecipeEditor = ({ action, recipe }) => {
               margin: "5px",
               direction: rtl ? "rtl" : "ltr",
             }}
-            id="outlined"
             label="Servings"
             variant="standard"
             defaultValue={servings}
@@ -271,7 +268,7 @@ const RecipeEditor = ({ action, recipe }) => {
         <Tab label="Preview"></Tab>
       </Tabs>
       <TabPanel value={activeTab} index={0}>
-        <div style={{ direction: rtl ? "rtl" : "ltr" }}>
+        <div>
           <RecipeEditorEditSection
             sectionTitle={rtl ? "תיאור" : "Description"}
             setData={setDescription}
@@ -293,38 +290,37 @@ const RecipeEditor = ({ action, recipe }) => {
         </div>
       </TabPanel>
       <TabPanel value={activeTab} index={1}>
-        <div style={{ direction: rtl ? "rtl" : "ltr" }}>
-          <h2>{rtl ? "תיאור" : "Description"}</h2>
-          <div
-            className="recipe-editor-text-box"
-            dangerouslySetInnerHTML={{
-              __html: marked.parse(SanitizeHtml(description)),
-            }}
-          ></div>
-          <h2>{rtl ? "מרכיבים" : "Ingredients"}</h2>
-          <div
-            className="recipe-editor-text-box"
-            dangerouslySetInnerHTML={{
-              __html: marked.parse(SanitizeHtml(ingredients)),
-            }}
-          ></div>
-          <h2>{rtl ? "הוראות" : "Directions"}</h2>
-          <div
-            className="recipe-editor-text-box"
-            dangerouslySetInnerHTML={{
-              __html: marked.parse(SanitizeHtml(directions)),
-            }}
-          ></div>
+        <div>
+          <RecipeEditorPreviewSection
+            sectionTitle={rtl ? "תיאור" : "Description"}
+            innerHtml={marked.parse(SanitizeHtml(description))}
+            rtl={rtl}
+          />
+          <RecipeEditorPreviewSection
+            sectionTitle={rtl ? "מרכיבים" : "Ingredients"}
+            innerHtml={marked.parse(SanitizeHtml(ingredients))}
+            rtl={rtl}
+          />
+          <RecipeEditorPreviewSection
+            sectionTitle={rtl ? "הוראות" : "Directions"}
+            innerHtml={marked.parse(SanitizeHtml(directions))}
+            rtl={rtl}
+          />
           <img
+            className="recipe-editor-image"
             alt=""
             src={image || `/api/recipes/image/${recipe._id}?${Date.now()}`}
           />
         </div>
       </TabPanel>
-      <AuthorizedButton disabled={disableButtons} onClick={onSaveRecipeChanges}>
-        <SaveIcon
-          style={{ width: "100%", backgroundColor: "rgb(97, 204, 70)" }}
-        />
+      <AuthorizedButton
+        type={"button"}
+        disabled={disableButtons}
+        onClick={onSaveRecipeChanges}
+      >
+        <Button variant="contained" component="span">
+          Submit
+        </Button>
       </AuthorizedButton>
     </div>
   );

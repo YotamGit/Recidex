@@ -65,7 +65,7 @@ const RecipeEditorPage = () => {
                 }}
               />
             </IconButton>
-            <AuthorizedButton onClick={() => onDeleteRecipe()}>
+            <AuthorizedButton type={"icon"} onClick={() => onDeleteRecipe()}>
               <DeleteForeverRoundedIcon
                 style={{
                   color: "red",
