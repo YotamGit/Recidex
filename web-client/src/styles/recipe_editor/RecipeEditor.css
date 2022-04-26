@@ -51,6 +51,7 @@
 .recipe-editor-tabs {
   align-items: center;
   flex-grow: 1;
+  margin-bottom:15px;
 }
 
 .recipe-editor-section-title {

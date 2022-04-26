@@ -1,3 +1,5 @@
+import MarkdownToolbar from "./MarkdownToolbar";
+//mui
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 
 const RecipeEditorEditSection = ({ sectionTitle, setData, data, rtl }) => {
@@ -7,7 +9,13 @@ const RecipeEditorEditSection = ({ sectionTitle, setData, data, rtl }) => {
       style={{ direction: rtl ? "rtl" : "ltr" }}
     >
       <div className="recipe-editor-section-title">{sectionTitle}</div>
+      <MarkdownToolbar
+        textBoxId={`${sectionTitle}-recipe-editor-text-box`}
+        data={data}
+        setData={setData}
+      />
       <TextareaAutosize
+        id={`${sectionTitle}-recipe-editor-text-box`}
         className="recipe-editor-text-box"
         placeholder={"Enter " + sectionTitle}
         onChange={(e) => setData(e.target.value)}
