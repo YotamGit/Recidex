@@ -70,16 +70,22 @@
   margin-bottom: 20px;
 }
 
-.recipe-editor-text-box ul{
+.recipe-editor-text-box ul {
   list-style-type: none;
-  /* margin:0px;
-  padding:0px; */
+  padding: 0;
+  margin: 0;
 }
-/* .recipe-editor-text-box h3+ul{
-  color:red;
-  display:flex;
-  flex-direction: row;
-} */
+
+.recipe-editor-text-box h1,
+.recipe-editor-text-box h2,
+.recipe-editor-text-box h3,
+.recipe-editor-text-box h4,
+.recipe-editor-text-box h5,
+.recipe-editor-text-box h6 {
+  margin-top:20px;
+  margin-bottom:5px;
+}
+
 
 .recipe-editor-image {
   width: 100%;
