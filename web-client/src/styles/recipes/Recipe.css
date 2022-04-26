@@ -78,7 +78,7 @@
   text-decoration: underline;
 }
 
-.recipe .recipe-section li{
+.recipe .recipe-section ul{
   list-style-type: none; /*to remove dots before checkboxes*/
 }
 .recipe .recipe-section:nth-child(n) {

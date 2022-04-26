@@ -26,7 +26,7 @@ router.post("/", async (req, res, next) => {
           userData: {
             firstname: user.firstname,
             lastname: user.lastname,
-            userId: user.userId,
+            userId: user._id,
           },
         });
       } else {

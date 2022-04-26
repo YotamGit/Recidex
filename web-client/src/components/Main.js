@@ -29,7 +29,7 @@ const Main = ({ ownerOnly, favoritesOnly }) => {
     (state) => state.recipes.fetchedAllRecipes
   );
 
-  const owner = useSelector((state) => state.users.userId);
+  const loggedUser = useSelector((state) => state.users.userId);
   const attemptSignIn = useSelector((state) => state.users.attemptSignIn);
   const routeHistory = useSelector((state) => state.utilities.routeHistory);
 
@@ -61,7 +61,7 @@ const Main = ({ ownerOnly, favoritesOnly }) => {
         );
       } else {
         //request for home/myrecipes pages depends on the ownerOnly flag
-        dispatch(setOwner(ownerOnly && owner ? owner : undefined));
+        dispatch(setOwner(ownerOnly && loggedUser ? loggedUser : undefined));
         await dispatch(
           getRecipes({
             replace: true,
@@ -103,7 +103,7 @@ const Main = ({ ownerOnly, favoritesOnly }) => {
       initialRecipesLoad();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [owner, ownerOnly, favoritesOnly, attemptSignIn, location]);
+  }, [loggedUser, ownerOnly, favoritesOnly, attemptSignIn, location]);
 
   useEffect(() => {
     const handleScroll = async () => {

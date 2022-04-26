@@ -3,8 +3,8 @@
   flex-direction: column;
   background-color: white;
   padding: 5px;
-  width:60%;
-  margin:auto;
+  width: 60%;
+  margin: auto;
 }
 
 .recipe-editor-metadata-section {
@@ -33,6 +33,7 @@
   justify-content: center;
   align-items: center;
 }
+
 .upload-image-btn {
   display: inline-block;
   background: rgb(106, 126, 214);
@@ -55,8 +56,8 @@
 .recipe-editor-section-title {
   font-size: 1.3rem;
   font-weight: 600;
-  font-style:italic;
-  margin-bottom:5px;
+  font-style: italic;
+  margin-bottom: 5px;
 }
 
 .recipe-editor-text-box {
@@ -64,31 +65,38 @@
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
-  padding-left:5px;
-  padding-right:5px;
-  margin-bottom:20px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-bottom: 20px;
 }
 
-.recipe-editor-text-box li {
+.recipe-editor-text-box ul{
   list-style-type: none;
+  /* margin:0px;
+  padding:0px; */
 }
+/* .recipe-editor-text-box h3+ul{
+  color:red;
+  display:flex;
+  flex-direction: row;
+} */
 
 .recipe-editor-image {
-  width:100%;
+  width: 100%;
   max-width: 600px;
-  height:100%;
-  max-height:400px;
+  height: 100%;
+  max-height: 400px;
   object-fit: cover;
   border-radius: 10px;
-  margin:auto;
-  display:block;
+  margin: auto;
+  display: block;
 }
 
 
 
 @media only screen and (max-width: 600px) {
   .recipe-editor {
- 
-    width:90%;
+
+    width: 90%;
   }
 }

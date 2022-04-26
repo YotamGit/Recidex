@@ -77,7 +77,7 @@ function App() {
           element={
             <>
               <Header pageName={"Favorites"} show_search={true} />
-              <Main ownerOnly={true} favoritesOnly={true} />
+              <Main ownerOnly={false} favoritesOnly={true} />
             </>
           }
         />
