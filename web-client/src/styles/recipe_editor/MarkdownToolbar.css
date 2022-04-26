@@ -1,9 +1,20 @@
-.markdown-toolbar{
+.markdown-toolbar-container {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+.markdown-toolbar {
   direction: ltr;
   display: flex;
   align-items: center;
-  border: 1px solid black;
-  border-radius: 5px;
-  margin-bottom:5px;
-  width:fit-content;
+  margin-top: 15px;
+  width: fit-content;
+}
+
+.markdown-toolbar-container .icon{
+  cursor:pointer;
+}
+
+.markdown-toolbar-container .markdown-icon {
+  height: 20px;
 }

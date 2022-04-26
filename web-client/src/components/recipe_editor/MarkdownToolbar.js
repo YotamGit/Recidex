@@ -1,4 +1,7 @@
 import "../../styles/recipe_editor/MarkdownToolbar.css";
+
+import markdownIcon from "../../utils-module/icons/Markdown-mark.svg";
+
 //mui
 import Tooltip from "@mui/material/Tooltip";
 
@@ -51,48 +54,56 @@ const MarkdownToolbar = ({ textBoxId, data, setData }) => {
   };
 
   return (
-    <div className="markdown-toolbar">
-      <Tooltip title="Add heading text" arrow>
-        <TitleRoundedIcon
-          className="icon"
-          onClick={() => addText("\n\n### ", "\n\n### ".length)}
-        />
-      </Tooltip>
-      <Tooltip title="Add bold text" arrow>
-        <FormatBoldRoundedIcon
-          className="icon"
-          onClick={() => addText("****", 2, 0, 0)}
-        />
-      </Tooltip>
-      <Tooltip title="Add italic text" arrow>
-        <FormatItalicRoundedIcon
-          className="icon"
-          onClick={() => addText(" __ ", 2, 0, 0)}
-        />
-      </Tooltip>
-      <Tooltip title="Add checkbox" arrow>
-        <CheckBoxOutlinedIcon
-          className="icon"
-          onClick={() => addText("\n- [ ] ", "\n- [ ] ".length)}
-        />
-      </Tooltip>
-      <Tooltip title="Add a numbered list" arrow>
-        <FormatListNumberedRoundedIcon
-          className="icon"
-          onClick={() => addText("\n1. ", "\n1. ".length)}
-        />
-      </Tooltip>
-      <Tooltip title="Add a link" arrow>
-        <InsertLinkRoundedIcon
-          className="icon"
-          onClick={() => addText("[](url)", 1)}
-        />
-      </Tooltip>
-      <Tooltip title="Add a horizontal rule" arrow>
-        <HorizontalRuleRoundedIcon
-          className="icon"
-          onClick={() => addText("\n\n---\n\n", "\n\n---\n\n".length)}
-        />
+    <div className="markdown-toolbar-container">
+      <div className="markdown-toolbar">
+        <Tooltip title="Add heading text" arrow>
+          <TitleRoundedIcon
+            className="icon"
+            onClick={() => addText("\n\n### ", "\n\n### ".length)}
+          />
+        </Tooltip>
+        <Tooltip title="Add bold text" arrow>
+          <FormatBoldRoundedIcon
+            className="icon"
+            onClick={() => addText("****", 2, 0, 0)}
+          />
+        </Tooltip>
+        <Tooltip title="Add italic text" arrow>
+          <FormatItalicRoundedIcon
+            className="icon"
+            onClick={() => addText(" __ ", 2, 0, 0)}
+          />
+        </Tooltip>
+        <Tooltip title="Add checkbox" arrow>
+          <CheckBoxOutlinedIcon
+            className="icon"
+            onClick={() => addText("\n- [ ] ", "\n- [ ] ".length)}
+          />
+        </Tooltip>
+        <Tooltip title="Add a numbered list" arrow>
+          <FormatListNumberedRoundedIcon
+            className="icon"
+            onClick={() => addText("\n1. ", "\n1. ".length)}
+          />
+        </Tooltip>
+        <Tooltip title="Add a link" arrow>
+          <InsertLinkRoundedIcon
+            className="icon"
+            onClick={() => addText("[](url)", 1)}
+          />
+        </Tooltip>
+        <Tooltip title="Add a horizontal rule" arrow>
+          <HorizontalRuleRoundedIcon
+            className="icon"
+            onClick={() => addText("\n\n---\n\n", "\n\n---\n\n".length)}
+          />
+        </Tooltip>
+      </div>
+
+      <Tooltip title="Markdown Cheatsheet" arrow>
+        <a href="https://commonmark.org/help/" target="_blank">
+          <img src={markdownIcon} className="markdown-icon" />
+        </a>
       </Tooltip>
     </div>
   );
