@@ -54,11 +54,13 @@
   margin-bottom:15px;
 }
 
+.recipe-editor-section {
+  padding-top:20px;
+}
 .recipe-editor-section-title {
   font-size: 1.3rem;
   font-weight: 600;
   font-style: italic;
-  margin-bottom: 5px;
 }
 
 .recipe-editor-text-box {
@@ -68,7 +70,6 @@
     sans-serif;
   padding-left: 5px;
   padding-right: 5px;
-  margin-bottom: 20px;
 }
 
 .recipe-editor-text-box ul {
@@ -77,13 +78,22 @@
   margin: 0;
 }
 
-.recipe-editor-text-box h1,
-.recipe-editor-text-box h2,
-.recipe-editor-text-box h3,
-.recipe-editor-text-box h4,
-.recipe-editor-text-box h5,
-.recipe-editor-text-box h6 {
+.recipe-editor-text-box h1:not(:first-child),
+.recipe-editor-text-box h2:not(:first-child),
+.recipe-editor-text-box h3:not(:first-child),
+.recipe-editor-text-box h4:not(:first-child),
+.recipe-editor-text-box h5:not(:first-child),
+.recipe-editor-text-box h6:not(:first-child) {
   margin-top:20px;
+  margin-bottom:5px;
+}
+.recipe-editor-text-box h1:first-child,
+.recipe-editor-text-box h2:first-child,
+.recipe-editor-text-box h3:first-child,
+.recipe-editor-text-box h4:first-child,
+.recipe-editor-text-box h5:first-child,
+.recipe-editor-text-box h6:first-child {
+  margin-top:10px;
   margin-bottom:5px;
 }
 
@@ -95,7 +105,9 @@
   max-height: 400px;
   object-fit: cover;
   border-radius: 10px;
-  margin: auto;
+  margin-inline: auto;
+  margin-top:10px;
+  margin-bottom:10px;
   display: block;
 }
 

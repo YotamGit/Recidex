@@ -83,13 +83,23 @@
   padding:0;
   margin:0;
 }
-.recipe .recipe-section h1,
-.recipe .recipe-section h2,
-.recipe .recipe-section h3,
-.recipe .recipe-section h4,
-.recipe .recipe-section h5,
-.recipe .recipe-section h6 {
+
+.recipe .recipe-section h1:not(:first-child),
+.recipe .recipe-section h2:not(:first-child),
+.recipe .recipe-section h3:not(:first-child),
+.recipe .recipe-section h4:not(:first-child),
+.recipe .recipe-section h5:not(:first-child),
+.recipe .recipe-section h6:not(:first-child) {
   margin-top:20px;
+  margin-bottom:5px;
+}
+.recipe .recipe-section h1:first-child,
+.recipe .recipe-section h2:first-child,
+.recipe .recipe-section h3:first-child,
+.recipe .recipe-section h4:first-child,
+.recipe .recipe-section h5:first-child,
+.recipe .recipe-section h6:first-child {
+  margin-top:10px;
   margin-bottom:5px;
 }
 
