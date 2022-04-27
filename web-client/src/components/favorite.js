@@ -30,7 +30,11 @@ const Favorite = ({ recipeId, favorited_by, style }) => {
   };
 
   return (
-    <AuthorizedButton type={"icon"} onClick={toggleFavorite} style={style}>
+    <AuthorizedButton
+      type={"icon"}
+      onClick={toggleFavorite}
+      style={{ ...style, displa: "flex", alignItems: "flex-end" }}
+    >
       <span style={{ color: favorite ? "red" : "gray", fontSize: "20px" }}>
         {favorited_by.length}
       </span>

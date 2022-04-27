@@ -55,7 +55,7 @@ const Recipe = ({ recipe }) => {
         <div>
           <div className="recipe-owner">
             <span>{recipe.rtl ? "העלה:" : "By:"}</span>{" "}
-            <span style={{ fontSize: "120%" }}>
+            <span dir="auto" style={{ fontSize: "120%" }}>
               {recipe.owner.firstname + " " + recipe.owner.lastname}
             </span>
           </div>
