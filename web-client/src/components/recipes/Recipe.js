@@ -44,6 +44,7 @@ const Recipe = ({ recipe }) => {
             recipeId={recipe._id}
             favorited_by={recipe.favorited_by}
             style={{ direction: recipe.rtl ? "ltr" : "rtl" }}
+            showCount={false}
           />
         </div>
         <div

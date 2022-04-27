@@ -10,7 +10,7 @@ import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import { useSelector, useDispatch } from "react-redux";
 import { favoriteRecipe } from "../slices/recipesSlice";
 
-const Favorite = ({ recipeId, favorited_by, style }) => {
+const Favorite = ({ recipeId, favorited_by, style, showCount }) => {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.users.userId);
   const [favorite, setFavorite] = useState(favorited_by.includes(userId));
@@ -35,9 +35,11 @@ const Favorite = ({ recipeId, favorited_by, style }) => {
       onClick={toggleFavorite}
       style={{ ...style, displa: "flex", alignItems: "flex-end" }}
     >
-      <span style={{ color: favorite ? "red" : "gray", fontSize: "20px" }}>
-        {favorited_by.length}
-      </span>
+      {showCount && (
+        <span style={{ color: favorite ? "red" : "gray", fontSize: "20px" }}>
+          {favorited_by.length}
+        </span>
+      )}
       <FavoriteRoundedIcon style={{ color: favorite ? "red" : "gray" }} />
     </AuthorizedButton>
   );

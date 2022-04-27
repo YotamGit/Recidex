@@ -203,7 +203,11 @@ const RecipeCard = ({ recipe }) => {
         </div>
       </div>
       <div className="recipe-card-bottom-button-row">
-        <Favorite recipeId={recipe._id} favorited_by={recipe.favorited_by} />
+        <Favorite
+          recipeId={recipe._id}
+          favorited_by={recipe.favorited_by}
+          showCount={true}
+        />
       </div>
     </div>
   );
