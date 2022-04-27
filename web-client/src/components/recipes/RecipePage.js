@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 
 //utils
 import { getRecipe } from "../../utils-module/recipes.js";
-import { getRecipeImage } from "../../utils-module/images.js";
 
 //icons
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
@@ -14,6 +13,7 @@ import LocalPrintshopIcon from "@mui/icons-material/LocalPrintshop";
 
 //mui
 import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
 
 //redux
 import { useSelector } from "react-redux";
@@ -43,20 +43,27 @@ const RecipePage = () => {
       {recipe && (
         <div className="recipe-page">
           <div className="recipe-page-top-button-row">
-            <IconButton onClick={() => navigate(-1)} style={{ color: "gray" }}>
-              <CloseFullscreenRoundedIcon className="icon" />
-            </IconButton>
-
-            <IconButton onClick={() => window.print()}>
-              <LocalPrintshopIcon className="icon" />
-            </IconButton>
-
-            <IconButton
-              onClick={() => navigate(`/recipes/edit/${recipe._id}`)}
-              style={{ color: "gray" }}
-            >
-              <EditRoundedIcon className="icon" />
-            </IconButton>
+            <Tooltip title="Minimize recipe" arrow>
+              <IconButton
+                onClick={() => navigate(-1)}
+                style={{ color: "gray" }}
+              >
+                <CloseFullscreenRoundedIcon className="icon" />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Print recipe" arrow>
+              <IconButton onClick={() => window.print()}>
+                <LocalPrintshopIcon className="icon" />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Edit recipe" arrow>
+              <IconButton
+                onClick={() => navigate(`/recipes/edit/${recipe._id}`)}
+                style={{ color: "gray" }}
+              >
+                <EditRoundedIcon className="icon" />
+              </IconButton>
+            </Tooltip>
           </div>
           {recipe && <Recipe recipe={recipe} />}
         </div>

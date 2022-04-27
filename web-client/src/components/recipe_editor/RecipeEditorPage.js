@@ -9,6 +9,7 @@ import AuthorizedButton from "../Login/AuthorizedButton";
 
 //mui
 import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
 
 //mui icons
 import CloseFullscreenRoundedIcon from "@mui/icons-material/CloseFullscreenRounded";
@@ -55,21 +56,25 @@ const RecipeEditorPage = () => {
       {recipe && (
         <>
           <div className="recipe-editor-page-top-button-row">
-            <IconButton onClick={() => navigate(-1)}>
-              <CloseFullscreenRoundedIcon
-                className="icon"
-                style={{
-                  color: "gray",
-                }}
-              />
-            </IconButton>
+            <Tooltip title="Close Editor" arrow>
+              <IconButton onClick={() => navigate(-1)}>
+                <CloseFullscreenRoundedIcon
+                  className="icon"
+                  style={{
+                    color: "gray",
+                  }}
+                />
+              </IconButton>
+            </Tooltip>
             <AuthorizedButton type={"icon"} onClick={() => onDeleteRecipe()}>
-              <DeleteForeverRoundedIcon
-                className="icon"
-                style={{
-                  color: "red",
-                }}
-              />
+              <Tooltip title="Delete recipe" arrow>
+                <DeleteForeverRoundedIcon
+                  className="icon"
+                  style={{
+                    color: "red",
+                  }}
+                />
+              </Tooltip>
             </AuthorizedButton>
           </div>
 

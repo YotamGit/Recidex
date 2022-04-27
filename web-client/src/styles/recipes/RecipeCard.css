@@ -41,7 +41,7 @@
   font-size: 130%;
   display: flex;
   justify-content: center;
-  cursor: nesw-resize;
+  cursor: pointer;
 }
 
 .recipe-card .recipe-data-dates {
@@ -101,6 +101,7 @@
   display: block;
   object-fit: cover;
   background-color: rgb(189, 189, 189);
+  cursor:pointer;
 }
 
 .recipe-card .recipe-additional-data {

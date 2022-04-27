@@ -9,6 +9,7 @@ import ImagePlaceholder from "../../utils-module/Photos/recipeImagePlaceholder.p
 //mui
 import Chip from "@mui/material/Chip";
 import Divider from "@mui/material/Divider";
+import Tooltip from "@mui/material/Tooltip";
 
 //icons
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
@@ -88,13 +89,17 @@ const RecipeCard = ({ recipe }) => {
           to={`/recipes/${recipe._id}`}
           style={{ color: "gray", margin: "1%" }}
         >
-          <OpenInFullRoundedIcon className="icon" />
+          <Tooltip title="Expand recipe" arrow>
+            <OpenInFullRoundedIcon className="icon" />
+          </Tooltip>
         </Link>
         <Link
           to={`/recipes/edit/${recipe._id}`}
           style={{ color: "gray", margin: "1%" }}
         >
-          <EditRoundedIcon className="icon" />
+          <Tooltip title="Edit recipe" arrow>
+            <EditRoundedIcon className="icon" />
+          </Tooltip>
         </Link>
       </div>
       <div className="recipe-body">
@@ -130,25 +135,31 @@ const RecipeCard = ({ recipe }) => {
           <Divider variant="middle" />
           <div className="recipe-data-chips">
             {recipe.category && (
-              <Chip
-                className="recipe-data-chip"
-                label={recipe.category}
-                onClick={chipCategoryOnClick}
-              />
+              <Tooltip title="Filter category" arrow>
+                <Chip
+                  className="recipe-data-chip"
+                  label={recipe.category}
+                  onClick={chipCategoryOnClick}
+                />
+              </Tooltip>
             )}
             {recipe.sub_category && (
-              <Chip
-                className="recipe-data-chip"
-                label={recipe.sub_category}
-                onClick={chipSubCategoryOnClick}
-              />
+              <Tooltip title="Filter sub category" arrow>
+                <Chip
+                  className="recipe-data-chip"
+                  label={recipe.sub_category}
+                  onClick={chipSubCategoryOnClick}
+                />
+              </Tooltip>
             )}
             {recipe.difficulty && (
-              <Chip
-                className="recipe-data-chip"
-                label={recipe.difficulty}
-                onClick={chipDifficultyOnClick}
-              />
+              <Tooltip title="Filter difficulty" arrow>
+                <Chip
+                  className="recipe-data-chip"
+                  label={recipe.difficulty}
+                  onClick={chipDifficultyOnClick}
+                />
+              </Tooltip>
             )}
           </div>
         </div>
@@ -176,6 +187,7 @@ const RecipeCard = ({ recipe }) => {
                 !recipe.imageName && !fullscreen ? { height: "150px" } : {}
               }
               alt=""
+              onClick={() => navigate(`/recipes/${recipe._id}`)}
             />
             <div className="recipe-additional-data">
               {recipe.total_time && (

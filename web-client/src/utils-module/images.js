@@ -1,5 +1,3 @@
-import axios from "axios";
-
 // Image to base64 converter for image uplaod
 export function toBase64(file) {
   return new Promise((resolve, reject) => {
