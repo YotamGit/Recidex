@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 
 const AuthorizedButton = ({
   type,
+  style,
   children,
   authorized,
   onClick,
@@ -32,8 +33,9 @@ const AuthorizedButton = ({
               ? {
                   pointerEvents: "none",
                   opacity: "0.6",
+                  ...style,
                 }
-              : {}
+              : { ...style }
           }
           className="authorized-btn"
           onClick={authorized ? onClick : handleOpen}

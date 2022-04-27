@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import AuthorizedButton from "./Login/AuthorizedButton";
 
 //mui
 import IconButton from "@mui/material/IconButton";
@@ -9,10 +10,15 @@ import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import { useSelector, useDispatch } from "react-redux";
 import { favoriteRecipe } from "../slices/recipesSlice";
 
-const Favorite = ({ recipeId, favorited_by }) => {
+const Favorite = ({ recipeId, favorited_by, style }) => {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.users.userId);
   const [favorite, setFavorite] = useState(favorited_by.includes(userId));
+
+  //update favorite color if the user logs out
+  useEffect(() => {
+    setFavorite(favorited_by.includes(userId));
+  }, [userId]);
 
   const toggleFavorite = async () => {
     var favRes = await dispatch(
@@ -24,11 +30,12 @@ const Favorite = ({ recipeId, favorited_by }) => {
   };
 
   return (
-    <div>
-      <IconButton onClick={toggleFavorite}>
-        <FavoriteRoundedIcon style={{ color: favorite ? "red" : "gray" }} />
-      </IconButton>
-    </div>
+    <AuthorizedButton type={"icon"} onClick={toggleFavorite} style={style}>
+      <span style={{ color: favorite ? "red" : "gray", fontSize: "20px" }}>
+        {favorited_by.length}
+      </span>
+      <FavoriteRoundedIcon style={{ color: favorite ? "red" : "gray" }} />
+    </AuthorizedButton>
   );
 };
 

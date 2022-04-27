@@ -187,12 +187,14 @@ const RecipeCard = ({ recipe }) => {
               {recipe.servings && (
                 <div className="recipe-additional-data-field">
                   <CookieOutlinedIcon className="icon" />
-                  <span className="data">{recipe.servings}</span>
+                  <span className="data" dir="auto">
+                    {recipe.servings}
+                  </span>
                 </div>
               )}
               <div className="recipe-additional-data-field">
                 <FaceRoundedIcon className="icon" />
-                <span className="data">
+                <span className="data" dir="auto">
                   {recipe.owner.firstname + " " + recipe.owner.lastname}
                 </span>
               </div>
@@ -201,9 +203,7 @@ const RecipeCard = ({ recipe }) => {
         </div>
       </div>
       <div className="recipe-card-bottom-button-row">
-        {signedIn && (
-          <Favorite recipeId={recipe._id} favorited_by={recipe.favorited_by} />
-        )}
+        <Favorite recipeId={recipe._id} favorited_by={recipe.favorited_by} />
       </div>
     </div>
   );

@@ -40,12 +40,11 @@ const Recipe = ({ recipe }) => {
       >
         <div className="recipe-title">
           {recipe.title}
-          {signedIn && (
-            <Favorite
-              recipeId={recipe._id}
-              favorited_by={recipe.favorited_by}
-            />
-          )}
+          <Favorite
+            recipeId={recipe._id}
+            favorited_by={recipe.favorited_by}
+            style={{ direction: recipe.rtl ? "ltr" : "rtl" }}
+          />
         </div>
         <div
           className="recipe-description"
@@ -108,7 +107,7 @@ const Recipe = ({ recipe }) => {
             </span>
             <span className="recipe-additional-data">
               <span className="additional-data-title">Servings:</span>{" "}
-              <span dir={recipe.rtl ? "rtl" : "ltr"}>{recipe.servings}</span>
+              <span dir="auto">{recipe.servings}</span>
             </span>
           </div>
         </div>

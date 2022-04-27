@@ -9,7 +9,6 @@
   flex-direction: column;
 }
 .recipe .recipe-title{
-  display:flex;
   font-size: 3rem;
   font-weight: 640;
   font-style:italic;
