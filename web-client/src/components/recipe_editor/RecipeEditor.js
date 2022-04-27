@@ -1,11 +1,9 @@
 import "../../styles/recipe_editor/RecipeEditor.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { marked } from "marked";
-import SanitizeHtml from "sanitize-html";
 
-import RecipeEditorEditSection from "./RecipeEditorEditSection";
-import RecipeEditorPreviewSection from "./RecipeEditorPreviewSection";
+import MarkdownEditSection from "../markdown/MarkdownEditSection";
+import MarkdownPreviewSection from "../markdown/MarkdownPreviewSection";
 import RecipeDropdown from "../RecipeDropdown";
 import AuthorizedButton from "../Login/AuthorizedButton";
 import { toBase64 } from "../../utils-module/images";
@@ -21,12 +19,6 @@ import Button from "@mui/material/Button";
 //redux
 import { editRecipe, addRecipe } from "../../slices/recipesSlice";
 import { useDispatch, useSelector } from "react-redux";
-
-marked.setOptions({
-  gfm: true,
-  breaks: true,
-  smartLists: true,
-});
 
 const RecipeEditor = ({ action, recipe }) => {
   const dispatch = useDispatch();
@@ -269,19 +261,19 @@ const RecipeEditor = ({ action, recipe }) => {
       </Tabs>
       <TabPanel value={activeTab} index={0}>
         <div>
-          <RecipeEditorEditSection
+          <MarkdownEditSection
             sectionTitle={rtl ? "תיאור" : "Description"}
             setData={setDescription}
             data={description}
             rtl={rtl}
           />
-          <RecipeEditorEditSection
+          <MarkdownEditSection
             sectionTitle={rtl ? "מרכיבים" : "Ingredients"}
             setData={setIngredients}
             data={ingredients}
             rtl={rtl}
           />
-          <RecipeEditorEditSection
+          <MarkdownEditSection
             sectionTitle={rtl ? "הוראות" : "Directions"}
             setData={setDirections}
             data={directions}
@@ -291,19 +283,19 @@ const RecipeEditor = ({ action, recipe }) => {
       </TabPanel>
       <TabPanel value={activeTab} index={1}>
         <div>
-          <RecipeEditorPreviewSection
+          <MarkdownPreviewSection
             sectionTitle={rtl ? "תיאור" : "Description"}
-            innerHtml={marked.parse(SanitizeHtml(description))}
+            markdownText={description}
             rtl={rtl}
           />
-          <RecipeEditorPreviewSection
+          <MarkdownPreviewSection
             sectionTitle={rtl ? "מרכיבים" : "Ingredients"}
-            innerHtml={marked.parse(SanitizeHtml(ingredients))}
+            markdownText={ingredients}
             rtl={rtl}
           />
-          <RecipeEditorPreviewSection
+          <MarkdownPreviewSection
             sectionTitle={rtl ? "הוראות" : "Directions"}
-            innerHtml={marked.parse(SanitizeHtml(directions))}
+            markdownText={directions}
             rtl={rtl}
           />
           {imageName && (

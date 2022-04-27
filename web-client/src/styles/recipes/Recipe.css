@@ -77,40 +77,6 @@
   text-decoration: underline;
 }
 
-.recipe .recipe-section ul{
-  list-style-type: none; /*to remove dots before checkboxes*/
-  padding:0;
-  margin:0;
-  margin-top:10px;
-}
-
-.recipe .recipe-section h1:not(:first-child),
-.recipe .recipe-section h2:not(:first-child),
-.recipe .recipe-section h3:not(:first-child),
-.recipe .recipe-section h4:not(:first-child),
-.recipe .recipe-section h5:not(:first-child),
-.recipe .recipe-section h6:not(:first-child) {
-  margin-top:20px;
-  margin-bottom:5px;
-}
-.recipe .recipe-section h1:first-child,
-.recipe .recipe-section h2:first-child,
-.recipe .recipe-section h3:first-child,
-.recipe .recipe-section h4:first-child,
-.recipe .recipe-section h5:first-child,
-.recipe .recipe-section h6:first-child {
-  margin-top:10px;
-  margin-bottom:5px;
-}
-
-.recipe .recipe-section:nth-child(n) {
-  margin-bottom:50px;
-}
-.recipe .recipe-sub-title{
-  font-size: 1.3rem;
-  font-weight: 600;
-  font-style:italic;
-}
 
 /*footer styling*/
 .recipe .recipe-footer{

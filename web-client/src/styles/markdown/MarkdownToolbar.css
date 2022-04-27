@@ -4,11 +4,15 @@
   justify-content: space-between;
 
 }
+
+.markdown-toolbar-container .markdown-icon {
+  height: 20px;
+}
+
 .markdown-toolbar {
   direction: ltr;
   display: flex;
   align-items: center;
-  margin-top: 10px;
   width: fit-content;
 }
 
@@ -16,6 +20,3 @@
   cursor:pointer;
 }
 
-.markdown-toolbar-container .markdown-icon {
-  height: 20px;
-}

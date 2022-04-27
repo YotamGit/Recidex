@@ -1,14 +1,11 @@
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
 import { marked } from "marked";
 import "../../styles/recipes/Recipe.css";
 
 import Favorite from "../Favorite";
+import MarkdownPreviewSection from "../markdown/MarkdownPreviewSection";
 
 import isURL from "validator/lib/isURL";
-
-//mui
-import Divider from "@mui/material/Divider";
 
 //redux
 import { useSelector } from "react-redux";
@@ -113,34 +110,16 @@ const Recipe = ({ recipe }) => {
           </div>
         </div>
         <div className="recipe-main-data-container">
-          <div className="recipe-section">
-            <div className="recipe-sub-title">
-              {recipe.rtl ? "מרכיבים" : "Ingredients"}
-            </div>
-            <Divider style={{ backgroundColor: "gray" }} variant="fullWidth" />
-            <div
-              className="recipe-text-box"
-              dangerouslySetInnerHTML={{
-                __html: marked.parse(
-                  recipe.ingredients ? recipe.ingredients : ""
-                ),
-              }}
-            />
-          </div>
-          <div className="recipe-section">
-            <div className="recipe-sub-title">
-              {recipe.rtl ? "הוראות" : "Directions"}
-            </div>
-            <Divider style={{ backgroundColor: "gray" }} variant="fullWidth" />
-            <div
-              className="recipe-text-box"
-              dangerouslySetInnerHTML={{
-                __html: marked.parse(
-                  recipe.directions ? recipe.directions : ""
-                ),
-              }}
-            />
-          </div>
+          <MarkdownPreviewSection
+            sectionTitle={recipe.rtl ? "מרכיבים" : "Ingredients"}
+            markdownText={recipe.ingredients}
+            rtl={recipe.rtl}
+          />
+          <MarkdownPreviewSection
+            sectionTitle={recipe.rtl ? "הוראות" : "Directions"}
+            markdownText={recipe.directions}
+            rtl={recipe.rtl}
+          />
         </div>
       </div>
       <div className="recipe-footer">

@@ -1,22 +1,23 @@
+import "../../styles/markdown/MarkdownEditSection.css";
 import MarkdownToolbar from "./MarkdownToolbar";
 //mui
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 
-const RecipeEditorEditSection = ({ sectionTitle, setData, data, rtl }) => {
+const MarkdownEditSection = ({ sectionTitle, setData, data, rtl }) => {
   return (
     <div
-      className="recipe-editor-section"
+      className="markdown-edit-section"
       style={{ direction: rtl ? "rtl" : "ltr" }}
     >
-      <div className="recipe-editor-section-title">{sectionTitle}</div>
+      <div className="markdown-edit-section-title">{sectionTitle}</div>
       <MarkdownToolbar
-        textBoxId={`${sectionTitle}-recipe-editor-text-box`}
+        textBoxId={`${sectionTitle}-markdown-text-box`}
         data={data}
         setData={setData}
       />
       <TextareaAutosize
-        id={`${sectionTitle}-recipe-editor-text-box`}
-        className="recipe-editor-text-box"
+        id={`${sectionTitle}-markdown-text-box`}
+        className="markdown-text-box"
         placeholder={"Enter " + sectionTitle}
         onChange={(e) => setData(e.target.value)}
         value={data}
@@ -25,4 +26,4 @@ const RecipeEditorEditSection = ({ sectionTitle, setData, data, rtl }) => {
   );
 };
 
-export default RecipeEditorEditSection;
+export default MarkdownEditSection;

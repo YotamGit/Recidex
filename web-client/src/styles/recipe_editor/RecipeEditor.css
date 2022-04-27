@@ -54,49 +54,6 @@
   margin-bottom:15px;
 }
 
-.recipe-editor-section {
-  padding-top:20px;
-}
-.recipe-editor-section-title {
-  font-size: 1.3rem;
-  font-weight: 600;
-  font-style: italic;
-}
-
-.recipe-editor-text-box {
-  width: 100%;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-.recipe-editor-text-box ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  margin-top:10px;
-}
-
-.recipe-editor-text-box h1:not(:first-child),
-.recipe-editor-text-box h2:not(:first-child),
-.recipe-editor-text-box h3:not(:first-child),
-.recipe-editor-text-box h4:not(:first-child),
-.recipe-editor-text-box h5:not(:first-child),
-.recipe-editor-text-box h6:not(:first-child) {
-  margin-top:20px;
-  margin-bottom:5px;
-}
-.recipe-editor-text-box h1:first-child,
-.recipe-editor-text-box h2:first-child,
-.recipe-editor-text-box h3:first-child,
-.recipe-editor-text-box h4:first-child,
-.recipe-editor-text-box h5:first-child,
-.recipe-editor-text-box h6:first-child {
-  margin-top:10px;
-  margin-bottom:5px;
-}
 
 
 .recipe-editor-image {
@@ -106,6 +63,7 @@
   max-height: 400px;
   object-fit: cover;
   border-radius: 10px;
+  
   margin-inline: auto;
   margin-top:10px;
   margin-bottom:10px;

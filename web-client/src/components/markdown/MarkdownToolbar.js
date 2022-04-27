@@ -1,4 +1,4 @@
-import "../../styles/recipe_editor/MarkdownToolbar.css";
+import "../../styles/markdown/MarkdownToolbar.css";
 
 import markdownIcon from "../../utils-module/icons/Markdown-mark.svg";
 
