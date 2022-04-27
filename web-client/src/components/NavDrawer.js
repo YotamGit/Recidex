@@ -55,100 +55,104 @@ const NavDrawer = ({ openDrawer, handleToggleDrawer }) => {
         </IconButton>
       </div>
       <Divider />
-      <span
-        className={`${
-          activePage === "/home" && "active-page"
-        } drawer-button-wrapper`}
-        onClick={() => {
-          navigate("/home");
-          handleToggleDrawer();
-        }}
-      >
-        <HomeRoundedIcon className="drawer-button" />
-        Home
-      </span>
-      {signedIn && (
-        <>
-          <span
-            className={`${
-              activePage === "/my-recipes" && "active-page"
-            } drawer-button-wrapper`}
-            onClick={() => {
-              navigate("/my-recipes");
-              handleToggleDrawer();
-            }}
-          >
-            <MenuBookIcon className="drawer-button" />
-            My Recipes
-          </span>
-        </>
-      )}
-      {signedIn && (
-        <>
-          <span
-            className={`${
-              activePage === "/favorites" && "active-page"
-            } drawer-button-wrapper`}
-            onClick={() => {
-              navigate("/favorites");
-              handleToggleDrawer();
-            }}
-          >
-            <FavoriteRoundedIcon className="drawer-button" />
-            Favorites
-          </span>
-        </>
-      )}
-      {signedIn ? (
-        <>
-          <span
-            className="drawer-button-wrapper"
-            onClick={() => {
-              dispatch(clearUser());
-              handleToggleDrawer();
-            }}
-          >
-            <LogoutRoundedIcon className="drawer-button" />
-            Log Out
-          </span>
-        </>
-      ) : (
-        <>
-          <span
-            className="drawer-button-wrapper"
-            onClick={() => {
-              navigate("/login");
-              handleToggleDrawer();
-            }}
-          >
-            <LoginRoundedIcon className="drawer-button" />
-            Login
-          </span>
-          <span
-            className="drawer-button-wrapper"
-            onClick={() => {
-              navigate("/signup");
-              handleToggleDrawer();
-            }}
-          >
-            <PersonAddAltRoundedIcon className="drawer-button" />
-            Signup
-          </span>
-        </>
-      )}
+      <div className="pages-container">
+        <span
+          className={`${
+            activePage === "/home" ? "active-page " : ""
+          }drawer-button-wrapper`}
+          onClick={() => {
+            navigate("/home");
+            handleToggleDrawer();
+          }}
+        >
+          <HomeRoundedIcon className="drawer-button" />
+          Home
+        </span>
+        {signedIn && (
+          <>
+            <span
+              className={`${
+                activePage === "/my-recipes" ? "active-page " : ""
+              }drawer-button-wrapper`}
+              onClick={() => {
+                navigate("/my-recipes");
+                handleToggleDrawer();
+              }}
+            >
+              <MenuBookIcon className="drawer-button" />
+              My Recipes
+            </span>
+          </>
+        )}
+        {signedIn && (
+          <>
+            <span
+              className={`${
+                activePage === "/favorites" ? "active-page " : ""
+              }drawer-button-wrapper`}
+              onClick={() => {
+                navigate("/favorites");
+                handleToggleDrawer();
+              }}
+            >
+              <FavoriteRoundedIcon className="drawer-button" />
+              Favorites
+            </span>
+          </>
+        )}
 
-      <span
-        className={`${
-          activePage === "/recipes/new" && "active-page"
-        } drawer-button-wrapper`}
-        onClick={() => {
-          navigate("/recipes/new");
-          handleToggleDrawer();
-        }}
-      >
-        <AddCircleRoundedIcon className="drawer-button" />
-        Add Recipe
-      </span>
+        <span
+          className={`${
+            activePage === "/recipes/new" ? "active-page " : ""
+          }drawer-button-wrapper`}
+          onClick={() => {
+            navigate("/recipes/new");
+            handleToggleDrawer();
+          }}
+        >
+          <AddCircleRoundedIcon className="drawer-button" />
+          Add Recipe
+        </span>
+        {signedIn && (
+          <>
+            <span
+              className="drawer-button-wrapper"
+              onClick={() => {
+                dispatch(clearUser());
+                handleToggleDrawer();
+              }}
+              style={{ marginTop: "auto" }}
+            >
+              <LogoutRoundedIcon className="drawer-button" />
+              Log Out
+            </span>
+          </>
+        )}
+        {!signedIn && (
+          <>
+            <span
+              className="drawer-button-wrapper"
+              onClick={() => {
+                navigate("/login");
+                handleToggleDrawer();
+              }}
+            >
+              <LoginRoundedIcon className="drawer-button" />
+              Login
+            </span>
+            <span
+              className="drawer-button-wrapper"
+              onClick={() => {
+                navigate("/signup");
+                handleToggleDrawer();
+              }}
+            >
+              <PersonAddAltRoundedIcon className="drawer-button" />
+              Signup
+            </span>
+          </>
+        )}
+      </div>
     </Drawer>
   );
 };

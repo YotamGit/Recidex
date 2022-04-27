@@ -18,6 +18,11 @@
   font-size: 1.2rem;
 }
 
+#drawer .pages-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
 #drawer .active-page{
   opacity:0.5;
   margin-left:15px;
