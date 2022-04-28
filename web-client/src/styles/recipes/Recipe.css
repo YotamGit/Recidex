@@ -80,7 +80,8 @@
 
 /*footer styling*/
 .recipe .recipe-footer{
-  margin-bottom:20px;
+  margin-top:25px;
+  margin-bottom:40px;
 }
 .recipe .recipe-footer-title{
   font-weight:650;

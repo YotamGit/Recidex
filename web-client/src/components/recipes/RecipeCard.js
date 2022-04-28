@@ -34,7 +34,6 @@ const RecipeCard = ({ recipe }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const signedIn = useSelector((state) => state.users.signedIn);
   const fullscreen = useSelector((state) => state.utilities.fullscreen);
 
   const chipCategoryOnClick = async () => {
@@ -194,22 +193,28 @@ const RecipeCard = ({ recipe }) => {
               {recipe.total_time && (
                 <div className="recipe-additional-data-field">
                   <AccessTimeOutlinedIcon className="icon" />
-                  <span className="data">{recipe.total_time}</span>
+                  <Tooltip title="Total Time" arrow>
+                    <span className="data">{recipe.total_time}</span>
+                  </Tooltip>
                 </div>
               )}
               {recipe.servings && (
                 <div className="recipe-additional-data-field">
                   <CookieOutlinedIcon className="icon" />
-                  <span className="data" dir="auto">
-                    {recipe.servings}
-                  </span>
+                  <Tooltip title="Servings" arrow>
+                    <span className="data" dir="auto">
+                      {recipe.servings}
+                    </span>
+                  </Tooltip>
                 </div>
               )}
               <div className="recipe-additional-data-field">
                 <FaceRoundedIcon className="icon" />
-                <span className="data" dir="auto">
-                  {recipe.owner.firstname + " " + recipe.owner.lastname}
-                </span>
+                <Tooltip title="Owner" arrow>
+                  <span className="data" dir="auto">
+                    {recipe.owner.firstname + " " + recipe.owner.lastname}
+                  </span>
+                </Tooltip>
               </div>
             </div>
           </div>
