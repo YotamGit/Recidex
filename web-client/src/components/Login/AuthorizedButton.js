@@ -4,6 +4,8 @@ import Signup from "./Signup";
 import "../../styles/login/AuthorizedButton.css";
 import DialogCloseButton from "../buttons/DialogCloseButton";
 
+import RecipesLogo from "../../utils-module/Photos/Recipes.svg";
+
 //mui
 import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
@@ -72,30 +74,44 @@ const AuthorizedButton = ({
         </div>
       )}
 
-      <Dialog open={openChoice} onClose={handleCloseChoice}>
+      <Dialog
+        open={openChoice}
+        onClose={handleCloseChoice}
+        fullScreen={!fullscreen}
+      >
         <DialogContent>
           <div className="auth-choice-modal">
             <DialogCloseButton onClick={handleCloseChoice} />
-            <Button
-              variant="contained"
-              onClick={() => {
-                handleCloseChoice();
-                setAuthChoice("login");
-                handleOpenAuth();
-              }}
-            >
-              login
-            </Button>
-            <Button
-              variant="contained"
-              onClick={() => {
-                handleCloseChoice();
-                setAuthChoice("signup");
-                handleOpenAuth();
-              }}
-            >
-              signup
-            </Button>
+            <img src={RecipesLogo} className="recipes-logo" alt="" />
+            <div className="choice-content">
+              <span style={{ marginBottom: "2px" }}>New to Recipes?</span>
+              <span style={{ marginBottom: "20px" }}>
+                <span
+                  className="text-button"
+                  onClick={() => {
+                    handleCloseChoice();
+                    setAuthChoice("signup");
+                    handleOpenAuth();
+                  }}
+                >
+                  Sign Up
+                </span>
+                {" to upload, edit and collect your favorite recipes."}
+              </span>
+              <span>
+                {"Already have an account? "}
+                <span
+                  className="text-button"
+                  onClick={() => {
+                    handleCloseChoice();
+                    setAuthChoice("login");
+                    handleOpenAuth();
+                  }}
+                >
+                  Log In
+                </span>
+              </span>
+            </div>
           </div>
         </DialogContent>
       </Dialog>

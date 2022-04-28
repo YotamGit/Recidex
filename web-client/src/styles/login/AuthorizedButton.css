@@ -5,14 +5,33 @@
   align-items: center;
 }
 
-
 .auth-choice-modal {
+  height: 100%;
+  /* background-color: white; */
   display: flex;
-  align-items: flex-end;
-  gap: 5px;
-  background-color: white;
-  height: 60px;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.auth-choice-modal .recipes-logo {
+  height: 70px;
+  margin-bottom: 20px;
+}
+.auth-choice-modal .choice-content {
+  display: flex;
+  align-items: flex-start;
   width: fit-content;
+  flex-direction: column;
+}
+
+.auth-choice-modal .text-button {
+  color: rgb(72 206 59);
+  font-weight: 650;
+  cursor: pointer;
+}
+.auth-choice-modal .text-button:hover {
+  color: rgba(71, 206, 59, 0.781);
 }
 
 .login-modal #login-page .recipes-logo,
