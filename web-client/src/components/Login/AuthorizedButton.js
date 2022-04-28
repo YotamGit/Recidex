@@ -63,7 +63,6 @@ const AuthorizedButton = ({
             disabled
               ? {
                   pointerEvents: "none",
-                  opacity: "0.6",
                 }
               : {}
           }

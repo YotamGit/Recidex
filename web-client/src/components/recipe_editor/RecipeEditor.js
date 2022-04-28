@@ -15,6 +15,7 @@ import Tab from "@mui/material/Tab";
 import TextField from "@mui/material/TextField";
 import Switch from "@mui/material/Switch";
 import Button from "@mui/material/Button";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 //redux
 import { editRecipe, addRecipe } from "../../slices/recipesSlice";
@@ -313,9 +314,13 @@ const RecipeEditor = ({ action, recipe }) => {
           disabled={disableButtons}
           onClick={onSaveRecipeChanges}
         >
-          <Button variant="contained" component="span">
+          <LoadingButton
+            loading={disableButtons}
+            variant="contained"
+            disabled={disableButtons}
+          >
             Submit
-          </Button>
+          </LoadingButton>
         </AuthorizedButton>
       </div>
     </div>

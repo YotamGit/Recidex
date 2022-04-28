@@ -14,6 +14,7 @@ import InputLabel from "@mui/material/InputLabel";
 import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 //mui icons
 import Visibility from "@mui/icons-material/Visibility";
@@ -42,6 +43,8 @@ const Login = ({
   const [wrongCredentials, setWrongCredentials] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
+  const [disableButtons, setDisableButtons] = useState(false);
+
   //detect enter key to sign in
   useEffect(() => {
     const handleKeyDown = async (e) => {
@@ -56,10 +59,13 @@ const Login = ({
 
   const onSubmitPassword = async () => {
     try {
+      setDisableButtons(true);
       var result = await axios.post("/api/login", {
         username: username,
         password: password,
       });
+      setDisableButtons(false);
+
       if (result.data) {
         var expiration_date = new Date();
         expiration_date.setFullYear(expiration_date.getFullYear() + 2);
@@ -136,13 +142,14 @@ const Login = ({
           </FormControl>
         </div>
         <div className="button-section">
-          <Button
+          <LoadingButton
             className="main-button-1"
             variant="contained"
             onClick={onSubmitPassword}
+            loading={disableButtons}
           >
             Sign In
-          </Button>
+          </LoadingButton>
 
           {showSignAsGuest && (
             <Button
