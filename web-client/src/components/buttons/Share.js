@@ -41,15 +41,17 @@ const Share = ({ url, emailTitle, size }) => {
         <DialogContent>
           <div className="share-modal">
             <DialogCloseButton onClick={handleClose} />
-            <EmailShareButton subject={emailTitle} body={url}>
-              <EmailRoundedIcon style={{ color: "gray", fontSize: "30px" }} />
-            </EmailShareButton>
-            <span style={{ marginBottom: "10px" }}>Or</span>
-            <div className="url-copy-section">
-              <input id="share-url-input" type="text" value={url} readOnly />
-              <Button variant="contained" onClick={copyUrl}>
-                copy
-              </Button>
+            <div className="share-modal-content">
+              <EmailShareButton subject={emailTitle} body={url}>
+                <EmailRoundedIcon style={{ color: "gray", fontSize: "30px" }} />
+              </EmailShareButton>
+              <span style={{ marginBottom: "10px" }}>Or</span>
+              <div className="url-copy-section">
+                <input id="share-url-input" type="text" value={url} readOnly />
+                <Button variant="contained" onClick={copyUrl}>
+                  copy
+                </Button>
+              </div>
             </div>
           </div>
         </DialogContent>
