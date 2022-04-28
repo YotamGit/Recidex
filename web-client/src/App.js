@@ -42,7 +42,11 @@ function App() {
           path="/login"
           element={
             <>
-              <Login showSignAsGuest={true} navigateAfterLogin={true} />
+              <Login
+                showSignAsGuest={true}
+                showOtherAuthOption={true}
+                navigateAfterLogin={true}
+              />
             </>
           }
         />
@@ -50,7 +54,11 @@ function App() {
           path="/signup"
           element={
             <>
-              <Signup showSignAsGuest={true} navigateAfterLogin={true} />
+              <Signup
+                showSignAsGuest={true}
+                showOtherAuthOption={true}
+                navigateAfterLogin={true}
+              />
             </>
           }
         />

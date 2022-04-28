@@ -1,26 +1,26 @@
 
-.login-modal {
-  height: 300px;
-  width: 600px;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+
+.auth-choice-modal {
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+  background-color: white;
+  height: 60px;
+  width: fit-content;
 }
 
-.login-modal .login-form-input-segment {
-  height: 100%;
-  width: 100%;
+.login-modal #login-page .recipes-logo,
+.login-modal #signup-page .recipes-logo {
+  display: none;
 }
-.login-modal .recipes-logo {
-  display:none;
-}
-.login-modal > #login-page {
+.login-modal > #login-page,
+.login-modal > #signup-page {
+  height: fit-content;
+  width: fit-content;
   background: none;
 }
-
-@media only screen and (max-width: 600px) {
-  .login-modal {
-    width: 100%;
-  }
+.login-modal > #login-page .login-section,
+.login-modal > #signup-page .signup-section {
+  margin: 0px;
+  box-shadow: none;
 }

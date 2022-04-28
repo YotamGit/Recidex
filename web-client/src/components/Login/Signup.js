@@ -36,7 +36,12 @@ import {
   setLastname as setStoreLastname,
 } from "../../slices/usersSlice";
 
-const Signup = ({ showSignAsGuest, navigateAfterLogin }) => {
+const Signup = ({
+  showSignAsGuest,
+  showOtherAuthOption,
+  navigateAfterLogin,
+  onLogin,
+}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -137,6 +142,7 @@ const Signup = ({ showSignAsGuest, navigateAfterLogin }) => {
         if (navigateAfterLogin) {
           navigate("/home");
         }
+        onLogin && onLogin(); //for closing signup modal
       }
     } catch (error) {
       if (error.response.status === 409) {
@@ -274,13 +280,15 @@ const Signup = ({ showSignAsGuest, navigateAfterLogin }) => {
               Continue as Guest
             </Button>
           )}
-          <Button
-            className="extra-button-2"
-            variant="contained"
-            onClick={() => navigate("/login")}
-          >
-            Sign In
-          </Button>
+          {showOtherAuthOption && (
+            <Button
+              className="extra-button-2"
+              variant="contained"
+              onClick={() => navigate("/login")}
+            >
+              Sign In
+            </Button>
+          )}
         </div>
       </div>
     </div>

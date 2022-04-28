@@ -1,0 +1,7 @@
+.close-modal-icon{
+  z-index: 9999;
+  position: absolute !important;
+  top: 24px;
+  right: 24px;
+  transform:translate(50%,-50%);
+}

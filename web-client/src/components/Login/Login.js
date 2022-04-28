@@ -28,7 +28,12 @@ import {
   setUserId,
 } from "../../slices/usersSlice";
 
-const Login = ({ showSignAsGuest, navigateAfterLogin, onLogin }) => {
+const Login = ({
+  showSignAsGuest,
+  showOtherAuthOption,
+  navigateAfterLogin,
+  onLogin,
+}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -148,13 +153,15 @@ const Login = ({ showSignAsGuest, navigateAfterLogin, onLogin }) => {
               Continue as Guest
             </Button>
           )}
-          <Button
-            className="extra-button-2"
-            variant="contained"
-            onClick={() => navigate("/signup")}
-          >
-            Sign Up
-          </Button>
+          {showOtherAuthOption && (
+            <Button
+              className="extra-button-2"
+              variant="contained"
+              onClick={() => navigate("/signup")}
+            >
+              Sign Up
+            </Button>
+          )}
         </div>
       </div>
     </div>
