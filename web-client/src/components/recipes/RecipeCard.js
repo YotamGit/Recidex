@@ -221,7 +221,10 @@ const RecipeCard = ({ recipe }) => {
           favorited_by={recipe.favorited_by}
           showCount={true}
         />
-        <Share url={`${window.location.origin}/recipes/${recipe._id}`} />
+        <Share
+          url={`${window.location.origin}/recipes/${recipe._id}`}
+          emailTitle={recipe.title}
+        />
       </div>
     </div>
   );

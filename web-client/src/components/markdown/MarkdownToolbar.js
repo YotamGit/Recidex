@@ -101,8 +101,8 @@ const MarkdownToolbar = ({ textBoxId, data, setData }) => {
       </div>
 
       <Tooltip title="Markdown Cheatsheet" arrow>
-        <a href="https://commonmark.org/help/" target="_blank">
-          <img src={markdownIcon} className="markdown-icon" />
+        <a href="https://commonmark.org/help/" target="_blank" rel="noreferrer">
+          <img src={markdownIcon} className="markdown-icon" alt="" />
         </a>
       </Tooltip>
     </div>

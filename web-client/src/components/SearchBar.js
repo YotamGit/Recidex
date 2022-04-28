@@ -101,6 +101,9 @@ const SearchBar = ({ setExpanded }) => {
                 setSearchText(value);
               }}
               value={searchText}
+              isOptionEqualToValue={(option, value) =>
+                option.value === value.value
+              } //disable warning
               renderInput={(params) => (
                 <TextField
                   {...params}

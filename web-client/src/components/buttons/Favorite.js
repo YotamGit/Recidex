@@ -19,7 +19,7 @@ const Favorite = ({ recipeId, favorited_by, style, showCount }) => {
   //update favorite color if the user logs out
   useEffect(() => {
     setFavorite(favorited_by.includes(userId));
-  }, [userId]);
+  }, [userId, favorited_by]);
 
   const toggleFavorite = async () => {
     var favRes = await dispatch(

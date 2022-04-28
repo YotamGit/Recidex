@@ -3,13 +3,15 @@ import "../../styles/recipes/RecipePage.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
+import Share from "../buttons/Share.js";
+
 //utils
 import { getRecipe } from "../../utils-module/recipes.js";
 
 //icons
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
-import CloseFullscreenRoundedIcon from "@mui/icons-material/CloseFullscreenRounded";
 import LocalPrintshopIcon from "@mui/icons-material/LocalPrintshop";
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 
 //mui
 import IconButton from "@mui/material/IconButton";
@@ -43,19 +45,23 @@ const RecipePage = () => {
       {recipe && (
         <div className="recipe-page">
           <div className="recipe-page-top-button-row">
-            <Tooltip title="Minimize recipe" arrow>
+            <Tooltip title="Go back" arrow>
               <IconButton
                 onClick={() => navigate(-1)}
                 style={{ color: "gray" }}
               >
-                <CloseFullscreenRoundedIcon className="icon" />
+                <KeyboardBackspaceIcon />
               </IconButton>
             </Tooltip>
-            <Tooltip title="Print recipe" arrow>
-              <IconButton onClick={() => window.print()}>
-                <LocalPrintshopIcon className="icon" />
-              </IconButton>
-            </Tooltip>
+            <div style={{ display: "flex", flexDirection: "row" }}>
+              <Tooltip title="Print recipe" arrow>
+                <IconButton onClick={() => window.print()}>
+                  <LocalPrintshopIcon />
+                </IconButton>
+              </Tooltip>
+
+              <Share url={window.location.href} emailTitle={recipe.title} />
+            </div>
             <Tooltip title="Edit recipe" arrow>
               <IconButton
                 onClick={() => navigate(`/recipes/edit/${recipe._id}`)}

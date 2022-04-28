@@ -9,7 +9,7 @@
   justify-content: space-between;
 }
 
-.recipe-page-top-button-row .icon {
+.recipe-page-top-button-row svg {
   margin:1% !important;
   font-size: 35px !important;
 }

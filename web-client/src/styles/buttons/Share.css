@@ -1,6 +1,11 @@
 
 .share-modal {
-  height:max-content;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+
+  height: 150px;
   width:fit-content;
   background-color: white;
   position: fixed;
@@ -10,7 +15,7 @@
 
   border-radius: 5px;
   box-shadow: 0px 0px 7px 1px;
-  padding: 10px 25px 25px 25px;
+  padding:10px;
 }
 
 .url-copy-section {
@@ -21,9 +26,9 @@
 #share-url-input {
   width:302px;
   overflow-x: hidden;
-  
+
   text-overflow: ellipsis;
-  margin-inline: 5px;
+  margin-right: 5px;
   
 }
 
