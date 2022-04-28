@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import AuthorizedButton from "./Login/AuthorizedButton";
+import AuthorizedButton from "../Login/AuthorizedButton";
 
 //mui
 import Tooltip from "@mui/material/Tooltip";
@@ -9,7 +9,7 @@ import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
-import { favoriteRecipe } from "../slices/recipesSlice";
+import { favoriteRecipe } from "../../slices/recipesSlice";
 
 const Favorite = ({ recipeId, favorited_by, style, showCount }) => {
   const dispatch = useDispatch();
@@ -31,11 +31,7 @@ const Favorite = ({ recipeId, favorited_by, style, showCount }) => {
   };
 
   return (
-    <AuthorizedButton
-      type={"icon"}
-      onClick={toggleFavorite}
-      style={{ ...style, displa: "flex", alignItems: "flex-end" }}
-    >
+    <AuthorizedButton type={"icon"} onClick={toggleFavorite} style={style}>
       {showCount && (
         <span style={{ color: favorite ? "red" : "gray", fontSize: "20px" }}>
           {favorited_by.length}

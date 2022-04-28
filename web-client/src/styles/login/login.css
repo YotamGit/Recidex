@@ -15,7 +15,6 @@
 #login-page .login-section {
   height:max-content;
   width:fit-content;
-  z-index: 999;
   background-color: rgb(240, 240, 240);
   border-radius: 5px;
   box-shadow: 0px 0px 7px 1px;

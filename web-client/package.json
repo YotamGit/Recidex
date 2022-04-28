@@ -21,6 +21,7 @@
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.2.1",
     "react-scripts": "4.0.3",
+    "react-share": "^4.4.0",
     "sanitize-html": "^2.6.1",
     "universal-cookie": "^4.0.4",
     "validator": "^13.7.0",

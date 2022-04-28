@@ -2,13 +2,10 @@ import { useEffect } from "react";
 import { marked } from "marked";
 import "../../styles/recipes/Recipe.css";
 
-import Favorite from "../Favorite";
+import Favorite from "../buttons/Favorite";
 import MarkdownPreviewSection from "../markdown/MarkdownPreviewSection";
 
 import isURL from "validator/lib/isURL";
-
-//redux
-import { useSelector } from "react-redux";
 
 marked.setOptions({
   gfm: true,
@@ -17,11 +14,9 @@ marked.setOptions({
 });
 
 const Recipe = ({ recipe }) => {
-  const signedIn = useSelector((state) => state.users.signedIn);
-
   useEffect(() => {
     //activate checkboxes
-    var textBoxes = document.getElementsByClassName("recipe-text-box");
+    var textBoxes = document.getElementsByClassName("markdown-box");
     Array.from(textBoxes).map((textBox) =>
       textBox
         .querySelectorAll("input[type=checkbox]")

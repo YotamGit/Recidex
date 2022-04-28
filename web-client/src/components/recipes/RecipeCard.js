@@ -3,7 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { marked } from "marked";
 import { useEffect, useState } from "react";
 
-import Favorite from "../Favorite";
+import Favorite from "../buttons/Favorite";
+import Share from "../buttons/Share";
 import ImagePlaceholder from "../../utils-module/Photos/recipeImagePlaceholder.png";
 
 //mui
@@ -11,7 +12,7 @@ import Chip from "@mui/material/Chip";
 import Divider from "@mui/material/Divider";
 import Tooltip from "@mui/material/Tooltip";
 
-//icons
+//mui icons
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import OpenInFullRoundedIcon from "@mui/icons-material/OpenInFullRounded";
 import FaceRoundedIcon from "@mui/icons-material/FaceRounded";
@@ -220,6 +221,7 @@ const RecipeCard = ({ recipe }) => {
           favorited_by={recipe.favorited_by}
           showCount={true}
         />
+        <Share url={`${window.location.origin}/recipes/${recipe._id}`} />
       </div>
     </div>
   );
