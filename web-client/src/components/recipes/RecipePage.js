@@ -54,11 +54,9 @@ const RecipePage = () => {
               </IconButton>
             </Tooltip>
             <div style={{ display: "flex", flexDirection: "row" }}>
-              <Tooltip title="Print recipe" arrow>
-                <IconButton onClick={() => window.print()}>
-                  <LocalPrintshopIcon />
-                </IconButton>
-              </Tooltip>
+              <IconButton onClick={() => window.print()}>
+                <LocalPrintshopIcon />
+              </IconButton>
 
               <Share url={window.location.href} emailTitle={recipe.title} />
             </div>

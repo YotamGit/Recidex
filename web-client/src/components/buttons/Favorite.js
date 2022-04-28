@@ -1,9 +1,6 @@
 import { useState, useEffect } from "react";
 import AuthorizedButton from "../Login/AuthorizedButton";
 
-//mui
-import Tooltip from "@mui/material/Tooltip";
-
 //mui icons
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 
@@ -37,9 +34,7 @@ const Favorite = ({ recipeId, favorited_by, style, showCount }) => {
           {favorited_by.length}
         </span>
       )}
-      <Tooltip title="Favorite recipe" arrow>
-        <FavoriteRoundedIcon style={{ color: favorite ? "red" : "gray" }} />
-      </Tooltip>
+      <FavoriteRoundedIcon style={{ color: favorite ? "red" : "gray" }} />
     </AuthorizedButton>
   );
 };
