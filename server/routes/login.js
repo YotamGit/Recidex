@@ -79,10 +79,11 @@ router.post("/signup", async (req, res, next) => {
         username: req.body.username,
         password: hashedPassword,
       });
-
       res.status(200).json({
         token: generateToken(newUser),
         userData: {
+          firstname: newUser.firstname,
+          lastname: newUser.lastname,
           userId: newUser._id,
         },
       });

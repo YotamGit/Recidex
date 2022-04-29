@@ -10,8 +10,7 @@ import RecipeEditorPage from "./components/recipe_editor/RecipeEditorPage";
 import AddRecipe from "./components/recipe_editor/AddRecipe";
 import Header from "./components/Header";
 import Main from "./components/Main";
-import Login from "./components/Login/Login";
-import Signup from "./components/Login/Signup";
+import Authentication from "./components/Login/Authentication";
 
 //mui
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -42,7 +41,8 @@ function App() {
           path="/login"
           element={
             <>
-              <Login
+              <Authentication
+                action={"login"}
                 showSignAsGuest={true}
                 showOtherAuthOption={true}
                 navigateAfterLogin={true}
@@ -54,7 +54,8 @@ function App() {
           path="/signup"
           element={
             <>
-              <Signup
+              <Authentication
+                action={"signup"}
                 showSignAsGuest={true}
                 showOtherAuthOption={true}
                 navigateAfterLogin={true}

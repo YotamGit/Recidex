@@ -1,0 +1,106 @@
+#authentication-page {
+  background-color: var(--sign-in-background);
+
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#authentication-page .recipes-logo {
+  position: absolute;
+  height: 27vh;
+  display: block;
+  margin: 0 auto;
+  top: 0%;
+}
+#authentication-page .title {
+  text-align: center;
+  font-size: 30px;
+}
+#authentication-page .authentication-section {
+  z-index: 999;
+  background-color: rgb(255, 255, 255);
+  border-radius: 5px;
+  box-shadow: 0px 0px 7px 1px;
+  padding: 10px 25px 25px 25px;
+  margin-top: 10%;
+}
+/*input grid*/
+#authentication-page .form-input-segment.signup {
+  display: grid;
+  grid-template-areas:
+    "first-name last-name"
+    "username email"
+    "password password"
+    "confirm-password confirm-password";
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-bottom: 30px;
+}
+#authentication-page .form-input-segment.login {
+  display: grid;
+  grid-template-areas:
+    "username"
+    "password";
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  margin-bottom: 30px;
+}
+
+#authentication-page .form-input-segment > * {
+  padding: 5px;
+}
+
+#authentication-page #authentication-firstname-input {
+  grid-area: first-name;
+}
+#authentication-page #authentication-lastname-input {
+  grid-area: last-name;
+}
+#authentication-page #authentication-email-input {
+  grid-area: email;
+}
+#authentication-page #authentication-username-input {
+  grid-area: username;
+}
+#authentication-page #authentication-password-input {
+  grid-area: password;
+}
+#authentication-page #authentication-passwordconfirm-input {
+  grid-area: confirm-password;
+}
+
+/*button grid*/
+#authentication-page .button-section {
+  display: grid;
+  grid-template-areas:
+    "top top"
+    "left right";
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 5px;
+}
+
+#authentication-page .main-button-1 {
+  grid-area: top;
+}
+#authentication-page .extra-button-1 {
+  grid-area: right;
+  background-color: var(--neutral-btn);
+}
+
+#authentication-page .extra-button-2 {
+  grid-area: left;
+  background-color: var(--neutral-btn);
+}
+
+@media only screen and (max-width: 600px) {
+  #authentication-page .authentication-section {
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    width: 100%;
+  }
+  #authentication-page .recipes-logo {
+    height: 17vh;
+    top: 0%;
+  }
+}

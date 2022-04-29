@@ -34,18 +34,15 @@
   color: rgba(71, 206, 59, 0.781);
 }
 
-.login-modal #login-page .recipes-logo,
-.login-modal #signup-page .recipes-logo {
+.login-modal #authentication-page .recipes-logo {
   display: none;
 }
-.login-modal > #login-page,
-.login-modal > #signup-page {
+.login-modal > #authentication-page {
   height: fit-content;
   width: fit-content;
   background: none;
 }
-.login-modal > #login-page .login-section,
-.login-modal > #signup-page .signup-section {
+.login-modal > #authentication-page .authentication-section {
   margin: 0px;
   box-shadow: none;
 }

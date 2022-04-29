@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import Login from "./Login";
-import Signup from "./Signup";
+import Authentication from "./Authentication";
 import "../../styles/login/AuthorizedButton.css";
 import DialogCloseButton from "../buttons/DialogCloseButton";
 
@@ -123,23 +122,13 @@ const AuthorizedButton = ({
         <DialogContent>
           <div className="login-modal">
             <DialogCloseButton onClick={handleCloseAuth} />
-
-            {authChoice === "login" && (
-              <Login
-                showSignAsGuest={false}
-                showOtherAuthOption={false}
-                navigateAfterLogin={false}
-                onLogin={handleCloseAuth}
-              />
-            )}
-            {authChoice === "signup" && (
-              <Signup
-                showSignAsGuest={false}
-                showOtherAuthOption={false}
-                navigateAfterLogin={false}
-                onLogin={handleCloseAuth}
-              />
-            )}
+            <Authentication
+              action={authChoice}
+              showSignAsGuest={false}
+              showOtherAuthOption={false}
+              navigateAfterLogin={false}
+              onLogin={handleCloseAuth}
+            />
           </div>
         </DialogContent>
       </Dialog>

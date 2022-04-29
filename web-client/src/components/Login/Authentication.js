@@ -1,4 +1,4 @@
-import "../../styles/login/Signup.css";
+import "../../styles/login/Authentication.css";
 import RecipesLogo from "../../utils-module/Photos/Recipes.svg";
 
 //utils
@@ -37,7 +37,8 @@ import {
   setLastname as setStoreLastname,
 } from "../../slices/usersSlice";
 
-const Signup = ({
+const Authentication = ({
+  action,
   showSignAsGuest,
   showOtherAuthOption,
   navigateAfterLogin,
@@ -48,20 +49,21 @@ const Signup = ({
 
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
-
   const [email, setEmail] = useState("");
+
   const [username, setUsername] = useState("");
 
   const [password, setPassword] = useState("");
   const [passwordconfirm, setPasswordConfirm] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const [invalidEmail, setInvalidEmail] = useState(false);
   const [passwordsMismatch, setPasswordsMismatch] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
+  const [wrongCredentials, setWrongCredentials] = useState(false);
 
   const [disableButtons, setDisableButtons] = useState(false);
 
-  //detect enter key to sign up
+  //detect enter key to sign up/in
   useEffect(() => {
     const handleKeyDown = async (e) => {
       if (e.code === "Enter") {
@@ -118,19 +120,21 @@ const Signup = ({
   };
 
   const onSubmit = async () => {
-    if (!validateInput()) {
+    if (action === "signup" && !validateInput()) {
       return;
     }
     try {
       setDisableButtons(true);
-
-      var result = await axios.post("/api/login/signup", {
-        firstname: firstname,
-        lastname: lastname,
-        email: email,
-        username: username,
-        password: password,
-      });
+      var result = await axios.post(
+        `/api/login${action === "signup" ? "/signup" : ""}`,
+        {
+          firstname: action === "signup" ? firstname : undefined,
+          lastname: action === "signup" ? lastname : undefined,
+          email: action === "signup" ? email : undefined,
+          username: username,
+          password: password,
+        }
+      );
       setDisableButtons(false);
 
       if (result.data) {
@@ -143,16 +147,23 @@ const Signup = ({
           sameSite: "Strict",
         });
         dispatch(setUserId(result.data.userData.userId));
-        dispatch(setStoreFirstname(firstname));
-        dispatch(setStoreLastname(lastname));
+        dispatch(setStoreFirstname(result.data.userData.firstname));
+        dispatch(setStoreLastname(result.data.userData.lastname));
         dispatch(setSignedIn(true));
         if (navigateAfterLogin) {
           navigate("/home");
         }
-        onLogin && onLogin(); //for closing signup modal
+        onLogin && onLogin(); //for closing signup/login modal
       }
     } catch (error) {
-      if (error.response.status === 409) {
+      setDisableButtons(false);
+      if (action === "login" && error.response.status === 401) {
+        setWrongCredentials(true);
+      } else {
+        window.alert("Failed to Login.\nReason: " + error.message);
+      }
+
+      if (action === "signup" && error.response.status === 409) {
         window.alert("Failed to Sign Up.\nReason: " + error.response.data);
       } else {
         window.alert("Failed to Sign Up.\nReason: " + error.message);
@@ -160,54 +171,72 @@ const Signup = ({
     }
   };
   return (
-    <div id="signup-page">
+    <div id="authentication-page">
       <img className="recipes-logo" src={RecipesLogo} alt=""></img>
-      <div className="signup-section">
-        <div className="title">Sign up</div>
-        <div className="form-input-segment">
-          <FormControl id="signup-firstname-input" variant="outlined">
-            <InputLabel htmlFor="signup-firstname-input">First Name</InputLabel>
-            <OutlinedInput
-              type="text"
-              value={firstname}
-              onChange={(e) => {
-                setFirstname(e.target.value);
-              }}
-              label="Firstname"
-            />
-          </FormControl>
-          <FormControl id="signup-lastname-input" variant="outlined">
-            <InputLabel htmlFor="signup-lastname-input">Last Name</InputLabel>
-            <OutlinedInput
-              type="text"
-              value={lastname}
-              onChange={(e) => {
-                setLastname(e.target.value);
-              }}
-              label="Lastname"
-            />
-          </FormControl>
+      <div className="authentication-section">
+        <div className="title">
+          {action === "signup" ? "Sign up" : "Sign In"}
+        </div>
+        <div className={`form-input-segment ${action}`}>
+          {action === "signup" && (
+            <>
+              <FormControl
+                id="authentication-firstname-input"
+                variant="outlined"
+              >
+                <InputLabel htmlFor="authentication-firstname-input">
+                  First Name
+                </InputLabel>
+                <OutlinedInput
+                  type="text"
+                  value={firstname}
+                  onChange={(e) => {
+                    setFirstname(e.target.value);
+                  }}
+                  label="Firstname"
+                />
+              </FormControl>
+              <FormControl
+                id="authentication-lastname-input"
+                variant="outlined"
+              >
+                <InputLabel htmlFor="authentication-lastname-input">
+                  Last Name
+                </InputLabel>
+                <OutlinedInput
+                  type="text"
+                  value={lastname}
+                  onChange={(e) => {
+                    setLastname(e.target.value);
+                  }}
+                  label="Lastname"
+                />
+              </FormControl>
 
-          <FormControl id="signup-email-input" variant="outlined">
-            <InputLabel htmlFor="signup-email-input">
-              Email (password reset)
+              <FormControl id="authentication-email-input" variant="outlined">
+                <InputLabel htmlFor="authentication-email-input">
+                  Email (password reset)
+                </InputLabel>
+                <OutlinedInput
+                  type="text"
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
+                  label="Email"
+                />
+                {invalidEmail && (
+                  <span style={{ color: "red", fontSize: "13px" }}>
+                    Invalid Email, Please Try Again
+                  </span>
+                )}
+              </FormControl>
+            </>
+          )}
+          <FormControl id="authentication-username-input" variant="outlined">
+            <InputLabel htmlFor="authentication-username-input">
+              Username
             </InputLabel>
-            <OutlinedInput
-              type="text"
-              value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
-              label="Email"
-            />
-            {invalidEmail && (
-              <span style={{ color: "red", fontSize: "13px" }}>
-                Invalid Email, Please Try Again
-              </span>
-            )}
-          </FormControl>
-          <FormControl id="signup-username-input" variant="outlined">
-            <InputLabel htmlFor="signup-username-input">Username</InputLabel>
             <OutlinedInput
               type="text"
               value={username}
@@ -217,8 +246,10 @@ const Signup = ({
               label="Username"
             />
           </FormControl>
-          <FormControl id="signup-password-input" variant="outlined">
-            <InputLabel htmlFor="signup-password-input">Password</InputLabel>
+          <FormControl id="authentication-password-input" variant="outlined">
+            <InputLabel htmlFor="authentication-password-input">
+              Password
+            </InputLabel>
             <OutlinedInput
               type={showPassword ? "text" : "password"}
               value={password}
@@ -238,37 +269,49 @@ const Signup = ({
                 </InputAdornment>
               }
             />
-          </FormControl>
-
-          <FormControl id="signup-passwordconfirm-input" variant="outlined">
-            <InputLabel htmlFor="signup-passwordconfirm-input">
-              Confirm Password
-            </InputLabel>
-            <OutlinedInput
-              type={showPassword ? "text" : "password"}
-              value={passwordconfirm}
-              onChange={(e) => {
-                setPasswordConfirm(e.target.value);
-              }}
-              label="Password Confirm"
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={() => setShowPassword(!showPassword)}
-                    edge="start"
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
-            {passwordsMismatch && (
+            {action === "login" && wrongCredentials && (
               <span style={{ color: "red", fontSize: "13px" }}>
-                Passwords do not match, Please Try Again
+                Wrong Credentials, Please Try Again
               </span>
             )}
           </FormControl>
+
+          {action === "signup" && (
+            <>
+              <FormControl
+                id="authentication-passwordconfirm-input"
+                variant="outlined"
+              >
+                <InputLabel htmlFor="authentication-passwordconfirm-input">
+                  Confirm Password
+                </InputLabel>
+                <OutlinedInput
+                  type={showPassword ? "text" : "password"}
+                  value={passwordconfirm}
+                  onChange={(e) => {
+                    setPasswordConfirm(e.target.value);
+                  }}
+                  label="Password Confirm"
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={() => setShowPassword(!showPassword)}
+                        edge="start"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                />
+                {passwordsMismatch && (
+                  <span style={{ color: "red", fontSize: "13px" }}>
+                    Passwords do not match, Please Try Again
+                  </span>
+                )}
+              </FormControl>
+            </>
+          )}
         </div>
         <div className="button-section">
           <LoadingButton
@@ -277,7 +320,7 @@ const Signup = ({
             onClick={onSubmit}
             loading={disableButtons}
           >
-            Sign Up
+            {action === "signup" ? "Sign Up" : "Sign In"}
           </LoadingButton>
           {showSignAsGuest && (
             <Button
@@ -292,9 +335,11 @@ const Signup = ({
             <Button
               className="extra-button-2"
               variant="contained"
-              onClick={() => navigate("/login")}
+              onClick={() =>
+                navigate(`/${action === "signup" ? "login" : "signup"}`)
+              }
             >
-              Sign In
+              {action === "signup" ? "Sign In" : "Sign up"}
             </Button>
           )}
         </div>
@@ -303,4 +348,4 @@ const Signup = ({
   );
 };
 
-export default Signup;
+export default Authentication;
