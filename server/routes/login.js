@@ -69,25 +69,33 @@ router.post("/signup", async (req, res, next) => {
     });
     if (usernameAlreadyExists) {
       res.status(409).send("The User already exists. Try a different Username");
-    } else {
-      let hashedPassword = await bcrypt.hash(req.body.password, 10);
-      const newUser = await User.create({
-        role: "member",
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        email: req.body.email,
-        username: req.body.username,
-        password: hashedPassword,
-      });
-      res.status(200).json({
-        token: generateToken(newUser),
-        userData: {
-          firstname: newUser.firstname,
-          lastname: newUser.lastname,
-          userId: newUser._id,
-        },
-      });
     }
+
+    let emailAlreadyExists = await User.findOne({
+      email: { $eq: req.body.email },
+    });
+    if (emailAlreadyExists) {
+      res.status(409).send("Email has already been taken. Try a different one");
+    }
+
+    let hashedPassword = await bcrypt.hash(req.body.password, 10);
+    const newUser = await User.create({
+      role: "member",
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
+      email: req.body.email,
+      username: req.body.username,
+      password: hashedPassword,
+    });
+    res.status(200).json({
+      token: generateToken(newUser),
+      userData: {
+        firstname: newUser.firstname,
+        lastname: newUser.lastname,
+        userId: newUser._id,
+      },
+    });
+
     // User.deleteMany({}).exec();//delete all users
     // var users = await User.find({}); // get all users
     // console.log(users);

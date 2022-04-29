@@ -159,14 +159,13 @@ const Authentication = ({
       setDisableButtons(false);
       if (action === "login" && error.response.status === 401) {
         setWrongCredentials(true);
-      } else {
-        window.alert("Failed to Login.\nReason: " + error.message);
-      }
-
-      if (action === "signup" && error.response.status === 409) {
+      } else if (action === "signup" && error.response.status === 409) {
         window.alert("Failed to Sign Up.\nReason: " + error.response.data);
       } else {
-        window.alert("Failed to Sign Up.\nReason: " + error.message);
+        window.alert(
+          `Failed to ${action === "signup" ? "Sign Up" : "Log In"}.\nReason: ` +
+            error.message
+        );
       }
     }
   };
