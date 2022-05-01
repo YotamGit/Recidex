@@ -2,7 +2,7 @@ import RecipeEditor from "./RecipeEditor.js";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-import { getRecipe } from "../../utils-module/recipes.js";
+import { getRecipe } from "../../utils-module/recipes.ts";
 
 import "../../styles/recipe_editor/RecipeEditorPage.css";
 import AuthorizedButton from "../Login/AuthorizedButton";

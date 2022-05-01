@@ -6,7 +6,7 @@ import MarkdownEditSection from "../markdown/MarkdownEditSection";
 import MarkdownPreviewSection from "../markdown/MarkdownPreviewSection";
 import RecipeDropdown from "../RecipeDropdown";
 import AuthorizedButton from "../Login/AuthorizedButton";
-import { toBase64 } from "../../utils-module/images";
+import { toBase64 } from "../../utils-module/images.ts";
 
 //mui
 import Chip from "@mui/material/Chip";

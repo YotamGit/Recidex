@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import Share from "../buttons/Share.js";
 
 //utils
-import { getRecipe } from "../../utils-module/recipes.js";
+import { getRecipe } from "../../utils-module/recipes.ts";
 
 //icons
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
