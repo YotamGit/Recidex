@@ -21,6 +21,16 @@ router.post("/", async (req, res, next) => {
         : false;
 
       if (correctPassword) {
+        //update login time of user
+        const response = await User.updateOne(
+          { _id: user._id },
+          {
+            $set: {
+              last_sign_in: Date.now(),
+            },
+          }
+        );
+
         res.status(200).json({
           token: generateToken(user),
           userData: {
