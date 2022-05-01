@@ -3,7 +3,7 @@ import "../../styles/recipes/RecipePage.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-import Share from "../buttons/Share.js";
+import Share from "../buttons/Share.tsx";
 
 //utils
 import { getRecipe } from "../../utils-module/recipes.ts";

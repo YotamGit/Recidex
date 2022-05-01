@@ -1,13 +1,32 @@
 import axios from "axios";
-import {
-  createSlice,
-  createSelector,
-  createAsyncThunk,
-} from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "../store";
 
 import { setFilters } from "./filtersSlice";
 
-const initialState = {
+export type Recipe = {
+  _id?: string;
+  title: string;
+  category: string;
+  sub_category: string;
+  difficulty: string;
+  prep_time: string;
+  total_time: string;
+  servings: string;
+  description: string;
+  ingredients: string;
+  directions: string;
+  rtl: boolean;
+  source: string;
+  imageName: string;
+  image: string;
+};
+
+interface RecipesState {
+  recipes: Recipe[];
+  fetchedAllRecipes: boolean;
+}
+const initialState: RecipesState = {
   recipes: [],
   fetchedAllRecipes: false,
 };
@@ -16,18 +35,20 @@ const initialState = {
 // params - {replace:Boolean, args:{filters to pass to the db}}, see implementation...
 export const getRecipes = createAsyncThunk(
   "recipes/getRecipes",
-  async (params, thunkAPI) => {
+  async (params: any, thunkAPI) => {
+    const state = thunkAPI.getState() as RootState;
     //if some of the values arent undefined
     //if (!Object.values(filters).some((x) => typeof x !== "undefined")) return;
     params.args &&
       params.args?.filters &&
       thunkAPI.dispatch(setFilters(params.args.filters));
 
-    var userId = thunkAPI.getState().users.userId;
-    var { searchText, favoritesOnly } = thunkAPI.getState().filters;
-    var selecetedfilters = thunkAPI.getState().filters.selectedFilters;
+    let userId = state.users.userId;
+    let searchText = state.filters.searchText;
+    let favoritesOnly = state.filters.favoritesOnly;
+    let selecetedfilters = state.filters.selectedFilters;
 
-    var result = await axios.get("/api/recipes", {
+    let result = await axios.get("/api/recipes", {
       params: {
         latest: params.args?.latest || new Date(),
         count: 4,
@@ -39,18 +60,19 @@ export const getRecipes = createAsyncThunk(
       },
     });
     thunkAPI.dispatch(setFetchedAllRecipes(result.data.length));
-    return { replace: params.replace, data: result.data };
+    return { replace: params.replace, recipes: result.data };
   }
 );
 
 export const editRecipe = createAsyncThunk(
   "recipes/editRecipe",
-  async (recipeData, thunkAPI) => {
+  async (recipeData: Recipe, thunkAPI) => {
+    const state = thunkAPI.getState() as RootState;
     try {
       let response = await axios.post(`/api/recipes/edit/${recipeData._id}`, {
         recipeData,
       });
-    } catch (error) {
+    } catch (error: any) {
       return thunkAPI.rejectWithValue({
         statusCode: error.response.status,
         data: error.response.data,
@@ -58,20 +80,19 @@ export const editRecipe = createAsyncThunk(
       });
     }
 
-    return thunkAPI
-      .getState()
-      .recipes.recipes.map((recipe) =>
-        recipe._id === recipeData._id ? { ...recipe, ...recipeData } : recipe
-      );
+    return state.recipes.recipes.map((recipe: Recipe) =>
+      recipe._id === recipeData._id ? { ...recipe, ...recipeData } : recipe
+    );
   }
 );
 
 export const deleteRecipe = createAsyncThunk(
   "recipes/deleteRecipe",
-  async (id, thunkAPI) => {
+  async (id: string, thunkAPI) => {
+    const state = thunkAPI.getState() as RootState;
     try {
       await axios.post(`/api/recipes/delete/${id}`);
-    } catch (error) {
+    } catch (error: any) {
       return thunkAPI.rejectWithValue({
         statusCode: error.response.status,
         data: error.response.data,
@@ -79,22 +100,20 @@ export const deleteRecipe = createAsyncThunk(
       });
     }
 
-    return thunkAPI
-      .getState()
-      .recipes.recipes.filter((recipe) => recipe._id !== id);
+    return state.recipes.recipes.filter((recipe: Recipe) => recipe._id !== id);
   }
 );
 
 export const addRecipe = createAsyncThunk(
   "recipes/addRecipe",
-  async (recipeData, thunkAPI) => {
-    delete recipeData._id;
+  async (recipeData: Recipe, thunkAPI) => {
+    delete recipeData._id; //no id is needed when creating a new recipe
     try {
       var result = await axios.post(`/api/recipes/new`, {
         recipeData,
       });
       return result.data;
-    } catch (error) {
+    } catch (error: any) {
       return thunkAPI.rejectWithValue({
         statusCode: error.response.status,
         data: error.response.data,
@@ -106,22 +125,22 @@ export const addRecipe = createAsyncThunk(
 
 export const favoriteRecipe = createAsyncThunk(
   "recipes/favoriteRecipe",
-  async (params, thunkAPI) => {
+  async (
+    { recipeId, favorite }: { recipeId: string; favorite: boolean },
+    thunkAPI
+  ) => {
+    const state = thunkAPI.getState() as RootState;
+
     try {
-      var res = await axios.post(
-        `/api/recipes/edit/favorite/${params.recipeId}`,
-        {
-          favorite: params.favorite,
-        }
+      var res = await axios.post(`/api/recipes/edit/favorite/${recipeId}`, {
+        favorite: favorite,
+      });
+      return state.recipes.recipes.map((recipe:Recipe) =>
+        recipe._id === recipeId
+          ? { ...recipe, favorited_by: res.data }
+          : recipe
       );
-      return thunkAPI
-        .getState()
-        .recipes.recipes.map((recipe) =>
-          recipe._id === params.recipeId
-            ? { ...recipe, favorited_by: res.data }
-            : recipe
-        );
-    } catch (error) {
+    } catch (error: any) {
       return thunkAPI.rejectWithValue({
         statusCode: error.response.status,
         data: error.response.data,
@@ -135,33 +154,33 @@ const recipesSlice = createSlice({
   name: "recipes",
   initialState,
   reducers: {
-    setFetchedAllRecipes(state, action) {
+    setFetchedAllRecipes(state, action:PayloadAction<number>) {
       state.fetchedAllRecipes = action.payload === 0 ? true : false;
     },
-    setRecipes(state, action) {
+    setRecipes(state, action:PayloadAction<Recipe[]>) {
       state.recipes = action.payload;
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getRecipes.fulfilled, (state, action) => {
+      .addCase(getRecipes.fulfilled, (state, action:PayloadAction<{replace:boolean, recipes:Recipe[]}>) => {
         if (action.payload.replace) {
-          state.recipes = [...action.payload.data];
+          state.recipes = [...action.payload.recipes];
         } else {
-          state.recipes = action.payload.data
-            ? [...state.recipes, ...action.payload.data]
+          state.recipes = action.payload.recipes
+            ? [...state.recipes, ...action.payload.recipes]
             : state.recipes;
         }
       })
-      .addCase(getRecipes.rejected, (state, action) => {
+      .addCase(getRecipes.rejected, (state, action:PayloadAction<any>) => {
         window.alert(
-          "Failed to Fetch Recipes.\nReason: " + action.error.message
+          "Failed to Fetch Recipes.\nReason: " + action.payload.error.message
         );
       })
-      .addCase(editRecipe.fulfilled, (state, action) => {
+      .addCase(editRecipe.fulfilled, (state, action:PayloadAction<Recipe[]>) => {
         state.recipes = action.payload;
       })
-      .addCase(editRecipe.rejected, (state, action) => {
+      .addCase(editRecipe.rejected, (state, action:PayloadAction<any>) => {
         if (action.payload.statusCode === 401) {
           window.alert(
             "Failed to Edit Recipe in Database.\nReason: " + action.payload.data
@@ -173,10 +192,10 @@ const recipesSlice = createSlice({
           );
         }
       })
-      .addCase(addRecipe.fulfilled, (state, action) => {
+      .addCase(addRecipe.fulfilled, (state, action:PayloadAction<Recipe>) => {
         state.recipes = [action.payload, ...state.recipes];
       })
-      .addCase(addRecipe.rejected, (state, action) => {
+      .addCase(addRecipe.rejected, (state, action:PayloadAction<any>) => {
         if (action.payload.statusCode === 401) {
           window.alert(
             "Failed to Add Recipe to Database, Please Try Again.\nReason: " +
@@ -189,10 +208,10 @@ const recipesSlice = createSlice({
           );
         }
       })
-      .addCase(deleteRecipe.fulfilled, (state, action) => {
+      .addCase(deleteRecipe.fulfilled, (state, action:PayloadAction<Recipe[]>) => {
         state.recipes = action.payload;
       })
-      .addCase(deleteRecipe.rejected, (state, action) => {
+      .addCase(deleteRecipe.rejected, (state, action:PayloadAction<any>) => {
         if (action.payload.statusCode === 401) {
           window.alert(
             "Failed to Delete Recipe from Database.\nReason: " +
@@ -205,10 +224,10 @@ const recipesSlice = createSlice({
           );
         }
       })
-      .addCase(favoriteRecipe.fulfilled, (state, action) => {
+      .addCase(favoriteRecipe.fulfilled, (state, action:PayloadAction<Recipe[]>) => {
         state.recipes = action.payload;
       })
-      .addCase(favoriteRecipe.rejected, (state, action) => {
+      .addCase(favoriteRecipe.rejected, (state, action:PayloadAction<any>) => {
         window.alert(
           "Failed to Favorite Recipe, Please Try Again.\nReason: " +
             action.payload.message

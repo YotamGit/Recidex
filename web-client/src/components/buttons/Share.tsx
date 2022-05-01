@@ -17,15 +17,24 @@ import EmailRoundedIcon from "@mui/icons-material/EmailRounded";
 //redux
 import { useSelector } from "react-redux";
 
-const Share = ({ url, emailTitle, size }) => {
-  const fullscreen = useSelector((state) => state.utilities.fullscreen);
+//types
+import { FC } from "react";
+import {RootState} from "../../store"
+
+interface propTypes {
+  url:string,
+  emailTitle:string
+}
+
+const Share:FC<propTypes> = ({ url, emailTitle }) => {
+  const fullscreen = useSelector((state:RootState) => state.utilities.fullscreen);
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const copyUrl = () => {
-    var copyText = document.getElementById("share-url-input");
+    let copyText = document.getElementById("share-url-input") as HTMLInputElement;
     copyText.select();
     copyText.setSelectionRange(0, 99999);
     navigator.clipboard.writeText(copyText.value);
@@ -42,7 +51,7 @@ const Share = ({ url, emailTitle, size }) => {
           <div className="share-modal">
             <DialogCloseButton onClick={handleClose} />
             <div className="share-modal-content">
-              <EmailShareButton subject={emailTitle} body={url}>
+              <EmailShareButton subject={emailTitle} body={url} url={url}>
                 <EmailRoundedIcon style={{ color: "gray", fontSize: "30px" }} />
               </EmailShareButton>
               <span style={{ marginBottom: "10px" }}>Or</span>

@@ -1,6 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction} from "@reduxjs/toolkit";
 
-const initialState = {
+
+interface UtilityState {
+  fullscreen: boolean | undefined;
+  routeHistory: string[];
+}
+
+const initialState: UtilityState = {
   fullscreen: undefined,
   routeHistory: [],
 };
@@ -9,10 +15,10 @@ const utilitySlice = createSlice({
   name: "utility",
   initialState,
   reducers: {
-    setFullscreen(state, action) {
+    setFullscreen(state, action:PayloadAction<boolean>) {
       state.fullscreen = action.payload;
     },
-    addRouteToHistory(state, action) {
+    addRouteToHistory(state, action:PayloadAction<string>) {
       state.routeHistory.push(action.payload);
     },
   },

@@ -1,12 +1,22 @@
+import { RootState } from "../store";
 import axios from "axios";
 import Cookies from "universal-cookie";
-import {
-  createSlice,
-  createSelector,
-  createAsyncThunk,
-} from "@reduxjs/toolkit";
+import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 
-const initialState = {
+export type User = {
+  userId: string | undefined;
+  firstname: string | undefined;
+  lastname: string | undefined;
+};
+
+interface UsersState {
+  signedIn: boolean;
+  attemptSignIn: boolean;
+  userId: string | undefined;
+  firstname: string | undefined;
+  lastname: string | undefined;
+}
+const initialState: UsersState = {
   signedIn: false,
   attemptSignIn: false,
   userId: undefined,
@@ -18,7 +28,7 @@ export const userPing = createAsyncThunk("user/userPing", async () => {
   try {
     var result = await axios.post("/api/login/ping", {});
     return result.data;
-  } catch (error) {
+  } catch (error: any) {
     if (error.response.status === 401) {
       return error.response.data;
     } else {
@@ -33,27 +43,27 @@ const usersSlice = createSlice({
   name: "users",
   initialState,
   reducers: {
-    setSignedIn(state, action) {
+    setSignedIn(state, action:PayloadAction<boolean>) {
       const signedIn = action.payload;
       state.signedIn = signedIn;
     },
-    setAttemptSignIn(state, action) {
+    setAttemptSignIn(state, action:PayloadAction<boolean>) {
       const attemptSignIn = action.payload;
       state.attemptSignIn = attemptSignIn;
     },
-    setUserId(state, action) {
+    setUserId(state, action:PayloadAction<string>) {
       const userId = action.payload;
       state.userId = userId;
     },
-    setFirstname(state, action) {
+    setFirstname(state, action:PayloadAction<string>) {
       const firstname = action.payload;
       state.firstname = firstname;
     },
-    setLastname(state, action) {
+    setLastname(state, action:PayloadAction<string>) {
       const lastname = action.payload;
       state.lastname = lastname;
     },
-    clearUser(state, action) {
+    clearUser(state) {
       state.firstname = undefined;
       state.lastname = undefined;
       state.signedIn = false;
@@ -64,10 +74,10 @@ const usersSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(userPing.pending, (state, action) => {
+      .addCase(userPing.pending, (state) => {
         state.attemptSignIn = true;
       })
-      .addCase(userPing.fulfilled, (state, action) => {
+      .addCase(userPing.fulfilled, (state, action:PayloadAction<{authenticated:boolean,userData:User}>) => {
         state.attemptSignIn = false;
         state.signedIn = action.payload?.authenticated || false;
         if (action.payload?.authenticated) {
@@ -80,7 +90,7 @@ const usersSlice = createSlice({
 });
 
 export const {
-  attemptSignIn,
+  setAttemptSignIn,
   setSignedIn,
   setUserId,
   setFirstname,

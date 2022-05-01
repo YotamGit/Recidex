@@ -4,7 +4,7 @@ import { marked } from "marked";
 import { useEffect, useState } from "react";
 
 import Favorite from "../buttons/Favorite";
-import Share from "../buttons/Share";
+import Share from "../buttons/Share.tsx";
 import ImagePlaceholder from "../../utils-module/Photos/recipeImagePlaceholder.png";
 
 //mui

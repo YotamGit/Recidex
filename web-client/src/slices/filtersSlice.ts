@@ -1,11 +1,37 @@
-//import axios from "axios";
-import {
-  createSlice,
-  createSelector,
-  createAsyncThunk,
-} from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const initialState = {
+interface FiltersState {
+  selectedFilters: {
+    [key:string]:any,
+    category: string| undefined,
+    sub_category: string| undefined,
+    difficulty: string| undefined,
+    prep_time: string| undefined,
+    total_time: string| undefined,
+    owner: string | undefined,
+  },
+  favoritesOnly: boolean | undefined,
+  searchText: string | undefined,
+  filtered: boolean,
+  recipe_categories: {
+    [key:string]:any,
+    Proteins: string[],
+    Salads: string[],
+    Asian: string[],
+    "Soups and Stews": string[],
+    Pasta: string[],
+    "Pizza and Focaccia": string[],
+    Bread: string[],
+    Drinks: string[],
+    Desserts: string[],
+    Other: string[],
+  },
+  recipe_difficulties: string[],
+  recipe_durations: string[],
+};
+
+
+const initialState: FiltersState = {
   selectedFilters: {
     category: undefined,
     sub_category: undefined,
@@ -58,24 +84,24 @@ const filtersSlice = createSlice({
   name: "filters",
   initialState,
   reducers: {
-    setFilters(state, action) {
+    setFilters(state, action:PayloadAction<FiltersState>) {
       state.selectedFilters = { ...state.selectedFilters, ...action.payload };
     },
-    setSearchText(state, action) {
+    setSearchText(state, action:PayloadAction<string>) {
       state.searchText = action.payload === "" ? undefined : action.payload;
     },
-    setfavoritesOnly(state, action) {
+    setfavoritesOnly(state, action:PayloadAction<boolean>) {
       state.favoritesOnly = action.payload;
     },
-    setFiltered(state, action) {
+    setFiltered(state, action:PayloadAction<boolean>) {
       state.filtered = action.payload;
     },
-    resetFilters(state, action) {
+    resetFilters(state) {
       Object.keys(state.selectedFilters).forEach((key) => {
         state.selectedFilters[key] = undefined;
       });
     },
-    setOwner(state, action) {
+    setOwner(state, action:PayloadAction<string>) {
       state.selectedFilters = {
         ...state.selectedFilters,
         owner: action.payload,

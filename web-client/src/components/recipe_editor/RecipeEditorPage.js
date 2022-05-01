@@ -17,7 +17,7 @@ import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
-import { deleteRecipe } from "../../slices/recipesSlice.js";
+import { deleteRecipe } from "../../slices/recipesSlice.ts";
 const RecipeEditorPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
