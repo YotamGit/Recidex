@@ -1,10 +1,9 @@
 import "../../styles/recipes/RecipeCard.css";
 import { Link, useNavigate } from "react-router-dom";
 import { marked } from "marked";
-import { useEffect, useState } from "react";
 
 import Favorite from "../buttons/Favorite";
-import Share from "../buttons/Share.tsx";
+import Share from "../buttons/Share";
 import ImagePlaceholder from "../../utils-module/Photos/recipeImagePlaceholder.png";
 
 //mui
@@ -20,9 +19,13 @@ import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import CookieOutlinedIcon from "@mui/icons-material/CookieOutlined";
 
 //redux
-import { useSelector, useDispatch } from "react-redux";
+import { useAppSelector, useAppDispatch } from "../../hooks";
 import { setFilters, setFiltered } from "../../slices/filtersSlice";
 import { getRecipes } from "../../slices/recipesSlice";
+
+//types
+import { TRecipe } from "../../slices/recipesSlice";
+import { FC } from "react";
 
 marked.setOptions({
   gfm: true,
@@ -30,11 +33,14 @@ marked.setOptions({
   smartLists: true,
 });
 
-const RecipeCard = ({ recipe }) => {
-  const dispatch = useDispatch();
+interface propTypes {
+  recipe: TRecipe;
+}
+const RecipeCard: FC<propTypes> = ({ recipe }) => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const fullscreen = useSelector((state) => state.utilities.fullscreen);
+  const fullscreen = useAppSelector((state) => state.utilities.fullscreen);
 
   const chipCategoryOnClick = async () => {
     dispatch(
@@ -46,8 +52,9 @@ const RecipeCard = ({ recipe }) => {
         total_time: undefined,
       })
     );
-    var filterRes = await dispatch(getRecipes({ replace: true, args: {} }));
-    if (!filterRes.error) {
+    var filterRes = await dispatch(getRecipes({ replace: true }));
+
+    if (filterRes.meta.requestStatus === "fulfilled") {
       dispatch(setFiltered(true));
     }
   };
@@ -62,7 +69,7 @@ const RecipeCard = ({ recipe }) => {
       })
     );
     var filterRes = await dispatch(getRecipes({ replace: true, args: {} }));
-    if (!filterRes.error) {
+    if (filterRes.meta.requestStatus === "fulfilled") {
       dispatch(setFiltered(true));
     }
   };
@@ -77,7 +84,7 @@ const RecipeCard = ({ recipe }) => {
       })
     );
     var filterRes = await dispatch(getRecipes({ replace: true, args: {} }));
-    if (!filterRes.error) {
+    if (filterRes.meta.requestStatus === "fulfilled") {
       dispatch(setFiltered(true));
     }
   };

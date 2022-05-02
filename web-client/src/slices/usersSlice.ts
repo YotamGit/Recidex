@@ -1,4 +1,3 @@
-import { RootState } from "../store";
 import axios from "axios";
 import Cookies from "universal-cookie";
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
@@ -24,7 +23,7 @@ const initialState: UsersState = {
   lastname: undefined,
 };
 
-export const userPing = createAsyncThunk("user/userPing", async () => {
+export const userPing = createAsyncThunk<{authenticated:boolean,userData:User}>("user/userPing", async () => {
   try {
     var result = await axios.post("/api/login/ping", {});
     return result.data;
@@ -77,7 +76,7 @@ const usersSlice = createSlice({
       .addCase(userPing.pending, (state) => {
         state.attemptSignIn = true;
       })
-      .addCase(userPing.fulfilled, (state, action:PayloadAction<{authenticated:boolean,userData:User}>) => {
+      .addCase(userPing.fulfilled, (state, action) => {
         state.attemptSignIn = false;
         state.signedIn = action.payload?.authenticated || false;
         if (action.payload?.authenticated) {

@@ -33,7 +33,7 @@ const RecipeEditorPage = () => {
   const onDeleteRecipe = async () => {
     var remove = window.confirm("Delete Recipe: " + recipe.title + "?");
     if (remove) {
-      let deleteRes = await dispatch(deleteRecipe(recipe._id));
+      let deleteRes = await dispatch(deleteRecipe({ id: recipe._id }));
       if (!deleteRes.error) {
         navigate("/home");
       }

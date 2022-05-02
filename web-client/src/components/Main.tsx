@@ -1,10 +1,10 @@
 import "../styles/Main.css";
 import Recipes from "./recipes/Recipes";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 //redux
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../hooks";
 import { getRecipes } from "../slices/recipesSlice";
 import {
   setOwner,
@@ -19,19 +19,24 @@ import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
 import Alert from "@mui/material/Alert";
 
-const Main = ({ ownerOnly, favoritesOnly }) => {
-  const dispatch = useDispatch();
+interface propTypes {
+  ownerOnly: boolean;
+  favoritesOnly: boolean;
+}
+
+const Main: FC<propTypes> = ({ ownerOnly, favoritesOnly }) => {
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const [fetching, setFetching] = useState(false);
 
-  const recipes = useSelector((state) => state.recipes.recipes);
-  const fetchedAllRecipes = useSelector(
+  const recipes = useAppSelector((state) => state.recipes.recipes);
+  const fetchedAllRecipes = useAppSelector(
     (state) => state.recipes.fetchedAllRecipes
   );
 
-  const loggedUser = useSelector((state) => state.users.userId);
-  const attemptSignIn = useSelector((state) => state.users.attemptSignIn);
-  const routeHistory = useSelector((state) => state.utilities.routeHistory);
+  const loggedUser = useAppSelector((state) => state.users.userId);
+  const attemptSignIn = useAppSelector((state) => state.users.attemptSignIn);
+  const routeHistory = useAppSelector((state) => state.utilities.routeHistory);
 
   const loadRecipes = async () => {
     if (recipes.length > 0) {
@@ -40,7 +45,7 @@ const Main = ({ ownerOnly, favoritesOnly }) => {
         getRecipes({
           replace: false,
           args: {
-            latest: recipes.at(-1).creation_time,
+            latest: recipes.at(-1)?.creation_time,
           },
         })
       );
@@ -74,7 +79,7 @@ const Main = ({ ownerOnly, favoritesOnly }) => {
 
   useEffect(() => {
     //for some reason this is called only once when moving between the main pages.(if the main element exists then this is called only once even if moving pages)
-    dispatch(setSearchText(undefined));
+    dispatch(setSearchText(""));
     dispatch(resetFilters());
     dispatch(setFiltered(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps

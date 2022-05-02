@@ -113,7 +113,7 @@ const RecipeEditor = ({ action, recipe }) => {
       switch (action) {
         case "edit":
           setDisableButtons(true);
-          let editRes = await dispatch(editRecipe(recipeData));
+          let editRes = await dispatch(editRecipe({ recipeData: recipeData }));
           setDisableButtons(false);
 
           if (!editRes.error) {

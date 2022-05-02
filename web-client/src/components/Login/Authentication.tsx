@@ -8,7 +8,7 @@ import {
   validEmail,
 } from "../../utils-module/validation";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, FC } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 
@@ -29,7 +29,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 //redux
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../hooks";
 import {
   setSignedIn,
   setUserId,
@@ -37,14 +37,22 @@ import {
   setLastname as setStoreLastname,
 } from "../../slices/usersSlice";
 
-const Authentication = ({
+interface propTypes {
+  action: "signup" | "login" | undefined;
+  showSignAsGuest: boolean;
+  showOtherAuthOption: boolean;
+  navigateAfterLogin: boolean;
+  onLogin: Function;
+}
+
+const Authentication: FC<propTypes> = ({
   action,
   showSignAsGuest,
   showOtherAuthOption,
   navigateAfterLogin,
   onLogin,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const [firstname, setFirstname] = useState("");
@@ -65,7 +73,7 @@ const Authentication = ({
 
   //detect enter key to sign up/in
   useEffect(() => {
-    const handleKeyDown = async (e) => {
+    const handleKeyDown = async (e:KeyboardEvent) => {
       if (e.code === "Enter") {
         onSubmit();
       }
@@ -138,13 +146,13 @@ const Authentication = ({
       setDisableButtons(false);
 
       if (result.data) {
-        var expiration_date = new Date();
+        let expiration_date = new Date();
         expiration_date.setFullYear(expiration_date.getFullYear() + 2);
         const cookies = new Cookies();
         cookies.set("userToken", result.data.token, {
           path: "/",
           expires: expiration_date,
-          sameSite: "Strict",
+          sameSite: "strict",
         });
         dispatch(setUserId(result.data.userData.userId));
         dispatch(setStoreFirstname(result.data.userData.firstname));
@@ -155,7 +163,7 @@ const Authentication = ({
         }
         onLogin && onLogin(); //for closing signup/login modal
       }
-    } catch (error) {
+    } catch (error:any) {
       setDisableButtons(false);
       if (action === "login" && error.response.status === 401) {
         setWrongCredentials(true);

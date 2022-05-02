@@ -1,16 +1,28 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, FC } from "react";
 import AuthorizedButton from "../Login/AuthorizedButton";
 
 //mui icons
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 
 //redux
-import { useSelector, useDispatch } from "react-redux";
+import { useAppSelector, useAppDispatch } from "../../hooks";
 import { favoriteRecipe } from "../../slices/recipesSlice";
 
-const Favorite = ({ recipeId, favorited_by, style, showCount }) => {
-  const dispatch = useDispatch();
-  const userId = useSelector((state) => state.users.userId);
+interface propTypes {
+  recipeId: string;
+  favorited_by: string[];
+  style?: any;
+  showCount: boolean;
+}
+
+const Favorite: FC<propTypes> = ({
+  recipeId,
+  favorited_by,
+  style,
+  showCount,
+}) => {
+  const dispatch = useAppDispatch();
+  const userId = useAppSelector((state) => state.users.userId || "");
   const [favorite, setFavorite] = useState(favorited_by.includes(userId));
 
   //update favorite color if the user logs out
@@ -19,10 +31,11 @@ const Favorite = ({ recipeId, favorited_by, style, showCount }) => {
   }, [userId, favorited_by]);
 
   const toggleFavorite = async () => {
-    var favRes = await dispatch(
-      favoriteRecipe({ recipeId, favorite: !favorite })
+    let favRes = await dispatch(
+      favoriteRecipe({ id: recipeId, favorite: !favorite })
     );
-    if (!favRes.error) {
+
+    if (favRes.meta.requestStatus === "fulfilled") {
       setFavorite(!favorite);
     }
   };

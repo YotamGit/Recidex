@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { MouseEventHandler, FC, useState } from "react";
 import Authentication from "./Authentication";
 import "../../styles/login/AuthorizedButton.css";
 import DialogCloseButton from "../buttons/DialogCloseButton";
@@ -7,14 +7,23 @@ import RecipesLogo from "../../utils-module/Photos/Recipes.svg";
 
 //mui
 import IconButton from "@mui/material/IconButton";
-import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 
 //redux
 import { useSelector } from "react-redux";
+import { useAppSelector } from "../../hooks";
 
-const AuthorizedButton = ({
+interface propTypes {
+  type: "icon" | "button";
+  style?: any;
+  children: any;
+  authorized?: boolean;
+  onClick: MouseEventHandler;
+  disabled?: boolean;
+}
+
+const AuthorizedButton: FC<propTypes> = ({
   type,
   style,
   children,
@@ -22,8 +31,8 @@ const AuthorizedButton = ({
   onClick,
   disabled,
 }) => {
-  const fullscreen = useSelector((state) => state.utilities.fullscreen);
-  const signedIn = useSelector((state) => state.users.signedIn);
+  const fullscreen = useAppSelector((state) => state.utilities.fullscreen);
+  const signedIn = useAppSelector((state) => state.users.signedIn);
   authorized = authorized || signedIn;
 
   const [openAuth, setOpenAuth] = useState(false);
@@ -34,7 +43,7 @@ const AuthorizedButton = ({
   const handleOpenChoice = () => setOpenChoice(true);
   const handleCloseChoice = () => setOpenChoice(false);
 
-  const [authChoice, setAuthChoice] = useState();
+  const [authChoice, setAuthChoice] = useState<"signup" | "login">();
 
   return (
     <>

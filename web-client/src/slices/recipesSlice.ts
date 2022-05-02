@@ -1,11 +1,18 @@
 import axios from "axios";
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../store";
+import { AppDispatch, RootState } from "../store";
 
 import { setFilters } from "./filtersSlice";
 
-export type Recipe = {
-  _id?: string;
+export type TRecipe = {
+  _id: string;
+  creation_time: string;
+  last_update_time: string;
+  owner: {
+    firstname: string;
+    lastname: string;
+  };
+  favorited_by: string[];
   title: string;
   category: string;
   sub_category: string;
@@ -23,7 +30,7 @@ export type Recipe = {
 };
 
 interface RecipesState {
-  recipes: Recipe[];
+  recipes: TRecipe[];
   fetchedAllRecipes: boolean;
 }
 const initialState: RecipesState = {
@@ -31,139 +38,181 @@ const initialState: RecipesState = {
   fetchedAllRecipes: false,
 };
 
+interface RecipesSliceError {
+  statusCode: number;
+  data: string;
+  message: string;
+}
+
+type AsyncThunkConfig = {
+  /** return type for `thunkApi.getState` */
+  state?: RootState;
+  /** type for `thunkApi.dispatch` */
+  dispatch?: AppDispatch;
+
+  /** type to be passed into `rejectWithValue`'s first argument that will end up on `rejectedAction.payload` */
+  rejectValue?: RecipesSliceError;
+};
+
 // get recipes from the server
+interface GetRecipesProps {
+  replace: boolean;
+  args?: any;
+}
 // params - {replace:Boolean, args:{filters to pass to the db}}, see implementation...
-export const getRecipes = createAsyncThunk(
-  "recipes/getRecipes",
-  async (params: any, thunkAPI) => {
-    const state = thunkAPI.getState() as RootState;
-    //if some of the values arent undefined
-    //if (!Object.values(filters).some((x) => typeof x !== "undefined")) return;
-    params.args &&
-      params.args?.filters &&
-      thunkAPI.dispatch(setFilters(params.args.filters));
+export const getRecipes = createAsyncThunk<
+  { replace: boolean; recipes: any },
+  GetRecipesProps,
+  AsyncThunkConfig
+>("recipes/getRecipes", async (params, thunkAPI) => {
+  const state = thunkAPI.getState() as RootState;
+  //if some of the values arent undefined
+  //if (!Object.values(filters).some((x) => typeof x !== "undefined")) return;
+  params.args &&
+    params.args?.filters &&
+    thunkAPI.dispatch(setFilters(params.args.filters));
 
-    let userId = state.users.userId;
-    let searchText = state.filters.searchText;
-    let favoritesOnly = state.filters.favoritesOnly;
-    let selecetedfilters = state.filters.selectedFilters;
+  let userId = state.users.userId;
+  let searchText = state.filters.searchText;
+  let favoritesOnly = state.filters.favoritesOnly;
+  let selecetedfilters = state.filters.selectedFilters;
 
-    let result = await axios.get("/api/recipes", {
-      params: {
-        latest: params.args?.latest || new Date(),
-        count: 4,
-        favoritesOnly: favoritesOnly,
-        userId: favoritesOnly ? userId : undefined,
-        searchText: searchText,
-        ...params.args,
-        filters: selecetedfilters,
-      },
-    });
-    thunkAPI.dispatch(setFetchedAllRecipes(result.data.length));
-    return { replace: params.replace, recipes: result.data };
-  }
-);
+  let result = await axios.get("/api/recipes", {
+    params: {
+      latest: params.args?.latest || new Date(),
+      count: 4,
+      favoritesOnly: favoritesOnly,
+      userId: favoritesOnly ? userId : undefined,
+      searchText: searchText,
+      ...params.args,
+      filters: selecetedfilters,
+    },
+  });
+  thunkAPI.dispatch(setFetchedAllRecipes(result.data.length));
+  return { replace: params.replace, recipes: result.data };
+});
 
-export const editRecipe = createAsyncThunk(
-  "recipes/editRecipe",
-  async (recipeData: Recipe, thunkAPI) => {
-    const state = thunkAPI.getState() as RootState;
-    try {
-      let response = await axios.post(`/api/recipes/edit/${recipeData._id}`, {
-        recipeData,
-      });
-    } catch (error: any) {
-      return thunkAPI.rejectWithValue({
-        statusCode: error.response.status,
-        data: error.response.data,
-        message: error.message,
-      });
-    }
-
-    return state.recipes.recipes.map((recipe: Recipe) =>
-      recipe._id === recipeData._id ? { ...recipe, ...recipeData } : recipe
+interface EditRecipeProps {
+  recipeData: TRecipe;
+}
+export const editRecipe = createAsyncThunk<
+  TRecipe[],
+  EditRecipeProps,
+  AsyncThunkConfig
+>("recipes/editRecipe", async (props, thunkAPI) => {
+  const state = thunkAPI.getState() as RootState;
+  try {
+    let response = await axios.post(
+      `/api/recipes/edit/${props.recipeData._id}`,
+      {
+        recipeData: props.recipeData,
+      }
     );
+  } catch (error: any) {
+    return thunkAPI.rejectWithValue({
+      statusCode: error?.response?.status,
+      data: error?.response?.data,
+      message: error.message,
+    });
   }
-);
 
-export const deleteRecipe = createAsyncThunk(
-  "recipes/deleteRecipe",
-  async (id: string, thunkAPI) => {
-    const state = thunkAPI.getState() as RootState;
-    try {
-      await axios.post(`/api/recipes/delete/${id}`);
-    } catch (error: any) {
-      return thunkAPI.rejectWithValue({
-        statusCode: error.response.status,
-        data: error.response.data,
-        message: error.message,
-      });
-    }
+  return state.recipes.recipes.map((recipe: TRecipe) =>
+    recipe._id === props.recipeData._id
+      ? { ...recipe, ...props.recipeData }
+      : recipe
+  );
+});
 
-    return state.recipes.recipes.filter((recipe: Recipe) => recipe._id !== id);
+interface DeleteRecipeProps {
+  id: string;
+}
+export const deleteRecipe = createAsyncThunk<
+  TRecipe[],
+  DeleteRecipeProps,
+  AsyncThunkConfig
+>("recipes/deleteRecipe", async (props, thunkAPI) => {
+  const state = thunkAPI.getState() as RootState;
+  try {
+    await axios.post(`/api/recipes/delete/${props.id}`);
+  } catch (error: any) {
+    return thunkAPI.rejectWithValue({
+      statusCode: error?.response?.status,
+      data: error?.response?.data,
+      message: error.message,
+    });
   }
-);
 
-export const addRecipe = createAsyncThunk(
-  "recipes/addRecipe",
-  async (recipeData: Recipe, thunkAPI) => {
-    delete recipeData._id; //no id is needed when creating a new recipe
-    try {
-      var result = await axios.post(`/api/recipes/new`, {
-        recipeData,
-      });
-      return result.data;
-    } catch (error: any) {
-      return thunkAPI.rejectWithValue({
-        statusCode: error.response.status,
-        data: error.response.data,
-        message: error.message,
-      });
-    }
+  return state.recipes.recipes.filter(
+    (recipe: TRecipe) => recipe._id !== props.id
+  );
+});
+
+interface AddRecipeProps {
+  _id: any;
+  recipeData: TRecipe;
+}
+export const addRecipe = createAsyncThunk<
+  TRecipe,
+  AddRecipeProps,
+  AsyncThunkConfig
+>("recipes/addRecipe", async (recipeData, thunkAPI) => {
+  delete recipeData._id; //no id is needed when creating a new recipe
+  try {
+    var result = await axios.post(`/api/recipes/new`, {
+      recipeData,
+    });
+    return result.data;
+  } catch (error: any) {
+    return thunkAPI.rejectWithValue({
+      statusCode: error?.response?.status,
+      data: error?.response?.data,
+      message: error.message,
+    });
   }
-);
+});
 
-export const favoriteRecipe = createAsyncThunk(
-  "recipes/favoriteRecipe",
-  async (
-    { recipeId, favorite }: { recipeId: string; favorite: boolean },
-    thunkAPI
-  ) => {
-    const state = thunkAPI.getState() as RootState;
+interface FavoriteRecipeProps {
+  id: string;
+  favorite: boolean;
+}
+export const favoriteRecipe = createAsyncThunk<
+  TRecipe[],
+  FavoriteRecipeProps,
+  AsyncThunkConfig
+>("recipes/favoriteRecipe", async (props, thunkAPI) => {
+  const state = thunkAPI.getState() as RootState;
 
-    try {
-      var res = await axios.post(`/api/recipes/edit/favorite/${recipeId}`, {
-        favorite: favorite,
-      });
-      return state.recipes.recipes.map((recipe:Recipe) =>
-        recipe._id === recipeId
-          ? { ...recipe, favorited_by: res.data }
-          : recipe
-      );
-    } catch (error: any) {
-      return thunkAPI.rejectWithValue({
-        statusCode: error.response.status,
-        data: error.response.data,
-        message: error.message,
-      });
-    }
+  try {
+    var res = await axios.post(`/api/recipes/edit/favorite/${props.id}`, {
+      favorite: props.favorite,
+    });
+    //TODO return a single recipe instead of all of the recipes
+    return state.recipes.recipes.map((recipe: TRecipe) =>
+      recipe._id === props.id ? { ...recipe, favorited_by: res.data } : recipe
+    );
+  } catch (error: any) {
+    return thunkAPI.rejectWithValue({
+      statusCode: error?.response?.status,
+      data: error?.response?.data,
+      message: error.message,
+    });
   }
-);
+});
 
 const recipesSlice = createSlice({
   name: "recipes",
   initialState,
   reducers: {
-    setFetchedAllRecipes(state, action:PayloadAction<number>) {
+    setFetchedAllRecipes(state, action: PayloadAction<number>) {
       state.fetchedAllRecipes = action.payload === 0 ? true : false;
     },
-    setRecipes(state, action:PayloadAction<Recipe[]>) {
+    setRecipes(state, action: PayloadAction<TRecipe[]>) {
       state.recipes = action.payload;
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getRecipes.fulfilled, (state, action:PayloadAction<{replace:boolean, recipes:Recipe[]}>) => {
+      .addCase(getRecipes.fulfilled, (state, action) => {
         if (action.payload.replace) {
           state.recipes = [...action.payload.recipes];
         } else {
@@ -172,15 +221,15 @@ const recipesSlice = createSlice({
             : state.recipes;
         }
       })
-      .addCase(getRecipes.rejected, (state, action:PayloadAction<any>) => {
+      .addCase(getRecipes.rejected, (state, action: PayloadAction<any>) => {
         window.alert(
           "Failed to Fetch Recipes.\nReason: " + action.payload.error.message
         );
       })
-      .addCase(editRecipe.fulfilled, (state, action:PayloadAction<Recipe[]>) => {
+      .addCase(editRecipe.fulfilled, (state, action) => {
         state.recipes = action.payload;
       })
-      .addCase(editRecipe.rejected, (state, action:PayloadAction<any>) => {
+      .addCase(editRecipe.rejected, (state, action: PayloadAction<any>) => {
         if (action.payload.statusCode === 401) {
           window.alert(
             "Failed to Edit Recipe in Database.\nReason: " + action.payload.data
@@ -192,10 +241,10 @@ const recipesSlice = createSlice({
           );
         }
       })
-      .addCase(addRecipe.fulfilled, (state, action:PayloadAction<Recipe>) => {
+      .addCase(addRecipe.fulfilled, (state, action) => {
         state.recipes = [action.payload, ...state.recipes];
       })
-      .addCase(addRecipe.rejected, (state, action:PayloadAction<any>) => {
+      .addCase(addRecipe.rejected, (state, action: PayloadAction<any>) => {
         if (action.payload.statusCode === 401) {
           window.alert(
             "Failed to Add Recipe to Database, Please Try Again.\nReason: " +
@@ -208,10 +257,10 @@ const recipesSlice = createSlice({
           );
         }
       })
-      .addCase(deleteRecipe.fulfilled, (state, action:PayloadAction<Recipe[]>) => {
+      .addCase(deleteRecipe.fulfilled, (state, action) => {
         state.recipes = action.payload;
       })
-      .addCase(deleteRecipe.rejected, (state, action:PayloadAction<any>) => {
+      .addCase(deleteRecipe.rejected, (state, action: PayloadAction<any>) => {
         if (action.payload.statusCode === 401) {
           window.alert(
             "Failed to Delete Recipe from Database.\nReason: " +
@@ -224,10 +273,10 @@ const recipesSlice = createSlice({
           );
         }
       })
-      .addCase(favoriteRecipe.fulfilled, (state, action:PayloadAction<Recipe[]>) => {
+      .addCase(favoriteRecipe.fulfilled, (state, action) => {
         state.recipes = action.payload;
       })
-      .addCase(favoriteRecipe.rejected, (state, action:PayloadAction<any>) => {
+      .addCase(favoriteRecipe.rejected, (state, action: PayloadAction<any>) => {
         window.alert(
           "Failed to Favorite Recipe, Please Try Again.\nReason: " +
             action.payload.message

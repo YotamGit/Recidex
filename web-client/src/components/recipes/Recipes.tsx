@@ -1,11 +1,14 @@
-import RecipeCard from "./RecipeCard.js";
+import RecipeCard from "./RecipeCard";
 import "../../styles/recipes/Recipes.css";
 
 //redux
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../hooks";
 
-const Recipes = () => {
-  const recipes = useSelector((state) => state.recipes.recipes);
+//types
+import { FC } from "react";
+
+const Recipes: FC = () => {
+  const recipes = useAppSelector((state) => state.recipes.recipes);
   return (
     <div className="recipes-container">
       {recipes.map((recipe) => (
