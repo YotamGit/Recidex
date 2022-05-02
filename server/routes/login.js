@@ -79,6 +79,7 @@ router.post("/signup", async (req, res, next) => {
     });
     if (usernameAlreadyExists) {
       res.status(409).send("The User already exists. Try a different Username");
+      return;
     }
 
     let emailAlreadyExists = await User.findOne({
@@ -86,6 +87,7 @@ router.post("/signup", async (req, res, next) => {
     });
     if (emailAlreadyExists) {
       res.status(409).send("Email has already been taken. Try a different one");
+      return;
     }
 
     let hashedPassword = await bcrypt.hash(req.body.password, 10);

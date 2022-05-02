@@ -1,8 +1,8 @@
-import RecipeEditor from "./RecipeEditor.js";
+import RecipeEditor from "./RecipeEditor";
 import { useParams, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, FC } from "react";
 
-import { getRecipe } from "../../utils-module/recipes.ts";
+import { getRecipe } from "../../utils-module/recipes";
 
 import "../../styles/recipe_editor/RecipeEditorPage.css";
 import AuthorizedButton from "../Login/AuthorizedButton";
@@ -17,24 +17,29 @@ import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
-import { deleteRecipe } from "../../slices/recipesSlice.ts";
-const RecipeEditorPage = () => {
-  const dispatch = useDispatch();
+import { useAppSelector, useAppDispatch } from "../../hooks";
+import { deleteRecipe } from "../../slices/recipesSlice";
+
+const RecipeEditorPage: FC = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { recipe_id } = useParams();
 
   const [recipe, setRecipe] = useState(
-    useSelector(
+    useAppSelector(
       (state) =>
         state.recipes.recipes.filter((recipe) => recipe._id === recipe_id)[0]
     )
   );
 
   const onDeleteRecipe = async () => {
-    var remove = window.confirm("Delete Recipe: " + recipe.title + "?");
+    let remove = window.confirm("Delete Recipe: " + recipe.title + "?");
     if (remove) {
+      if (!recipe._id) return;
+
       let deleteRes = await dispatch(deleteRecipe({ id: recipe._id }));
-      if (!deleteRes.error) {
+
+      if (deleteRes.meta.requestStatus === "fulfilled") {
         navigate("/home");
       }
     }
@@ -43,7 +48,7 @@ const RecipeEditorPage = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
 
-    if (recipe === undefined) {
+    if (recipe === undefined && recipe_id) {
       getRecipe(recipe_id).then((res) => {
         setRecipe(res);
       });

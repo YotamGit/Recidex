@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { FC, useEffect } from "react";
 import { marked } from "marked";
 import "../../styles/recipes/Recipe.css";
 
@@ -7,20 +7,28 @@ import MarkdownPreviewSection from "../markdown/MarkdownPreviewSection";
 
 import isURL from "validator/lib/isURL";
 
+//types
+import { TRecipe } from "../../slices/recipesSlice";
+
 marked.setOptions({
   gfm: true,
   breaks: true,
   smartLists: true,
 });
 
-const Recipe = ({ recipe }) => {
+interface propTypes {
+  recipe: TRecipe;
+}
+const Recipe: FC<propTypes> = ({ recipe }) => {
   useEffect(() => {
     //activate checkboxes
-    var textBoxes = document.getElementsByClassName("markdown-box");
+    let textBoxes = document.getElementsByClassName("markdown-box");
     Array.from(textBoxes).map((textBox) =>
-      textBox
-        .querySelectorAll("input[type=checkbox]")
-        .forEach((input) => (input.disabled = false))
+      (
+        textBox.querySelectorAll(
+          "input[type=checkbox]"
+        ) as NodeListOf<HTMLInputElement>
+      ).forEach((input) => (input.disabled = false))
     );
   }, [recipe.description, recipe.ingredients, recipe.directions, recipe._id]);
 
@@ -32,12 +40,14 @@ const Recipe = ({ recipe }) => {
       >
         <div className="recipe-title">
           {recipe.title}
-          <Favorite
-            recipeId={recipe._id}
-            favorited_by={recipe.favorited_by}
-            style={{ direction: recipe.rtl ? "ltr" : "rtl" }}
-            showCount={false}
-          />
+          {recipe._id && recipe.favorited_by && (
+            <Favorite
+              recipeId={recipe._id}
+              favorited_by={recipe.favorited_by}
+              style={{ direction: recipe.rtl ? "ltr" : "rtl" }}
+              showCount={false}
+            />
+          )}
         </div>
         <div
           className="recipe-description"
@@ -49,17 +59,19 @@ const Recipe = ({ recipe }) => {
           <div className="recipe-owner">
             <span>{recipe.rtl ? "העלה:" : "By:"}</span>{" "}
             <span dir="auto" style={{ fontSize: "120%" }}>
-              {recipe.owner.firstname + " " + recipe.owner.lastname}
+              {recipe.owner &&
+                recipe.owner.firstname + " " + recipe.owner.lastname}
             </span>
           </div>
           <div className="recipe-time">
             <span>{recipe.rtl ? "עודכן:" : "Updated:"}</span>{" "}
             <span>
-              {new Date(recipe.last_update_time).toLocaleString("he-IL", {
-                day: "numeric",
-                month: "numeric",
-                year: "numeric",
-              })}
+              {recipe.last_update_time &&
+                new Date(recipe.last_update_time).toLocaleString("he-IL", {
+                  day: "numeric",
+                  month: "numeric",
+                  year: "numeric",
+                })}
             </span>
           </div>
         </div>

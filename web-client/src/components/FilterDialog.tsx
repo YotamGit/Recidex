@@ -50,7 +50,7 @@ const FilterDialog = () => {
   };
 
   const handleFilterRecipes = async () => {
-    var filters = {
+    let filters = {
       category,
       sub_category,
       difficulty,
@@ -58,7 +58,7 @@ const FilterDialog = () => {
       total_time,
     };
     dispatch(setFilters(filters));
-    var filterRes = await dispatch(getRecipes({ replace: true }));
+    let filterRes = await dispatch(getRecipes({ replace: true }));
 
     if (filterRes.meta.requestStatus === "fulfilled") {
       dispatch(

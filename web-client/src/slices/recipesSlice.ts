@@ -5,14 +5,14 @@ import { AppDispatch, RootState } from "../store";
 import { setFilters } from "./filtersSlice";
 
 export type TRecipe = {
-  _id: string;
-  creation_time: string;
-  last_update_time: string;
-  owner: {
+  _id?: string;
+  creation_time?: string;
+  last_update_time?: string;
+  owner?: {
     firstname: string;
     lastname: string;
   };
-  favorited_by: string[];
+  favorited_by?: string[];
   title: string;
   category: string;
   sub_category: string;
@@ -26,7 +26,9 @@ export type TRecipe = {
   rtl: boolean;
   source: string;
   imageName: string;
-  image: string;
+  image: string | boolean | undefined;
+  //string:uploading a new photo, boolean(false):deleting a photo
+  //undefined:no changes to photo
 };
 
 interface RecipesState {
@@ -147,18 +149,17 @@ export const deleteRecipe = createAsyncThunk<
 });
 
 interface AddRecipeProps {
-  _id: any;
   recipeData: TRecipe;
 }
 export const addRecipe = createAsyncThunk<
   TRecipe,
   AddRecipeProps,
   AsyncThunkConfig
->("recipes/addRecipe", async (recipeData, thunkAPI) => {
-  delete recipeData._id; //no id is needed when creating a new recipe
+>("recipes/addRecipe", async (props, thunkAPI) => {
+  delete props.recipeData?._id; //no id is needed when creating a new recipe
   try {
-    var result = await axios.post(`/api/recipes/new`, {
-      recipeData,
+    let result = await axios.post(`/api/recipes/new`, {
+      recipeData: props.recipeData,
     });
     return result.data;
   } catch (error: any) {
@@ -182,7 +183,7 @@ export const favoriteRecipe = createAsyncThunk<
   const state = thunkAPI.getState() as RootState;
 
   try {
-    var res = await axios.post(`/api/recipes/edit/favorite/${props.id}`, {
+    let res = await axios.post(`/api/recipes/edit/favorite/${props.id}`, {
       favorite: props.favorite,
     });
     //TODO return a single recipe instead of all of the recipes

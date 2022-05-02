@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, FC } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Header.css";
 import RecipesLogo from "../utils-module/Photos/Recipes.svg";
@@ -14,7 +14,11 @@ import AppBar from "@mui/material/AppBar";
 //mui icons
 import MenuIcon from "@mui/icons-material/Menu";
 
-const Header = ({ pageName, show_search }) => {
+interface propTypes {
+  pageName: string;
+  showSearch: boolean;
+}
+const Header: FC<propTypes> = ({ pageName, showSearch }) => {
   const navigate = useNavigate();
 
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -25,10 +29,10 @@ const Header = ({ pageName, show_search }) => {
   };
 
   useEffect(() => {
-    if (!show_search) {
+    if (!showSearch) {
       setMaximizeSearch(false);
     }
-  }, [show_search]);
+  }, [showSearch]);
 
   return (
     <>
@@ -55,7 +59,7 @@ const Header = ({ pageName, show_search }) => {
               ></img>
               <span>&nbsp;{pageName}</span>
             </span>
-            {show_search && <SearchBar setExpanded={setMaximizeSearch} />}
+            {showSearch && <SearchBar setExpanded={setMaximizeSearch} />}
           </div>
         </Toolbar>
       </AppBar>

@@ -1,12 +1,12 @@
 import "../../styles/recipe_editor/RecipeEditor.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, FC } from "react";
 import { useNavigate } from "react-router-dom";
 
 import MarkdownEditSection from "../markdown/MarkdownEditSection";
 import MarkdownPreviewSection from "../markdown/MarkdownPreviewSection";
 import RecipeDropdown from "../RecipeDropdown";
 import AuthorizedButton from "../Login/AuthorizedButton";
-import { toBase64 } from "../../utils-module/images.ts";
+import { toBase64 } from "../../utils-module/images";
 
 //mui
 import Chip from "@mui/material/Chip";
@@ -19,19 +19,26 @@ import LoadingButton from "@mui/lab/LoadingButton";
 
 //redux
 import { editRecipe, addRecipe } from "../../slices/recipesSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppSelector, useAppDispatch } from "../../hooks";
 
-const RecipeEditor = ({ action, recipe }) => {
-  const dispatch = useDispatch();
+//types
+import { TRecipe } from "../../slices/recipesSlice";
+
+interface propTypes {
+  action: "add" | "edit";
+  recipe: TRecipe;
+}
+const RecipeEditor: FC<propTypes> = ({ action, recipe }) => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const recipe_categories = useSelector(
+  const recipe_categories = useAppSelector(
     (state) => state.filters.recipe_categories
   );
-  const recipe_difficulties = useSelector(
+  const recipe_difficulties = useAppSelector(
     (state) => state.filters.recipe_difficulties
   );
-  const recipe_durations = useSelector(
+  const recipe_durations = useAppSelector(
     (state) => state.filters.recipe_durations
   );
 
@@ -52,19 +59,23 @@ const RecipeEditor = ({ action, recipe }) => {
   const [directions, setDirections] = useState(recipe.directions);
   const [rtl, setRtl] = useState(recipe.rtl);
   const [imageName, setImageName] = useState(recipe.imageName);
-  const [image, setImage] = useState(undefined);
+
+  //string:uploading a new photo
+  //boolean(false):deleting a photo
+  //undefined:no changes to photo
+  const [image, setImage] = useState<string | boolean | undefined>(undefined);
 
   const [activeTab, setActiveTab] = useState(0);
   const [disableButtons, setDisableButtons] = useState(false);
 
-  const handleTabs = (event, value) => {
+  const handleTabs = (event: React.SyntheticEvent, value: number) => {
     setActiveTab(value);
   };
 
   //prompt user before leaving/closing/refreshing the page
   //does not prevent go back to previous page event
   useEffect(() => {
-    const unloadCallback = (event) => {
+    const unloadCallback = (event: BeforeUnloadEvent) => {
       event.preventDefault();
       event.returnValue = "";
       return "";
@@ -74,12 +85,15 @@ const RecipeEditor = ({ action, recipe }) => {
     return () => window.removeEventListener("beforeunload", unloadCallback);
   }, []);
 
-  const onUploadImage = async (img) => {
+  const onUploadImage = async (img: File | undefined) => {
     try {
-      var result = await toBase64(img);
-      setImageName(img.name);
-      setImage(result);
-    } catch (error) {
+      if (img) {
+        toBase64(img).then((result: string) => {
+          setImageName(img.name);
+          setImage(result);
+        });
+      }
+    } catch (error: any) {
       window.alert("Failed to Upload Image.\nReason: " + error.message);
     }
   };
@@ -90,8 +104,8 @@ const RecipeEditor = ({ action, recipe }) => {
   };
 
   const onSaveRecipeChanges = async () => {
-    var save = window.confirm("Save?");
-    let recipeData = {
+    let save = window.confirm("Save?");
+    let recipeData: TRecipe = {
       _id,
       title,
       category,
@@ -116,17 +130,18 @@ const RecipeEditor = ({ action, recipe }) => {
           let editRes = await dispatch(editRecipe({ recipeData: recipeData }));
           setDisableButtons(false);
 
-          if (!editRes.error) {
+          if (editRes.meta.requestStatus === "fulfilled") {
             navigate(-1);
           }
 
           break;
         case "add":
+          delete recipeData._id;
           setDisableButtons(true);
-          let addRes = await dispatch(addRecipe(recipeData));
+          let addRes = await dispatch(addRecipe({ recipeData: recipeData }));
           setDisableButtons(false);
 
-          if (!addRes.error) {
+          if (addRes.meta.requestStatus === "fulfilled") {
             navigate("/home");
           }
           break;
@@ -233,7 +248,13 @@ const RecipeEditor = ({ action, recipe }) => {
               id="image-input"
               type="file"
               accept="image/png, image/gif, image/jpeg"
-              onChange={(e) => onUploadImage(e.target.files[0])}
+              onChange={(e) =>
+                onUploadImage(
+                  e.target.files instanceof FileList
+                    ? e.target.files[0]
+                    : undefined
+                )
+              }
               style={{ display: "none" }}
             />
             <Button variant="contained" component="span">
@@ -303,7 +324,10 @@ const RecipeEditor = ({ action, recipe }) => {
             <img
               className="recipe-editor-image"
               alt=""
-              src={image || `/api/recipes/image/${recipe._id}?${Date.now()}`}
+              src={
+                (image as string) ||
+                `/api/recipes/image/${recipe._id}?${Date.now()}`
+              }
             />
           )}
         </div>
@@ -329,7 +353,12 @@ const RecipeEditor = ({ action, recipe }) => {
 
 export default RecipeEditor;
 
-function TabPanel(props) {
+interface tabPanelProps {
+  children?: React.ReactNode;
+  index: number;
+  value: number;
+}
+function TabPanel(props: tabPanelProps) {
   const { children, value, index } = props;
   return <>{value === index && children}</>;
 }

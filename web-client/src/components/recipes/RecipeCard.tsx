@@ -52,7 +52,7 @@ const RecipeCard: FC<propTypes> = ({ recipe }) => {
         total_time: undefined,
       })
     );
-    var filterRes = await dispatch(getRecipes({ replace: true }));
+    let filterRes = await dispatch(getRecipes({ replace: true }));
 
     if (filterRes.meta.requestStatus === "fulfilled") {
       dispatch(setFiltered(true));
@@ -68,7 +68,7 @@ const RecipeCard: FC<propTypes> = ({ recipe }) => {
         total_time: undefined,
       })
     );
-    var filterRes = await dispatch(getRecipes({ replace: true }));
+    let filterRes = await dispatch(getRecipes({ replace: true }));
     if (filterRes.meta.requestStatus === "fulfilled") {
       dispatch(setFiltered(true));
     }
@@ -83,7 +83,7 @@ const RecipeCard: FC<propTypes> = ({ recipe }) => {
         total_time: undefined,
       })
     );
-    var filterRes = await dispatch(getRecipes({ replace: true }));
+    let filterRes = await dispatch(getRecipes({ replace: true }));
     if (filterRes.meta.requestStatus === "fulfilled") {
       dispatch(setFiltered(true));
     }
@@ -122,21 +122,23 @@ const RecipeCard: FC<propTypes> = ({ recipe }) => {
           <div className="recipe-data-dates">
             <span className="recipe-data-date">
               <span>Created: </span>
-              {new Date(recipe.creation_time).toLocaleString("he-IL", {
-                day: "numeric",
-                month: "numeric",
-                year: "numeric",
-              })}
+              {recipe.creation_time &&
+                new Date(recipe.creation_time).toLocaleString("he-IL", {
+                  day: "numeric",
+                  month: "numeric",
+                  year: "numeric",
+                })}
             </span>
 
             <Divider orientation="vertical" variant="middle" />
             <span className="recipe-data-date">
               <span>Updated: </span>
-              {new Date(recipe.last_update_time).toLocaleString("he-IL", {
-                day: "numeric",
-                month: "numeric",
-                year: "numeric",
-              })}
+              {recipe.last_update_time &&
+                new Date(recipe.last_update_time).toLocaleString("he-IL", {
+                  day: "numeric",
+                  month: "numeric",
+                  year: "numeric",
+                })}
             </span>
           </div>
           <Divider variant="middle" />
@@ -219,7 +221,8 @@ const RecipeCard: FC<propTypes> = ({ recipe }) => {
                 <FaceRoundedIcon className="icon" />
                 <Tooltip title="Owner" arrow>
                   <span className="data" dir="auto">
-                    {recipe.owner.firstname + " " + recipe.owner.lastname}
+                    {recipe.owner &&
+                      recipe.owner.firstname + " " + recipe.owner.lastname}
                   </span>
                 </Tooltip>
               </div>
@@ -228,11 +231,13 @@ const RecipeCard: FC<propTypes> = ({ recipe }) => {
         </div>
       </div>
       <div className="recipe-card-bottom-button-row">
-        <Favorite
-          recipeId={recipe._id}
-          favorited_by={recipe.favorited_by}
-          showCount={true}
-        />
+        {recipe._id && recipe.favorited_by && (
+          <Favorite
+            recipeId={recipe._id}
+            favorited_by={recipe.favorited_by}
+            showCount={true}
+          />
+        )}
         <Share
           url={`${window.location.origin}/recipes/${recipe._id}`}
           emailTitle={recipe.title}

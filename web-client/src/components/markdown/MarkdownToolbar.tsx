@@ -26,36 +26,34 @@ const MarkdownToolbar: FC<propTypes> = ({ textBoxId, data, setData }) => {
   const addText: Function = (textToAdd: string, cursorOffset: number) => {
     const textarea = document.getElementById(textBoxId) as HTMLInputElement;
 
-    const cursorPositionStart = textarea.selectionStart || undefined;
-    const cursorPositionEnd = textarea.selectionEnd || undefined;
+    const cursorPositionStart = textarea.selectionStart;
+    const cursorPositionEnd = textarea.selectionEnd;
 
     const selectedText = textarea.value.slice(
-      cursorPositionStart,
-      cursorPositionEnd
+      cursorPositionStart ? cursorPositionStart : 0,
+      cursorPositionEnd ? cursorPositionEnd : 0
     );
 
     //if text is selected while clicking an add button the selected text
     //and the textToAdd are combined using the offset
-    var editedTextToAdd =
+    let editedTextToAdd =
       textToAdd.slice(0, cursorOffset) +
       selectedText +
       textToAdd.slice(cursorOffset);
 
     const updatedData =
-      data.slice(0, cursorPositionStart) +
+      data.slice(0, cursorPositionStart ? cursorPositionStart : 0) +
       editedTextToAdd +
-      data.slice(cursorPositionEnd);
+      data.slice(cursorPositionEnd ? cursorPositionEnd : 0);
 
     setData(updatedData);
 
-    const newCursorPositionStart = cursorPositionStart
-      ? cursorPositionStart
-      : 0 + cursorOffset;
+    const newCursorPositionStart =
+      (cursorPositionStart ? cursorPositionStart : 0) + cursorOffset;
     //no idea why this works but it does
     //these positions should select the selected text if there was any
-    const newCursorPositionEnd = cursorPositionEnd
-      ? cursorPositionEnd
-      : 0 + cursorOffset;
+    const newCursorPositionEnd =
+      (cursorPositionEnd ? cursorPositionEnd : 0) + cursorOffset;
 
     //value of the textarea is overwritten by the value in the state but
     //it is necessary to update it so we can move the cursor

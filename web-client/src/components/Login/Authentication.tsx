@@ -42,7 +42,7 @@ interface propTypes {
   showSignAsGuest: boolean;
   showOtherAuthOption: boolean;
   navigateAfterLogin: boolean;
-  onLogin: Function;
+  onLogin?: Function;
 }
 
 const Authentication: FC<propTypes> = ({
@@ -73,7 +73,7 @@ const Authentication: FC<propTypes> = ({
 
   //detect enter key to sign up/in
   useEffect(() => {
-    const handleKeyDown = async (e:KeyboardEvent) => {
+    const handleKeyDown = async (e: KeyboardEvent) => {
       if (e.code === "Enter") {
         onSubmit();
       }
@@ -131,9 +131,11 @@ const Authentication: FC<propTypes> = ({
     if (action === "signup" && !validateInput()) {
       return;
     }
+
     try {
+      console.log({ firstname, lastname, email, username, password });
       setDisableButtons(true);
-      var result = await axios.post(
+      let result = await axios.post(
         `/api/login${action === "signup" ? "/signup" : ""}`,
         {
           firstname: action === "signup" ? firstname : undefined,
@@ -163,7 +165,7 @@ const Authentication: FC<propTypes> = ({
         }
         onLogin && onLogin(); //for closing signup/login modal
       }
-    } catch (error:any) {
+    } catch (error: any) {
       setDisableButtons(false);
       if (action === "login" && error.response.status === 401) {
         setWrongCredentials(true);

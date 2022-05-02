@@ -76,19 +76,11 @@ const Main: FC<propTypes> = ({ ownerOnly, favoritesOnly }) => {
   };
 
   useEffect(() => {
-    //for some reason this is called only once when moving between the main pages.(if the main element exists then this is called only once even if moving pages)
-    // dispatch(setSearchText(""));
-    // dispatch(resetFilters());
-    // dispatch(setFiltered(false));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
     if (attemptSignIn) {
       return;
     }
 
-    var lastMainPageVisited = [...routeHistory]
+    let lastMainPageVisited = [...routeHistory]
       .slice(0, routeHistory.length - 1)
       .reverse()
       .find((element) =>

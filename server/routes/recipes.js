@@ -11,12 +11,12 @@ import { reduceImgQuality } from "../utils-module/images.js";
 router.get("/", async (req, res, next) => {
   try {
     if (Object.keys(req.query).length > 0) {
-      var favoritesOnlyQuery =
+      let favoritesOnlyQuery =
         req.query.favoritesOnly === "true"
           ? { favorited_by: req.query.userId }
           : {};
 
-      var textSearchQuery = req.query?.searchText
+      let textSearchQuery = req.query?.searchText
         ? { title: { $regex: req.query.searchText, $options: "mi" } }
         : {};
 
@@ -217,7 +217,7 @@ router.post("/edit/favorite/:recipe_id", async (req, res, next) => {
   try {
     const users = (await Recipe.findById({ _id: req.params.recipe_id }))
       .favorited_by;
-    var index = users.indexOf(req.headers.validatedToken.userId);
+    let index = users.indexOf(req.headers.validatedToken.userId);
     switch (req.body.favorite) {
       case true:
         if (index < 0) {

@@ -2,7 +2,7 @@ import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 
 //redux
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "./hooks";
 import { addRouteToHistory, setFullscreen } from "./slices/utilitySlice";
 
 import RecipePage from "./components/recipes/RecipePage";
@@ -17,7 +17,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 
 function App() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const location = useLocation();
 
   const theme = useTheme();
@@ -67,7 +67,7 @@ function App() {
           path="/home"
           element={
             <>
-              <Header pageName={"Home"} show_search={true} />
+              <Header pageName={"Home"} showSearch={true} />
               <Main ownerOnly={false} favoritesOnly={false} />
             </>
           }
@@ -76,7 +76,7 @@ function App() {
           path="/my-recipes"
           element={
             <>
-              <Header pageName={"My Recipes"} show_search={true} />
+              <Header pageName={"My Recipes"} showSearch={true} />
               <Main ownerOnly={true} favoritesOnly={false} />
             </>
           }
@@ -85,7 +85,7 @@ function App() {
           path="/favorites"
           element={
             <>
-              <Header pageName={"Favorites"} show_search={true} />
+              <Header pageName={"Favorites"} showSearch={true} />
               <Main ownerOnly={false} favoritesOnly={true} />
             </>
           }
@@ -94,7 +94,7 @@ function App() {
           path="/recipes/:recipe_id"
           element={
             <>
-              <Header pageName={"Recipe"} show_search={false} />
+              <Header pageName={"Recipe"} showSearch={false} />
 
               <RecipePage />
             </>
@@ -104,7 +104,7 @@ function App() {
           path="/recipes/edit/:recipe_id"
           element={
             <>
-              <Header pageName={"Edit Recipe"} show_search={false} />
+              <Header pageName={"Edit Recipe"} showSearch={false} />
               <RecipeEditorPage />
             </>
           }
@@ -114,7 +114,7 @@ function App() {
           path="/recipes/new"
           element={
             <>
-              <Header pageName={"Add Recipe"} show_search={false} />
+              <Header pageName={"Add Recipe"} showSearch={false} />
               <AddRecipe />
             </>
           }

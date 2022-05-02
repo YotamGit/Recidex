@@ -15,7 +15,7 @@ self.addEventListener("fetch", (event) => {
       (async function () {
         const cache = await caches.open(cacheName);
         try {
-          var response = await fetch(event.request);
+          let response = await fetch(event.request);
           await cache.put(event.request, response);
           return response.clone();
         } catch {

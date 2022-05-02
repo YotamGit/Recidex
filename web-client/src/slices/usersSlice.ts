@@ -23,9 +23,12 @@ const initialState: UsersState = {
   lastname: undefined,
 };
 
-export const userPing = createAsyncThunk<{authenticated:boolean,userData:User}>("user/userPing", async () => {
+export const userPing = createAsyncThunk<{
+  authenticated: boolean;
+  userData: User;
+}>("user/userPing", async () => {
   try {
-    var result = await axios.post("/api/login/ping", {});
+    let result = await axios.post("/api/login/ping", {});
     return result.data;
   } catch (error: any) {
     if (error.response.status === 401) {
@@ -42,23 +45,23 @@ const usersSlice = createSlice({
   name: "users",
   initialState,
   reducers: {
-    setSignedIn(state, action:PayloadAction<boolean>) {
+    setSignedIn(state, action: PayloadAction<boolean>) {
       const signedIn = action.payload;
       state.signedIn = signedIn;
     },
-    setAttemptSignIn(state, action:PayloadAction<boolean>) {
+    setAttemptSignIn(state, action: PayloadAction<boolean>) {
       const attemptSignIn = action.payload;
       state.attemptSignIn = attemptSignIn;
     },
-    setUserId(state, action:PayloadAction<string>) {
+    setUserId(state, action: PayloadAction<string>) {
       const userId = action.payload;
       state.userId = userId;
     },
-    setFirstname(state, action:PayloadAction<string>) {
+    setFirstname(state, action: PayloadAction<string>) {
       const firstname = action.payload;
       state.firstname = firstname;
     },
-    setLastname(state, action:PayloadAction<string>) {
+    setLastname(state, action: PayloadAction<string>) {
       const lastname = action.payload;
       state.lastname = lastname;
     },
