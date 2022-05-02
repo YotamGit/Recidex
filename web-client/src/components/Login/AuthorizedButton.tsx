@@ -17,7 +17,7 @@ import { useAppSelector } from "../../hooks";
 interface propTypes {
   type: "icon" | "button";
   style?: any;
-  children: any;
+  children: React.ReactNode;
   authorized?: boolean;
   onClick: MouseEventHandler;
   disabled?: boolean;
