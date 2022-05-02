@@ -1,6 +1,6 @@
 import Recipe from "./Recipe";
 import "../../styles/recipes/RecipePage.css";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { FC, useEffect, useState } from "react";
 
 import Share from "../buttons/Share";

@@ -103,12 +103,9 @@ export const editRecipe = createAsyncThunk<
 >("recipes/editRecipe", async (props, thunkAPI) => {
   const state = thunkAPI.getState() as RootState;
   try {
-    let response = await axios.post(
-      `/api/recipes/edit/${props.recipeData._id}`,
-      {
-        recipeData: props.recipeData,
-      }
-    );
+    await axios.post(`/api/recipes/edit/${props.recipeData._id}`, {
+      recipeData: props.recipeData,
+    });
   } catch (error: any) {
     return thunkAPI.rejectWithValue({
       statusCode: error?.response?.status,

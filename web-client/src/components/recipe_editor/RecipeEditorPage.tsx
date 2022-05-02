@@ -16,7 +16,6 @@ import CloseFullscreenRoundedIcon from "@mui/icons-material/CloseFullscreenRound
 import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
 
 //redux
-import { useSelector, useDispatch } from "react-redux";
 import { useAppSelector, useAppDispatch } from "../../hooks";
 import { deleteRecipe } from "../../slices/recipesSlice";
 

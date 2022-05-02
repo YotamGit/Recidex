@@ -11,7 +11,6 @@ import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 
 //redux
-import { useSelector } from "react-redux";
 import { useAppSelector } from "../../hooks";
 
 interface propTypes {

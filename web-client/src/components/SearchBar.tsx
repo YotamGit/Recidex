@@ -15,7 +15,6 @@ import CircularProgress from "@mui/material/CircularProgress";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 //redux
-import { useDispatch, useSelector } from "react-redux";
 import { useAppSelector, useAppDispatch } from "../hooks";
 import { getRecipes } from "../slices/recipesSlice";
 import { setSearchText as setStoreSearchText } from "../slices/filtersSlice";

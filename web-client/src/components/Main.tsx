@@ -6,13 +6,7 @@ import { useLocation } from "react-router-dom";
 //redux
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { getRecipes } from "../slices/recipesSlice";
-import {
-  setOwner,
-  setfavoritesOnly,
-  setSearchText,
-  resetFilters,
-  setFiltered,
-} from "../slices/filtersSlice";
+import { setOwner, setfavoritesOnly } from "../slices/filtersSlice";
 
 //mui
 import Button from "@mui/material/Button";

@@ -15,26 +15,30 @@ import ShareIcon from "@mui/icons-material/Share";
 import EmailRoundedIcon from "@mui/icons-material/EmailRounded";
 
 //redux
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../hooks";
 
 //types
 import { FC } from "react";
-import {RootState} from "../../store"
+import { RootState } from "../../store";
 
 interface propTypes {
-  url:string,
-  emailTitle:string
+  url: string;
+  emailTitle: string;
 }
 
-const Share:FC<propTypes> = ({ url, emailTitle }) => {
-  const fullscreen = useSelector((state:RootState) => state.utilities.fullscreen);
+const Share: FC<propTypes> = ({ url, emailTitle }) => {
+  const fullscreen = useAppSelector(
+    (state: RootState) => state.utilities.fullscreen
+  );
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const copyUrl = () => {
-    let copyText = document.getElementById("share-url-input") as HTMLInputElement;
+    let copyText = document.getElementById(
+      "share-url-input"
+    ) as HTMLInputElement;
     copyText.select();
     copyText.setSelectionRange(0, 99999);
     navigator.clipboard.writeText(copyText.value);
