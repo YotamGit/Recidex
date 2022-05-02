@@ -14,13 +14,20 @@ import InsertLinkRoundedIcon from "@mui/icons-material/InsertLinkRounded";
 import FormatListNumberedRoundedIcon from "@mui/icons-material/FormatListNumberedRounded";
 import HorizontalRuleRoundedIcon from "@mui/icons-material/HorizontalRuleRounded";
 
-const MarkdownToolbar = ({ textBoxId, data, setData }) => {
-  const addText = (textToAdd, cursorOffset) => {
-    const textarea = document.getElementById(textBoxId);
+//types
+import { FC } from "react";
 
-    const cursorPositionStart =
-      document.getElementById(textBoxId).selectionStart;
-    const cursorPositionEnd = document.getElementById(textBoxId).selectionEnd;
+interface propTypes {
+  textBoxId: string;
+  data: string;
+  setData: Function;
+}
+const MarkdownToolbar: FC<propTypes> = ({ textBoxId, data, setData }) => {
+  const addText: Function = (textToAdd: string, cursorOffset: number) => {
+    const textarea = document.getElementById(textBoxId) as HTMLInputElement;
+
+    const cursorPositionStart = textarea.selectionStart || undefined;
+    const cursorPositionEnd = textarea.selectionEnd || undefined;
 
     const selectedText = textarea.value.slice(
       cursorPositionStart,
@@ -41,10 +48,14 @@ const MarkdownToolbar = ({ textBoxId, data, setData }) => {
 
     setData(updatedData);
 
-    const newCursorPositionStart = cursorPositionStart + cursorOffset;
+    const newCursorPositionStart = cursorPositionStart
+      ? cursorPositionStart
+      : 0 + cursorOffset;
     //no idea why this works but it does
     //these positions should select the selected text if there was any
-    const newCursorPositionEnd = cursorPositionEnd + cursorOffset;
+    const newCursorPositionEnd = cursorPositionEnd
+      ? cursorPositionEnd
+      : 0 + cursorOffset;
 
     //value of the textarea is overwritten by the value in the state but
     //it is necessary to update it so we can move the cursor

@@ -1,5 +1,5 @@
 import { useNavigate, useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, FC, MouseEventHandler } from "react";
 import "../styles/NavDrawer.css";
 
 //mui
@@ -18,17 +18,24 @@ import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import PersonAddAltRoundedIcon from "@mui/icons-material/PersonAddAltRounded";
-//redux
-import { useSelector, useDispatch } from "react-redux";
-import { clearUser } from "../slices/usersSlice";
 
-const NavDrawer = ({ openDrawer, handleToggleDrawer }) => {
-  const dispatch = useDispatch();
+//redux
+import { useAppDispatch, useAppSelector } from "../hooks";
+import { clearUser } from "../slices/usersSlice";
+import { ModalProps } from "@mui/material";
+
+interface propTypes {
+  openDrawer: boolean;
+  handleToggleDrawer: Function;
+}
+
+const NavDrawer: FC<propTypes> = ({ openDrawer, handleToggleDrawer }) => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { firstname, lastname } = useSelector((state) => state.users);
-  const signedIn = useSelector((state) => state.users.signedIn);
+  const { firstname, lastname } = useAppSelector((state) => state.users);
+  const signedIn = useAppSelector((state) => state.users.signedIn);
 
   const [activePage, setActivePage] = useState(location.pathname);
 
@@ -41,7 +48,7 @@ const NavDrawer = ({ openDrawer, handleToggleDrawer }) => {
       id="drawer"
       anchor="left"
       open={openDrawer}
-      onClose={handleToggleDrawer}
+      onClose={handleToggleDrawer as ModalProps["onClose"]}
     >
       <div id="drawer-header">
         {signedIn && (
@@ -50,7 +57,7 @@ const NavDrawer = ({ openDrawer, handleToggleDrawer }) => {
             <div>{`${firstname} ${lastname}`}</div>
           </div>
         )}
-        <IconButton onClick={handleToggleDrawer}>
+        <IconButton onClick={handleToggleDrawer as MouseEventHandler}>
           <ChevronLeftIcon />
         </IconButton>
       </div>

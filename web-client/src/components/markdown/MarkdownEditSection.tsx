@@ -3,7 +3,21 @@ import MarkdownToolbar from "./MarkdownToolbar";
 //mui
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 
-const MarkdownEditSection = ({ sectionTitle, setData, data, rtl }) => {
+//types
+import { FC } from "react";
+
+interface propTypes {
+  sectionTitle: string;
+  setData: Function;
+  data: string;
+  rtl: boolean;
+}
+const MarkdownEditSection: FC<propTypes> = ({
+  sectionTitle,
+  setData,
+  data,
+  rtl,
+}) => {
   return (
     <div
       className="markdown-edit-section"

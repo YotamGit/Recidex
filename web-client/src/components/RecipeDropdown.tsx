@@ -4,7 +4,18 @@ import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 
-const RecipeDropdown = ({
+//types
+import { FC } from "react";
+
+interface propTypes {
+  value: string | undefined;
+  items: string[];
+  label_text: string;
+  id_prefix: string;
+  class_name: string;
+  onChange: Function;
+}
+const RecipeDropdown: FC<propTypes> = ({
   value,
   items,
   label_text,

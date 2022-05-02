@@ -68,7 +68,7 @@ const RecipeCard: FC<propTypes> = ({ recipe }) => {
         total_time: undefined,
       })
     );
-    var filterRes = await dispatch(getRecipes({ replace: true, args: {} }));
+    var filterRes = await dispatch(getRecipes({ replace: true }));
     if (filterRes.meta.requestStatus === "fulfilled") {
       dispatch(setFiltered(true));
     }
@@ -83,7 +83,7 @@ const RecipeCard: FC<propTypes> = ({ recipe }) => {
         total_time: undefined,
       })
     );
-    var filterRes = await dispatch(getRecipes({ replace: true, args: {} }));
+    var filterRes = await dispatch(getRecipes({ replace: true }));
     if (filterRes.meta.requestStatus === "fulfilled") {
       dispatch(setFiltered(true));
     }

@@ -1,4 +1,3 @@
-import React from "react";
 import { useState, useEffect } from "react";
 import RecipeDropdown from "./RecipeDropdown";
 import "../styles/FilterDialog.css";
@@ -15,39 +14,38 @@ import DoDisturbOnRoundedIcon from "@mui/icons-material/DoDisturbOnRounded";
 import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
 
 //redux
-import { useDispatch, useSelector } from "react-redux";
+import { useAppSelector, useAppDispatch } from "../hooks";
 import { getRecipes } from "../slices/recipesSlice";
 import { setFiltered, setFilters } from "../slices/filtersSlice";
 
 const FilterDialog = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const fullscreen = useSelector((state) => state.utilities.fullscreen);
+  const fullscreen = useAppSelector((state) => state.utilities.fullscreen);
   const [showRecipeFilterDialog, setShowRecipeFilterDialog] = useState(false);
 
-  const selectedFilters = useSelector((state) => state.filters.selectedFilters);
-
-  const recipe_categories = useSelector(
+  const recipe_categories = useAppSelector(
     (state) => state.filters.recipe_categories
   );
-  const recipe_difficulties = useSelector(
+  const recipe_difficulties = useAppSelector(
     (state) => state.filters.recipe_difficulties
   );
-  const recipe_durations = useSelector(
+  const recipe_durations = useAppSelector(
     (state) => state.filters.recipe_durations
   );
 
-  const filtered = useSelector((state) => state.filters.filtered);
+  const filtered = useAppSelector((state) => state.filters.filtered);
 
-  const owner = useSelector((state) => state.filters.selectedFilters.owner);
-
+  const selectedFilters = useAppSelector(
+    (state) => state.filters.selectedFilters
+  );
   const [category, setCategory] = useState(selectedFilters.category);
   const [sub_category, setSubCategory] = useState(selectedFilters.sub_category);
   const [difficulty, setDifficulty] = useState(selectedFilters.difficulty);
   const [prep_time, setPrepTime] = useState(selectedFilters.prep_time);
   const [total_time, setTotalTime] = useState(selectedFilters.total_time);
 
-  const RecipeFilterDialogToggle = () => {
+  const recipeFilterDialogToggle = () => {
     setShowRecipeFilterDialog(!showRecipeFilterDialog);
   };
 
@@ -58,27 +56,26 @@ const FilterDialog = () => {
       difficulty,
       prep_time,
       total_time,
-      owner,
     };
     dispatch(setFilters(filters));
-    var filterRes = await dispatch(getRecipes({ replace: true, args: {} }));
-    if (!filterRes.error) {
+    var filterRes = await dispatch(getRecipes({ replace: true }));
+
+    if (filterRes.meta.requestStatus === "fulfilled") {
       dispatch(
         setFiltered(
           Object.values(filters).some((filter) => typeof filter !== "undefined")
         )
       );
-
-      RecipeFilterDialogToggle();
     }
+    recipeFilterDialogToggle();
   };
 
   const clearSelections = () => {
-    setCategory();
-    setSubCategory();
-    setDifficulty();
-    setPrepTime();
-    setTotalTime();
+    setCategory(undefined);
+    setSubCategory(undefined);
+    setDifficulty(undefined);
+    setPrepTime(undefined);
+    setTotalTime(undefined);
   };
 
   useEffect(() => {
@@ -95,7 +92,7 @@ const FilterDialog = () => {
 
   return (
     <>
-      <IconButton onClick={RecipeFilterDialogToggle}>
+      <IconButton onClick={recipeFilterDialogToggle}>
         <FilterAltRoundedIcon
           className="header-dialog-button"
           style={{ color: filtered ? "#89FFAC" : "#fff" }}
@@ -104,7 +101,7 @@ const FilterDialog = () => {
       <Dialog
         fullScreen={!fullscreen}
         open={showRecipeFilterDialog}
-        onClose={RecipeFilterDialogToggle}
+        onClose={recipeFilterDialogToggle}
         aria-labelledby="recipe-filter-dialog-title"
       >
         <DialogTitle id="recipe-filter-dialog-title">
@@ -123,7 +120,9 @@ const FilterDialog = () => {
             <RecipeDropdown
               value={sub_category}
               items={
-                recipe_categories[category] ? recipe_categories[category] : []
+                recipe_categories[category || ""]
+                  ? recipe_categories[category || ""]
+                  : []
               }
               label_text={"Sub Category"}
               id_prefix={"filter-sub_category"}
@@ -159,8 +158,7 @@ const FilterDialog = () => {
         <DialogActions className="header-dialog-action-section">
           <CancelRoundedIcon
             className="header-dialog-button"
-            autoFocus
-            onClick={RecipeFilterDialogToggle}
+            onClick={recipeFilterDialogToggle}
             style={{ color: "rgb(255,0,0)" }}
           />
           <DoDisturbOnRoundedIcon

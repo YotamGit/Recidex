@@ -66,11 +66,9 @@ export const getRecipes = createAsyncThunk<
   AsyncThunkConfig
 >("recipes/getRecipes", async (params, thunkAPI) => {
   const state = thunkAPI.getState() as RootState;
-  //if some of the values arent undefined
-  //if (!Object.values(filters).some((x) => typeof x !== "undefined")) return;
-  params.args &&
-    params.args?.filters &&
-    thunkAPI.dispatch(setFilters(params.args.filters));
+
+  //set additional filters before request
+  params.args && thunkAPI.dispatch(setFilters(params.args));
 
   let userId = state.users.userId;
   let searchText = state.filters.searchText;
@@ -80,7 +78,7 @@ export const getRecipes = createAsyncThunk<
   let result = await axios.get("/api/recipes", {
     params: {
       latest: params.args?.latest || new Date(),
-      count: 4,
+      count: 12,
       favoritesOnly: favoritesOnly,
       userId: favoritesOnly ? userId : undefined,
       searchText: searchText,
@@ -88,6 +86,7 @@ export const getRecipes = createAsyncThunk<
       filters: selecetedfilters,
     },
   });
+
   thunkAPI.dispatch(setFetchedAllRecipes(result.data.length));
   return { replace: params.replace, recipes: result.data };
 });

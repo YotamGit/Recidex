@@ -6,13 +6,25 @@ import SanitizeHtml from "sanitize-html";
 //mui
 import { Divider } from "@mui/material";
 
+//types
+import { FC } from "react";
+
 marked.setOptions({
   gfm: true,
   breaks: true,
   smartLists: true,
 });
 
-const MarkdownPreviewSection = ({ sectionTitle, markdownText, rtl }) => {
+interface propTypes {
+  sectionTitle: string;
+  markdownText: string;
+  rtl: boolean;
+}
+const MarkdownPreviewSection: FC<propTypes> = ({
+  sectionTitle,
+  markdownText,
+  rtl,
+}) => {
   return (
     <div
       className="markdown-preview-section"
