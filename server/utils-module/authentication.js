@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { User } from "../models/User.js";
+import { User, roles } from "../models/User.js";
 
 export function generateToken(userData) {
   let jwtSecretKey = process.env.JWT_SECRET_KEY;
@@ -37,8 +37,27 @@ export function authenticateUser(req, res, next) {
 
 //check that the user owns the recipe or is an admin
 export async function authenticateRecipeOwnership(validatedToken, recipe) {
-  //to use use === convert validated token id to string.
+  //to use === , convert validated token id to string.
   //with == there is no need to do so.
   let user = await User.findById(validatedToken.userId);
   return validatedToken.userId == recipe.owner || user.role === "admin";
+}
+
+//check if the user is a moderator
+export async function isModeratorUser(validatedToken) {
+  let user = await User.findById(validatedToken.userId);
+  return ["admin", "moderator"].includes(user.role);
+}
+
+//check if the user is an admin
+export async function isAdminUser(validatedToken) {
+  let user = await User.findById(validatedToken.userId);
+  return user.role === "admin";
+}
+//check if a user is allowed to perform changes on other user
+export async function isAllowedToEditUser(validatedToken, edited) {
+  let editor = await User.findById(validatedToken.userId);
+  let editorRole = roles.indexOf(editor.role);
+  let editedRole = roles.indexOf(edited.role);
+  return editorRole > editedRole;
 }

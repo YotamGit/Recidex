@@ -1,8 +1,10 @@
 import mongoose from "mongoose";
 
+//roles must remain in descending privileges order:
+export const roles = ["admin", "moderator", "member"];
 const UserSchema = mongoose.Schema(
   {
-    role: { type: String, enum: ["admin", "member", "guest"] },
+    role: { type: String, enum: roles },
     firstname: String,
     lastname: String,
     email: String,

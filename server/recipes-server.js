@@ -12,6 +12,7 @@ import { authenticateUser } from "./utils-module/authentication.js";
 //route imports
 import loginRoute from "./routes/login.js";
 import recipesRoute from "./routes/recipes.js";
+import usersRoute from "./routes/users.js";
 
 dotenv.config();
 
@@ -43,9 +44,13 @@ app.post("/api/recipes/delete/*", authenticateUser);
 app.post("/api/recipes/edit/*", authenticateUser);
 app.post("/api/recipes/edit/favorite/*", authenticateUser);
 
+app.post("/api/users/user/delete", authenticateUser);
+app.post("/api/users/user/privileges", authenticateUser);
+
 // Route middlewares
 app.use("/api/login", loginRoute);
 app.use("/api/recipes", recipesRoute);
+app.use("/api/users", usersRoute);
 
 app.use("*", (req, res) => {
   res.status(404).send();
