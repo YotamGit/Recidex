@@ -2,12 +2,25 @@ import axios from "axios";
 import Cookies from "universal-cookie";
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 
+//a user type used for user-data stored in the state after authentication
 export type User = {
   userId: string | undefined;
   firstname: string | undefined;
   lastname: string | undefined;
   userRole: string | undefined;
 };
+
+//an interface used for users that are being used in the users table
+// in admin panel.
+export interface TableUser {
+  _id: string;
+  role: string;
+  firstname: string;
+  lastname: string;
+  registration_date: string;
+  last_sign_in: string;
+  email: string;
+}
 
 interface UsersState {
   signedIn: boolean;
