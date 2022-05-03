@@ -2,6 +2,7 @@ import express from "express";
 
 const router = express.Router();
 import { User } from "../models/User.js";
+import { Recipe } from "../models/Recipe.js";
 import {
   isAdminUser,
   isModeratorUser,
@@ -20,7 +21,9 @@ router.post("/user/delete", async (req, res, next) => {
         user
       );
       if (allowedToEdit) {
+        await Recipe.deleteMany({ owner: user._id });
         let deletedUser = await User.findOneAndDelete({ _id: user._id });
+
         res.status(200).json(deletedUser);
       } else {
         res.status(403).send("Missing privileges");
@@ -34,18 +37,26 @@ router.post("/user/delete", async (req, res, next) => {
 });
 
 //CHANGE USER PRIVILEGES
-// router.post("/user/privileges", async (req, res, next) => {
-//   try {
-//     // let response = await User.findOneAndUpdate({ _id: req.body.id }, {$set:{role:}});
+router.post("/user/privileges", async (req, res, next) => {
+  try {
+    let isAdmin = await isAdminUser(req.headers.validatedToken);
+    if (isAdmin) {
+      let updatedUser = await User.findByIdAndUpdate(
+        { _id: userData.id },
+        { $set: { role: userData.role } }
+      );
 
-//     if (!response) {
-//       res.status(404).send("User does not exist");
-//     }
-
-//     res.status(200).send(response);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
+      if (updatedUser) {
+        res.status(200).send(updatedUser);
+      } else {
+        res.status(404).send("User not found");
+      }
+    } else {
+      res.status(403).send("Missing privileges");
+    }
+  } catch (err) {
+    next(err);
+  }
+});
 
 export default router;
