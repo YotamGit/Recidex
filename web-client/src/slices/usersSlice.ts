@@ -6,6 +6,7 @@ export type User = {
   userId: string | undefined;
   firstname: string | undefined;
   lastname: string | undefined;
+  role: string | undefined;
 };
 
 interface UsersState {
@@ -14,13 +15,16 @@ interface UsersState {
   userId: string | undefined;
   firstname: string | undefined;
   lastname: string | undefined;
+  role: string | undefined;
 }
+
 const initialState: UsersState = {
   signedIn: false,
   attemptSignIn: false,
   userId: undefined,
   firstname: undefined,
   lastname: undefined,
+  role: undefined,
 };
 
 export const userPing = createAsyncThunk<{
@@ -45,27 +49,27 @@ const usersSlice = createSlice({
   name: "users",
   initialState,
   reducers: {
-    setSignedIn(state, action: PayloadAction<boolean>) {
-      const signedIn = action.payload;
-      state.signedIn = signedIn;
-    },
     setAttemptSignIn(state, action: PayloadAction<boolean>) {
       const attemptSignIn = action.payload;
       state.attemptSignIn = attemptSignIn;
     },
-    setUserId(state, action: PayloadAction<string>) {
-      const userId = action.payload;
-      state.userId = userId;
+    setUserData(state, action: PayloadAction<{ userData: User; token: any }>) {
+      state.userId = action.payload.userData.userId;
+      state.firstname = action.payload.userData.firstname;
+      state.lastname = action.payload.userData.lastname;
+      state.role = action.payload.userData.role;
+      state.signedIn = true;
+
+      let expiration_date = new Date();
+      expiration_date.setFullYear(expiration_date.getFullYear() + 2);
+      const cookies = new Cookies();
+      cookies.set("userToken", action.payload.token, {
+        path: "/",
+        expires: expiration_date,
+        sameSite: "strict",
+      });
     },
-    setFirstname(state, action: PayloadAction<string>) {
-      const firstname = action.payload;
-      state.firstname = firstname;
-    },
-    setLastname(state, action: PayloadAction<string>) {
-      const lastname = action.payload;
-      state.lastname = lastname;
-    },
-    clearUser(state) {
+    clearUserData(state) {
       state.firstname = undefined;
       state.lastname = undefined;
       state.signedIn = false;
@@ -86,18 +90,13 @@ const usersSlice = createSlice({
           state.firstname = action.payload.userData.firstname;
           state.lastname = action.payload.userData.lastname;
           state.userId = action.payload.userData.userId;
+          state.role = action.payload.userData.role;
         }
       });
   },
 });
 
-export const {
-  setAttemptSignIn,
-  setSignedIn,
-  setUserId,
-  setFirstname,
-  setLastname,
-  clearUser,
-} = usersSlice.actions;
+export const { setAttemptSignIn, setUserData, clearUserData } =
+  usersSlice.actions;
 
 export default usersSlice.reducer;

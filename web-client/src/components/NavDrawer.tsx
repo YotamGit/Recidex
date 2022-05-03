@@ -21,7 +21,7 @@ import PersonAddAltRoundedIcon from "@mui/icons-material/PersonAddAltRounded";
 
 //redux
 import { useAppDispatch, useAppSelector } from "../hooks";
-import { clearUser } from "../slices/usersSlice";
+import { clearUserData } from "../slices/usersSlice";
 import { ModalProps } from "@mui/material";
 
 interface propTypes {
@@ -125,7 +125,7 @@ const NavDrawer: FC<propTypes> = ({ openDrawer, handleToggleDrawer }) => {
             <span
               className="drawer-button-wrapper"
               onClick={() => {
-                dispatch(clearUser());
+                dispatch(clearUserData());
                 handleToggleDrawer();
               }}
               style={{ marginTop: "auto" }}

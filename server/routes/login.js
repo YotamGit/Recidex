@@ -37,6 +37,7 @@ router.post("/", async (req, res, next) => {
             firstname: user.firstname,
             lastname: user.lastname,
             userId: user._id,
+            role: user.role,
           },
         });
       } else {
@@ -57,11 +58,7 @@ router.post("/ping", async (req, res, next) => {
     if (validatedToken) {
       res.status(200).json({
         authenticated: true,
-        userData: {
-          firstname: validatedToken.firstname,
-          lastname: validatedToken.lastname,
-          userId: validatedToken.userId,
-        },
+        userData: validatedToken,
       });
     } else {
       res.status(401).json({ authenticated: false });

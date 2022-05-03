@@ -10,7 +10,6 @@ import {
 
 import { useState, useEffect, FC } from "react";
 import { useNavigate } from "react-router-dom";
-import Cookies from "universal-cookie";
 
 import axios from "axios";
 
@@ -30,13 +29,10 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 //redux
 import { useAppDispatch } from "../../hooks";
-import {
-  setSignedIn,
-  setUserId,
-  setFirstname as setStoreFirstname,
-  setLastname as setStoreLastname,
-} from "../../slices/usersSlice";
+import { setUserData } from "../../slices/usersSlice";
 
+//types
+import { User } from "../../slices/usersSlice";
 interface propTypes {
   action: "signup" | "login" | undefined;
   showSignAsGuest: boolean;
@@ -148,18 +144,13 @@ const Authentication: FC<propTypes> = ({
       setDisableButtons(false);
 
       if (result.data) {
-        let expiration_date = new Date();
-        expiration_date.setFullYear(expiration_date.getFullYear() + 2);
-        const cookies = new Cookies();
-        cookies.set("userToken", result.data.token, {
-          path: "/",
-          expires: expiration_date,
-          sameSite: "strict",
-        });
-        dispatch(setUserId(result.data.userData.userId));
-        dispatch(setStoreFirstname(result.data.userData.firstname));
-        dispatch(setStoreLastname(result.data.userData.lastname));
-        dispatch(setSignedIn(true));
+        dispatch(
+          setUserData({
+            userData: result.data.userData as User,
+            token: result.data.token,
+          })
+        );
+
         if (navigateAfterLogin) {
           navigate("/home");
         }
