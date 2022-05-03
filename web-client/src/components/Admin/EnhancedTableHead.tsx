@@ -89,6 +89,7 @@ const EnhancedTableHead: FC<EnhancedTableProps> = ({
         <TableCell padding="checkbox"></TableCell>
         {headCells.map((headCell) => (
           <TableCell
+            align="center"
             key={headCell.id}
             sortDirection={orderBy === headCell.id ? order : false}
           >
@@ -106,6 +107,7 @@ const EnhancedTableHead: FC<EnhancedTableProps> = ({
             </TableSortLabel>
           </TableCell>
         ))}
+        <TableCell padding="checkbox"></TableCell>
       </TableRow>
     </TableHead>
   );

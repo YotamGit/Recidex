@@ -117,11 +117,9 @@ const AdminPanel: FC = () => {
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - users.length) : 0;
 
   return (
-    <div
-      className="admin-panel-page"
-      style={{ width: "100%", overflow: "hidden" }}
-    >
-      <TableContainer className="table-container" style={{ maxHeight: "60vh" }}>
+    <div className="admin-panel-page">
+      <AdminKpis />
+      <TableContainer className="table-container">
         <Table
           stickyHeader
           style={{ minWidth: 750 }}
@@ -163,6 +161,7 @@ const AdminPanel: FC = () => {
                       />
                     </TableCell>
                     <TableCell
+                      align="center"
                       component="th"
                       id={labelId}
                       scope="row"
@@ -170,14 +169,16 @@ const AdminPanel: FC = () => {
                     >
                       {row._id}
                     </TableCell>
-                    <TableCell align="right">{row.role}</TableCell>
-                    <TableCell align="right">{row.username}</TableCell>
-                    <TableCell align="right">{row.firstname}</TableCell>
-                    <TableCell align="right">{row.lastname}</TableCell>
-                    <TableCell align="right">{row.email}</TableCell>
-                    <TableCell align="right">{row.registration_date}</TableCell>
-                    <TableCell align="right">{row.last_sign_in}</TableCell>
-                    <TableCell align="right">
+                    <TableCell align="center">{row.role}</TableCell>
+                    <TableCell align="center">{row.username}</TableCell>
+                    <TableCell align="center">{row.firstname}</TableCell>
+                    <TableCell align="center">{row.lastname}</TableCell>
+                    <TableCell align="center">{row.email}</TableCell>
+                    <TableCell align="center">
+                      {row.registration_date}
+                    </TableCell>
+                    <TableCell align="center">{row.last_sign_in}</TableCell>
+                    <TableCell align="center">
                       <DeleteUserButton userId={row._id} />
                     </TableCell>
                   </TableRow>
@@ -200,7 +201,6 @@ const AdminPanel: FC = () => {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
-      <AdminKpis />
     </div>
   );
 };

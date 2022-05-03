@@ -1,13 +1,11 @@
 .admin-panel-page {
+  width: 100%;
+  height:calc(100vh - 64px);
+  overflow: hidden;
   display:flex;
   flex-direction: column;
 }
 
 .admin-panel-page .table-container{
-}
-
-.admin-panel-page .kpi-row {
-  display: flex; 
-  justify-content: space-around;
-  align-items: center;
+  height: 60vh
 }

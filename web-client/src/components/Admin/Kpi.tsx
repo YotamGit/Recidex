@@ -1,16 +1,17 @@
+import "../../styles/admin/Kpi.css";
+
 //types
-import { PropTypes } from "@mui/material";
 import { FC } from "react";
 
-interface PropTypes {
+interface propTypes {
   title: string;
   body: string | number;
 }
-const Kpi: FC<PropTypes> = ({ title, body }) => {
+const Kpi: FC<propTypes> = ({ title, body }) => {
   return (
-    <div>
-      <div>{title}</div>
-      <div>{body}</div>
+    <div className="kpi">
+      <div className="kpi-title">{title}</div>
+      <div className="kpi-body">{body}</div>
     </div>
   );
 };
