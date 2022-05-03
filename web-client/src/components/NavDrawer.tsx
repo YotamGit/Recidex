@@ -125,9 +125,12 @@ const NavDrawer: FC<propTypes> = ({ openDrawer, handleToggleDrawer }) => {
         {signedIn && ["admin", "moderator"].includes(userRole || "") && (
           <>
             <span
-              className="drawer-button-wrapper"
+              className={`${
+                activePage === "/admin-panel" ? "active-page " : ""
+              }drawer-button-wrapper`}
               onClick={() => {
                 navigate("/admin-panel");
+                handleToggleDrawer();
               }}
             >
               <AdminPanelSettingsIcon className="drawer-button" />
