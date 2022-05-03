@@ -1,10 +1,12 @@
 import axios from "axios";
+import "../../styles/admin/AdminPanel.css";
 import { useState, useEffect } from "react";
 
 import EnhancedTableHead from "./EnhancedTableHead";
+import DeleteUserButton from "./DeleteUserButton";
+import AdminKpis from "./AdminKpis";
 
 //mui
-import Box from "@mui/material/Box";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -12,12 +14,15 @@ import TableContainer from "@mui/material/TableContainer";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 
-import Paper from "@mui/material/Paper";
 import Checkbox from "@mui/material/Checkbox";
+
+//redux
+import { setUsers } from "../../slices/usersSlice";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 
 //types
 import { FC } from "react";
-import { TableUser } from "../../slices/usersSlice";
+import { FullUser } from "../../slices/usersSlice";
 type Order = "asc" | "desc";
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -43,18 +48,21 @@ function getComparator<Key extends keyof any>(
 }
 
 const AdminPanel: FC = () => {
-  const [users, setUsers] = useState<TableUser[]>([]);
+  const dispatch = useAppDispatch();
+
+  const users = useAppSelector((state) => state.users.users) || [];
+
   const [order, setOrder] = useState<Order>("asc");
-  const [orderBy, setOrderBy] = useState<keyof TableUser>("role");
+  const [orderBy, setOrderBy] = useState<keyof FullUser>("role");
   const [selected, setSelected] = useState<readonly string[]>([]);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   useEffect(() => {
     const getUsers = async () => {
       try {
         let res = await axios.get("/api/users", {});
-        setUsers(res.data);
+        dispatch(setUsers(res.data));
       } catch (error: any) {
         window.alert("Failed to fetch users.\nReason: " + error.message);
       }
@@ -64,7 +72,7 @@ const AdminPanel: FC = () => {
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
-    property: keyof TableUser
+    property: keyof FullUser
   ) => {
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
@@ -109,9 +117,16 @@ const AdminPanel: FC = () => {
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - users.length) : 0;
 
   return (
-    <Box sx={{ width: "100%", overflow: "hidden" }}>
-      <TableContainer style={{ maxHeight: "50vh" }}>
-        <Table stickyHeader sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
+    <div
+      className="admin-panel-page"
+      style={{ width: "100%", overflow: "hidden" }}
+    >
+      <TableContainer className="table-container" style={{ maxHeight: "60vh" }}>
+        <Table
+          stickyHeader
+          style={{ minWidth: 750 }}
+          aria-labelledby="tableTitle"
+        >
           <EnhancedTableHead
             numSelected={selected.length}
             order={order}
@@ -124,7 +139,7 @@ const AdminPanel: FC = () => {
               .slice()
               .sort(getComparator(order, orderBy))
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row: TableUser, index: number) => {
+              .map((row: FullUser, index: number) => {
                 const isItemSelected = isSelected(String(row._id));
                 const labelId = `enhanced-table-checkbox-${index}`;
 
@@ -156,11 +171,15 @@ const AdminPanel: FC = () => {
                       {row._id}
                     </TableCell>
                     <TableCell align="right">{row.role}</TableCell>
+                    <TableCell align="right">{row.username}</TableCell>
                     <TableCell align="right">{row.firstname}</TableCell>
                     <TableCell align="right">{row.lastname}</TableCell>
                     <TableCell align="right">{row.email}</TableCell>
                     <TableCell align="right">{row.registration_date}</TableCell>
                     <TableCell align="right">{row.last_sign_in}</TableCell>
+                    <TableCell align="right">
+                      <DeleteUserButton userId={row._id} />
+                    </TableCell>
                   </TableRow>
                 );
               })}
@@ -181,7 +200,8 @@ const AdminPanel: FC = () => {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
-    </Box>
+      <AdminKpis />
+    </div>
   );
 };
 

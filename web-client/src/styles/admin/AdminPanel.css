@@ -1,0 +1,13 @@
+.admin-panel-page {
+  display:flex;
+  flex-direction: column;
+}
+
+.admin-panel-page .table-container{
+}
+
+.admin-panel-page .kpi-row {
+  display: flex; 
+  justify-content: space-around;
+  align-items: center;
+}

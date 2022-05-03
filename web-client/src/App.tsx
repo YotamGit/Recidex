@@ -13,7 +13,7 @@ import AddRecipe from "./components/recipe_editor/AddRecipe";
 import Header from "./components/Header";
 import Main from "./components/Main";
 import Authentication from "./components/Login/Authentication";
-import AdminPanel from "./components/Admin/AdminPanel";
+import AdminPanel from "./components/admin/AdminPanel";
 
 //mui
 import useMediaQuery from "@mui/material/useMediaQuery";

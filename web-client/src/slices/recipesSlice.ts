@@ -3,6 +3,30 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { AppDispatch, RootState } from "../store";
 
 import { setFilters } from "./filtersSlice";
+interface RecipesState {
+  recipes: TRecipe[];
+  fetchedAllRecipes: boolean;
+}
+const initialState: RecipesState = {
+  recipes: [],
+  fetchedAllRecipes: false,
+};
+
+interface RecipesSliceError {
+  statusCode: number;
+  data: string;
+  message: string;
+}
+
+type AsyncThunkConfig = {
+  /** return type for `thunkApi.getState` */
+  state?: RootState;
+  /** type for `thunkApi.dispatch` */
+  dispatch?: AppDispatch;
+
+  /** type to be passed into `rejectWithValue`'s first argument that will end up on `rejectedAction.payload` */
+  rejectValue?: RecipesSliceError;
+};
 
 export type TRecipe = {
   _id?: string;
@@ -29,31 +53,6 @@ export type TRecipe = {
   image: string | boolean | undefined;
   //string:uploading a new photo, boolean(false):deleting a photo
   //undefined:no changes to photo
-};
-
-interface RecipesState {
-  recipes: TRecipe[];
-  fetchedAllRecipes: boolean;
-}
-const initialState: RecipesState = {
-  recipes: [],
-  fetchedAllRecipes: false,
-};
-
-interface RecipesSliceError {
-  statusCode: number;
-  data: string;
-  message: string;
-}
-
-type AsyncThunkConfig = {
-  /** return type for `thunkApi.getState` */
-  state?: RootState;
-  /** type for `thunkApi.dispatch` */
-  dispatch?: AppDispatch;
-
-  /** type to be passed into `rejectWithValue`'s first argument that will end up on `rejectedAction.payload` */
-  rejectValue?: RecipesSliceError;
 };
 
 // get recipes from the server

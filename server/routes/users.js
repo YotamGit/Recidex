@@ -20,6 +20,7 @@ router.get("/", async (req, res, next) => {
         _id: { $ne: req.headers.validatedToken.userId },
       }).select({
         role: 1,
+        username: 1,
         firstname: 1,
         lastname: 1,
         email: 1,

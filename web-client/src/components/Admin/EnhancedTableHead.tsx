@@ -9,11 +9,11 @@ import { visuallyHidden } from "@mui/utils";
 
 //types
 import { FC } from "react";
-import { TableUser } from "../../slices/usersSlice";
+import { FullUser } from "../../slices/usersSlice";
 type Order = "asc" | "desc";
 
 interface HeadCell {
-  id: keyof TableUser;
+  id: keyof FullUser;
   label: string;
 }
 
@@ -25,6 +25,10 @@ const headCells: readonly HeadCell[] = [
   {
     id: "role",
     label: "Role",
+  },
+  {
+    id: "username",
+    label: "Username",
   },
   {
     id: "firstname",
@@ -52,7 +56,7 @@ interface EnhancedTableProps {
   numSelected: number;
   onRequestSort: (
     event: React.MouseEvent<unknown>,
-    property: keyof TableUser
+    property: keyof FullUser
   ) => void;
   order: Order;
   orderBy: string;
@@ -62,19 +66,20 @@ interface EnhancedTableProps {
   numSelected: number;
   onRequestSort: (
     event: React.MouseEvent<unknown>,
-    property: keyof TableUser
+    property: keyof FullUser
   ) => void;
   order: Order;
   orderBy: string;
   rowCount: number;
 }
+
 const EnhancedTableHead: FC<EnhancedTableProps> = ({
   order,
   orderBy,
   onRequestSort,
 }) => {
   const createSortHandler =
-    (property: keyof TableUser) => (event: React.MouseEvent<unknown>) => {
+    (property: keyof FullUser) => (event: React.MouseEvent<unknown>) => {
       onRequestSort(event, property);
     };
 
