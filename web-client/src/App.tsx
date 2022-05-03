@@ -1,8 +1,8 @@
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 //redux
-import { useAppDispatch } from "./hooks";
+import { useAppDispatch, useAppSelector } from "./hooks";
 import { addRouteToHistory, setFullscreen } from "./slices/utilitySlice";
 
 import RecipePage from "./components/recipes/RecipePage";
@@ -11,6 +11,7 @@ import AddRecipe from "./components/recipe_editor/AddRecipe";
 import Header from "./components/Header";
 import Main from "./components/Main";
 import Authentication from "./components/Login/Authentication";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 //mui
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -19,6 +20,12 @@ import { useTheme } from "@mui/material/styles";
 function App() {
   const dispatch = useAppDispatch();
   const location = useLocation();
+
+  //if we use the store, the protected routes get calculated before the
+  //data is retrieved from the store and results in a false statement.
+  //using localstorage to get the immediate values solves the issue.
+  const signedIn = Boolean(localStorage.getItem("signedIn"));
+  const userRole = localStorage.getItem("userRole");
 
   const theme = useTheme();
   const fullscreen = useMediaQuery(theme.breakpoints.up("sm"));
@@ -72,22 +79,27 @@ function App() {
             </>
           }
         />
+
         <Route
           path="/my-recipes"
           element={
-            <>
-              <Header pageName={"My Recipes"} showSearch={true} />
-              <Main ownerOnly={true} favoritesOnly={false} />
-            </>
+            <ProtectedRoute isAllowed={signedIn} redirectPath={"/home"}>
+              <>
+                <Header pageName={"My Recipes"} showSearch={true} />
+                <Main ownerOnly={true} favoritesOnly={false} />
+              </>
+            </ProtectedRoute>
           }
         />
         <Route
           path="/favorites"
           element={
-            <>
-              <Header pageName={"Favorites"} showSearch={true} />
-              <Main ownerOnly={false} favoritesOnly={true} />
-            </>
+            <ProtectedRoute isAllowed={signedIn} redirectPath={"/home"}>
+              <>
+                <Header pageName={"Favorites"} showSearch={true} />
+                <Main ownerOnly={false} favoritesOnly={true} />
+              </>
+            </ProtectedRoute>
           }
         />
         <Route
@@ -117,6 +129,18 @@ function App() {
               <Header pageName={"Add Recipe"} showSearch={false} />
               <AddRecipe />
             </>
+          }
+        />
+
+        <Route
+          path="/admin-panel"
+          element={
+            <ProtectedRoute
+              isAllowed={["admin", "moderator"].includes(userRole || "")}
+              redirectPath={"/home"}
+            >
+              <Header pageName={"admin panel"} showSearch={false} />
+            </ProtectedRoute>
           }
         />
       </Routes>

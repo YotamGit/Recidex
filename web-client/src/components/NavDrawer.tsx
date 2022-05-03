@@ -18,6 +18,7 @@ import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import PersonAddAltRoundedIcon from "@mui/icons-material/PersonAddAltRounded";
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 
 //redux
 import { useAppDispatch, useAppSelector } from "../hooks";
@@ -36,6 +37,7 @@ const NavDrawer: FC<propTypes> = ({ openDrawer, handleToggleDrawer }) => {
 
   const { firstname, lastname } = useAppSelector((state) => state.users);
   const signedIn = useAppSelector((state) => state.users.signedIn);
+  const userRole = useAppSelector((state) => state.users.userRole);
 
   const [activePage, setActivePage] = useState(location.pathname);
 
@@ -120,6 +122,19 @@ const NavDrawer: FC<propTypes> = ({ openDrawer, handleToggleDrawer }) => {
           <AddCircleRoundedIcon className="drawer-button" />
           Add Recipe
         </span>
+        {signedIn && ["admin", "moderator"].includes(userRole || "") && (
+          <>
+            <span
+              className="drawer-button-wrapper"
+              onClick={() => {
+                navigate("/admin-panel");
+              }}
+            >
+              <AdminPanelSettingsIcon className="drawer-button" />
+              Admin Panel
+            </span>
+          </>
+        )}
         {signedIn && (
           <>
             <span
@@ -127,6 +142,7 @@ const NavDrawer: FC<propTypes> = ({ openDrawer, handleToggleDrawer }) => {
               onClick={() => {
                 dispatch(clearUserData());
                 handleToggleDrawer();
+                navigate("/home");
               }}
               style={{ marginTop: "auto" }}
             >

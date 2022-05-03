@@ -8,6 +8,7 @@ export function generateToken(userData) {
     firstname: userData.firstname,
     lastname: userData.lastname,
     userId: userData._id,
+    userRole: userData.role,
   };
   const token = jwt.sign(data, jwtSecretKey);
 

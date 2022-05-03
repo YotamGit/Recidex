@@ -6,7 +6,7 @@ export type User = {
   userId: string | undefined;
   firstname: string | undefined;
   lastname: string | undefined;
-  role: string | undefined;
+  userRole: string | undefined;
 };
 
 interface UsersState {
@@ -15,7 +15,7 @@ interface UsersState {
   userId: string | undefined;
   firstname: string | undefined;
   lastname: string | undefined;
-  role: string | undefined;
+  userRole: string | undefined;
 }
 
 const initialState: UsersState = {
@@ -24,7 +24,7 @@ const initialState: UsersState = {
   userId: undefined,
   firstname: undefined,
   lastname: undefined,
-  role: undefined,
+  userRole: undefined,
 };
 
 export const userPing = createAsyncThunk<{
@@ -57,7 +57,7 @@ const usersSlice = createSlice({
       state.userId = action.payload.userData.userId;
       state.firstname = action.payload.userData.firstname;
       state.lastname = action.payload.userData.lastname;
-      state.role = action.payload.userData.role;
+      state.userRole = action.payload.userData.userRole;
       state.signedIn = true;
 
       let expiration_date = new Date();
@@ -68,14 +68,19 @@ const usersSlice = createSlice({
         expires: expiration_date,
         sameSite: "strict",
       });
+      localStorage.setItem("signedIn", String(state.signedIn));
+      localStorage.setItem("userRole", state.userRole || "guest");
     },
     clearUserData(state) {
       state.firstname = undefined;
       state.lastname = undefined;
       state.signedIn = false;
       state.userId = undefined;
+      state.userRole = undefined;
       const cookies = new Cookies();
       cookies.remove("userToken", { path: "/" });
+      localStorage.removeItem("signedIn");
+      localStorage.removeItem("userRole");
     },
   },
   extraReducers: (builder) => {
@@ -90,7 +95,9 @@ const usersSlice = createSlice({
           state.firstname = action.payload.userData.firstname;
           state.lastname = action.payload.userData.lastname;
           state.userId = action.payload.userData.userId;
-          state.role = action.payload.userData.role;
+          state.userRole = action.payload.userData.userRole;
+          localStorage.setItem("signedIn", String(state.signedIn));
+          localStorage.setItem("userRole", String(state.userRole));
         }
       });
   },

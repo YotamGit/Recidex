@@ -129,7 +129,6 @@ const Authentication: FC<propTypes> = ({
     }
 
     try {
-      console.log({ firstname, lastname, email, username, password });
       setDisableButtons(true);
       let result = await axios.post(
         `/api/login${action === "signup" ? "/signup" : ""}`,

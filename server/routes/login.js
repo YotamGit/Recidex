@@ -37,7 +37,7 @@ router.post("/", async (req, res, next) => {
             firstname: user.firstname,
             lastname: user.lastname,
             userId: user._id,
-            role: user.role,
+            userRole: user.role,
           },
         });
       } else {
