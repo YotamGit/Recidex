@@ -81,6 +81,16 @@ router.get("/titles", async (req, res, next) => {
   }
 });
 
+// GET RECIPE COUNT
+router.get("/count", async (req, res, next) => {
+  try {
+    const recipes = await Recipe.find({}).distinct("_id");
+    res.status(200).send(recipes.length.toString());
+  } catch (err) {
+    next(err);
+  }
+});
+
 // SUBMIT A NEW RECIPE
 router.post("/new", async (req, res, next) => {
   try {
