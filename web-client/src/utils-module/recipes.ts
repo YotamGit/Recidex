@@ -20,3 +20,13 @@ export async function getRecipeTitles() {
     return [];
   }
 }
+
+//GET RECIPE COUNT
+export async function getRecipeCount() {
+  try {
+    let count = await axios.get("/api/recipes/count");
+    return Number(count.data);
+  } catch (error: any) {
+    window.alert("Failed to get recipes count.\nReason: " + error.message);
+  }
+}

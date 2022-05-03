@@ -6,8 +6,13 @@ interface PropTypes {
   title: string;
   body: string | number;
 }
-const Kpi: FC<PropTypes> = () => {
-  return <div>Kpi</div>;
+const Kpi: FC<PropTypes> = ({ title, body }) => {
+  return (
+    <div>
+      <div>{title}</div>
+      <div>{body}</div>
+    </div>
+  );
 };
 
 export default Kpi;
