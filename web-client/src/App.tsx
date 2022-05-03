@@ -5,13 +5,15 @@ import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "./hooks";
 import { addRouteToHistory, setFullscreen } from "./slices/utilitySlice";
 
+import ProtectedRoute from "./components/ProtectedRoute";
+
 import RecipePage from "./components/recipes/RecipePage";
 import RecipeEditorPage from "./components/recipe_editor/RecipeEditorPage";
 import AddRecipe from "./components/recipe_editor/AddRecipe";
 import Header from "./components/Header";
 import Main from "./components/Main";
 import Authentication from "./components/Login/Authentication";
-import ProtectedRoute from "./components/ProtectedRoute";
+import AdminPanel from "./components/Admin/AdminPanel";
 
 //mui
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -107,7 +109,6 @@ function App() {
           element={
             <>
               <Header pageName={"Recipe"} showSearch={false} />
-
               <RecipePage />
             </>
           }
@@ -139,7 +140,10 @@ function App() {
               isAllowed={["admin", "moderator"].includes(userRole || "")}
               redirectPath={"/home"}
             >
-              <Header pageName={"admin panel"} showSearch={false} />
+              <>
+                <Header pageName={"Admin Panel"} showSearch={false} />
+                <AdminPanel />
+              </>
             </ProtectedRoute>
           }
         />

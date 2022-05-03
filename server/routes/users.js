@@ -11,6 +11,30 @@ import {
 
 // Routes
 
+//GET ALL USERS
+router.get("/", async (req, res, next) => {
+  try {
+    let isModerator = await isModeratorUser(req.headers.validatedToken);
+    if (isModerator) {
+      let users = await User.find({
+        _id: { $ne: req.headers.validatedToken.userId },
+      }).select({
+        role: 1,
+        firstname: 1,
+        lastname: 1,
+        email: 1,
+        registration_date: 1,
+        last_sign_in: 1,
+      });
+      res.status(200).send(users);
+    } else {
+      res.status(403).send("Missing privileges");
+    }
+  } catch (err) {
+    next(err);
+  }
+});
+
 //DELETE A USER
 router.post("/user/delete", async (req, res, next) => {
   try {

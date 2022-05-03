@@ -47,6 +47,7 @@ export async function authenticateRecipeOwnership(validatedToken, recipe) {
 //check if the user is a moderator
 export async function isModeratorUser(validatedToken) {
   let user = await User.findById(validatedToken.userId);
+  console.log(user.role);
   return ["admin", "moderator"].includes(user.role);
 }
 
