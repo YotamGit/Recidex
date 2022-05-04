@@ -61,6 +61,7 @@ const EditUserButton: FC<propTypes> = ({ user }) => {
     if (!(await validEmail(email))) {
       return false;
     }
+    return true;
   };
 
   const onEditUser = async () => {
