@@ -28,8 +28,8 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 //redux
-import { useAppDispatch } from "../../hooks";
-import { setUserData } from "../../slices/usersSlice";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { signInUser } from "../../slices/usersSlice";
 
 //types
 import { User } from "../../slices/usersSlice";
@@ -63,7 +63,9 @@ const Authentication: FC<propTypes> = ({
 
   const [invalidEmail, setInvalidEmail] = useState(false);
   const [passwordsMismatch, setPasswordsMismatch] = useState(false);
-  const [wrongCredentials, setWrongCredentials] = useState(false);
+  const wrongCredentials = useAppSelector(
+    (state) => state.users.wrongCredentials
+  );
 
   const [disableButtons, setDisableButtons] = useState(false);
 
@@ -124,51 +126,36 @@ const Authentication: FC<propTypes> = ({
   };
 
   const onSubmit = async () => {
+    if (!action) {
+      return;
+    }
+
     if (action === "signup" && !validateInput()) {
       return;
     }
 
-    try {
-      setDisableButtons(true);
-      let result = await axios.post(
-        `/api/login${action === "signup" ? "/signup" : ""}`,
-        {
-          firstname: action === "signup" ? firstname : undefined,
-          lastname: action === "signup" ? lastname : undefined,
-          email: action === "signup" ? email : undefined,
-          username: username,
-          password: password,
-        }
-      );
-      setDisableButtons(false);
-
-      if (result.data) {
-        dispatch(
-          setUserData({
-            userData: result.data.userData as User,
-            token: result.data.token,
-          })
-        );
-
-        if (navigateAfterLogin) {
-          navigate("/home");
-        }
-        onLogin && onLogin(); //for closing signup/login modal
+    setDisableButtons(true);
+    let signInRes = await dispatch(
+      signInUser({
+        userData: {
+          firstname,
+          lastname,
+          email,
+          username,
+          password,
+        },
+        action,
+      })
+    );
+    setDisableButtons(false);
+    if (signInRes.meta.requestStatus === "fulfilled") {
+      if (navigateAfterLogin) {
+        navigate("/home");
       }
-    } catch (error: any) {
-      setDisableButtons(false);
-      if (action === "login" && error.response.status === 401) {
-        setWrongCredentials(true);
-      } else if (action === "signup" && error.response.status === 409) {
-        window.alert("Failed to Sign Up.\nReason: " + error.response.data);
-      } else {
-        window.alert(
-          `Failed to ${action === "signup" ? "Sign Up" : "Log In"}.\nReason: ` +
-            error.message
-        );
-      }
+      onLogin && onLogin(); //for closing signup/login modal
     }
   };
+
   return (
     <div id="authentication-page">
       <img className="recipes-logo" src={RecipesLogo} alt=""></img>

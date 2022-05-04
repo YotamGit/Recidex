@@ -61,23 +61,33 @@ router.post("/user/delete", async (req, res, next) => {
   }
 });
 
-//CHANGE USER PRIVILEGES
-router.post("/user/privileges", async (req, res, next) => {
+//EDIT USER DETAILES
+router.post("/user/edit", async (req, res, next) => {
   try {
-    let isAdmin = await isAdminUser(req.headers.validatedToken);
-    if (isAdmin) {
-      let updatedUser = await User.findByIdAndUpdate(
-        { _id: userData.id },
-        { $set: { role: userData.role } }
-      );
+    let userToEdit = await User.findById(req.body.userData.id);
 
-      if (updatedUser) {
-        res.status(200).send(updatedUser);
+    if (userToEdit) {
+      let allowedToEdit = await isAllowedToEditUser(
+        req.headers.validatedToken,
+        userToEdit
+      );
+      if (allowedToEdit) {
+        let isAdmin = await isAdminUser(req.headers.validatedToken);
+        if (!isAdmin) {
+          delete req.body.userData.role;
+        }
+
+        let response = await User.updateOne(
+          { _id: req.body.userData.id },
+          { $set: req.body.userData }
+        );
+
+        res.status(200).send(response);
       } else {
-        res.status(404).send("User not found");
+        res.status(403).send("Missing privileges");
       }
     } else {
-      res.status(403).send("Missing privileges");
+      res.status(404).send("User not found");
     }
   } catch (err) {
     next(err);

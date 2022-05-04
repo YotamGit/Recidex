@@ -44,9 +44,9 @@ app.post("/api/recipes/delete/*", authenticateUser);
 app.post("/api/recipes/edit/*", authenticateUser);
 app.post("/api/recipes/edit/favorite/*", authenticateUser);
 
-app.post("/api/users/user/delete", authenticateUser);
-app.post("/api/users/user/privileges", authenticateUser);
 app.get("/api/users", authenticateUser);
+app.post("/api/users/user/delete", authenticateUser);
+app.post("/api/users/user/edit", authenticateUser);
 
 // Route middlewares
 app.use("/api/login", loginRoute);

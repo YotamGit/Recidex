@@ -6,6 +6,7 @@ import { AppDispatch, RootState } from "../store";
 interface UsersState {
   signedIn: boolean;
   attemptSignIn: boolean;
+  wrongCredentials: boolean;
   userId: string | undefined;
   firstname: string | undefined;
   lastname: string | undefined;
@@ -16,6 +17,7 @@ interface UsersState {
 const initialState: UsersState = {
   signedIn: false,
   attemptSignIn: false,
+  wrongCredentials: false,
   userId: undefined,
   firstname: undefined,
   lastname: undefined,
@@ -64,6 +66,7 @@ export const userPing = createAsyncThunk<
   {
     authenticated: boolean;
     userData: User;
+    token?: string;
   },
   {},
   AsyncThunkConfig
@@ -71,6 +74,51 @@ export const userPing = createAsyncThunk<
   try {
     let result = await axios.post("/api/login/ping", {});
     return result.data;
+  } catch (error: any) {
+    return thunkAPI.rejectWithValue({
+      statusCode: error?.response?.status,
+      data: error?.response?.data,
+      message: error.message,
+    });
+  }
+});
+
+interface signInUserProps {
+  userData: {
+    firstname: string;
+    lastname: string;
+    email: string;
+    username: string;
+    password: string;
+  };
+  action: string;
+}
+export const signInUser = createAsyncThunk<
+  {
+    userData: User;
+    token: string;
+  },
+  signInUserProps,
+  AsyncThunkConfig
+>("users/signInUser", async (props, thunkAPI) => {
+  try {
+    let result = await axios.post(
+      `/api/login${props.action === "signup" ? "/signup" : ""}`,
+      {
+        firstname:
+          props.action === "signup" ? props.userData.firstname : undefined,
+        lastname:
+          props.action === "signup" ? props.userData.lastname : undefined,
+        email: props.action === "signup" ? props.userData.email : undefined,
+        username: props.userData.username,
+        password: props.userData.password,
+      }
+    );
+    return {
+      userData: result.data.userData,
+      token: result.data.token,
+      action: props.action,
+    };
   } catch (error: any) {
     return thunkAPI.rejectWithValue({
       statusCode: error?.response?.status,
@@ -104,6 +152,36 @@ export const deleteUser = createAsyncThunk<
     (user: FullUser) => user._id !== props.userId
   );
 });
+interface EditUserProps {
+  id: string;
+  role: string;
+  username: string;
+  firstname: string;
+  lastname: string;
+  email: string;
+}
+export const editUser = createAsyncThunk<
+  FullUser[],
+  EditUserProps,
+  AsyncThunkConfig
+>("users/editUser", async (props, thunkAPI) => {
+  const state = thunkAPI.getState() as RootState;
+  try {
+    await axios.post(`/api/users/user/edit`, {
+      userData: props,
+    });
+  } catch (error: any) {
+    return thunkAPI.rejectWithValue({
+      statusCode: error?.response?.status,
+      data: error?.response?.data,
+      message: error.message,
+    });
+  }
+
+  return state.users.users.map((user: FullUser) =>
+    user._id === props.id ? { ...user, ...props } : user
+  );
+});
 
 const usersSlice = createSlice({
   name: "users",
@@ -116,7 +194,10 @@ const usersSlice = createSlice({
     setUsers(state, action: PayloadAction<FullUser[]>) {
       state.users = action.payload;
     },
-    setUserData(state, action: PayloadAction<{ userData: User; token: any }>) {
+    setUserData(
+      state,
+      action: PayloadAction<{ userData: User; token: string; action?: string }>
+    ) {
       state.userId = action.payload.userData.userId;
       state.firstname = action.payload.userData.firstname;
       state.lastname = action.payload.userData.lastname;
@@ -148,24 +229,58 @@ const usersSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(signInUser.pending, (state) => {
+        state.attemptSignIn = true;
+      })
+      .addCase(signInUser.fulfilled, (state, action) => {
+        state.attemptSignIn = false;
+        usersSlice.caseReducers.setUserData(state, action);
+      })
+      .addCase(signInUser.rejected, (state, action: PayloadAction<any>) => {
+        state.attemptSignIn = false;
+        if (
+          action.payload.action === "login" &&
+          action.payload.statusCode === 401
+        ) {
+          state.wrongCredentials = true;
+        } else if (
+          action.payload.action === "signup" &&
+          action.payload.statusCode === 409
+        ) {
+          window.alert("Failed to Sign Up.\nReason: " + action.payload.data);
+        } else {
+          window.alert(
+            `Failed to ${
+              action.payload.action === "signup" ? "Sign Up" : "Log In"
+            }.\nReason: ` + action.payload.message
+          );
+        }
+      })
       .addCase(userPing.pending, (state) => {
         state.attemptSignIn = true;
       })
       .addCase(userPing.fulfilled, (state, action) => {
         state.attemptSignIn = false;
-        state.signedIn = action.payload?.authenticated || false;
-        if (action.payload?.authenticated) {
-          state.firstname = action.payload.userData.firstname;
-          state.lastname = action.payload.userData.lastname;
-          state.userId = action.payload.userData.userId;
-          state.userRole = action.payload.userData.userRole;
-          localStorage.setItem("signedIn", String(state.signedIn));
-          localStorage.setItem("userRole", String(state.userRole));
+        if (action.payload?.token) {
+        } else {
+          state.signedIn = action.payload?.authenticated || false;
+          if (action.payload?.authenticated) {
+            state.firstname = action.payload.userData.firstname;
+            state.lastname = action.payload.userData.lastname;
+            state.userId = action.payload.userData.userId;
+            state.userRole = action.payload.userData.userRole;
+            localStorage.setItem("signedIn", String(state.signedIn));
+            localStorage.setItem("userRole", String(state.userRole));
+          }
         }
       })
       .addCase(userPing.rejected, (state, action: PayloadAction<any>) => {
         state.attemptSignIn = false;
-        state.signedIn = action.payload?.authenticated || false;
+        if (action.payload.statusCode !== 500) {
+          usersSlice.caseReducers.clearUserData(state);
+        } else {
+          state.signedIn = action.payload?.authenticated || false;
+        }
       })
       .addCase(deleteUser.fulfilled, (state, action) => {
         state.users = action.payload;
@@ -176,6 +291,21 @@ const usersSlice = createSlice({
         } else {
           window.alert(
             "Failed to delete user, Please Try Again.\nReason: " +
+              action.payload.message
+          );
+        }
+      })
+      .addCase(editUser.fulfilled, (state, action) => {
+        state.users = action.payload;
+      })
+      .addCase(editUser.rejected, (state, action: PayloadAction<any>) => {
+        if (action.payload.statusCode === 401) {
+          window.alert(
+            "Failed to Edit User in Database.\nReason: " + action.payload.data
+          );
+        } else {
+          window.alert(
+            "Failed to Edit User in Database, Please Try Again.\nReason: " +
               action.payload.message
           );
         }

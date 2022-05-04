@@ -102,6 +102,7 @@ router.post("/signup", async (req, res, next) => {
         firstname: newUser.firstname,
         lastname: newUser.lastname,
         userId: newUser._id,
+        userRole: newUser.role,
       },
     });
 

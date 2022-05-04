@@ -3,7 +3,7 @@ import "../../styles/admin/AdminPanel.css";
 import { useState, useEffect } from "react";
 
 import EnhancedTableHead from "./EnhancedTableHead";
-import DeleteUserButton from "./DeleteUserButton";
+import EditUserButton from "./EditUserButton";
 import AdminKpis from "./AdminKpis";
 
 //mui
@@ -24,28 +24,6 @@ import { useAppDispatch, useAppSelector } from "../../hooks";
 import { FC } from "react";
 import { FullUser } from "../../slices/usersSlice";
 type Order = "asc" | "desc";
-
-function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
-}
-
-function getComparator<Key extends keyof any>(
-  order: Order,
-  orderBy: Key
-): (
-  a: { [key in Key]: number | string },
-  b: { [key in Key]: number | string }
-) => number {
-  return order === "desc"
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
-}
 
 const AdminPanel: FC = () => {
   const dispatch = useAppDispatch();
@@ -79,6 +57,27 @@ const AdminPanel: FC = () => {
     setOrderBy(property);
   };
 
+  function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
+    if (b[orderBy] < a[orderBy]) {
+      return -1;
+    }
+    if (b[orderBy] > a[orderBy]) {
+      return 1;
+    }
+    return 0;
+  }
+
+  function getComparator<Key extends keyof any>(
+    order: Order,
+    orderBy: Key
+  ): (
+    a: { [key in Key]: number | string },
+    b: { [key in Key]: number | string }
+  ) => number {
+    return order === "desc"
+      ? (a, b) => descendingComparator(a, b, orderBy)
+      : (a, b) => -descendingComparator(a, b, orderBy);
+  }
   const handleClick = (event: React.MouseEvent<unknown>, _id: string) => {
     const selectedIndex = selected.indexOf(_id);
     let newSelected: readonly string[] = [];
@@ -179,21 +178,21 @@ const AdminPanel: FC = () => {
                     </TableCell>
                     <TableCell align="center">{row.last_sign_in}</TableCell>
                     <TableCell align="center">
-                      <DeleteUserButton userId={row._id} />
+                      <EditUserButton user={row} />
                     </TableCell>
                   </TableRow>
                 );
               })}
             {emptyRows > 0 && (
               <TableRow>
-                <TableCell colSpan={6} />
+                <TableCell colSpan={10} />
               </TableRow>
             )}
           </TableBody>
         </Table>
       </TableContainer>
       <TablePagination
-        rowsPerPageOptions={[5, 10, 25, 50, users.length]}
+        rowsPerPageOptions={[5, 10, 25, users.length].sort((a, b) => a - b)}
         component="div"
         count={users.length}
         rowsPerPage={rowsPerPage}
