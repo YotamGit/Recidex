@@ -19,8 +19,8 @@ export function validPassword(password: string) {
   return res;
 }
 
-export function validEmail(email: string) {
-  let res = EmailValidator.validate(email);
+export async function validEmail(email: string) {
+  let res = await EmailValidator.validate(email);
   if (!res) {
     window.alert("Invalid Email");
   }

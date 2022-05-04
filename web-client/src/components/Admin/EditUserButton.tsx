@@ -42,7 +42,7 @@ const EditUserButton: FC<propTypes> = ({ user }) => {
   const [lastname, setLastname] = useState(user.lastname);
   const [email, setEmail] = useState(user.email);
 
-  const validateInput = () => {
+  const validateInput = async () => {
     //check existance of required fields
     if (
       firstname === "" ||
@@ -58,7 +58,7 @@ const EditUserButton: FC<propTypes> = ({ user }) => {
       return false;
     }
 
-    if (!validEmail(email)) {
+    if (!(await validEmail(email))) {
       return false;
     }
   };
@@ -69,7 +69,6 @@ const EditUserButton: FC<propTypes> = ({ user }) => {
       if (!validateInput()) {
         return;
       }
-
       let editRes = await dispatch(
         editUser({ id: user._id, role, username, firstname, lastname, email })
       );
