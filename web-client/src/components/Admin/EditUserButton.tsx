@@ -66,7 +66,8 @@ const EditUserButton: FC<propTypes> = ({ user }) => {
   const onEditUser = async () => {
     let editChoice = window.confirm("Save changes to user?");
     if (editChoice) {
-      if (!validateInput()) {
+      let isValidInputs = await validateInput();
+      if (!isValidInputs) {
         return;
       }
       let editRes = await dispatch(
