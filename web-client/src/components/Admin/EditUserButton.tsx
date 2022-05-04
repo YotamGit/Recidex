@@ -2,8 +2,8 @@ import { useState } from "react";
 import "../../styles/admin/EditUserButton.css";
 
 import DialogCloseButton from "../buttons/DialogCloseButton";
-
 import DeleteUserButton from "./DeleteUserButton";
+import { validUsername, validEmail } from "../../utils-module/validation";
 
 //mui
 import Button from "@mui/material/Button";
@@ -42,13 +42,40 @@ const EditUserButton: FC<propTypes> = ({ user }) => {
   const [lastname, setLastname] = useState(user.lastname);
   const [email, setEmail] = useState(user.email);
 
+  const validateInput = () => {
+    //check existance of required fields
+    if (
+      firstname === "" ||
+      lastname === "" ||
+      email === "" ||
+      username === ""
+    ) {
+      window.alert("Please fill all of the fields.");
+      return false;
+    }
+
+    if (!validUsername(username)) {
+      return false;
+    }
+
+    if (!validEmail(email)) {
+      return false;
+    }
+  };
+
   const onEditUser = async () => {
     let editChoice = window.confirm("Save changes to user?");
     if (editChoice) {
-      await dispatch(
+      if (!validateInput()) {
+        return;
+      }
+
+      let editRes = await dispatch(
         editUser({ id: user._id, role, username, firstname, lastname, email })
       );
-      handleClose();
+      if (editRes.meta.requestStatus === "fulfilled") {
+        handleClose();
+      }
     }
   };
   return (

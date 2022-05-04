@@ -7,6 +7,8 @@ import {
   isAdminUser,
   isModeratorUser,
   isAllowedToEditUser,
+  isEmailTaken,
+  isUsernameTaken,
 } from "../utils-module/authentication.js";
 
 // Routes
@@ -80,6 +82,20 @@ router.post("/user/edit", async (req, res, next) => {
           delete req.body.userData.role;
         }
 
+        if (userToEdit.username !== req.body.userData.username) {
+          let usernameTaken = await isUsernameTaken(req.body.userData.username);
+          if (usernameTaken) {
+            res.status(409).send("Username already exists.");
+            return;
+          }
+        }
+        if (userToEdit.email !== req.body.userData.email) {
+          let emailTaken = await isEmailTaken(req.body.userData.email);
+          if (emailTaken) {
+            res.status(409).send("Email already exists");
+            return;
+          }
+        }
         let response = await User.updateOne(
           { _id: req.body.userData.id },
           { $set: req.body.userData }

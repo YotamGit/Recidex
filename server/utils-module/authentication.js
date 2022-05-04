@@ -63,3 +63,19 @@ export async function isAllowedToEditUser(validatedToken, edited) {
 
   return editor.role === "admin" ? true : editorRole < editedRole;
 }
+
+//check if an email already exists in the db
+export async function isEmailTaken(email) {
+  let user = await User.findOne({
+    email: { $eq: email },
+  });
+  return user ? true : false;
+}
+
+//check if an username already exists in the db
+export async function isUsernameTaken(username) {
+  let user = await User.findOne({
+    username: { $eq: username },
+  });
+  return user ? true : false;
+}

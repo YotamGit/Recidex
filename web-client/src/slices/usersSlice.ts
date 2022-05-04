@@ -345,7 +345,7 @@ const usersSlice = createSlice({
         state.users = action.payload;
       })
       .addCase(editUser.rejected, (state, action: PayloadAction<any>) => {
-        if ([403, 404].includes(action.payload.statusCode)) {
+        if ([403, 404, 409].includes(action.payload.statusCode)) {
           window.alert(
             "Failed to Edit User in Database.\nReason: " + action.payload.data
           );

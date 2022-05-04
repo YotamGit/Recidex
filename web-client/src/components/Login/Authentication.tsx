@@ -96,16 +96,10 @@ const Authentication: FC<propTypes> = ({
     }
 
     if (!validUsername(username)) {
-      window.alert(
-        "Invalid Username. \nUsername must be at least 6 characters long."
-      );
       return false;
     }
 
     if (!validPassword(password)) {
-      window.alert(
-        "Invalid Password. \nPassword must be between 6 and 16 characters long."
-      );
       return false;
     }
 

@@ -7,6 +7,8 @@ import bcrypt from "bcryptjs";
 import {
   generateToken,
   validateToken,
+  isEmailTaken,
+  isUsernameTaken,
 } from "../utils-module/authentication.js";
 
 // Routes
@@ -88,18 +90,13 @@ router.post("/ping", async (req, res, next) => {
 // sign up a user and then send back a jwt
 router.post("/signup", async (req, res, next) => {
   try {
-    let usernameAlreadyExists = await User.findOne({
-      username: { $eq: req.body.username },
-    });
-    if (usernameAlreadyExists) {
+    let usernameTaken = await isUsernameTaken(req.body.username);
+    if (usernameTaken) {
       res.status(409).send("The User already exists. Try a different Username");
       return;
     }
-
-    let emailAlreadyExists = await User.findOne({
-      email: { $eq: req.body.email },
-    });
-    if (emailAlreadyExists) {
+    let emailTaken = await isEmailTaken(req.body.email);
+    if (emailTaken) {
       res.status(409).send("Email has already been taken. Try a different one");
       return;
     }
