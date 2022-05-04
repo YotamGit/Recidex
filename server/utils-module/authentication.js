@@ -60,5 +60,6 @@ export async function isAllowedToEditUser(validatedToken, edited) {
   let editor = await User.findById(validatedToken.userId);
   let editorRole = roles.indexOf(editor.role);
   let editedRole = roles.indexOf(edited.role);
-  return editorRole === "admin" ? true : editorRole < editedRole;
+
+  return editor.role === "admin" ? true : editorRole < editedRole;
 }
