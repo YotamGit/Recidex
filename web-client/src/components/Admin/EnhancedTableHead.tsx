@@ -86,7 +86,6 @@ const EnhancedTableHead: FC<EnhancedTableProps> = ({
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding="checkbox"></TableCell>
         {headCells.map((headCell) => (
           <TableCell
             align="center"
