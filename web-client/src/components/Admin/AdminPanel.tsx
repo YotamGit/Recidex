@@ -17,7 +17,7 @@ import TableRow from "@mui/material/TableRow";
 import Checkbox from "@mui/material/Checkbox";
 
 //redux
-import { setUsers } from "../../slices/usersSlice";
+import { getUsers } from "../../slices/usersSlice";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 
 //types
@@ -37,15 +37,7 @@ const AdminPanel: FC = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
   useEffect(() => {
-    const getUsers = async () => {
-      try {
-        let res = await axios.get("/api/users", {});
-        dispatch(setUsers(res.data));
-      } catch (error: any) {
-        window.alert("Failed to fetch users.\nReason: " + error.message);
-      }
-    };
-    getUsers();
+    dispatch(getUsers({}));
   }, []);
 
   const handleRequestSort = (

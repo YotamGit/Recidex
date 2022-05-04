@@ -71,7 +71,10 @@ router.post("/user/edit", async (req, res, next) => {
         req.headers.validatedToken,
         userToEdit
       );
-      if (allowedToEdit) {
+      if (
+        allowedToEdit ||
+        userToEdit._id === req.headers.validatedToken.userId
+      ) {
         let isAdmin = await isAdminUser(req.headers.validatedToken);
         if (!isAdmin) {
           delete req.body.userData.role;

@@ -56,6 +56,23 @@ router.post("/ping", async (req, res, next) => {
   try {
     let validatedToken = validateToken(req.cookies.userToken);
     if (validatedToken) {
+      let user = await User.findById(validatedToken.userId);
+      if (
+        validatedToken.userRole !== user.role ||
+        validatedToken.lastname !== user.lastname ||
+        validatedToken.firstname !== user.firstname
+      ) {
+        res.status(409).json({
+          token: generateToken(user),
+          userData: {
+            firstname: user.firstname,
+            lastname: user.lastname,
+            userId: user._id,
+            userRole: user.role,
+          },
+        });
+      }
+
       res.status(200).json({
         authenticated: true,
         userData: validatedToken,

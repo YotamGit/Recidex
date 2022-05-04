@@ -48,6 +48,7 @@ const EditUserButton: FC<propTypes> = ({ user }) => {
       await dispatch(
         editUser({ id: user._id, role, username, firstname, lastname, email })
       );
+      handleClose();
     }
   };
   return (

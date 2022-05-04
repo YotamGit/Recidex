@@ -72,7 +72,7 @@ export const userPing = createAsyncThunk<
   AsyncThunkConfig
 >("users/userPing", async (props, thunkAPI) => {
   try {
-    let result = await axios.post("/api/login/ping", {});
+    let result = await axios.post("/api/login/ping");
     return result.data;
   } catch (error: any) {
     return thunkAPI.rejectWithValue({
@@ -183,6 +183,23 @@ export const editUser = createAsyncThunk<
   );
 });
 
+export const getUsers = createAsyncThunk<FullUser[], {}, AsyncThunkConfig>(
+  "users/getUsers",
+  async (props, thunkAPI) => {
+    const state = thunkAPI.getState() as RootState;
+    try {
+      let res = await axios.get("/api/users");
+      return res.data;
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue({
+        statusCode: error?.response?.status,
+        data: error?.response?.data,
+        message: error.message,
+      });
+    }
+  }
+);
+
 const usersSlice = createSlice({
   name: "users",
   initialState,
@@ -190,9 +207,6 @@ const usersSlice = createSlice({
     setAttemptSignIn(state, action: PayloadAction<boolean>) {
       const attemptSignIn = action.payload;
       state.attemptSignIn = attemptSignIn;
-    },
-    setUsers(state, action: PayloadAction<FullUser[]>) {
-      state.users = action.payload;
     },
     setUserData(
       state,
@@ -229,6 +243,20 @@ const usersSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(getUsers.fulfilled, (state, action) => {
+        state.users = action.payload;
+      })
+      .addCase(getUsers.rejected, (state, action: PayloadAction<any>) => {
+        if (action.payload.statusCode === 403) {
+          window.alert(
+            "Failed to fetch users.\nReason: " + action.payload.data
+          );
+        } else {
+          window.alert(
+            "Failed to fetch users.\nReason: " + action.payload.message
+          );
+        }
+      })
       .addCase(signInUser.pending, (state) => {
         state.attemptSignIn = true;
       })
@@ -276,10 +304,28 @@ const usersSlice = createSlice({
       })
       .addCase(userPing.rejected, (state, action: PayloadAction<any>) => {
         state.attemptSignIn = false;
-        if (action.payload.statusCode !== 500) {
+        if (action.payload.statusCode === 409) {
           usersSlice.caseReducers.clearUserData(state);
-        } else {
-          state.signedIn = action.payload?.authenticated || false;
+          //this is copy pasted from setUserData becuase i could not
+          //find a way to use it from here since the action is of rejected type
+          state.userId = action.payload.data.userData.userId;
+          state.firstname = action.payload.data.userData.firstname;
+          state.lastname = action.payload.data.userData.lastname;
+          state.userRole = action.payload.data.userData.userRole;
+          state.signedIn = true;
+
+          let expiration_date = new Date();
+          expiration_date.setFullYear(expiration_date.getFullYear() + 2);
+          const cookies = new Cookies();
+          cookies.set("userToken", action.payload.data.token, {
+            path: "/",
+            expires: expiration_date,
+            sameSite: "strict",
+          });
+          localStorage.setItem("signedIn", String(state.signedIn));
+          localStorage.setItem("userRole", state.userRole || "guest");
+        } else if (action.payload.statusCode === 401) {
+          usersSlice.caseReducers.clearUserData(state);
         }
       })
       .addCase(deleteUser.fulfilled, (state, action) => {
@@ -299,7 +345,7 @@ const usersSlice = createSlice({
         state.users = action.payload;
       })
       .addCase(editUser.rejected, (state, action: PayloadAction<any>) => {
-        if (action.payload.statusCode === 401) {
+        if ([403, 404].includes(action.payload.statusCode)) {
           window.alert(
             "Failed to Edit User in Database.\nReason: " + action.payload.data
           );
@@ -313,7 +359,7 @@ const usersSlice = createSlice({
   },
 });
 
-export const { setAttemptSignIn, setUsers, setUserData, clearUserData } =
+export const { setAttemptSignIn, setUserData, clearUserData } =
   usersSlice.actions;
 
 export default usersSlice.reducer;
