@@ -4,6 +4,10 @@ import TableSortLabel from "@mui/material/TableSortLabel";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import Box from "@mui/material/Box";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import IconButton from "@mui/material/IconButton";
+
 //mui utils
 import { visuallyHidden } from "@mui/utils";
 
@@ -30,39 +34,11 @@ const headCells: readonly HeadCell[] = [
     id: "username",
     label: "Username",
   },
-  {
-    id: "firstname",
-    label: "First Name",
-  },
-  {
-    id: "lastname",
-    label: "Last Name",
-  },
-  {
-    id: "email",
-    label: "Email",
-  },
-  {
-    id: "registration_date",
-    label: "Registration Date",
-  },
-  {
-    id: "last_sign_in",
-    label: "Last Sign In",
-  },
 ];
 
 interface EnhancedTableProps {
-  numSelected: number;
-  onRequestSort: (
-    event: React.MouseEvent<unknown>,
-    property: keyof FullUser
-  ) => void;
-  order: Order;
-  orderBy: string;
-  rowCount: number;
-}
-interface EnhancedTableProps {
+  setExpandTable: Function;
+  expandTable: boolean;
   numSelected: number;
   onRequestSort: (
     event: React.MouseEvent<unknown>,
@@ -74,6 +50,8 @@ interface EnhancedTableProps {
 }
 
 const EnhancedTableHead: FC<EnhancedTableProps> = ({
+  expandTable,
+  setExpandTable,
   order,
   orderBy,
   onRequestSort,
@@ -86,6 +64,15 @@ const EnhancedTableHead: FC<EnhancedTableProps> = ({
   return (
     <TableHead>
       <TableRow>
+        <TableCell>
+          <IconButton
+            aria-label="expand row"
+            size="small"
+            onClick={() => setExpandTable(!expandTable)}
+          >
+            {expandTable ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+          </IconButton>
+        </TableCell>
         {headCells.map((headCell) => (
           <TableCell
             align="center"
@@ -106,7 +93,6 @@ const EnhancedTableHead: FC<EnhancedTableProps> = ({
             </TableSortLabel>
           </TableCell>
         ))}
-        <TableCell padding="checkbox"></TableCell>
       </TableRow>
     </TableHead>
   );
