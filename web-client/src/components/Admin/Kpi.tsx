@@ -10,8 +10,8 @@ interface propTypes {
 const Kpi: FC<propTypes> = ({ title, body }) => {
   return (
     <div className="kpi">
-      <div className="kpi-title">{title}</div>
       <div className="kpi-body">{body}</div>
+      <div className="kpi-title">{title}</div>
     </div>
   );
 };
