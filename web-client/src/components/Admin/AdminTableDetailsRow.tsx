@@ -14,6 +14,7 @@ import Typography from "@mui/material/Typography";
 //types
 import { FC } from "react";
 import { FullUser } from "../../slices/usersSlice";
+import { Divider } from "@mui/material";
 
 interface propTypes {
   row: FullUser;

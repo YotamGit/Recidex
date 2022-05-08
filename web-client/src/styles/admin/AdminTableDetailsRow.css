@@ -2,3 +2,7 @@
   display: flex !important;
   justify-content: center;
 }
+
+.details-row-table td {
+  border-color: #959595;
+}
