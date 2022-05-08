@@ -2,6 +2,7 @@ import "../../styles/admin/AdminTableRow.css";
 import { useState, useEffect } from "react";
 
 import AdminTableDetailsRow from "./AdminTableDetailsRow";
+import EditUserButton from "./EditUserButton";
 
 //mui
 import IconButton from "@mui/material/IconButton";
@@ -42,7 +43,9 @@ const AdminTableRow: FC<propTypes> = ({ row, index, expand, minimalTable }) => {
         // }
       >
         {minimalTable && (
-          <TableCell>
+          <TableCell
+            sx={{ width: "fit-content", paddingLeft: 0, paddingRight: 0 }}
+          >
             <IconButton
               aria-label="expand row"
               size="small"
@@ -70,10 +73,13 @@ const AdminTableRow: FC<propTypes> = ({ row, index, expand, minimalTable }) => {
             <TableCell align="center">{row.email}</TableCell>
             <TableCell align="center">{row.registration_date}</TableCell>
             <TableCell align="center">{row.last_sign_in}</TableCell>
+            <TableCell align="center">
+              <EditUserButton user={row} />
+            </TableCell>
           </>
         )}
       </TableRow>
-      <AdminTableDetailsRow row={row} open={open} />
+      {minimalTable && <AdminTableDetailsRow row={row} open={open} />}
     </>
   );
 };

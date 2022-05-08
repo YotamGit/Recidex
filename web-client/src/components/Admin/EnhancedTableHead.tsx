@@ -102,7 +102,9 @@ const EnhancedTableHead: FC<EnhancedTableProps> = ({
     <TableHead>
       <TableRow>
         {minimalTable && (
-          <TableCell>
+          <TableCell
+            sx={{ width: "fit-content", paddingLeft: 0, paddingRight: 0 }}
+          >
             <IconButton
               aria-label="expand row"
               size="small"
@@ -140,6 +142,7 @@ const EnhancedTableHead: FC<EnhancedTableProps> = ({
             </TableCell>
           )
         )}
+        {!minimalTable && <TableCell padding="checkbox"></TableCell>}
       </TableRow>
     </TableHead>
   );

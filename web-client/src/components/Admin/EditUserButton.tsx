@@ -83,7 +83,7 @@ const EditUserButton: FC<propTypes> = ({ user }) => {
     <>
       <Button
         variant="contained"
-        style={{ backgroundColor: "rgb(4, 125, 198)" }}
+        style={{ backgroundColor: "rgb(4, 125, 198)", margin: "5px" }}
         onClick={handleOpen}
       >
         Edit

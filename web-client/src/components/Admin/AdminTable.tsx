@@ -36,7 +36,7 @@ const AdminTable: FC = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
   useEffect(() => {
-    setMinimalTable(fullscreen || false);
+    setMinimalTable(!fullscreen || false);
   }, [fullscreen]);
 
   const handleRequestSort = (
@@ -89,9 +89,9 @@ const AdminTable: FC = () => {
       <TableContainer className="table-container">
         <Table
           stickyHeader
-          style={{ minWidth: 750 }}
           aria-labelledby="tableTitle"
-          size={!fullscreen ? "small" : "medium"}
+          // size={!fullscreen ? "small" : "medium"}
+          padding="none"
         >
           <EnhancedTableHead
             expandTable={expandTable}

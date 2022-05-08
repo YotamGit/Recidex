@@ -1,3 +1,4 @@
+import "../../styles/admin/AdminTableDetailsRow.css";
 import EditUserButton from "./EditUserButton";
 
 //mui
@@ -28,27 +29,46 @@ const AdminTableDetailsRow: FC<propTypes> = ({ row, open }) => {
             <Typography variant="h6" gutterBottom component="div">
               Details
             </Typography>
-            <Table size="small" aria-label="user-details">
-              <TableHead>
-                <TableRow>
-                  <TableCell align="center">First Name</TableCell>
-                  <TableCell align="center">Last Name</TableCell>
-                  <TableCell align="center">Email</TableCell>
-                  <TableCell align="center">Registration Date</TableCell>
-                  <TableCell align="center">Last Sign In</TableCell>
-                </TableRow>
-              </TableHead>
+            <Table
+              className="details-row-table"
+              size="small"
+              aria-label="user-details"
+            >
               <TableBody>
                 <TableRow>
-                  <TableCell align="center">{row.firstname}</TableCell>
-                  <TableCell align="center">{row.lastname}</TableCell>
-                  <TableCell align="center">{row.email}</TableCell>
-                  <TableCell align="center">{row.registration_date}</TableCell>
-                  <TableCell align="center">{row.last_sign_in}</TableCell>
+                  <TableRow>
+                    <TableCell align="left">First Name</TableCell>
+                    <TableCell align="left">{row.firstname}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell align="left">Last Name</TableCell>
+                    <TableCell align="left">{row.lastname}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell align="left">Email</TableCell>
+                    <TableCell align="left">{row.email}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell align="left">Registration Date</TableCell>
+                    <TableCell align="left">{row.registration_date}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell align="left">Last Sign In</TableCell>
+                    <TableCell align="left">{row.last_sign_in}</TableCell>
+                  </TableRow>
                 </TableRow>
               </TableBody>
             </Table>
-            <EditUserButton user={row} />
+            <div
+              style={{
+                padding: "10px",
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <EditUserButton user={row} />
+            </div>
           </Box>
         </Collapse>
       </TableCell>
