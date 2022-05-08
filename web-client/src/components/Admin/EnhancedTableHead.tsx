@@ -21,7 +21,7 @@ interface HeadCell {
   label: string;
 }
 
-const headCells: readonly HeadCell[] = [
+const minimalHeadCells: readonly HeadCell[] = [
   {
     id: "_id",
     label: "_id",
@@ -36,9 +36,45 @@ const headCells: readonly HeadCell[] = [
   },
 ];
 
+const maximalHeadCells: readonly HeadCell[] = [
+  {
+    id: "_id",
+    label: "_id",
+  },
+  {
+    id: "role",
+    label: "Role",
+  },
+  {
+    id: "username",
+    label: "Username",
+  },
+  {
+    id: "firstname",
+    label: "First Name",
+  },
+  {
+    id: "lastname",
+    label: "Last Name",
+  },
+  {
+    id: "email",
+    label: "Email",
+  },
+  {
+    id: "registration_date",
+    label: "Registration Date",
+  },
+  {
+    id: "last_sign_in",
+    label: "Last Sign In",
+  },
+];
+
 interface EnhancedTableProps {
   setExpandTable: Function;
   expandTable: boolean;
+  minimalTable: boolean;
   numSelected: number;
   onRequestSort: (
     event: React.MouseEvent<unknown>,
@@ -52,6 +88,7 @@ interface EnhancedTableProps {
 const EnhancedTableHead: FC<EnhancedTableProps> = ({
   expandTable,
   setExpandTable,
+  minimalTable,
   order,
   orderBy,
   onRequestSort,
@@ -64,35 +101,45 @@ const EnhancedTableHead: FC<EnhancedTableProps> = ({
   return (
     <TableHead>
       <TableRow>
-        <TableCell>
-          <IconButton
-            aria-label="expand row"
-            size="small"
-            onClick={() => setExpandTable(!expandTable)}
-          >
-            {expandTable ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-          </IconButton>
-        </TableCell>
-        {headCells.map((headCell) => (
-          <TableCell
-            align="center"
-            key={headCell.id}
-            sortDirection={orderBy === headCell.id ? order : false}
-          >
-            <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : "asc"}
-              onClick={createSortHandler(headCell.id)}
+        {minimalTable && (
+          <TableCell>
+            <IconButton
+              aria-label="expand row"
+              size="small"
+              onClick={() => setExpandTable(!expandTable)}
             >
-              {headCell.label}
-              {orderBy === headCell.id ? (
-                <Box component="span" sx={visuallyHidden}>
-                  {order === "desc" ? "sorted descending" : "sorted ascending"}
-                </Box>
-              ) : null}
-            </TableSortLabel>
+              {expandTable ? (
+                <KeyboardArrowUpIcon />
+              ) : (
+                <KeyboardArrowDownIcon />
+              )}
+            </IconButton>
           </TableCell>
-        ))}
+        )}
+        {(minimalTable ? minimalHeadCells : maximalHeadCells).map(
+          (headCell) => (
+            <TableCell
+              align="center"
+              key={headCell.id}
+              sortDirection={orderBy === headCell.id ? order : false}
+            >
+              <TableSortLabel
+                active={orderBy === headCell.id}
+                direction={orderBy === headCell.id ? order : "asc"}
+                onClick={createSortHandler(headCell.id)}
+              >
+                {headCell.label}
+                {orderBy === headCell.id ? (
+                  <Box component="span" sx={visuallyHidden}>
+                    {order === "desc"
+                      ? "sorted descending"
+                      : "sorted ascending"}
+                  </Box>
+                ) : null}
+              </TableSortLabel>
+            </TableCell>
+          )
+        )}
       </TableRow>
     </TableHead>
   );

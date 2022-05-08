@@ -1,15 +1,17 @@
 import "../../styles/admin/AdminTable.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import EnhancedTableHead from "./EnhancedTableHead";
-import EditUserButton from "./EditUserButton";
 
 //mui
 import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
+import TableBody from "@mui/material/TableBody";
 import TablePagination from "@mui/material/TablePagination";
-import TableRow from "@mui/material/TableRow";
+import Switch from "@mui/material/Switch";
+
+//mui icons
+import PhoneAndroidRoundedIcon from "@mui/icons-material/PhoneAndroidRounded";
+import DesktopWindowsRoundedIcon from "@mui/icons-material/DesktopWindowsRounded";
 
 //redux
 import { useAppSelector } from "../../hooks";
@@ -25,12 +27,17 @@ const AdminTable: FC = () => {
   const fullscreen = useAppSelector((state) => state.utilities.fullscreen);
 
   const [expandTable, setExpandTable] = useState(false);
+  const [minimalTable, setMinimalTable] = useState(false);
 
   const [order, setOrder] = useState<Order>("asc");
   const [orderBy, setOrderBy] = useState<keyof FullUser>("role");
   const [selected, setSelected] = useState<readonly string[]>([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+
+  useEffect(() => {
+    setMinimalTable(fullscreen || false);
+  }, [fullscreen]);
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
@@ -78,7 +85,7 @@ const AdminTable: FC = () => {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - users.length) : 0;
   return (
-    <>
+    <div className="admin-table">
       <TableContainer className="table-container">
         <Table
           stickyHeader
@@ -89,6 +96,7 @@ const AdminTable: FC = () => {
           <EnhancedTableHead
             expandTable={expandTable}
             setExpandTable={setExpandTable}
+            minimalTable={minimalTable}
             numSelected={selected.length}
             order={order}
             orderBy={orderBy}
@@ -105,6 +113,7 @@ const AdminTable: FC = () => {
                   <AdminTableRow
                     key={row._id}
                     expand={expandTable}
+                    minimalTable={minimalTable}
                     row={row}
                     index={index}
                   />
@@ -113,16 +122,35 @@ const AdminTable: FC = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[5, 10, 25, users.length].sort((a, b) => a - b)}
-        component="div"
-        count={users.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
-    </>
+      <div className="pagination-row">
+        <Switch
+          checked={minimalTable}
+          onChange={(e) => setMinimalTable(e.currentTarget.checked)}
+          inputProps={{ "aria-label": "controlled" }}
+          icon={
+            <DesktopWindowsRoundedIcon
+              className="switch-icon"
+              style={{ color: "rgb(25,118,210)" }}
+            />
+          }
+          checkedIcon={
+            <PhoneAndroidRoundedIcon
+              className="switch-icon"
+              style={{ color: "rgb(25,118,210)" }}
+            />
+          }
+        />
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25, users.length].sort((a, b) => a - b)}
+          component="div"
+          count={users.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+      </div>
+    </div>
   );
 };
 
