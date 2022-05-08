@@ -18,11 +18,19 @@ import { FullUser } from "../../slices/usersSlice";
 interface propTypes {
   row: FullUser;
   open: boolean;
+  index: number;
 }
 
-const AdminTableDetailsRow: FC<propTypes> = ({ row, open }) => {
+const AdminTableDetailsRow: FC<propTypes> = ({ row, open, index }) => {
   return (
-    <TableRow className="admin-table-details-row">
+    <TableRow
+      className="admin-table-details-row"
+      style={
+        index % 2
+          ? { background: "rgb(224, 224, 224)" }
+          : { background: "white" }
+      }
+    >
       <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
         <Collapse in={open} timeout="auto" unmountOnExit>
           <Box sx={{ margin: 1 }}>

@@ -94,7 +94,9 @@ const AdminTableRow: FC<propTypes> = ({ row, index, expand, minimalTable }) => {
           </>
         )}
       </TableRow>
-      {minimalTable && <AdminTableDetailsRow row={row} open={open} />}
+      {minimalTable && (
+        <AdminTableDetailsRow row={row} open={open} index={index} />
+      )}
     </>
   );
 };
