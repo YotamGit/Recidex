@@ -44,26 +44,24 @@ const AdminTableDetailsRow: FC<propTypes> = ({ row, open, index }) => {
             >
               <TableBody>
                 <TableRow>
-                  <TableRow>
-                    <TableCell align="left">First Name</TableCell>
-                    <TableCell align="left">{row.firstname}</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell align="left">Last Name</TableCell>
-                    <TableCell align="left">{row.lastname}</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell align="left">Email</TableCell>
-                    <TableCell align="left">{row.email}</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell align="left">Registration Date</TableCell>
-                    <TableCell align="left">{row.registration_date}</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell align="left">Last Sign In</TableCell>
-                    <TableCell align="left">{row.last_sign_in}</TableCell>
-                  </TableRow>
+                  <TableCell align="left">First Name</TableCell>
+                  <TableCell align="left">{row.firstname}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell align="left">Last Name</TableCell>
+                  <TableCell align="left">{row.lastname}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell align="left">Email</TableCell>
+                  <TableCell align="left">{row.email}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell align="left">Registration Date</TableCell>
+                  <TableCell align="left">{row.registration_date}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell align="left">Last Sign In</TableCell>
+                  <TableCell align="left">{row.last_sign_in}</TableCell>
                 </TableRow>
               </TableBody>
             </Table>
