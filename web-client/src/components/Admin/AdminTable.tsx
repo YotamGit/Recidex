@@ -90,7 +90,7 @@ const AdminTable: FC = () => {
         <Table
           stickyHeader
           aria-labelledby="tableTitle"
-          // size={!fullscreen ? "small" : "medium"}
+          size={!fullscreen ? "small" : "medium"}
           padding="none"
         >
           <EnhancedTableHead

@@ -1,3 +1,8 @@
-.admin-table-row:hover{
-  background-color:rgba(8, 211, 8, 0.445) !important;
+.admin-table-row:hover {
+  background-color: rgba(8, 211, 8, 0.445) !important;
+}
+
+.admin-table-row .table-cell {
+  padding-left: 5px;
+  padding-right: 5px;
 }

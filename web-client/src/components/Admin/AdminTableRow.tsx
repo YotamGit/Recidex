@@ -36,11 +36,11 @@ const AdminTableRow: FC<propTypes> = ({ row, index, expand, minimalTable }) => {
         sx={{ "& > *": { borderBottom: "unset" } }}
         className="admin-table-row"
         hover
-        // style={
-        //   index % 2
-        //     ? { background: "rgb(224, 224, 224)" }
-        //     : { background: "white" }
-        // }
+        style={
+          index % 2
+            ? { background: "rgb(224, 224, 224)" }
+            : { background: "white" }
+        }
       >
         {minimalTable && (
           <TableCell
@@ -56,6 +56,7 @@ const AdminTableRow: FC<propTypes> = ({ row, index, expand, minimalTable }) => {
           </TableCell>
         )}
         <TableCell
+          className="table-cell"
           align="center"
           component="th"
           id={labelId}
@@ -64,16 +65,30 @@ const AdminTableRow: FC<propTypes> = ({ row, index, expand, minimalTable }) => {
         >
           {row._id}
         </TableCell>
-        <TableCell align="center">{row.role}</TableCell>
-        <TableCell align="center">{row.username}</TableCell>
+        <TableCell className="table-cell" align="center">
+          {row.role}
+        </TableCell>
+        <TableCell className="table-cell" align="center">
+          {row.username}
+        </TableCell>
         {!minimalTable && (
           <>
-            <TableCell align="center">{row.firstname}</TableCell>
-            <TableCell align="center">{row.lastname}</TableCell>
-            <TableCell align="center">{row.email}</TableCell>
-            <TableCell align="center">{row.registration_date}</TableCell>
-            <TableCell align="center">{row.last_sign_in}</TableCell>
-            <TableCell align="center">
+            <TableCell className="table-cell" align="center">
+              {row.firstname}
+            </TableCell>
+            <TableCell className="table-cell" align="center">
+              {row.lastname}
+            </TableCell>
+            <TableCell className="table-cell" align="center">
+              {row.email}
+            </TableCell>
+            <TableCell className="table-cell" align="center">
+              {row.registration_date}
+            </TableCell>
+            <TableCell className="table-cell" align="center">
+              {row.last_sign_in}
+            </TableCell>
+            <TableCell className="table-cell" align="center">
               <EditUserButton user={row} />
             </TableCell>
           </>
