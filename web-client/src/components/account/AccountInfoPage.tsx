@@ -1,24 +1,22 @@
 import { useEffect, useState } from "react";
 import "../../styles/account/AccountInfoPage.css";
+import UserEditInfoSection from "./UserEditInfoSection";
+
 //redux
-import { getUsers } from "../../slices/usersSlice";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 
 //types
-import { FullUser } from "../../slices/usersSlice";
 import { FC } from "react";
 
 const AccountInfoPage: FC = () => {
   const dispatch = useAppDispatch();
+  const userData = useAppSelector((state) => state.users.userData);
 
-  const userId = useAppSelector((state) => state.users.userData._id);
-  const [user, setUser] = useState<FullUser>();
-
-  useEffect(() => {
-    // dispatch(getUsers({}));
-  }, []);
-
-  return <div>{userId}</div>;
+  return (
+    <div>
+      <UserEditInfoSection userData={userData} />
+    </div>
+  );
 };
 
 export default AccountInfoPage;
