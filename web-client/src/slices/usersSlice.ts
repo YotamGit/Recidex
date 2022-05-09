@@ -142,7 +142,7 @@ export const deleteUser = createAsyncThunk<
   const state = thunkAPI.getState() as RootState;
   try {
     let deletedUser = await axios.post("/api/users/user/delete", {
-      id: props.userId,
+      _id: props.userId,
     });
   } catch (error: any) {
     return thunkAPI.rejectWithValue({
@@ -155,23 +155,32 @@ export const deleteUser = createAsyncThunk<
     (user: FullUser) => user._id !== props.userId
   );
 });
+
 interface EditUserProps {
-  _id: string;
-  role: string;
-  username: string;
-  firstname: string;
-  lastname: string;
-  email: string;
+  //tried to use user type but ts kept screaming at me
+  userData: {
+    _id?: string;
+    role?: string;
+    username?: string;
+    firstname?: string;
+    lastname?: string;
+    email?: string;
+  };
+  action: "editSelf" | "editOther" | undefined;
 }
 export const editUser = createAsyncThunk<
-  FullUser[],
+  {
+    action: "editSelf" | "editOther" | undefined;
+    users?: FullUser[];
+    userData?: User;
+  },
   EditUserProps,
   AsyncThunkConfig
 >("users/editUser", async (props, thunkAPI) => {
   const state = thunkAPI.getState() as RootState;
   try {
     await axios.post(`/api/users/user/edit`, {
-      userData: props,
+      userData: props.userData,
     });
   } catch (error: any) {
     return thunkAPI.rejectWithValue({
@@ -181,9 +190,13 @@ export const editUser = createAsyncThunk<
     });
   }
 
-  return state.users.users.map((user: FullUser) =>
-    user._id === props._id ? { ...user, ...props } : user
-  );
+  return {
+    action: props.action,
+    userData: props.userData as User,
+    users: state.users.users.map((user: FullUser) =>
+      user._id === props.userData._id ? { ...user, ...props.userData } : user
+    ) as FullUser[],
+  };
 });
 
 export const getUsers = createAsyncThunk<FullUser[], {}, AsyncThunkConfig>(
@@ -216,6 +229,7 @@ const usersSlice = createSlice({
       action: PayloadAction<{ userData: User; token: string; action?: string }>
     ) {
       state.userData._id = action.payload.userData._id;
+      state.userData.username = action.payload.userData.username;
       state.userData.firstname = action.payload.userData.firstname;
       state.userData.lastname = action.payload.userData.lastname;
       state.userData.role = action.payload.userData.role;
@@ -353,7 +367,18 @@ const usersSlice = createSlice({
         }
       })
       .addCase(editUser.fulfilled, (state, action) => {
-        state.users = action.payload;
+        if (action.payload.action == "editSelf" && action.payload.userData) {
+          state.userData.username = action.payload.userData.username;
+          state.userData.firstname = action.payload.userData.firstname;
+          state.userData.lastname = action.payload.userData.lastname;
+          state.userData.role = action.payload.userData.role;
+          state.userData.email = action.payload.userData.email;
+        } else if (
+          action.payload.action == "editOther" &&
+          action.payload.users
+        ) {
+          state.users = action.payload.users;
+        }
       })
       .addCase(editUser.rejected, (state, action: PayloadAction<any>) => {
         if ([403, 404, 409].includes(action.payload.statusCode)) {

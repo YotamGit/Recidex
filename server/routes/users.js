@@ -64,7 +64,7 @@ router.get("/user/info", async (req, res, next) => {
 //DELETE A USER
 router.post("/user/delete", async (req, res, next) => {
   try {
-    let user = await User.findById(req.body.id);
+    let user = await User.findById(req.body._id);
     if (user) {
       let allowedToEdit = await isAllowedToEditUser(
         req.headers.validatedToken,
@@ -89,7 +89,7 @@ router.post("/user/delete", async (req, res, next) => {
 //EDIT USER DETAILES
 router.post("/user/edit", async (req, res, next) => {
   try {
-    let userToEdit = await User.findById(req.body.userData.id);
+    let userToEdit = await User.findById(req.body.userData._id);
 
     if (userToEdit) {
       let allowedToEdit = await isAllowedToEditUser(
@@ -97,6 +97,7 @@ router.post("/user/edit", async (req, res, next) => {
         userToEdit
       );
       if (allowedToEdit || userToEdit._id === req.headers.validatedToken._id) {
+        console.log("allowed");
         let isAdmin = await isAdminUser(req.headers.validatedToken);
         if (!isAdmin) {
           delete req.body.userData.role;
@@ -117,7 +118,7 @@ router.post("/user/edit", async (req, res, next) => {
           }
         }
         let response = await User.updateOne(
-          { _id: req.body.userData.id },
+          { _id: req.body.userData._id },
           { $set: req.body.userData }
         );
 

@@ -72,7 +72,17 @@ const EditUserButton: FC<propTypes> = ({ user }) => {
         return;
       }
       let editRes = await dispatch(
-        editUser({ _id: user._id, role, username, firstname, lastname, email })
+        editUser({
+          action: "editOther",
+          userData: {
+            _id: user._id,
+            role,
+            username,
+            firstname,
+            lastname,
+            email,
+          },
+        })
       );
       if (editRes.meta.requestStatus === "fulfilled") {
         handleClose();
@@ -97,7 +107,6 @@ const EditUserButton: FC<propTypes> = ({ user }) => {
             <div className="edit-user-inputs">
               <FormControl id="edit-user-username">
                 <TextField
-                  id="edit-user-username"
                   sx={{
                     minWidth: 120,
                     margin: "5px",
@@ -142,7 +151,6 @@ const EditUserButton: FC<propTypes> = ({ user }) => {
               </FormControl>
               <FormControl id="edit-user-lastname">
                 <TextField
-                  id="edit-user-lastname"
                   sx={{
                     minWidth: 120,
                     margin: "5px",
@@ -155,7 +163,6 @@ const EditUserButton: FC<propTypes> = ({ user }) => {
               </FormControl>
               <FormControl id="edit-user-email">
                 <TextField
-                  id="edit-user-email"
                   sx={{
                     minWidth: 120,
                     margin: "5px",
