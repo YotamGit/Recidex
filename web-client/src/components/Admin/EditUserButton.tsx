@@ -72,7 +72,7 @@ const EditUserButton: FC<propTypes> = ({ user }) => {
         return;
       }
       let editRes = await dispatch(
-        editUser({ id: user._id, role, username, firstname, lastname, email })
+        editUser({ _id: user._id, role, username, firstname, lastname, email })
       );
       if (editRes.meta.requestStatus === "fulfilled") {
         handleClose();

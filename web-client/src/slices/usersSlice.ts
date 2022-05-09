@@ -156,7 +156,7 @@ export const deleteUser = createAsyncThunk<
   );
 });
 interface EditUserProps {
-  id: string;
+  _id: string;
   role: string;
   username: string;
   firstname: string;
@@ -182,7 +182,7 @@ export const editUser = createAsyncThunk<
   }
 
   return state.users.users.map((user: FullUser) =>
-    user._id === props.id ? { ...user, ...props } : user
+    user._id === props._id ? { ...user, ...props } : user
   );
 });
 

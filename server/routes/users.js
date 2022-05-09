@@ -38,6 +38,29 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+//GET A SPECIFIC USER
+router.get("/user/info", async (req, res, next) => {
+  try {
+    let user = await User.findById(req.body.userData._id);
+
+    if (user) {
+      let allowedToEdit = await isAllowedToEditUser(
+        req.headers.validatedToken,
+        user
+      );
+      if (allowedToEdit || user._id === req.headers.validatedToken._id) {
+        res.status(200).json(user);
+      } else {
+        res.status(403).send("Missing privileges");
+      }
+    } else {
+      res.status(404).send("User not found");
+    }
+  } catch (err) {
+    next(err);
+  }
+});
+
 //DELETE A USER
 router.post("/user/delete", async (req, res, next) => {
   try {

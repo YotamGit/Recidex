@@ -12,20 +12,13 @@ const AccountInfoPage: FC = () => {
   const dispatch = useAppDispatch();
 
   const userId = useAppSelector((state) => state.users.userData._id);
-  const users = useAppSelector((state) => state.users.users);
   const [user, setUser] = useState<FullUser>();
 
   useEffect(() => {
-    dispatch(getUsers({}));
+    // dispatch(getUsers({}));
   }, []);
 
-  useEffect(() => {
-    console.log(users);
-    console.log(users.filter((user) => user._id === userId));
-    setUser(users.filter((user) => user._id === userId) as unknown as FullUser);
-  }, [users, userId]);
-
-  return <div>{JSON.stringify(user)}</div>;
+  return <div>{userId}</div>;
 };
 
 export default AccountInfoPage;
