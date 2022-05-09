@@ -16,7 +16,9 @@ import {
 // sign in a user and send back a jwt
 router.post("/", async (req, res, next) => {
   try {
-    let user = await User.findOne({ username: { $eq: req.body.username } });
+    let user = await User.findOne({
+      username: { $eq: req.body.username },
+    });
     if (user) {
       const correctPassword = req.body.password
         ? await bcrypt.compare(req.body.password, user.password)
@@ -32,14 +34,15 @@ router.post("/", async (req, res, next) => {
             },
           }
         );
-
         res.status(200).json({
           token: generateToken(user),
           userData: {
+            _id: user._id,
+            username: user.username,
             firstname: user.firstname,
             lastname: user.lastname,
-            userId: user._id,
-            userRole: user.role,
+            email: user.email,
+            role: user.role,
           },
         });
       } else {
@@ -58,26 +61,28 @@ router.post("/ping", async (req, res, next) => {
   try {
     let validatedToken = validateToken(req.cookies.userToken);
     if (validatedToken) {
-      let user = await User.findById(validatedToken.userId);
+      let user = await User.findById(validatedToken._id).select({
+        _id: 1,
+        role: 1,
+        username: 1,
+        firstname: 1,
+        lastname: 1,
+        email: 1,
+      });
       if (
-        validatedToken.userRole !== user.role ||
+        validatedToken.role !== user.role ||
         validatedToken.lastname !== user.lastname ||
         validatedToken.firstname !== user.firstname
       ) {
         res.status(409).json({
           token: generateToken(user),
-          userData: {
-            firstname: user.firstname,
-            lastname: user.lastname,
-            userId: user._id,
-            userRole: user.role,
-          },
+          userData: user,
         });
       }
 
       res.status(200).json({
         authenticated: true,
-        userData: validatedToken,
+        userData: user,
       });
     } else {
       res.status(401).json({ authenticated: false });
@@ -113,16 +118,14 @@ router.post("/signup", async (req, res, next) => {
     res.status(200).json({
       token: generateToken(newUser),
       userData: {
+        username: newUser.username,
         firstname: newUser.firstname,
         lastname: newUser.lastname,
-        userId: newUser._id,
-        userRole: newUser.role,
+        _id: newUser._id,
+        role: newUser.role,
+        email: newUser.email,
       },
     });
-
-    // User.deleteMany({}).exec();//delete all users
-    // var users = await User.find({}); // get all users
-    // console.log(users);
   } catch (err) {
     next(err);
   }

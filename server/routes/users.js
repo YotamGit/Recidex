@@ -19,7 +19,7 @@ router.get("/", async (req, res, next) => {
     let isModerator = await isModeratorUser(req.headers.validatedToken);
     if (isModerator) {
       let users = await User.find({
-        _id: { $ne: req.headers.validatedToken.userId },
+        _id: { $ne: req.headers.validatedToken._id },
       }).select({
         role: 1,
         username: 1,
@@ -73,10 +73,7 @@ router.post("/user/edit", async (req, res, next) => {
         req.headers.validatedToken,
         userToEdit
       );
-      if (
-        allowedToEdit ||
-        userToEdit._id === req.headers.validatedToken.userId
-      ) {
+      if (allowedToEdit || userToEdit._id === req.headers.validatedToken._id) {
         let isAdmin = await isAdminUser(req.headers.validatedToken);
         if (!isAdmin) {
           delete req.body.userData.role;

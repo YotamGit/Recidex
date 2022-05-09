@@ -339,6 +339,7 @@ const RecipeEditor: FC<propTypes> = ({ action, recipe }) => {
           onClick={onSaveRecipeChanges}
         >
           <LoadingButton
+            style={{ margin: "5px" }}
             loading={disableButtons}
             variant="contained"
             disabled={disableButtons}

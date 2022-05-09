@@ -71,7 +71,7 @@ export const getRecipes = createAsyncThunk<
   //set additional filters before request
   params.args && thunkAPI.dispatch(setFilters(params.args));
 
-  let userId = state.users.userId;
+  let userId = state.users.userData._id;
   let searchText = state.filters.searchText;
   let favoritesOnly = state.filters.favoritesOnly;
   let selecetedfilters = state.filters.selectedFilters;

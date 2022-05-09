@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import RecipeDropdown from "./RecipeDropdown";
-import "../styles/FilterDialog.css";
+import RecipeDropdown from "../RecipeDropdown";
+import "../../styles/app_bar/FilterDialog.css";
 //mui
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
@@ -14,9 +14,9 @@ import DoDisturbOnRoundedIcon from "@mui/icons-material/DoDisturbOnRounded";
 import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
 
 //redux
-import { useAppSelector, useAppDispatch } from "../hooks";
-import { getRecipes } from "../slices/recipesSlice";
-import { setFiltered, setFilters } from "../slices/filtersSlice";
+import { useAppSelector, useAppDispatch } from "../../hooks";
+import { getRecipes } from "../../slices/recipesSlice";
+import { setFiltered, setFilters } from "../../slices/filtersSlice";
 
 const FilterDialog = () => {
   const dispatch = useAppDispatch();

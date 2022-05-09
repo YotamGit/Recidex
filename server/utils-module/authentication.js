@@ -5,10 +5,11 @@ export function generateToken(userData) {
   let jwtSecretKey = process.env.JWT_SECRET_KEY;
   let data = {
     time: Date(),
+    _id: userData._id,
+    role: userData.role,
+    username: userData.username,
     firstname: userData.firstname,
     lastname: userData.lastname,
-    userId: userData._id,
-    userRole: userData.role,
   };
   const token = jwt.sign(data, jwtSecretKey);
 
@@ -40,24 +41,27 @@ export function authenticateUser(req, res, next) {
 export async function authenticateRecipeOwnership(validatedToken, recipe) {
   //to use === , convert validated token id to string.
   //with == there is no need to do so.
-  let user = await User.findById(validatedToken.userId);
-  return validatedToken.userId == recipe.owner || user.role === "admin";
+  let user = await User.findById(validatedToken._id);
+  return (
+    validatedToken._id == recipe.owner ||
+    ["admin", "moderator"].includes(user.role)
+  );
 }
 
 //check if the user is a moderator
 export async function isModeratorUser(validatedToken) {
-  let user = await User.findById(validatedToken.userId);
+  let user = await User.findById(validatedToken._id);
   return ["admin", "moderator"].includes(user.role);
 }
 
 //check if the user is an admin
 export async function isAdminUser(validatedToken) {
-  let user = await User.findById(validatedToken.userId);
+  let user = await User.findById(validatedToken._id);
   return user.role === "admin";
 }
 //check if a user is allowed to perform changes on other user
 export async function isAllowedToEditUser(validatedToken, edited) {
-  let editor = await User.findById(validatedToken.userId);
+  let editor = await User.findById(validatedToken._id);
   let editorRole = roles.indexOf(editor.role);
   let editedRole = roles.indexOf(edited.role);
 

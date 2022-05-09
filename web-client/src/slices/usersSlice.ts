@@ -7,10 +7,7 @@ interface UsersState {
   signedIn: boolean;
   attemptSignIn: boolean;
   wrongCredentials: boolean;
-  userId: string | undefined;
-  firstname: string | undefined;
-  lastname: string | undefined;
-  userRole: string | undefined;
+  userData: User;
   users: FullUser[];
 }
 
@@ -18,10 +15,14 @@ const initialState: UsersState = {
   signedIn: false,
   attemptSignIn: false,
   wrongCredentials: false,
-  userId: undefined,
-  firstname: undefined,
-  lastname: undefined,
-  userRole: undefined,
+  userData: {
+    _id: undefined,
+    username: undefined,
+    firstname: undefined,
+    lastname: undefined,
+    role: undefined,
+    email: undefined,
+  },
   users: [],
 };
 
@@ -43,10 +44,12 @@ type AsyncThunkConfig = {
 
 //a user type used for user-data stored in the state after authentication
 export type User = {
-  userId: string | undefined;
+  _id: string | undefined;
+  username: string | undefined;
   firstname: string | undefined;
   lastname: string | undefined;
-  userRole: string | undefined;
+  email: string | undefined;
+  role: string | undefined;
 };
 
 //an interface used for users that are being used in the users table
@@ -57,9 +60,9 @@ export interface FullUser {
   username: string;
   firstname: string;
   lastname: string;
+  email: string;
   registration_date: string;
   last_sign_in: string;
-  email: string;
 }
 
 export const userPing = createAsyncThunk<
@@ -212,10 +215,11 @@ const usersSlice = createSlice({
       state,
       action: PayloadAction<{ userData: User; token: string; action?: string }>
     ) {
-      state.userId = action.payload.userData.userId;
-      state.firstname = action.payload.userData.firstname;
-      state.lastname = action.payload.userData.lastname;
-      state.userRole = action.payload.userData.userRole;
+      state.userData._id = action.payload.userData._id;
+      state.userData.firstname = action.payload.userData.firstname;
+      state.userData.lastname = action.payload.userData.lastname;
+      state.userData.role = action.payload.userData.role;
+      state.userData.email = action.payload.userData.email;
       state.signedIn = true;
 
       let expiration_date = new Date();
@@ -227,14 +231,17 @@ const usersSlice = createSlice({
         sameSite: "strict",
       });
       localStorage.setItem("signedIn", String(state.signedIn));
-      localStorage.setItem("userRole", state.userRole || "guest");
+      localStorage.setItem("userRole", state.userData.role || "guest");
     },
     clearUserData(state) {
-      state.firstname = undefined;
-      state.lastname = undefined;
       state.signedIn = false;
-      state.userId = undefined;
-      state.userRole = undefined;
+      state.userData._id = undefined;
+      state.userData.role = undefined;
+      state.userData.username = undefined;
+      state.userData.firstname = undefined;
+      state.userData.lastname = undefined;
+      state.userData.email = undefined;
+
       const cookies = new Cookies();
       cookies.remove("userToken", { path: "/" });
       localStorage.removeItem("signedIn");
@@ -293,12 +300,14 @@ const usersSlice = createSlice({
         } else {
           state.signedIn = action.payload?.authenticated || false;
           if (action.payload?.authenticated) {
-            state.firstname = action.payload.userData.firstname;
-            state.lastname = action.payload.userData.lastname;
-            state.userId = action.payload.userData.userId;
-            state.userRole = action.payload.userData.userRole;
+            state.userData._id = action.payload.userData._id;
+            state.userData.role = action.payload.userData.role;
+            state.userData.username = action.payload.userData.username;
+            state.userData.firstname = action.payload.userData.firstname;
+            state.userData.lastname = action.payload.userData.lastname;
+            state.userData.email = action.payload.userData.email;
             localStorage.setItem("signedIn", String(state.signedIn));
-            localStorage.setItem("userRole", String(state.userRole));
+            localStorage.setItem("userRole", String(state.userData.role));
           }
         }
       })
@@ -308,11 +317,13 @@ const usersSlice = createSlice({
           usersSlice.caseReducers.clearUserData(state);
           //this is copy pasted from setUserData becuase i could not
           //find a way to use it from here since the action is of rejected type
-          state.userId = action.payload.data.userData.userId;
-          state.firstname = action.payload.data.userData.firstname;
-          state.lastname = action.payload.data.userData.lastname;
-          state.userRole = action.payload.data.userData.userRole;
           state.signedIn = true;
+          state.userData._id = action.payload.data.userData._id;
+          state.userData.role = action.payload.data.userData.role;
+          state.userData.username = action.payload.data.userData.username;
+          state.userData.firstname = action.payload.data.userData.firstname;
+          state.userData.lastname = action.payload.data.userData.lastname;
+          state.userData.email = action.payload.data.userData.email;
 
           let expiration_date = new Date();
           expiration_date.setFullYear(expiration_date.getFullYear() + 2);
@@ -323,7 +334,7 @@ const usersSlice = createSlice({
             sameSite: "strict",
           });
           localStorage.setItem("signedIn", String(state.signedIn));
-          localStorage.setItem("userRole", state.userRole || "guest");
+          localStorage.setItem("userRole", state.userData.role || "guest");
         } else if (action.payload.statusCode === 401) {
           usersSlice.caseReducers.clearUserData(state);
         }

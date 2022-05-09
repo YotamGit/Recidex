@@ -1,7 +1,7 @@
 import { useState, useEffect, FC } from "react";
 import { useNavigate } from "react-router-dom";
-import "../styles/Header.css";
-import RecipesLogo from "../utils-module/Photos/Recipes.svg";
+import "../../styles/app_bar/Header.css";
+import RecipesLogo from "../../utils-module/Photos/Recipes.svg";
 
 import NavDrawer from "./NavDrawer";
 import SearchBar from "./SearchBar";

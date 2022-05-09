@@ -30,7 +30,7 @@ interface propTypes {
 const EditUserButton: FC<propTypes> = ({ user }) => {
   const dispatch = useAppDispatch();
   const fullscreen = useAppSelector((state) => state.utilities.fullscreen);
-  const editorRole = useAppSelector((state) => state.users.userRole);
+  const editorRole = useAppSelector((state) => state.users.userData.role);
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);

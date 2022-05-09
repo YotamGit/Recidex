@@ -1,8 +1,8 @@
 import { useState, useEffect, FC } from "react";
 import FilterDialog from "./FilterDialog";
-import "../styles/SearchBar.css";
+import "../../styles/app_bar/SearchBar.css";
 
-import { getRecipeTitles } from "../utils-module/recipes";
+import { getRecipeTitles } from "../../utils-module/recipes";
 
 //mui
 import TextField from "@mui/material/TextField";
@@ -15,9 +15,9 @@ import CircularProgress from "@mui/material/CircularProgress";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 //redux
-import { useAppSelector, useAppDispatch } from "../hooks";
-import { getRecipes } from "../slices/recipesSlice";
-import { setSearchText as setStoreSearchText } from "../slices/filtersSlice";
+import { useAppSelector, useAppDispatch } from "../../hooks";
+import { getRecipes } from "../../slices/recipesSlice";
+import { setSearchText as setStoreSearchText } from "../../slices/filtersSlice";
 
 interface propTypes {
   setExpanded: Function;

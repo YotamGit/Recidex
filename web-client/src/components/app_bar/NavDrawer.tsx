@@ -1,11 +1,9 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect, FC, MouseEventHandler } from "react";
-import "../styles/NavDrawer.css";
+import "../../styles/app_bar/NavDrawer.css";
 
 //mui
-//import MuiDrawer from "@mui/material/Drawer";
 import Drawer from "@mui/material/Drawer";
-
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 
@@ -19,10 +17,11 @@ import MenuBookIcon from "@mui/icons-material/MenuBook";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import PersonAddAltRoundedIcon from "@mui/icons-material/PersonAddAltRounded";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 
 //redux
-import { useAppDispatch, useAppSelector } from "../hooks";
-import { clearUserData } from "../slices/usersSlice";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { clearUserData } from "../../slices/usersSlice";
 import { ModalProps } from "@mui/material";
 
 interface propTypes {
@@ -35,9 +34,11 @@ const NavDrawer: FC<propTypes> = ({ openDrawer, handleToggleDrawer }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { firstname, lastname } = useAppSelector((state) => state.users);
+  const { firstname, lastname } = useAppSelector(
+    (state) => state.users.userData
+  );
   const signedIn = useAppSelector((state) => state.users.signedIn);
-  const userRole = useAppSelector((state) => state.users.userRole);
+  const userRole = useAppSelector((state) => state.users.userData.role);
 
   const [activePage, setActivePage] = useState(location.pathname);
 
@@ -54,10 +55,18 @@ const NavDrawer: FC<propTypes> = ({ openDrawer, handleToggleDrawer }) => {
     >
       <div id="drawer-header">
         {signedIn && (
-          <div className="user-name">
-            <div style={{ fontWeight: "650" }}>{"Signed In"}</div>
-            <div>{`${firstname} ${lastname}`}</div>
-          </div>
+          <>
+            <div className="user-name">
+              <div style={{ fontWeight: "650" }}>{"Signed In"}</div>
+              <div
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  navigate("/account");
+                  handleToggleDrawer();
+                }}
+              >{`${firstname} ${lastname}`}</div>
+            </div>
+          </>
         )}
         <IconButton onClick={handleToggleDrawer as MouseEventHandler}>
           <ChevronLeftIcon />
@@ -135,6 +144,22 @@ const NavDrawer: FC<propTypes> = ({ openDrawer, handleToggleDrawer }) => {
             >
               <AdminPanelSettingsIcon className="drawer-button" />
               Admin Panel
+            </span>
+          </>
+        )}
+        {signedIn && (
+          <>
+            <span
+              className={`${
+                activePage === "/account" ? "active-page " : ""
+              }drawer-button-wrapper`}
+              onClick={() => {
+                navigate("/account");
+                handleToggleDrawer();
+              }}
+            >
+              <AccountCircleRoundedIcon className="drawer-button" />
+              My Account
             </span>
           </>
         )}

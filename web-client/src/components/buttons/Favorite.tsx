@@ -22,7 +22,7 @@ const Favorite: FC<propTypes> = ({
   showCount,
 }) => {
   const dispatch = useAppDispatch();
-  const userId = useAppSelector((state) => state.users.userId || "");
+  const userId = useAppSelector((state) => state.users.userData._id || "");
   const [favorite, setFavorite] = useState(favorited_by.includes(userId));
 
   //update favorite color if the user logs out

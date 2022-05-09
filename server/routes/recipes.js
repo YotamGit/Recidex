@@ -124,7 +124,7 @@ router.post("/new", async (req, res, next) => {
 
     const savedRecipe = await Recipe.create({
       ...req.body.recipeData,
-      owner: req.headers.validatedToken.userId,
+      owner: req.headers.validatedToken._id,
     });
     delete savedRecipe.image;
     // find the recipe again in order to populate the owner with the names and send it to the client
@@ -227,11 +227,11 @@ router.post("/edit/favorite/:recipe_id", async (req, res, next) => {
   try {
     const users = (await Recipe.findById({ _id: req.params.recipe_id }))
       .favorited_by;
-    let index = users.indexOf(req.headers.validatedToken.userId);
+    let index = users.indexOf(req.headers.validatedToken._id);
     switch (req.body.favorite) {
       case true:
         if (index < 0) {
-          users.push(req.headers.validatedToken.userId);
+          users.push(req.headers.validatedToken._id);
           await Recipe.updateOne(
             { _id: req.params.recipe_id },
             { favorited_by: users }

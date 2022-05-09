@@ -28,7 +28,7 @@ const Main: FC<propTypes> = ({ ownerOnly, favoritesOnly }) => {
     (state) => state.recipes.fetchedAllRecipes
   );
 
-  const loggedUser = useAppSelector((state) => state.users.userId);
+  const loggedUser = useAppSelector((state) => state.users.userData._id);
   const attemptSignIn = useAppSelector((state) => state.users.attemptSignIn);
   const routeHistory = useAppSelector((state) => state.utilities.routeHistory);
 

@@ -10,10 +10,11 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import RecipePage from "./components/recipes/RecipePage";
 import RecipeEditorPage from "./components/recipe_editor/RecipeEditorPage";
 import AddRecipe from "./components/recipe_editor/AddRecipe";
-import Header from "./components/Header";
+import Header from "./components/app_bar/Header";
 import Main from "./components/Main";
 import Authentication from "./components/Login/Authentication";
 import AdminPanel from "./components/admin/AdminPanel";
+import AccountInfoPage from "./components/account/AccountInfoPage";
 
 //mui
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -133,6 +134,17 @@ function App() {
           }
         />
 
+        <Route
+          path="/account"
+          element={
+            <ProtectedRoute isAllowed={signedIn} redirectPath={"/home"}>
+              <>
+                <Header pageName={"Account"} showSearch={false} />
+                <AccountInfoPage />
+              </>
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/admin-panel"
           element={
