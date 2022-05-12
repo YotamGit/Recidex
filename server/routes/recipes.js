@@ -2,7 +2,11 @@ import express from "express";
 import sanitizeHtml from "sanitize-html";
 const router = express.Router();
 import { Recipe } from "../models/Recipe.js";
-import { authenticateRecipeOwnership } from "../utils-module/authentication.js";
+import {
+  authenticateRecipeOwnership,
+  isModeratorUser,
+  validateToken,
+} from "../utils-module/authentication.js";
 import { reduceImgQuality } from "../utils-module/images.js";
 
 // Routes
@@ -10,10 +14,17 @@ import { reduceImgQuality } from "../utils-module/images.js";
 // GET X RECIPES FROM GIVEN DATE WITH FILTERS
 router.get("/", async (req, res, next) => {
   try {
+    const validatedToken = validateToken(req.cookies?.userToken);
+
     if (Object.keys(req.query).length > 0) {
+      let ownerOnlyQuery =
+        validatedToken && req.query.ownerOnly === "true"
+          ? { owner: validatedToken._id }
+          : { approved: true };
+
       let favoritesOnlyQuery =
-        req.query.favoritesOnly === "true"
-          ? { favorited_by: req.query.userId }
+        validatedToken && req.query.favoritesOnly === "true"
+          ? { favorited_by: validatedToken._id }
           : {};
 
       let textSearchQuery = req.query?.searchText
@@ -22,8 +33,9 @@ router.get("/", async (req, res, next) => {
 
       let recipes = await Recipe.find({
         creation_time: { $lt: req.query.latest },
-        ...textSearchQuery,
+        ...ownerOnlyQuery,
         ...favoritesOnlyQuery,
+        ...textSearchQuery,
         ...JSON.parse(req.query.filters),
       })
         .select("-image")
@@ -34,7 +46,9 @@ router.get("/", async (req, res, next) => {
       res.sentCount = Object.keys(recipes).length;
       res.status(200).json(recipes);
     } else {
-      const recipes = await Recipe.find().sort({ creation_time: -1 });
+      const recipes = await Recipe.find({ private: false }).sort({
+        creation_time: -1,
+      });
       res.status(200).json(recipes);
     }
   } catch (err) {
@@ -45,10 +59,20 @@ router.get("/", async (req, res, next) => {
 // GET BACK A SPECIFIC RECIPE
 router.get("/id/:recipe_id", async (req, res, next) => {
   try {
+    const validatedToken = validateToken(req.cookies?.userToken);
     const recipe = await Recipe.findById(req.params.recipe_id)
       .select("-image")
       .populate("owner", "firstname lastname");
-    res.status(200).json(recipe);
+
+    if (
+      !recipe.private ||
+      (validatedToken &&
+        (await authenticateRecipeOwnership(validatedToken, recipe)))
+    ) {
+      res.status(200).json(recipe);
+    } else {
+      res.status(401).send("Missing permissions to view recipe.");
+    }
   } catch (err) {
     next(err);
   }
@@ -94,6 +118,7 @@ router.get("/count", async (req, res, next) => {
 // SUBMIT A NEW RECIPE
 router.post("/new", async (req, res, next) => {
   try {
+    const isModerator = await isModeratorUser(req.headers.validatedToken);
     //sanitize html
     req.body.recipeData.description = sanitizeHtml(
       req.body.recipeData.description
@@ -110,6 +135,17 @@ router.post("/new", async (req, res, next) => {
     delete req.body.recipeData.last_update_time;
     delete req.body.recipeData.owner;
     delete req.body.recipeData.favorited_by;
+
+    //auto approve a recipe if a moderator edits it
+    if (isModerator && !req.body.recipeData.private) {
+      req.body.recipeData.approved = true;
+      req.body.recipeData.approval_required = false;
+    } else if (req.body.recipeData.private) {
+      req.body.recipeData.approval_required = false;
+      req.body.recipeData.approved = false;
+    } else {
+      req.body.recipeData.approved = false;
+    }
 
     //reduce image quality if present
     if (req.body.recipeData.image) {
@@ -145,6 +181,7 @@ router.post("/new", async (req, res, next) => {
 router.post("/delete/:recipe_id", async (req, res, next) => {
   try {
     const recipe = await Recipe.findById(req.params.recipe_id);
+    console.log(req.headers);
     const isOwner = await authenticateRecipeOwnership(
       req.headers.validatedToken,
       recipe
@@ -166,6 +203,7 @@ router.post("/delete/:recipe_id", async (req, res, next) => {
 router.post("/edit/:recipe_id", async (req, res, next) => {
   try {
     const recipe = await Recipe.findById(req.params.recipe_id);
+    const isModerator = await isModeratorUser(req.headers.validatedToken);
     const isOwner = await authenticateRecipeOwnership(
       req.headers.validatedToken,
       recipe
@@ -187,6 +225,17 @@ router.post("/edit/:recipe_id", async (req, res, next) => {
       delete req.body.recipeData.last_update_time;
       delete req.body.recipeData.owner;
       delete req.body.recipeData.favorited_by;
+
+      //auto approve a recipe if a moderator edits it
+      if (isModerator && !req.body.recipeData.private) {
+        req.body.recipeData.approved = true;
+        req.body.recipeData.approval_required = false;
+      } else if (req.body.recipeData.private) {
+        req.body.recipeData.approval_required = false;
+        req.body.recipeData.approved = false;
+      } else {
+        req.body.recipeData.approved = false;
+      }
 
       //reduce image quality if present
       if (req.body.recipeData.image) {

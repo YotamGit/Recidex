@@ -68,11 +68,8 @@ export const getRecipes = createAsyncThunk<
 >("recipes/getRecipes", async (params, thunkAPI) => {
   const state = thunkAPI.getState() as RootState;
 
-  //set additional filters before request
-  params.args && thunkAPI.dispatch(setFilters(params.args));
-
-  let userId = state.users.userData._id;
   let searchText = state.filters.searchText;
+  let ownerOnly = state.filters.ownerOnly;
   let favoritesOnly = state.filters.favoritesOnly;
   let selecetedfilters = state.filters.selectedFilters;
 
@@ -80,10 +77,9 @@ export const getRecipes = createAsyncThunk<
     params: {
       latest: params.args?.latest || new Date(),
       count: 12,
-      favoritesOnly: favoritesOnly,
-      userId: favoritesOnly ? userId : undefined,
+      ownerOnly: ownerOnly || undefined,
+      favoritesOnly: favoritesOnly || undefined,
       searchText: searchText,
-      ...params.args,
       filters: selecetedfilters,
     },
   });

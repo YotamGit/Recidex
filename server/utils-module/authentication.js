@@ -28,11 +28,11 @@ export function validateToken(token) {
 
 //check if the user is real using the token
 export function authenticateUser(req, res, next) {
-  try {
-    let token = validateToken(req.cookies.userToken);
+  let token = validateToken(req.cookies.userToken);
+  if (token) {
     req.headers.validatedToken = token;
     next();
-  } catch (err) {
+  } else {
     res.status(401).send("Unauthorized, provide valid credentials.");
   }
 }

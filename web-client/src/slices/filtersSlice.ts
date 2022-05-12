@@ -8,8 +8,8 @@ interface FiltersState {
     difficulty: string | undefined;
     prep_time: string | undefined;
     total_time: string | undefined;
-    owner: string | undefined;
   };
+  ownerOnly: boolean | undefined;
   favoritesOnly: boolean | undefined;
   searchText: string | undefined;
   filtered: boolean;
@@ -37,8 +37,8 @@ const initialState: FiltersState = {
     difficulty: undefined,
     prep_time: undefined,
     total_time: undefined,
-    owner: undefined,
   },
+  ownerOnly: undefined,
   favoritesOnly: undefined,
   searchText: undefined,
   filtered: false,
@@ -89,6 +89,9 @@ const filtersSlice = createSlice({
     setSearchText(state, action: PayloadAction<string>) {
       state.searchText = action.payload === "" ? undefined : action.payload;
     },
+    setOwnerOnly(state, action: PayloadAction<boolean>) {
+      state.ownerOnly = action.payload;
+    },
     setfavoritesOnly(state, action: PayloadAction<boolean>) {
       state.favoritesOnly = action.payload;
     },
@@ -100,19 +103,13 @@ const filtersSlice = createSlice({
         state.selectedFilters[key] = undefined;
       });
     },
-    setOwner(state, action: PayloadAction<string | undefined>) {
-      state.selectedFilters = {
-        ...state.selectedFilters,
-        owner: action.payload,
-      };
-    },
   },
 });
 
 export const {
   setFilters,
   setFiltered,
-  setOwner,
+  setOwnerOnly,
   setSearchText,
   setfavoritesOnly,
   resetFilters,

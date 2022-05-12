@@ -6,7 +6,7 @@ import { useLocation } from "react-router-dom";
 //redux
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { getRecipes } from "../slices/recipesSlice";
-import { setOwner, setfavoritesOnly } from "../slices/filtersSlice";
+import { setOwnerOnly, setfavoritesOnly } from "../slices/filtersSlice";
 
 //mui
 import Button from "@mui/material/Button";
@@ -28,7 +28,6 @@ const Main: FC<propTypes> = ({ ownerOnly, favoritesOnly }) => {
     (state) => state.recipes.fetchedAllRecipes
   );
 
-  const loggedUser = useAppSelector((state) => state.users.userData._id);
   const attemptSignIn = useAppSelector((state) => state.users.attemptSignIn);
   const routeHistory = useAppSelector((state) => state.utilities.routeHistory);
 
@@ -49,23 +48,11 @@ const Main: FC<propTypes> = ({ ownerOnly, favoritesOnly }) => {
 
   const initialRecipesLoad = async () => {
     try {
-      if (favoritesOnly) {
-        //request for the favorites page
-        dispatch(setOwner(undefined));
-        await dispatch(
-          getRecipes({
-            replace: true,
-          })
-        );
-      } else {
-        //request for home/myrecipes pages depends on the ownerOnly flag
-        dispatch(setOwner(ownerOnly && loggedUser ? loggedUser : undefined));
-        await dispatch(
-          getRecipes({
-            replace: true,
-          })
-        );
-      }
+      await dispatch(
+        getRecipes({
+          replace: true,
+        })
+      );
     } catch (error) {}
   };
 
@@ -89,10 +76,11 @@ const Main: FC<propTypes> = ({ ownerOnly, favoritesOnly }) => {
       (recipes.length === 0 && !fetchedAllRecipes)
     ) {
       dispatch(setfavoritesOnly(favoritesOnly));
+      dispatch(setOwnerOnly(ownerOnly));
       initialRecipesLoad();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loggedUser, ownerOnly, favoritesOnly, attemptSignIn, location]);
+  }, [ownerOnly, favoritesOnly, attemptSignIn, location]);
 
   useEffect(() => {
     const handleScroll = async () => {
