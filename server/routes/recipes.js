@@ -20,11 +20,18 @@ router.get("/", async (req, res, next) => {
       let ownerOnlyQuery =
         validatedToken && req.query.ownerOnly === "true"
           ? { owner: validatedToken._id }
-          : { approved: true };
+          : {};
+
+      let publicRecipeQuery =
+        validatedToken &&
+        req.query.ownerOnly === undefined &&
+        req.query.favoritesOnly === undefined
+          ? { approved: true }
+          : {};
 
       let favoritesOnlyQuery =
         validatedToken && req.query.favoritesOnly === "true"
-          ? { favorited_by: validatedToken._id }
+          ? { favorited_by: validatedToken._id, private: false }
           : {};
 
       let textSearchQuery = req.query?.searchText
@@ -33,6 +40,7 @@ router.get("/", async (req, res, next) => {
 
       let recipes = await Recipe.find({
         creation_time: { $lt: req.query.latest },
+        ...publicRecipeQuery,
         ...ownerOnlyQuery,
         ...favoritesOnlyQuery,
         ...textSearchQuery,
@@ -283,34 +291,34 @@ router.post("/edit/favorite/:recipe_id", async (req, res, next) => {
     const recipe = await Recipe.findById({ _id: req.params.recipe_id });
     if (recipe.private) {
       res.status(403).send("Private recipes can not be favorited");
-    }
-
-    const users = (await Recipe.findById({ _id: req.params.recipe_id }))
-      .favorited_by;
-    let index = users.indexOf(req.headers.validatedToken._id);
-    switch (req.body.favorite) {
-      case true:
-        if (index < 0) {
-          users.push(req.headers.validatedToken._id);
-          await Recipe.updateOne(
-            { _id: req.params.recipe_id },
-            { favorited_by: users }
-          );
-        }
-        res.status(200).json(users);
-        break;
-      case false:
-        if (index >= 0) {
-          users.splice(index, 1);
-          await Recipe.updateOne(
-            { _id: req.params.recipe_id },
-            { favorited_by: users }
-          );
-        }
-        res.status(200).json(users);
-        break;
-      default:
-        res.status(400).send("favorite field is missing or not boolean");
+    } else {
+      const users = (await Recipe.findById({ _id: req.params.recipe_id }))
+        .favorited_by;
+      let index = users.indexOf(req.headers.validatedToken._id);
+      switch (req.body.favorite) {
+        case true:
+          if (index < 0) {
+            users.push(req.headers.validatedToken._id);
+            await Recipe.updateOne(
+              { _id: req.params.recipe_id },
+              { favorited_by: users }
+            );
+          }
+          res.status(200).json(users);
+          break;
+        case false:
+          if (index >= 0) {
+            users.splice(index, 1);
+            await Recipe.updateOne(
+              { _id: req.params.recipe_id },
+              { favorited_by: users }
+            );
+          }
+          res.status(200).json(users);
+          break;
+        default:
+          res.status(400).send("favorite field is missing or not boolean");
+      }
     }
   } catch (err) {
     next(err);

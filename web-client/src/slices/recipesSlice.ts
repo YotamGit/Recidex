@@ -277,10 +277,17 @@ const recipesSlice = createSlice({
         state.recipes = action.payload;
       })
       .addCase(favoriteRecipe.rejected, (state, action: PayloadAction<any>) => {
-        window.alert(
-          "Failed to Favorite Recipe, Please Try Again.\nReason: " +
-            action.payload.message
-        );
+        if (action.payload.statusCode === 403) {
+          window.alert(
+            "Failed to Favorite Recipe, Please Try Again.\nReason: " +
+              action.payload.data
+          );
+        } else {
+          window.alert(
+            "Failed to Favorite Recipe, Please Try Again.\nReason: " +
+              action.payload.message
+          );
+        }
       });
   },
 });
