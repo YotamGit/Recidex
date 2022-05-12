@@ -32,6 +32,18 @@ const RecipeSchema = mongoose.Schema(
       default: undefined,
     },
     favorited_by: [{ type: mongoose.Types.ObjectId, ref: "UserModel" }],
+    approval_required: {
+      type: Boolean,
+      default: false,
+    },
+    approved: {
+      type: Boolean,
+      default: false,
+    },
+    private: {
+      type: Boolean,
+      default: false,
+    },
   },
   { collection: "recipes" }
 );
