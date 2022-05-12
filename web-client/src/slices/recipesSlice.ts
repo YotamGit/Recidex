@@ -29,6 +29,9 @@ type AsyncThunkConfig = {
 
 export type TRecipe = {
   _id?: string;
+  private: boolean;
+  approved?: boolean;
+  approval_required: boolean;
   creation_time?: string;
   last_update_time?: string;
   owner?: {
@@ -97,9 +100,12 @@ export const editRecipe = createAsyncThunk<
 >("recipes/editRecipe", async (props, thunkAPI) => {
   const state = thunkAPI.getState() as RootState;
   try {
-    await axios.post(`/api/recipes/edit/${props.recipeData._id}`, {
-      recipeData: props.recipeData,
-    });
+    var editedRecipe: TRecipe = await axios.post(
+      `/api/recipes/edit/${props.recipeData._id}`,
+      {
+        recipeData: props.recipeData,
+      }
+    );
   } catch (error: any) {
     return thunkAPI.rejectWithValue({
       statusCode: error?.response?.status,
@@ -109,8 +115,9 @@ export const editRecipe = createAsyncThunk<
   }
 
   return state.recipes.recipes.map((recipe: TRecipe) =>
-    recipe._id === props.recipeData._id
-      ? { ...recipe, ...props.recipeData }
+    recipe._id === props.recipeData._id &&
+    (editedRecipe.approved || state.filters.ownerOnly)
+      ? editedRecipe
       : recipe
   );
 });
@@ -233,7 +240,9 @@ const recipesSlice = createSlice({
         }
       })
       .addCase(addRecipe.fulfilled, (state, action) => {
-        state.recipes = [action.payload, ...state.recipes];
+        if (action.payload.approved) {
+          state.recipes = [action.payload, ...state.recipes];
+        }
       })
       .addCase(addRecipe.rejected, (state, action: PayloadAction<any>) => {
         if (action.payload.statusCode === 401) {

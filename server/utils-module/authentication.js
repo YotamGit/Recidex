@@ -42,6 +42,7 @@ export async function authenticateRecipeOwnership(validatedToken, recipe) {
   //to use === , convert validated token id to string.
   //with == there is no need to do so.
   let user = await User.findById(validatedToken._id);
+
   return (
     validatedToken._id == recipe.owner ||
     ["admin", "moderator"].includes(user.role)

@@ -6,7 +6,7 @@ export async function getRecipe(recipeId: string) {
     let response = await axios.get(`/api/recipes/id/${recipeId}`);
     return response.data;
   } catch (error: any) {
-    window.alert("Failed to Fetch Recipe.\nReason: " + error.message);
+    window.alert("Failed to Fetch Recipe.\nReason: " + error.response.data);
   }
 }
 

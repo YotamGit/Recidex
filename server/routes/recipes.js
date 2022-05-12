@@ -46,9 +46,12 @@ router.get("/", async (req, res, next) => {
       res.sentCount = Object.keys(recipes).length;
       res.status(200).json(recipes);
     } else {
-      const recipes = await Recipe.find({ private: false }).sort({
-        creation_time: -1,
-      });
+      const recipes = await Recipe.find({ private: false })
+        .select("-image")
+        .populate("owner", "firstname lastname")
+        .sort({
+          creation_time: -1,
+        });
       res.status(200).json(recipes);
     }
   } catch (err) {
@@ -63,11 +66,12 @@ router.get("/id/:recipe_id", async (req, res, next) => {
     const recipe = await Recipe.findById(req.params.recipe_id)
       .select("-image")
       .populate("owner", "firstname lastname");
-
     if (
       !recipe.private ||
       (validatedToken &&
-        (await authenticateRecipeOwnership(validatedToken, recipe)))
+        (await authenticateRecipeOwnership(validatedToken, {
+          owner: recipe.owner._id,
+        })))
     ) {
       res.status(200).json(recipe);
     } else {
@@ -167,10 +171,9 @@ router.post("/new", async (req, res, next) => {
     res
       .status(200)
       .json(
-        await Recipe.findById(savedRecipe._id).populate(
-          "owner",
-          "firstname lastname"
-        )
+        await Recipe.findById(savedRecipe._id)
+          .select("-image")
+          .populate("owner", "firstname lastname")
       );
   } catch (err) {
     next(err);
@@ -260,7 +263,10 @@ router.post("/edit/:recipe_id", async (req, res, next) => {
           },
         }
       );
-      res.status(200).json(response);
+      const recipe = await Recipe.findById({ _id: req.params.recipe_id })
+        .select("-image")
+        .populate("owner", "firstname lastname");
+      res.status(200).json(recipe);
     } else {
       res
         .status(401)

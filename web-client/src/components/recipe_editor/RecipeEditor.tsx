@@ -16,6 +16,7 @@ import TextField from "@mui/material/TextField";
 import Switch from "@mui/material/Switch";
 import Button from "@mui/material/Button";
 import LoadingButton from "@mui/lab/LoadingButton";
+import Checkbox from "@mui/material/Checkbox";
 
 //redux
 import { editRecipe, addRecipe } from "../../slices/recipesSlice";
@@ -43,6 +44,10 @@ const RecipeEditor: FC<propTypes> = ({ action, recipe }) => {
   );
 
   const _id = recipe._id;
+  const [privateRecipe, setPrivateRecipe] = useState(recipe.private);
+  const [approval_required, setApprovalRequired] = useState(
+    recipe.approval_required
+  );
   const [title, setTitle] = useState(recipe.title);
   const [source, setSource] = useState(recipe.source);
   const [servings, setServings] = useState(recipe.servings);
@@ -104,9 +109,13 @@ const RecipeEditor: FC<propTypes> = ({ action, recipe }) => {
   };
 
   const onSaveRecipeChanges = async () => {
-    let save = window.confirm("Save?");
+    let save = window.confirm(
+      `${action === "edit" && "The recipe will need to be re-approved."} Save?`
+    );
     let recipeData: TRecipe = {
       _id,
+      private: privateRecipe,
+      approval_required,
       title,
       category,
       sub_category,
@@ -155,13 +164,36 @@ const RecipeEditor: FC<propTypes> = ({ action, recipe }) => {
     <div className="recipe-editor">
       <div className="recipe-editor-metadata-section">
         <div>
-          English
-          <Switch
-            checked={rtl}
-            onChange={(e) => setRtl(e.currentTarget.checked)}
-            inputProps={{ "aria-label": "controlled" }}
-          />
-          עברית
+          <div>
+            <Checkbox
+              checked={privateRecipe}
+              onChange={(e) => {
+                setPrivateRecipe(e.target.checked);
+                setApprovalRequired(false);
+              }}
+              inputProps={{ "aria-label": "private-check" }}
+            />
+            Private Recipe
+          </div>
+          <div>
+            <Checkbox
+              checked={approval_required}
+              disabled={privateRecipe}
+              onChange={(e) => setApprovalRequired(e.target.checked)}
+              inputProps={{ "aria-label": "approval-check" }}
+            />
+            Request Approval
+          </div>
+
+          <div>
+            English
+            <Switch
+              checked={rtl}
+              onChange={(e) => setRtl(e.currentTarget.checked)}
+              inputProps={{ "aria-label": "rtl-switch" }}
+            />
+            עברית
+          </div>
         </div>
         <div className="recipe-editor-text-input-container">
           <TextField

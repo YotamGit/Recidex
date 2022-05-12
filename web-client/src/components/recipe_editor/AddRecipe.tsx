@@ -7,6 +7,8 @@ import { TRecipe } from "../../slices/recipesSlice";
 const AddRecipe: FC = () => {
   const recipeTemplate: TRecipe = {
     _id: "",
+    approval_required: false,
+    private: false,
     title: "",
     category: "",
     sub_category: "",
