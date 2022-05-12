@@ -1,6 +1,7 @@
 import { useNavigate, useLocation } from "react-router-dom";
-import { useState, useEffect, FC, MouseEventHandler } from "react";
+import { useState, useEffect } from "react";
 import "../../styles/app_bar/NavDrawer.css";
+import DrawerItem from "./DrawerItem";
 
 //mui
 import Drawer from "@mui/material/Drawer";
@@ -22,7 +23,10 @@ import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 //redux
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { clearUserData } from "../../slices/usersSlice";
+
+//types
 import { ModalProps } from "@mui/material";
+import { FC, MouseEventHandler } from "react";
 
 interface propTypes {
   openDrawer: boolean;
@@ -74,135 +78,88 @@ const NavDrawer: FC<propTypes> = ({ openDrawer, handleToggleDrawer }) => {
       </div>
       <Divider />
       <div className="pages-container">
-        <span
-          className={`${
-            activePage === "/home" ? "active-page " : ""
-          }drawer-button-wrapper`}
-          onClick={() => {
-            navigate("/home");
-            handleToggleDrawer();
-          }}
-        >
-          <HomeRoundedIcon className="drawer-button" />
-          Home
-        </span>
-        {signedIn && (
-          <>
-            <span
-              className={`${
-                activePage === "/my-recipes" ? "active-page " : ""
-              }drawer-button-wrapper`}
-              onClick={() => {
-                navigate("/my-recipes");
-                handleToggleDrawer();
-              }}
-            >
-              <MenuBookIcon className="drawer-button" />
-              My Recipes
-            </span>
-          </>
-        )}
-        {signedIn && (
-          <>
-            <span
-              className={`${
-                activePage === "/favorites" ? "active-page " : ""
-              }drawer-button-wrapper`}
-              onClick={() => {
-                navigate("/favorites");
-                handleToggleDrawer();
-              }}
-            >
-              <FavoriteRoundedIcon className="drawer-button" />
-              Favorites
-            </span>
-          </>
-        )}
-
-        <span
-          className={`${
-            activePage === "/recipes/new" ? "active-page " : ""
-          }drawer-button-wrapper`}
-          onClick={() => {
-            navigate("/recipes/new");
-            handleToggleDrawer();
-          }}
-        >
-          <AddCircleRoundedIcon className="drawer-button" />
-          Add Recipe
-        </span>
-        {signedIn && ["admin", "moderator"].includes(userRole || "") && (
-          <>
-            <span
-              className={`${
-                activePage === "/admin-panel" ? "active-page " : ""
-              }drawer-button-wrapper`}
-              onClick={() => {
-                navigate("/admin-panel");
-                handleToggleDrawer();
-              }}
-            >
-              <AdminPanelSettingsIcon className="drawer-button" />
-              Admin Panel
-            </span>
-          </>
-        )}
-        {signedIn && (
-          <>
-            <span
-              className={`${
-                activePage === "/account" ? "active-page " : ""
-              }drawer-button-wrapper`}
-              onClick={() => {
-                navigate("/account");
-                handleToggleDrawer();
-              }}
-            >
-              <AccountCircleRoundedIcon className="drawer-button" />
-              My Account
-            </span>
-          </>
-        )}
-        {signedIn && (
-          <>
-            <span
-              className="drawer-button-wrapper"
-              onClick={() => {
-                dispatch(clearUserData());
-                handleToggleDrawer();
-                navigate("/home");
-              }}
-              style={{ marginTop: "auto" }}
-            >
-              <LogoutRoundedIcon className="drawer-button" />
-              Log Out
-            </span>
-          </>
-        )}
-        {!signedIn && (
-          <>
-            <span
-              className="drawer-button-wrapper"
-              onClick={() => {
-                navigate("/login");
-                handleToggleDrawer();
-              }}
-            >
-              <LoginRoundedIcon className="drawer-button" />
-              Login
-            </span>
-            <span
-              className="drawer-button-wrapper"
-              onClick={() => {
-                navigate("/signup");
-                handleToggleDrawer();
-              }}
-            >
-              <PersonAddAltRoundedIcon className="drawer-button" />
-              Signup
-            </span>
-          </>
-        )}
+        <DrawerItem
+          visible={true}
+          addDivider={false}
+          currentPageUrl={activePage}
+          pageUrl={"/home"}
+          text={"Home"}
+          closeDrawer={handleToggleDrawer}
+          Icon={HomeRoundedIcon}
+        />
+        <DrawerItem
+          visible={signedIn}
+          addDivider={false}
+          currentPageUrl={activePage}
+          pageUrl={"/my-recipes"}
+          text={"My Recipes"}
+          closeDrawer={handleToggleDrawer}
+          Icon={MenuBookIcon}
+        />
+        <DrawerItem
+          visible={signedIn}
+          addDivider={false}
+          currentPageUrl={activePage}
+          pageUrl={"/favorites"}
+          text={"Favorites"}
+          closeDrawer={handleToggleDrawer}
+          Icon={FavoriteRoundedIcon}
+        />
+        <DrawerItem
+          visible={true}
+          addDivider={false}
+          currentPageUrl={activePage}
+          pageUrl={"/recipes/new"}
+          text={"Add Recipe"}
+          closeDrawer={handleToggleDrawer}
+          Icon={AddCircleRoundedIcon}
+        />
+        <DrawerItem
+          visible={signedIn}
+          addDivider={true}
+          currentPageUrl={activePage}
+          pageUrl={"/account"}
+          text={"My Account"}
+          closeDrawer={handleToggleDrawer}
+          Icon={AccountCircleRoundedIcon}
+        />
+        <DrawerItem
+          visible={signedIn && ["admin", "moderator"].includes(userRole || "")}
+          addDivider={false}
+          currentPageUrl={activePage}
+          pageUrl={"/admin-panel"}
+          text={"Admin Panel"}
+          closeDrawer={handleToggleDrawer}
+          Icon={AdminPanelSettingsIcon}
+        />
+        <DrawerItem
+          visible={signedIn}
+          addDivider={false}
+          currentPageUrl={activePage}
+          text={"Log Out"}
+          closeDrawer={handleToggleDrawer}
+          onClick={() => dispatch(clearUserData())}
+          Icon={LogoutRoundedIcon}
+          style={{ bottom: "0px", position: "absolute", width: "100%" }}
+        />
+        <DrawerItem
+          visible={!signedIn}
+          addDivider={true}
+          currentPageUrl={activePage}
+          pageUrl={"/login"}
+          text={"Log In"}
+          closeDrawer={handleToggleDrawer}
+          Icon={LoginRoundedIcon}
+        />
+        <DrawerItem
+          visible={!signedIn}
+          addDivider={false}
+          currentPageUrl={activePage}
+          pageUrl={"/signup"}
+          text={"Sign Up"}
+          closeDrawer={handleToggleDrawer}
+          Icon={PersonAddAltRoundedIcon}
+        />
       </div>
     </Drawer>
   );
