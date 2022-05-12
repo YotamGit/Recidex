@@ -2,7 +2,6 @@ import axios from "axios";
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { AppDispatch, RootState } from "../store";
 
-import { setFilters } from "./filtersSlice";
 interface RecipesState {
   recipes: TRecipe[];
   fetchedAllRecipes: boolean;

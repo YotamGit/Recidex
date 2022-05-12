@@ -274,6 +274,11 @@ router.post("/edit/:recipe_id", async (req, res, next) => {
 // FAVORITE A RECIPE FOR A USER
 router.post("/edit/favorite/:recipe_id", async (req, res, next) => {
   try {
+    const recipe = await Recipe.findById({ _id: req.params.recipe_id });
+    if (recipe.private) {
+      res.status(403).send("Private recipes can not be favorited");
+    }
+
     const users = (await Recipe.findById({ _id: req.params.recipe_id }))
       .favorited_by;
     let index = users.indexOf(req.headers.validatedToken._id);
