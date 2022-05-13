@@ -79,7 +79,11 @@ function App() {
           element={
             <>
               <Header pageName={"Home"} showSearch={true} />
-              <Main ownerOnly={false} favoritesOnly={false} />
+              <Main
+                ownerOnly={false}
+                favoritesOnly={false}
+                approvalRequiredOnly={false}
+              />
             </>
           }
         />
@@ -90,7 +94,11 @@ function App() {
             <ProtectedRoute isAllowed={signedIn} redirectPath={"/home"}>
               <>
                 <Header pageName={"My Recipes"} showSearch={true} />
-                <Main ownerOnly={true} favoritesOnly={false} />
+                <Main
+                  ownerOnly={true}
+                  favoritesOnly={false}
+                  approvalRequiredOnly={false}
+                />
               </>
             </ProtectedRoute>
           }
@@ -101,7 +109,11 @@ function App() {
             <ProtectedRoute isAllowed={signedIn} redirectPath={"/home"}>
               <>
                 <Header pageName={"Favorites"} showSearch={true} />
-                <Main ownerOnly={false} favoritesOnly={true} />
+                <Main
+                  ownerOnly={false}
+                  favoritesOnly={true}
+                  approvalRequiredOnly={false}
+                />
               </>
             </ProtectedRoute>
           }
@@ -155,7 +167,11 @@ function App() {
             >
               <>
                 <Header pageName={"Recipe Moderation"} showSearch={true} />
-                <ModerationPage />
+                <Main
+                  ownerOnly={false}
+                  favoritesOnly={false}
+                  approvalRequiredOnly={true}
+                />
               </>
             </ProtectedRoute>
           }

@@ -17,16 +17,22 @@ router.get("/", async (req, res, next) => {
     const validatedToken = validateToken(req.cookies?.userToken);
 
     if (Object.keys(req.query).length > 0) {
+      let publicRecipeQuery =
+        validatedToken &&
+        req.query.ownerOnly === undefined &&
+        req.query.favoritesOnly === undefined &&
+        req.query.approvalRequiredOnly === undefined
+          ? { approved: true }
+          : {};
+
       let ownerOnlyQuery =
         validatedToken && req.query.ownerOnly === "true"
           ? { owner: validatedToken._id }
           : {};
 
-      let publicRecipeQuery =
-        validatedToken &&
-        req.query.ownerOnly === undefined &&
-        req.query.favoritesOnly === undefined
-          ? { approved: true }
+      let approvalRequiredOnlyQuery =
+        validatedToken && req.query.approvalRequiredOnly === "true"
+          ? { approval_required: true }
           : {};
 
       let favoritesOnlyQuery =
@@ -42,6 +48,7 @@ router.get("/", async (req, res, next) => {
         creation_time: { $lt: req.query.latest },
         ...publicRecipeQuery,
         ...ownerOnlyQuery,
+        ...approvalRequiredOnlyQuery,
         ...favoritesOnlyQuery,
         ...textSearchQuery,
         ...JSON.parse(req.query.filters),

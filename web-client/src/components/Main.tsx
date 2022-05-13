@@ -6,7 +6,11 @@ import { useLocation } from "react-router-dom";
 //redux
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { getRecipes } from "../slices/recipesSlice";
-import { setOwnerOnly, setfavoritesOnly } from "../slices/filtersSlice";
+import {
+  setOwnerOnly,
+  setfavoritesOnly,
+  setApprovalRequiredOnly,
+} from "../slices/filtersSlice";
 
 //mui
 import Button from "@mui/material/Button";
@@ -16,9 +20,14 @@ import Alert from "@mui/material/Alert";
 interface propTypes {
   ownerOnly: boolean;
   favoritesOnly: boolean;
+  approvalRequiredOnly: boolean;
 }
 
-const Main: FC<propTypes> = ({ ownerOnly, favoritesOnly }) => {
+const Main: FC<propTypes> = ({
+  ownerOnly,
+  favoritesOnly,
+  approvalRequiredOnly,
+}) => {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const [fetching, setFetching] = useState(false);
@@ -65,11 +74,13 @@ const Main: FC<propTypes> = ({ ownerOnly, favoritesOnly }) => {
       .slice(0, routeHistory.length - 1)
       .reverse()
       .find((element) =>
-        ["/home", "/my-recipes", "/favorites"].includes(element)
+        ["/home", "/my-recipes", "/favorites", "/recipe-moderation"].includes(
+          element
+        )
       );
 
     if (
-      ["/home", "/my-recipes", "/favorites"].includes(
+      ["/home", "/my-recipes", "/favorites", "/recipe-moderation"].includes(
         routeHistory.slice(-1)[0]
       ) ||
       location.pathname !== lastMainPageVisited ||
@@ -77,10 +88,11 @@ const Main: FC<propTypes> = ({ ownerOnly, favoritesOnly }) => {
     ) {
       dispatch(setfavoritesOnly(favoritesOnly));
       dispatch(setOwnerOnly(ownerOnly));
+      dispatch(setApprovalRequiredOnly(approvalRequiredOnly));
       initialRecipesLoad();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ownerOnly, favoritesOnly, attemptSignIn, location]);
+  }, [ownerOnly, favoritesOnly, approvalRequiredOnly, attemptSignIn, location]);
 
   useEffect(() => {
     const handleScroll = async () => {

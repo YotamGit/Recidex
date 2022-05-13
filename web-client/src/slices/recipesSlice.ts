@@ -64,7 +64,7 @@ interface GetRecipesProps {
 }
 // params - {replace:Boolean, args:{filters to pass to the db}}, see implementation...
 export const getRecipes = createAsyncThunk<
-  { replace: boolean; recipes: any },
+  { replace: boolean; recipes: TRecipe[] },
   GetRecipesProps,
   AsyncThunkConfig
 >("recipes/getRecipes", async (params, thunkAPI) => {
@@ -73,6 +73,7 @@ export const getRecipes = createAsyncThunk<
   let searchText = state.filters.searchText;
   let ownerOnly = state.filters.ownerOnly;
   let favoritesOnly = state.filters.favoritesOnly;
+  let approvalRequiredOnly = state.filters.approvalRequiredOnly;
   let selecetedfilters = state.filters.selectedFilters;
 
   let result = await axios.get("/api/recipes", {
@@ -81,6 +82,7 @@ export const getRecipes = createAsyncThunk<
       count: 12,
       ownerOnly: ownerOnly || undefined,
       favoritesOnly: favoritesOnly || undefined,
+      approvalRequiredOnly: approvalRequiredOnly || undefined,
       searchText: searchText,
       filters: selecetedfilters,
     },
