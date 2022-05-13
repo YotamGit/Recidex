@@ -126,7 +126,7 @@ const Main: FC<propTypes> = ({
       }}
     >
       {recipes.length > 0 ? (
-        <Recipes />
+        <Recipes approvalRequiredOnly={approvalRequiredOnly} />
       ) : (
         "No Recipes To Show" //show skeleton loading animation if fetching is true
       )}
