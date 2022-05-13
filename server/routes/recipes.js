@@ -268,7 +268,6 @@ router.post("/edit/:recipe_id", async (req, res, next) => {
         //false means the image is to be deleted
         req.body.recipeData.image = null;
       }
-
       const response = await Recipe.updateOne(
         { _id: req.params.recipe_id },
         {
@@ -326,6 +325,30 @@ router.post("/edit/favorite/:recipe_id", async (req, res, next) => {
         default:
           res.status(400).send("favorite field is missing or not boolean");
       }
+    }
+  } catch (err) {
+    next(err);
+  }
+});
+
+// APPROVE A RECIPE
+router.post("/edit/approve/:recipe_id", async (req, res, next) => {
+  try {
+    const recipe = await Recipe.findById({ _id: req.params.recipe_id });
+    if (!recipe.private) {
+      const isModerator = await isModeratorUser(req.headers.validatedToken);
+
+      if (isModerator) {
+        await Recipe.updateOne(
+          { _id: req.params.recipe_id },
+          { approved: true, approval_required: false, private: false }
+        );
+        res.status(200).json({ approved: true });
+      } else {
+        res.status(403).send("Missing privileges to approve recipe.");
+      }
+    } else {
+      res.status(403).send("Cant approve a private recipe.");
     }
   } catch (err) {
     next(err);

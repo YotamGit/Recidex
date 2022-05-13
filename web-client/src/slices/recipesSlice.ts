@@ -116,8 +116,13 @@ export const editRecipe = createAsyncThunk<
     });
   }
 
-  return state.recipes.recipes.map((recipe: TRecipe) =>
-    recipe._id === props.recipeData._id ? editedRecipe.data : recipe
+  if (editedRecipe.data.approved || state.filters.ownerOnly) {
+    return state.recipes.recipes.map((recipe: TRecipe) =>
+      recipe._id === editedRecipe.data._id ? editedRecipe.data : recipe
+    );
+  }
+  return state.recipes.recipes.filter(
+    (recipe: TRecipe) => recipe._id !== editedRecipe.data._id
   );
 });
 
@@ -186,6 +191,30 @@ export const favoriteRecipe = createAsyncThunk<
     //TODO return a single recipe instead of all of the recipes
     return state.recipes.recipes.map((recipe: TRecipe) =>
       recipe._id === props.id ? { ...recipe, favorited_by: res.data } : recipe
+    );
+  } catch (error: any) {
+    return thunkAPI.rejectWithValue({
+      statusCode: error?.response?.status,
+      data: error?.response?.data,
+      message: error.message,
+    });
+  }
+});
+interface ApproveRecipeProps {
+  id: string;
+}
+export const approveRecipe = createAsyncThunk<
+  TRecipe[],
+  ApproveRecipeProps,
+  AsyncThunkConfig
+>("recipes/approveRecipe", async (props, thunkAPI) => {
+  const state = thunkAPI.getState() as RootState;
+
+  try {
+    let res = await axios.post(`/api/recipes/edit/approve/${props.id}`);
+    //TODO return a single recipe instead of all of the recipes
+    return state.recipes.recipes.filter(
+      (recipe: TRecipe) => recipe._id !== props.id
     );
   } catch (error: any) {
     return thunkAPI.rejectWithValue({
@@ -284,6 +313,22 @@ const recipesSlice = createSlice({
         } else {
           window.alert(
             "Failed to Favorite Recipe, Please Try Again.\nReason: " +
+              action.payload.message
+          );
+        }
+      })
+      .addCase(approveRecipe.fulfilled, (state, action) => {
+        state.recipes = action.payload;
+      })
+      .addCase(approveRecipe.rejected, (state, action: PayloadAction<any>) => {
+        if (action.payload.statusCode === 403) {
+          window.alert(
+            "Failed to approve recipe, Please try again.\nReason: " +
+              action.payload.data
+          );
+        } else {
+          window.alert(
+            "Failed to approve recipe, Please try again.\nReason: " +
               action.payload.message
           );
         }

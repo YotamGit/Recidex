@@ -43,6 +43,7 @@ app.post("/api/recipes/new", authenticateUser);
 app.post("/api/recipes/delete/*", authenticateUser);
 app.post("/api/recipes/edit/*", authenticateUser);
 app.post("/api/recipes/edit/favorite/*", authenticateUser);
+app.post("/api/recipes/edit/approve/*", authenticateUser);
 
 app.get("/api/users", authenticateUser);
 app.post("/api/users/user/delete", authenticateUser);

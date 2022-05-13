@@ -1,0 +1,56 @@
+.moderation-recipe-card {
+  border-radius: 15px;
+  border: 2px solid black;
+  height: 185px;
+  width: 505px;
+  margin: 1%;
+  background-color: var(--recipe-card);
+}
+.moderation-recipe-card .icon {
+  font-size: 30px;
+}
+
+/* top button row*/
+.moderation-recipe-card .top-button-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.moderation-recipe-card .recipe-title {
+  font-size: 130%;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.moderation-recipe-card .recipe-data-dates {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.moderation-recipe-card .recipe-data-date {
+  padding: 2.5px;
+}
+
+.moderation-recipe-card .recipe-data-dates .MuiDivider-middle {
+  height: 15px;
+}
+
+.moderation-recipe-card .owner-field {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.moderation-recipe-card .bottom-button-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.moderation-recipe-card .approve-button {
+  margin: 5px;
+}

@@ -111,13 +111,11 @@ const RecipeCard: FC<propTypes> = ({ recipe }) => {
       </div>
       <div className="recipe-body">
         <div className="recipe-header">
-          <div>
-            <span
-              className="recipe-title"
-              onClick={() => navigate(`/recipes/${recipe._id}`)}
-            >
-              {recipe.title}
-            </span>
+          <div
+            className="recipe-title"
+            onClick={() => navigate(`/recipes/${recipe._id}`)}
+          >
+            {recipe.title}
           </div>
           <div className="recipe-data-dates">
             <span className="recipe-data-date">
