@@ -15,6 +15,7 @@ import Main from "./components/Main";
 import Authentication from "./components/Login/Authentication";
 import AdminPanel from "./components/admin/AdminPanel";
 import AccountInfoPage from "./components/account/AccountInfoPage";
+import ModerationPage from "./components/recipe_moderation/ModerationPage";
 
 //mui
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -141,6 +142,20 @@ function App() {
               <>
                 <Header pageName={"Account"} showSearch={false} />
                 <AccountInfoPage />
+              </>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/recipe-moderation"
+          element={
+            <ProtectedRoute
+              isAllowed={["admin", "moderator"].includes(userRole || "")}
+              redirectPath={"/home"}
+            >
+              <>
+                <Header pageName={"Recipe Moderation"} showSearch={true} />
+                <ModerationPage />
               </>
             </ProtectedRoute>
           }

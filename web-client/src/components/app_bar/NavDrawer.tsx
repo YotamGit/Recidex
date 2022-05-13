@@ -19,6 +19,7 @@ import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import PersonAddAltRoundedIcon from "@mui/icons-material/PersonAddAltRounded";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
+import FactCheckIcon from "@mui/icons-material/FactCheck";
 
 //redux
 import { useAppDispatch, useAppSelector } from "../../hooks";
@@ -131,6 +132,15 @@ const NavDrawer: FC<propTypes> = ({ openDrawer, handleToggleDrawer }) => {
           text={"Admin Panel"}
           closeDrawer={handleToggleDrawer}
           Icon={AdminPanelSettingsIcon}
+        />
+        <DrawerItem
+          visible={signedIn && ["admin", "moderator"].includes(userRole || "")}
+          addDivider={false}
+          currentPageUrl={activePage}
+          pageUrl={"/recipe-moderation"}
+          text={"Recipe Moderation"}
+          closeDrawer={handleToggleDrawer}
+          Icon={FactCheckIcon}
         />
         <DrawerItem
           visible={signedIn}
