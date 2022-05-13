@@ -102,7 +102,7 @@ export const editRecipe = createAsyncThunk<
 >("recipes/editRecipe", async (props, thunkAPI) => {
   const state = thunkAPI.getState() as RootState;
   try {
-    var editedRecipe: TRecipe = await axios.post(
+    var editedRecipe = await axios.post(
       `/api/recipes/edit/${props.recipeData._id}`,
       {
         recipeData: props.recipeData,
@@ -117,10 +117,7 @@ export const editRecipe = createAsyncThunk<
   }
 
   return state.recipes.recipes.map((recipe: TRecipe) =>
-    recipe._id === props.recipeData._id &&
-    (editedRecipe.approved || state.filters.ownerOnly)
-      ? editedRecipe
-      : recipe
+    recipe._id === props.recipeData._id ? editedRecipe.data : recipe
   );
 });
 
