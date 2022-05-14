@@ -7,12 +7,13 @@ import { useAppSelector } from "../../hooks";
 
 //types
 import { FC } from "react";
+import { TRecipe } from "../../slices/recipesSlice";
 
 interface propTypes {
   approvalRequiredOnly: boolean;
+  recipes: TRecipe[];
 }
-const Recipes: FC<propTypes> = ({ approvalRequiredOnly }) => {
-  const recipes = useAppSelector((state) => state.recipes.recipes);
+const Recipes: FC<propTypes> = ({ recipes, approvalRequiredOnly }) => {
   return (
     <div className="recipes-container">
       {recipes.map((recipe) =>

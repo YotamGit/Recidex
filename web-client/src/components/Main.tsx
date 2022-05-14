@@ -1,11 +1,14 @@
 import "../styles/Main.css";
 import Recipes from "./recipes/Recipes";
-import { FC, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 //redux
 import { useAppDispatch, useAppSelector } from "../hooks";
-import { getRecipes } from "../slices/recipesSlice";
+import {
+  getRecipes,
+  setRecipes as setStoreRecipes,
+} from "../slices/recipesSlice";
 import {
   setOwnerOnly,
   setfavoritesOnly,
@@ -16,7 +19,19 @@ import {
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
 import Alert from "@mui/material/Alert";
+import ToggleButton from "@mui/material/ToggleButton";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 
+//types
+import { FC } from "react";
+import { TRecipe } from "../slices/recipesSlice";
+
+type recipePrivacyStates =
+  | "all"
+  | "public"
+  | "approved"
+  | "pending approval"
+  | "private";
 interface propTypes {
   ownerOnly: boolean;
   favoritesOnly: boolean;
@@ -31,14 +46,46 @@ const Main: FC<propTypes> = ({
   const dispatch = useAppDispatch();
   const location = useLocation();
   const [fetching, setFetching] = useState(false);
+  const [recipePrivacy, setRecipePrivacy] =
+    useState<recipePrivacyStates>("all");
 
-  const recipes = useAppSelector((state) => state.recipes.recipes);
+  //storing the recipes in another variable to be able to filter them without
+  //changing the recipes in the store
+  const allRecipes = useAppSelector((state) => state.recipes.recipes);
+  const [recipes, setRecipes] = useState<TRecipe[]>(allRecipes);
   const fetchedAllRecipes = useAppSelector(
     (state) => state.recipes.fetchedAllRecipes
   );
 
   const attemptSignIn = useAppSelector((state) => state.users.attemptSignIn);
   const routeHistory = useAppSelector((state) => state.utilities.routeHistory);
+
+  useEffect(() => {
+    console.log(ownerOnly, recipePrivacy);
+    if (ownerOnly) {
+      switch (recipePrivacy) {
+        case "all":
+          setRecipes(allRecipes);
+          break;
+        case "public":
+          setRecipes(allRecipes.filter((recipe) => recipe.private === false));
+          break;
+        case "approved":
+          setRecipes(allRecipes.filter((recipe) => recipe.approved === true));
+          break;
+        case "pending approval":
+          setRecipes(
+            allRecipes.filter((recipe) => recipe.approval_required === true)
+          );
+          break;
+        case "private":
+          setRecipes(allRecipes.filter((recipe) => recipe.private === true));
+          break;
+      }
+    } else {
+      setRecipes(allRecipes);
+    }
+  }, [ownerOnly, recipePrivacy, allRecipes]);
 
   const loadRecipes = async () => {
     if (recipes.length > 0) {
@@ -47,7 +94,7 @@ const Main: FC<propTypes> = ({
         getRecipes({
           replace: false,
           args: {
-            latest: recipes.at(-1)?.creation_time,
+            latest: allRecipes.at(-1)?.creation_time,
           },
         })
       );
@@ -125,8 +172,44 @@ const Main: FC<propTypes> = ({
         flexDirection: "column",
       }}
     >
+      {ownerOnly && (
+        <ToggleButtonGroup
+          style={{ marginTop: "5px" }}
+          size="small"
+          value={recipePrivacy}
+          exclusive
+          onChange={(e, value: recipePrivacyStates) =>
+            value !== null && setRecipePrivacy(value)
+          }
+          aria-label="table mode"
+        >
+          <ToggleButton value={"all"} aria-label="all recipes">
+            All
+          </ToggleButton>
+          <ToggleButton value={"public"} aria-label="public recipes">
+            Public
+          </ToggleButton>
+          <ToggleButton
+            value={"pending approval"}
+            aria-label="pending approval recipes"
+          >
+            Pending Approval
+          </ToggleButton>
+          <ToggleButton value={"approved"} aria-label="approved recipes">
+            Approved
+          </ToggleButton>
+          <ToggleButton value={"private"} aria-label="private recipes">
+            Private
+          </ToggleButton>
+        </ToggleButtonGroup>
+      )}
       {recipes.length > 0 ? (
-        <Recipes approvalRequiredOnly={approvalRequiredOnly} />
+        <>
+          <Recipes
+            recipes={recipes}
+            approvalRequiredOnly={approvalRequiredOnly}
+          />
+        </>
       ) : (
         "No Recipes To Show" //show skeleton loading animation if fetching is true
       )}
