@@ -29,10 +29,12 @@ const ModerationRecipeCard: FC<propTypes> = ({ recipe }) => {
 
   const navigate = useNavigate();
 
-  const onApprove = async () => {
-    let approve = window.confirm(`Approve recipe ${recipe.title}?`);
-    if (approve) {
-      await dispatch(approveRecipe({ id: recipe._id as string }));
+  const onApprove = async (approve: boolean) => {
+    let confirm = window.confirm(`Approve recipe ${recipe.title}?`);
+    if (confirm) {
+      await dispatch(
+        approveRecipe({ _id: recipe._id as string, approve: approve })
+      );
     }
   };
 
@@ -95,10 +97,18 @@ const ModerationRecipeCard: FC<propTypes> = ({ recipe }) => {
         <Button
           className="approve-button"
           variant="contained"
-          style={{ backgroundColor: "#36d736" }}
-          onClick={onApprove}
+          style={{ backgroundColor: "rgb(72, 206, 72)" }}
+          onClick={() => onApprove(true)}
         >
           approve
+        </Button>
+        <Button
+          className="approve-button"
+          variant="contained"
+          style={{ backgroundColor: "rgb(206, 78, 72)" }}
+          onClick={() => onApprove(false)}
+        >
+          disapprove
         </Button>
       </div>
     </div>

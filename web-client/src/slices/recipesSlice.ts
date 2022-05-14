@@ -202,7 +202,8 @@ export const favoriteRecipe = createAsyncThunk<
   }
 });
 interface ApproveRecipeProps {
-  id: string;
+  _id: string;
+  approve: boolean;
 }
 export const approveRecipe = createAsyncThunk<
   TRecipe[],
@@ -212,10 +213,12 @@ export const approveRecipe = createAsyncThunk<
   const state = thunkAPI.getState() as RootState;
 
   try {
-    let res = await axios.post(`/api/recipes/edit/approve/${props.id}`);
+    let res = await axios.post(`/api/recipes/edit/approve/${props._id}`, {
+      approve: props.approve,
+    });
     //TODO return a single recipe instead of all of the recipes
     return state.recipes.recipes.filter(
-      (recipe: TRecipe) => recipe._id !== props.id
+      (recipe: TRecipe) => recipe._id !== props._id
     );
   } catch (error: any) {
     return thunkAPI.rejectWithValue({

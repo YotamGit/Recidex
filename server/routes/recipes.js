@@ -363,7 +363,11 @@ router.post("/edit/approve/:recipe_id", async (req, res, next) => {
       if (isModerator) {
         await Recipe.updateOne(
           { _id: req.params.recipe_id },
-          { approved: true, approval_required: false, private: false }
+          {
+            approved: req.body.approve,
+            approval_required: false,
+            private: false,
+          }
         );
         res.status(200).json({ approved: true });
       } else {
