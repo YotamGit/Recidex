@@ -7,7 +7,8 @@ import Table from "@mui/material/Table";
 import TableContainer from "@mui/material/TableContainer";
 import TableBody from "@mui/material/TableBody";
 import TablePagination from "@mui/material/TablePagination";
-import Switch from "@mui/material/Switch";
+import ToggleButton from "@mui/material/ToggleButton";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 
 //mui icons
 import PhoneAndroidRoundedIcon from "@mui/icons-material/PhoneAndroidRounded";
@@ -123,23 +124,23 @@ const AdminTable: FC = () => {
         </Table>
       </TableContainer>
       <div className="pagination-row">
-        <Switch
-          checked={minimalTable}
-          onChange={(e) => setMinimalTable(e.currentTarget.checked)}
-          inputProps={{ "aria-label": "controlled" }}
-          icon={
-            <DesktopWindowsRoundedIcon
-              className="switch-icon"
-              style={{ color: "rgb(25,118,210)" }}
-            />
+        <ToggleButtonGroup
+          style={{ marginTop: "5px" }}
+          size="small"
+          value={minimalTable}
+          exclusive
+          onChange={(e, value: boolean) =>
+            value !== null && setMinimalTable(value)
           }
-          checkedIcon={
-            <PhoneAndroidRoundedIcon
-              className="switch-icon"
-              style={{ color: "rgb(25,118,210)" }}
-            />
-          }
-        />
+          aria-label="table mode"
+        >
+          <ToggleButton value={false} aria-label="pc view">
+            <DesktopWindowsRoundedIcon />
+          </ToggleButton>
+          <ToggleButton value={true} aria-label="phone view">
+            <PhoneAndroidRoundedIcon />
+          </ToggleButton>
+        </ToggleButtonGroup>
         <TablePagination
           rowsPerPageOptions={[5, 10, 25, users.length].sort((a, b) => a - b)}
           component="div"

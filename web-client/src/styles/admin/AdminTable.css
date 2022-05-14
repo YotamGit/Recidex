@@ -1,16 +1,10 @@
-.admin-table .table-container{
+.admin-table .table-container {
   height: 60vh;
 }
 
 .admin-table .pagination-row {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: space-between;
-}
-
-.admin-table .switch-icon {
-  background-color: rgb(140 187 233);
-  border-radius: 6px;
-  border: 1px #1976d2 solid;
 }
