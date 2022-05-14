@@ -11,6 +11,7 @@ import {
 } from "../slices/recipesSlice";
 import {
   setOwnerOnly,
+  setPrivacyState,
   setfavoritesOnly,
   setApprovalRequiredOnly,
 } from "../slices/filtersSlice";
@@ -25,13 +26,8 @@ import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 //types
 import { FC } from "react";
 import { TRecipe } from "../slices/recipesSlice";
+import { recipePrivacyState } from "../slices/filtersSlice";
 
-type recipePrivacyStates =
-  | "all"
-  | "public"
-  | "approved"
-  | "pending approval"
-  | "private";
 interface propTypes {
   ownerOnly: boolean;
   favoritesOnly: boolean;
@@ -46,13 +42,12 @@ const Main: FC<propTypes> = ({
   const dispatch = useAppDispatch();
   const location = useLocation();
   const [fetching, setFetching] = useState(false);
-  const [recipePrivacy, setRecipePrivacy] =
-    useState<recipePrivacyStates>("all");
+  const [recipePrivacy, setRecipePrivacy] = useState<recipePrivacyState>("all");
 
   //storing the recipes in another variable to be able to filter them without
   //changing the recipes in the store
-  const allRecipes = useAppSelector((state) => state.recipes.recipes);
-  const [recipes, setRecipes] = useState<TRecipe[]>(allRecipes);
+  const recipes = useAppSelector((state) => state.recipes.recipes);
+  // const [recipes, setRecipes] = useState<TRecipe[]>(allRecipes);
   const fetchedAllRecipes = useAppSelector(
     (state) => state.recipes.fetchedAllRecipes
   );
@@ -63,29 +58,10 @@ const Main: FC<propTypes> = ({
   useEffect(() => {
     console.log(ownerOnly, recipePrivacy);
     if (ownerOnly) {
-      switch (recipePrivacy) {
-        case "all":
-          setRecipes(allRecipes);
-          break;
-        case "public":
-          setRecipes(allRecipes.filter((recipe) => recipe.private === false));
-          break;
-        case "approved":
-          setRecipes(allRecipes.filter((recipe) => recipe.approved === true));
-          break;
-        case "pending approval":
-          setRecipes(
-            allRecipes.filter((recipe) => recipe.approval_required === true)
-          );
-          break;
-        case "private":
-          setRecipes(allRecipes.filter((recipe) => recipe.private === true));
-          break;
-      }
-    } else {
-      setRecipes(allRecipes);
+      dispatch(setPrivacyState(recipePrivacy));
+      initialRecipesLoad();
     }
-  }, [ownerOnly, recipePrivacy, allRecipes]);
+  }, [ownerOnly, recipePrivacy]);
 
   const loadRecipes = async () => {
     if (recipes.length > 0) {
@@ -94,7 +70,7 @@ const Main: FC<propTypes> = ({
         getRecipes({
           replace: false,
           args: {
-            latest: allRecipes.at(-1)?.creation_time,
+            latest: recipes.at(-1)?.creation_time,
           },
         })
       );
@@ -178,7 +154,7 @@ const Main: FC<propTypes> = ({
           size="small"
           value={recipePrivacy}
           exclusive
-          onChange={(e, value: recipePrivacyStates) =>
+          onChange={(e, value: recipePrivacyState) =>
             value !== null && setRecipePrivacy(value)
           }
           aria-label="table mode"

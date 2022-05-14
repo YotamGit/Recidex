@@ -18,17 +18,39 @@ router.get("/", async (req, res, next) => {
 
     if (Object.keys(req.query).length > 0) {
       let publicRecipeQuery =
-        validatedToken &&
         req.query.ownerOnly === undefined &&
         req.query.favoritesOnly === undefined &&
         req.query.approvalRequiredOnly === undefined
           ? { approved: true }
           : {};
 
-      let ownerOnlyQuery =
-        validatedToken && req.query.ownerOnly === "true"
-          ? { owner: validatedToken._id }
-          : {};
+      //assemble ownerOnly query
+      let ownerOnlyQuery = {};
+      if (validatedToken && req.query.ownerOnly === "true") {
+        switch (req.query.privacyState) {
+          case "all":
+            ownerOnlyQuery = { owner: validatedToken._id };
+            break;
+          case "public":
+            ownerOnlyQuery = { owner: validatedToken._id, private: false };
+            break;
+          case "pending approval":
+            ownerOnlyQuery = {
+              owner: validatedToken._id,
+              approval_required: true,
+            };
+            break;
+          case "approved":
+            ownerOnlyQuery = { owner: validatedToken._id, approved: true };
+            break;
+          case "private":
+            ownerOnlyQuery = { owner: validatedToken._id, private: true };
+            break;
+          default:
+            ownerOnlyQuery = { owner: validatedToken._id };
+            break;
+        }
+      }
 
       let approvalRequiredOnlyQuery =
         validatedToken && req.query.approvalRequiredOnly === "true"
@@ -51,7 +73,7 @@ router.get("/", async (req, res, next) => {
         ...approvalRequiredOnlyQuery,
         ...favoritesOnlyQuery,
         ...textSearchQuery,
-        ...JSON.parse(req.query.filters),
+        ...JSON.parse(req.query?.filters),
       })
         .select("-image")
         .populate("owner", "firstname lastname")

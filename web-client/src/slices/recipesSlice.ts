@@ -72,15 +72,16 @@ export const getRecipes = createAsyncThunk<
 
   let searchText = state.filters.searchText;
   let ownerOnly = state.filters.ownerOnly;
+  let privacyState = state.filters.privacyState;
   let favoritesOnly = state.filters.favoritesOnly;
   let approvalRequiredOnly = state.filters.approvalRequiredOnly;
   let selecetedfilters = state.filters.selectedFilters;
-
   let result = await axios.get("/api/recipes", {
     params: {
       latest: params.args?.latest || new Date(),
       count: 12,
       ownerOnly: ownerOnly || undefined,
+      privacyState: ownerOnly ? privacyState : undefined,
       favoritesOnly: favoritesOnly || undefined,
       approvalRequiredOnly: approvalRequiredOnly || undefined,
       searchText: searchText,

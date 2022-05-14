@@ -1,5 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+export type recipePrivacyState =
+  | "all"
+  | "public"
+  | "approved"
+  | "pending approval"
+  | "private";
 interface FiltersState {
   selectedFilters: {
     [key: string]: any;
@@ -10,6 +16,7 @@ interface FiltersState {
     total_time: string | undefined;
   };
   ownerOnly: boolean | undefined;
+  privacyState: recipePrivacyState;
   favoritesOnly: boolean | undefined;
   approvalRequiredOnly: boolean | undefined;
   searchText: string | undefined;
@@ -40,6 +47,7 @@ const initialState: FiltersState = {
     total_time: undefined,
   },
   ownerOnly: undefined,
+  privacyState: "all",
   favoritesOnly: undefined,
   approvalRequiredOnly: undefined,
   searchText: undefined,
@@ -94,6 +102,9 @@ const filtersSlice = createSlice({
     setOwnerOnly(state, action: PayloadAction<boolean>) {
       state.ownerOnly = action.payload;
     },
+    setPrivacyState(state, action: PayloadAction<recipePrivacyState>) {
+      state.privacyState = action.payload;
+    },
     setApprovalRequiredOnly(state, action: PayloadAction<boolean>) {
       state.approvalRequiredOnly = action.payload;
     },
@@ -115,6 +126,7 @@ export const {
   setFilters,
   setFiltered,
   setOwnerOnly,
+  setPrivacyState,
   setApprovalRequiredOnly,
   setSearchText,
   setfavoritesOnly,
