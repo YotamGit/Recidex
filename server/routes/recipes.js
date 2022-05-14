@@ -221,7 +221,6 @@ router.post("/new", async (req, res, next) => {
 router.post("/delete/:recipe_id", async (req, res, next) => {
   try {
     const recipe = await Recipe.findById(req.params.recipe_id);
-    console.log(req.headers);
     const isOwner = await authenticateRecipeOwnership(
       req.headers.validatedToken,
       recipe

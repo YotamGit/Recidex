@@ -30,7 +30,9 @@ const ModerationRecipeCard: FC<propTypes> = ({ recipe }) => {
   const navigate = useNavigate();
 
   const onApprove = async (approve: boolean) => {
-    let confirm = window.confirm(`Approve recipe ${recipe.title}?`);
+    let confirm = window.confirm(
+      `${approve ? "Approve" : "Disapprove"} recipe ${recipe.title}?`
+    );
     if (confirm) {
       await dispatch(
         approveRecipe({ _id: recipe._id as string, approve: approve })
