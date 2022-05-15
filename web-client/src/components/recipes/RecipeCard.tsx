@@ -45,7 +45,7 @@ const RecipeCard: FC<propTypes> = ({ recipe }) => {
       <div className="recipe-card-top-button-row">
         <Link
           to={`/recipes/${recipe._id}`}
-          style={{ color: "gray", margin: "1%" }}
+          style={{ color: "gray", padding: "1%" }}
         >
           <Tooltip title="Expand recipe" arrow>
             <OpenInFullRoundedIcon className="icon" />
@@ -53,47 +53,47 @@ const RecipeCard: FC<propTypes> = ({ recipe }) => {
         </Link>
         <Link
           to={`/recipes/edit/${recipe._id}`}
-          style={{ color: "gray", margin: "1%" }}
+          style={{ color: "gray", padding: "1%" }}
         >
           <Tooltip title="Edit recipe" arrow>
             <EditRoundedIcon className="icon" />
           </Tooltip>
         </Link>
       </div>
-      <div className="recipe-body">
-        <div className="recipe-header">
-          <div
-            className="recipe-title"
-            onClick={() => navigate(`/recipes/${recipe._id}`)}
-          >
-            {recipe.title}
-          </div>
-          <div className="recipe-data-dates">
-            <span className="recipe-data-date">
-              <span>Created: </span>
-              {recipe.creation_time &&
-                new Date(recipe.creation_time).toLocaleString("he-IL", {
-                  day: "numeric",
-                  month: "numeric",
-                  year: "numeric",
-                })}
-            </span>
-
-            <Divider orientation="vertical" variant="middle" />
-            <span className="recipe-data-date">
-              <span>Updated: </span>
-              {recipe.last_update_time &&
-                new Date(recipe.last_update_time).toLocaleString("he-IL", {
-                  day: "numeric",
-                  month: "numeric",
-                  year: "numeric",
-                })}
-            </span>
-          </div>
-          <Divider variant="middle" />
-          <RecipeCardChips recipe={recipe} />
+      <div className="recipe-header">
+        <div
+          className="recipe-title"
+          onClick={() => navigate(`/recipes/${recipe._id}`)}
+        >
+          {recipe.title}
         </div>
-        <div className="recipe-main-section">
+        <div className="recipe-data-dates">
+          <span className="recipe-data-date">
+            <span>Created: </span>
+            {recipe.creation_time &&
+              new Date(recipe.creation_time).toLocaleString("he-IL", {
+                day: "numeric",
+                month: "numeric",
+                year: "numeric",
+              })}
+          </span>
+
+          <Divider orientation="vertical" variant="middle" />
+          <span className="recipe-data-date">
+            <span>Updated: </span>
+            {recipe.last_update_time &&
+              new Date(recipe.last_update_time).toLocaleString("he-IL", {
+                day: "numeric",
+                month: "numeric",
+                year: "numeric",
+              })}
+          </span>
+        </div>
+        <Divider variant="middle" />
+      </div>
+      <div className="recipe-body">
+        <RecipeCardChips recipe={recipe} />
+        {recipe.description && (
           <div
             className="recipe-description"
             style={{
@@ -105,49 +105,45 @@ const RecipeCard: FC<propTypes> = ({ recipe }) => {
               ),
             }}
           />
-          <div className="recipe-additional-data-and-image">
-            <img
-              className="recipe-card-image"
-              src={
-                recipe.imageName
-                  ? `/api/recipes/image/${recipe._id}?${Date.now()}`
-                  : ImagePlaceholder
-              }
-              style={
-                !recipe.imageName && !fullscreen ? { height: "150px" } : {}
-              }
-              alt=""
-              onClick={() => navigate(`/recipes/${recipe._id}`)}
-            />
-            <div className="recipe-additional-data">
-              {recipe.total_time && (
-                <div className="recipe-additional-data-field">
-                  <AccessTimeOutlinedIcon className="icon" />
-                  <Tooltip title="Total Time" arrow>
-                    <span className="data">{recipe.total_time}</span>
-                  </Tooltip>
-                </div>
-              )}
-              {recipe.servings && (
-                <div className="recipe-additional-data-field">
-                  <CookieOutlinedIcon className="icon" />
-                  <Tooltip title="Servings" arrow>
-                    <span className="data" dir="auto">
-                      {recipe.servings}
-                    </span>
-                  </Tooltip>
-                </div>
-              )}
-              <div className="recipe-additional-data-field">
-                <FaceRoundedIcon className="icon" />
-                <Tooltip title="Owner" arrow>
-                  <span className="data" dir="auto">
-                    {recipe.owner &&
-                      recipe.owner.firstname + " " + recipe.owner.lastname}
-                  </span>
-                </Tooltip>
-              </div>
+        )}
+        <img
+          className="recipe-card-image"
+          src={
+            recipe.imageName
+              ? `/api/recipes/image/${recipe._id}?${Date.now()}`
+              : ImagePlaceholder
+          }
+          style={!recipe.imageName && !fullscreen ? { height: "150px" } : {}}
+          alt=""
+          onClick={() => navigate(`/recipes/${recipe._id}`)}
+        />
+        <div className="recipe-additional-data">
+          {recipe.total_time && (
+            <div className="recipe-additional-data-field">
+              <AccessTimeOutlinedIcon className="icon" />
+              <Tooltip title="Total Time" arrow>
+                <span className="data">{recipe.total_time}</span>
+              </Tooltip>
             </div>
+          )}
+          {recipe.servings && (
+            <div className="recipe-additional-data-field">
+              <CookieOutlinedIcon className="icon" />
+              <Tooltip title="Servings" arrow>
+                <span className="data" dir="auto">
+                  {recipe.servings}
+                </span>
+              </Tooltip>
+            </div>
+          )}
+          <div className="recipe-additional-data-field">
+            <FaceRoundedIcon className="icon" />
+            <Tooltip title="Owner" arrow>
+              <span className="data" dir="auto">
+                {recipe.owner &&
+                  recipe.owner.firstname + " " + recipe.owner.lastname}
+              </span>
+            </Tooltip>
           </div>
         </div>
       </div>
