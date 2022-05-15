@@ -8,7 +8,6 @@ import Share from "../buttons/Share";
 import ImagePlaceholder from "../../utils-module/Photos/recipeImagePlaceholder.png";
 
 //mui
-import Chip from "@mui/material/Chip";
 import Divider from "@mui/material/Divider";
 import Tooltip from "@mui/material/Tooltip";
 
@@ -18,6 +17,9 @@ import OpenInFullRoundedIcon from "@mui/icons-material/OpenInFullRounded";
 import FaceRoundedIcon from "@mui/icons-material/FaceRounded";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import CookieOutlinedIcon from "@mui/icons-material/CookieOutlined";
+import VerifiedIcon from "@mui/icons-material/Verified";
+import VpnLockRoundedIcon from "@mui/icons-material/VpnLockRounded";
+import PendingRoundedIcon from "@mui/icons-material/PendingRounded";
 
 //redux
 import { useAppSelector } from "../../hooks";
@@ -42,18 +44,44 @@ const RecipeCard: FC<propTypes> = ({ recipe }) => {
 
   return (
     <div className="recipe-card">
-      <div className="recipe-card-top-button-row">
+      <div className="recipe-card-top-button-row" style={{ margin: "1%" }}>
         <Link
           to={`/recipes/${recipe._id}`}
-          style={{ color: "gray", padding: "1%" }}
+          style={{ color: "gray", lineHeight: 0 }}
         >
           <Tooltip title="Expand recipe" arrow>
             <OpenInFullRoundedIcon className="icon" />
           </Tooltip>
         </Link>
+        <div>
+          {recipe.approved && (
+            <Tooltip title="Approved" arrow>
+              <VerifiedIcon
+                className="icon"
+                style={{ color: "rgb(54, 219, 31)" }}
+              />
+            </Tooltip>
+          )}
+          {recipe.private && (
+            <Tooltip title="Private" arrow>
+              <VpnLockRoundedIcon
+                className="icon"
+                style={{ color: "rgb(255, 48, 0)" }}
+              />
+            </Tooltip>
+          )}
+          {recipe.approval_required && (
+            <Tooltip title="Pending Approval" arrow>
+              <PendingRoundedIcon
+                className="icon"
+                style={{ color: "#f29339" }}
+              />
+            </Tooltip>
+          )}
+        </div>
         <Link
           to={`/recipes/edit/${recipe._id}`}
-          style={{ color: "gray", padding: "1%" }}
+          style={{ color: "gray", lineHeight: 0 }}
         >
           <Tooltip title="Edit recipe" arrow>
             <EditRoundedIcon className="icon" />

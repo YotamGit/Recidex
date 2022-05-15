@@ -42,10 +42,10 @@ const ModerationRecipeCard: FC<propTypes> = ({ recipe }) => {
 
   return (
     <div className="moderation-recipe-card">
-      <div className="top-button-row">
+      <div className="top-button-row" style={{ margin: "1%" }}>
         <Link
           to={`/recipes/${recipe._id}`}
-          style={{ color: "gray", padding: "1%" }}
+          style={{ color: "gray", lineHeight: 0 }}
         >
           <Tooltip title="Expand recipe" arrow>
             <OpenInFullRoundedIcon className="icon" />
@@ -53,7 +53,7 @@ const ModerationRecipeCard: FC<propTypes> = ({ recipe }) => {
         </Link>
         <Link
           to={`/recipes/edit/${recipe._id}`}
-          style={{ color: "gray", padding: "1%" }}
+          style={{ color: "gray", lineHeight: 0 }}
         >
           <Tooltip title="Edit recipe" arrow>
             <EditRoundedIcon className="icon" />

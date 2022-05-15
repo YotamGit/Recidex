@@ -55,10 +55,15 @@ const Share: FC<propTypes> = ({ url, emailTitle }) => {
           <div className="share-modal">
             <DialogCloseButton onClick={handleClose} />
             <div className="share-modal-content">
-              <EmailShareButton subject={emailTitle} body={url} url={url}>
+              <EmailShareButton
+                style={{ lineHeight: 0 }}
+                subject={emailTitle}
+                body={url}
+                url={url}
+              >
                 <EmailRoundedIcon style={{ color: "gray", fontSize: "30px" }} />
               </EmailShareButton>
-              <span style={{ marginBottom: "10px" }}>Or</span>
+              <span style={{ marginBottom: "7px" }}>Or</span>
               <div className="url-copy-section">
                 <input id="share-url-input" type="text" value={url} readOnly />
                 <Button variant="contained" onClick={copyUrl}>
