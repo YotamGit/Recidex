@@ -13,6 +13,10 @@
   align-items: center;
 }
 
+.recipe-editor .privacy-explanation {
+  padding-left: 31px;
+}
+
 .recipe-editor-text-input-container {
   display: flex;
   flex-wrap: wrap;
@@ -51,10 +55,8 @@
 .recipe-editor-tabs {
   align-items: center;
   flex-grow: 1;
-  margin-bottom:15px;
+  margin-bottom: 15px;
 }
-
-
 
 .recipe-editor-image {
   width: 100%;
@@ -63,18 +65,15 @@
   max-height: 400px;
   object-fit: cover;
   border-radius: 10px;
-  
+
   margin-inline: auto;
-  margin-top:10px;
-  margin-bottom:10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   display: block;
 }
 
-
-
 @media only screen and (max-width: 600px) {
   .recipe-editor {
-
     width: 90%;
   }
 }

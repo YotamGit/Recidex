@@ -17,6 +17,7 @@ import Switch from "@mui/material/Switch";
 import Button from "@mui/material/Button";
 import LoadingButton from "@mui/lab/LoadingButton";
 import Checkbox from "@mui/material/Checkbox";
+import FormControlLabel from "@mui/material/FormControlLabel";
 
 //redux
 import { editRecipe, addRecipe } from "../../slices/recipesSlice";
@@ -24,6 +25,7 @@ import { useAppSelector, useAppDispatch } from "../../hooks";
 
 //types
 import { TRecipe } from "../../slices/recipesSlice";
+import { Divider } from "@mui/material";
 
 interface propTypes {
   action: "add" | "edit";
@@ -163,37 +165,97 @@ const RecipeEditor: FC<propTypes> = ({ action, recipe }) => {
   return (
     <div className="recipe-editor">
       <div className="recipe-editor-metadata-section">
-        <div>
+        <div style={{ marginTop: "30px" }}>Privacy</div>
+        <Divider
+          variant="middle"
+          orientation="horizontal"
+          style={{ width: "70%", backgroundColor: "gray" }}
+        />
+        <div className="recipe-privacy-section">
           <div>
-            <Checkbox
-              checked={privateRecipe}
-              onChange={(e) => {
-                setPrivateRecipe(e.target.checked);
-                setApprovalRequired(false);
-              }}
-              inputProps={{ "aria-label": "private-check" }}
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={privateRecipe}
+                  onChange={(e) => {
+                    setPrivateRecipe(e.target.checked);
+                    setApprovalRequired(false);
+                  }}
+                />
+              }
+              label="Private"
+              labelPlacement="end"
             />
-            Private Recipe
+            <div className="privacy-explanation">
+              Only the owner can see the recipe.
+            </div>
+            <div className="privacy-explanation">
+              Private recipes can't be viewed using links or be favorited.
+            </div>
           </div>
           <div>
-            <Checkbox
-              checked={approval_required}
-              disabled={privateRecipe}
-              onChange={(e) => setApprovalRequired(e.target.checked)}
-              inputProps={{ "aria-label": "approval-check" }}
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={!privateRecipe}
+                  onChange={(e) => setPrivateRecipe(!e.target.checked)}
+                />
+              }
+              label="Public"
+              labelPlacement="end"
             />
-            Request Approval
+            <div className="privacy-explanation">
+              Recipe is accessible through the owner's profile and links.
+            </div>
           </div>
+          <div style={{ paddingLeft: "31px" }}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={approval_required}
+                  disabled={privateRecipe}
+                  onChange={(e) => setApprovalRequired(e.target.checked)}
+                />
+              }
+              label="Request Approval"
+              labelPlacement="end"
+            />
 
-          <div>
-            English
-            <Switch
-              checked={rtl}
-              onChange={(e) => setRtl(e.currentTarget.checked)}
-              inputProps={{ "aria-label": "rtl-switch" }}
-            />
-            עברית
+            <div
+              className="privacy-explanation"
+              style={{ color: privateRecipe ? "rgba(0, 0, 0, 0.38)" : "" }}
+            >
+              Approved recipes appear on the main page and can be searched.
+            </div>
           </div>
+          <div
+            className="privacy-explanation"
+            style={{ marginTop: "10px", color: "red" }}
+          >
+            * Editing a recipe revokes its approved status.
+          </div>
+          <div className="privacy-explanation" style={{ color: "red" }}>
+            Mark recipe for approval if you wish for it to be approved
+          </div>
+        </div>
+        <Divider
+          variant="middle"
+          orientation="horizontal"
+          style={{
+            marginTop: "20px",
+            marginBottom: "20px",
+            width: "70%",
+            backgroundColor: "gray",
+          }}
+        />
+        <div>
+          English
+          <Switch
+            checked={rtl}
+            onChange={(e) => setRtl(e.currentTarget.checked)}
+            inputProps={{ "aria-label": "rtl-switch" }}
+          />
+          עברית
         </div>
         <div className="recipe-editor-text-input-container">
           <TextField
