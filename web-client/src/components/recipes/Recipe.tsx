@@ -40,7 +40,7 @@ const Recipe: FC<propTypes> = ({ recipe }) => {
       >
         <div className="recipe-title">
           {recipe.title}
-          {recipe._id && recipe.favorited_by && (
+          {!recipe.private && recipe._id && recipe.favorited_by && (
             <Favorite
               recipeId={recipe._id}
               favorited_by={recipe.favorited_by}

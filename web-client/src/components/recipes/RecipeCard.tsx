@@ -176,7 +176,7 @@ const RecipeCard: FC<propTypes> = ({ recipe }) => {
         </div>
       </div>
       <div className="recipe-card-bottom-button-row">
-        {recipe._id && recipe.favorited_by && (
+        {!recipe.private && recipe._id && recipe.favorited_by && (
           <Favorite
             recipeId={recipe._id}
             favorited_by={recipe.favorited_by}
