@@ -15,7 +15,6 @@ import Main from "./components/Main";
 import Authentication from "./components/Login/Authentication";
 import AdminPanel from "./components/admin/AdminPanel";
 import AccountInfoPage from "./components/account/AccountInfoPage";
-import ModerationPage from "./components/recipe_moderation/ModerationPage";
 
 //mui
 import useMediaQuery from "@mui/material/useMediaQuery";

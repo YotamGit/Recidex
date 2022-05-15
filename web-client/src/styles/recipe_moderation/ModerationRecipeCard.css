@@ -1,8 +1,8 @@
 .moderation-recipe-card {
   border-radius: 15px;
   border: 2px solid black;
-  height: 185px;
-  width: 505px;
+  height: fit-content;
+  width: 350px;
   margin: 1%;
   background-color: var(--recipe-card);
 }
@@ -36,7 +36,7 @@
 }
 
 .moderation-recipe-card .recipe-data-dates .MuiDivider-middle {
-  height: 15px;
+  height: 20px;
 }
 
 .moderation-recipe-card .owner-field {
@@ -53,5 +53,12 @@
 }
 
 .moderation-recipe-card .approve-button {
-  margin: 5px;
+  margin-inline: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+@media only screen and (max-width: 600px) {
+  .moderation-recipe-card {
+    width: 100vw;
+  }
 }
