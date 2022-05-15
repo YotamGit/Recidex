@@ -2,6 +2,7 @@ import "../../styles/recipes/RecipeCard.css";
 import { Link, useNavigate } from "react-router-dom";
 import { marked } from "marked";
 
+import RecipeCardChips from "./RecipeCardChips";
 import Favorite from "../buttons/Favorite";
 import Share from "../buttons/Share";
 import ImagePlaceholder from "../../utils-module/Photos/recipeImagePlaceholder.png";
@@ -19,9 +20,7 @@ import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import CookieOutlinedIcon from "@mui/icons-material/CookieOutlined";
 
 //redux
-import { useAppSelector, useAppDispatch } from "../../hooks";
-import { setFilters, setFiltered } from "../../slices/filtersSlice";
-import { getRecipes } from "../../slices/recipesSlice";
+import { useAppSelector } from "../../hooks";
 
 //types
 import { TRecipe } from "../../slices/recipesSlice";
@@ -37,57 +36,9 @@ interface propTypes {
   recipe: TRecipe;
 }
 const RecipeCard: FC<propTypes> = ({ recipe }) => {
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const fullscreen = useAppSelector((state) => state.utilities.fullscreen);
-
-  const chipCategoryOnClick = async () => {
-    dispatch(
-      setFilters({
-        category: recipe.category,
-        sub_category: undefined,
-        difficulty: undefined,
-        prep_time: undefined,
-        total_time: undefined,
-      })
-    );
-    let filterRes = await dispatch(getRecipes({ replace: true }));
-
-    if (filterRes.meta.requestStatus === "fulfilled") {
-      dispatch(setFiltered(true));
-    }
-  };
-  const chipSubCategoryOnClick = async () => {
-    dispatch(
-      setFilters({
-        category: recipe.category,
-        sub_category: recipe.sub_category,
-        difficulty: undefined,
-        prep_time: undefined,
-        total_time: undefined,
-      })
-    );
-    let filterRes = await dispatch(getRecipes({ replace: true }));
-    if (filterRes.meta.requestStatus === "fulfilled") {
-      dispatch(setFiltered(true));
-    }
-  };
-  const chipDifficultyOnClick = async () => {
-    dispatch(
-      setFilters({
-        category: undefined,
-        sub_category: undefined,
-        difficulty: recipe.difficulty,
-        prep_time: undefined,
-        total_time: undefined,
-      })
-    );
-    let filterRes = await dispatch(getRecipes({ replace: true }));
-    if (filterRes.meta.requestStatus === "fulfilled") {
-      dispatch(setFiltered(true));
-    }
-  };
 
   return (
     <div className="recipe-card">
@@ -140,35 +91,7 @@ const RecipeCard: FC<propTypes> = ({ recipe }) => {
             </span>
           </div>
           <Divider variant="middle" />
-          <div className="recipe-data-chips">
-            {recipe.category && (
-              <Tooltip title="Filter category" arrow>
-                <Chip
-                  className="recipe-data-chip"
-                  label={recipe.category}
-                  onClick={chipCategoryOnClick}
-                />
-              </Tooltip>
-            )}
-            {recipe.sub_category && (
-              <Tooltip title="Filter sub category" arrow>
-                <Chip
-                  className="recipe-data-chip"
-                  label={recipe.sub_category}
-                  onClick={chipSubCategoryOnClick}
-                />
-              </Tooltip>
-            )}
-            {recipe.difficulty && (
-              <Tooltip title="Filter difficulty" arrow>
-                <Chip
-                  className="recipe-data-chip"
-                  label={recipe.difficulty}
-                  onClick={chipDifficultyOnClick}
-                />
-              </Tooltip>
-            )}
-          </div>
+          <RecipeCardChips recipe={recipe} />
         </div>
         <div className="recipe-main-section">
           <div

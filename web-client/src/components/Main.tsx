@@ -44,10 +44,7 @@ const Main: FC<propTypes> = ({
   const [fetching, setFetching] = useState(false);
   const [recipePrivacy, setRecipePrivacy] = useState<recipePrivacyState>("all");
 
-  //storing the recipes in another variable to be able to filter them without
-  //changing the recipes in the store
   const recipes = useAppSelector((state) => state.recipes.recipes);
-  // const [recipes, setRecipes] = useState<TRecipe[]>(allRecipes);
   const fetchedAllRecipes = useAppSelector(
     (state) => state.recipes.fetchedAllRecipes
   );
@@ -56,7 +53,6 @@ const Main: FC<propTypes> = ({
   const routeHistory = useAppSelector((state) => state.utilities.routeHistory);
 
   useEffect(() => {
-    console.log(ownerOnly, recipePrivacy);
     if (ownerOnly) {
       dispatch(setPrivacyState(recipePrivacy));
       initialRecipesLoad();

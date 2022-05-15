@@ -1,0 +1,11 @@
+.recipe-data-chips {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-bottom: 1%;
+}
+
+.recipe-data-chip {
+  margin: 1%;
+  background-color: var(--chips);
+}
