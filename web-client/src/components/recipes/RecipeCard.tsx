@@ -5,7 +5,7 @@ import { marked } from "marked";
 import RecipeCardChips from "./RecipeCardChips";
 import Favorite from "../buttons/Favorite";
 import Share from "../buttons/Share";
-import ImagePlaceholder from "../../utils-module/Photos/recipeImagePlaceholder.png";
+import ImagePlaceholder from "../../utils-module/Photos/recipeImagePlaceholder.svg";
 
 //mui
 import Divider from "@mui/material/Divider";
@@ -132,7 +132,9 @@ const RecipeCard: FC<propTypes> = ({ recipe }) => {
           />
         )}
         <img
-          className="recipe-card-image"
+          className={`recipe-card-image ${
+            !recipe.imageName ? "placeholder" : ""
+          }`}
           src={
             recipe.imageName
               ? `/api/recipes/image/${recipe._id}?${Date.now()}`

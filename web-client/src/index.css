@@ -8,12 +8,9 @@
   --recipes-background: rgb(255, 255, 255);
   --recipe-card: rgb(255, 255, 255);
   --chips: rgb(219, 219, 219);
-  --agree-btn: rgb(52, 163, 238);
-  --disagree-btn: rgb(52, 163, 238);
-  --neutral-btn: rgb(155, 155, 155);
 }
 ::selection {
-  background-color: #d1b586;
+  background-color: #94c8fda2;
 }
 
 html .icon {

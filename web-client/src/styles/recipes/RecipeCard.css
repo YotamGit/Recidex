@@ -72,8 +72,11 @@
   width: 100%;
   display: block;
   object-fit: cover;
-  background-color: rgb(255, 255, 255);
   cursor: pointer;
+}
+.recipe-card .recipe-card-image.placeholder {
+  filter: invert(14%) sepia(31%) saturate(4387%) hue-rotate(179deg)
+    brightness(95%) contrast(101%);
 }
 
 .recipe-card .recipe-additional-data {
