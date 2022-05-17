@@ -1,13 +1,12 @@
 .recipe-editor {
   display: flex;
   flex-direction: column;
-  background-color: white;
   padding: 5px;
   width: 60%;
   margin: auto;
 }
 
-.recipe-editor-metadata-section {
+.recipe-editor .metadata-section {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -17,39 +16,33 @@
   padding-left: 31px;
 }
 
-.recipe-editor-text-input-container {
+.recipe-editor .text-input-container {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: space-evenly;
 }
 
-.recipe-editor-selectors-input-container {
+.recipe-editor .selectors-input-container {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: space-evenly;
 }
 
-.recipe-editor-image-upload-container {
+.image-upload-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.upload-image-btn {
-  display: inline-block;
-  background: rgb(106, 126, 214);
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  margin: 5px;
-  border-radius: 5px;
-  cursor: pointer;
-  text-decoration: none;
-  font-size: 15px;
-  font-family: inherit;
+.recipe-editor .image-name {
+  color: var(--blue-3);
+  border-color: var(--blue-4);
+}
+.recipe-editor .image-name .MuiSvgIcon-root {
+  color: var(--blue-4);
 }
 
 .recipe-editor-tabs {
@@ -58,7 +51,7 @@
   margin-bottom: 15px;
 }
 
-.recipe-editor-image {
+.recipe-editor .image {
   width: 100%;
   max-width: 600px;
   height: 100%;

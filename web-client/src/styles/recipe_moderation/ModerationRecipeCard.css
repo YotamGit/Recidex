@@ -1,13 +1,10 @@
 .moderation-recipe-card {
-  border-radius: 15px;
-  border: 2px solid black;
+  border-radius: 10px;
+  border: 2px solid var(--blue-1);
   height: fit-content;
   width: 350px;
   margin: 1%;
   background-color: var(--recipe-card);
-}
-.moderation-recipe-card .icon {
-  font-size: 30px;
 }
 
 /* top button row*/
@@ -18,6 +15,7 @@
 }
 
 .moderation-recipe-card .recipe-title {
+  color: var(--blue-1);
   font-size: 130%;
   display: flex;
   justify-content: center;
@@ -25,6 +23,8 @@
 }
 
 .moderation-recipe-card .recipe-data-dates {
+  color: var(--blue-2);
+
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -40,9 +40,14 @@
 }
 
 .moderation-recipe-card .owner-field {
+  color: var(--blue-1);
+
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.moderation-recipe-card .owner-field .icon {
+  color: var(--blue-1);
 }
 
 .moderation-recipe-card .bottom-button-row {

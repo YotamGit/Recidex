@@ -43,18 +43,12 @@ const ModerationRecipeCard: FC<propTypes> = ({ recipe }) => {
   return (
     <div className="moderation-recipe-card">
       <div className="top-button-row" style={{ margin: "1%" }}>
-        <Link
-          to={`/recipes/${recipe._id}`}
-          style={{ color: "gray", lineHeight: 0 }}
-        >
+        <Link to={`/recipes/${recipe._id}`} style={{ lineHeight: 0 }}>
           <Tooltip title="Expand recipe" arrow>
             <OpenInFullRoundedIcon className="icon" />
           </Tooltip>
         </Link>
-        <Link
-          to={`/recipes/edit/${recipe._id}`}
-          style={{ color: "gray", lineHeight: 0 }}
-        >
+        <Link to={`/recipes/edit/${recipe._id}`} style={{ lineHeight: 0 }}>
           <Tooltip title="Edit recipe" arrow>
             <EditRoundedIcon className="icon" />
           </Tooltip>
@@ -99,7 +93,7 @@ const ModerationRecipeCard: FC<propTypes> = ({ recipe }) => {
         <Button
           className="approve-button"
           variant="contained"
-          style={{ backgroundColor: "rgb(72, 206, 72)" }}
+          style={{ backgroundColor: "rgb(117, 219, 104)" }}
           onClick={() => onApprove(true)}
         >
           approve
@@ -107,7 +101,7 @@ const ModerationRecipeCard: FC<propTypes> = ({ recipe }) => {
         <Button
           className="approve-button"
           variant="contained"
-          style={{ backgroundColor: "rgb(206, 78, 72)" }}
+          style={{ backgroundColor: "rgb(255, 93, 85)" }}
           onClick={() => onApprove(false)}
         >
           disapprove

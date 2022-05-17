@@ -7,7 +7,6 @@
 
 .auth-choice-modal {
   height: 100%;
-  /* background-color: white; */
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -17,6 +16,8 @@
 .auth-choice-modal .recipes-logo {
   height: 70px;
   margin-bottom: 20px;
+  filter: invert(15%) sepia(23%) saturate(3811%) hue-rotate(175deg)
+    brightness(99%) contrast(101%);
 }
 .auth-choice-modal .choice-content {
   display: flex;
@@ -26,12 +27,12 @@
 }
 
 .auth-choice-modal .text-button {
-  color: rgb(72 206 59);
+  color: var(--blue-3);
   font-weight: 650;
   cursor: pointer;
 }
 .auth-choice-modal .text-button:hover {
-  color: rgba(71, 206, 59, 0.781);
+  color: var(--blue-4);
 }
 
 .login-modal #authentication-page .recipes-logo {

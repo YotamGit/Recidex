@@ -47,7 +47,7 @@ const Share: FC<propTypes> = ({ url, emailTitle }) => {
   return (
     <>
       <IconButton onClick={handleOpen}>
-        <ShareIcon />
+        <ShareIcon className="icon" />
       </IconButton>
 
       <Dialog open={open} onClose={handleClose} fullScreen={!fullscreen}>
@@ -61,7 +61,7 @@ const Share: FC<propTypes> = ({ url, emailTitle }) => {
                 body={url}
                 url={url}
               >
-                <EmailRoundedIcon style={{ color: "gray", fontSize: "30px" }} />
+                <EmailRoundedIcon className="icon" />
               </EmailShareButton>
               <span style={{ marginBottom: "7px" }}>Or</span>
               <div className="url-copy-section">

@@ -164,7 +164,7 @@ const RecipeEditor: FC<propTypes> = ({ action, recipe }) => {
 
   return (
     <div className="recipe-editor">
-      <div className="recipe-editor-metadata-section">
+      <div className="metadata-section">
         <div style={{ marginTop: "30px" }}>Privacy</div>
         <Divider
           variant="middle"
@@ -257,7 +257,7 @@ const RecipeEditor: FC<propTypes> = ({ action, recipe }) => {
           />
           עברית
         </div>
-        <div className="recipe-editor-text-input-container">
+        <div className="text-input-container">
           <TextField
             sx={{
               minWidth: 120,
@@ -292,7 +292,7 @@ const RecipeEditor: FC<propTypes> = ({ action, recipe }) => {
             onChange={(e) => setServings(e.target.value)}
           />
         </div>
-        <div className="recipe-editor-selectors-input-container">
+        <div className="selectors-input-container">
           <RecipeDropdown
             value={category}
             items={Object.keys(recipe_categories)}
@@ -336,7 +336,7 @@ const RecipeEditor: FC<propTypes> = ({ action, recipe }) => {
             onChange={setTotalTime}
           />
         </div>
-        <div className="recipe-editor-image-upload-container">
+        <div className="image-upload-container">
           <label htmlFor="image-input">
             <input
               id="image-input"
@@ -357,7 +357,7 @@ const RecipeEditor: FC<propTypes> = ({ action, recipe }) => {
           </label>
           {imageName && (
             <Chip
-              id="image-name"
+              className="image-name"
               label={imageName}
               variant="outlined"
               onDelete={deleteImage}
@@ -416,7 +416,7 @@ const RecipeEditor: FC<propTypes> = ({ action, recipe }) => {
           />
           {imageName && (
             <img
-              className="recipe-editor-image"
+              className="image"
               alt=""
               src={
                 (image as string) ||

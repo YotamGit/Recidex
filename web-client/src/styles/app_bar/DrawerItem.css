@@ -1,16 +1,16 @@
 .active-page {
-  opacity: 0.5;
-  padding-left: 15px;
+  background-color: var(--blue-2);
 }
 
 .drawer-button-wrapper {
+  color: var(--blue-5);
   display: flex;
   font-size: 1.5rem;
   padding-bottom: 2%;
 }
 .drawer-button-wrapper:hover {
   cursor: pointer;
-  background-color: #ffffff13;
+  background-color: var(--blue-2);
 }
 
 .drawer-button {

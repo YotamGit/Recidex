@@ -3,6 +3,10 @@
   justify-content: center;
 }
 
+.admin-table-details-row .MuiTableCell-root {
+  /* border-color: #98b0c7; */
+  /* border: none; */
+}
 .details-row-table td {
-  border-color: #959595;
+  border-color: var(--blue-2);
 }

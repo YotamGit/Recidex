@@ -1,11 +1,12 @@
 .markdown-edit-section {
-  padding-top:15px;
+  padding-top: 20px;
 }
 
 .markdown-edit-section-title {
   font-size: 1.3rem;
   font-weight: 600;
   font-style: italic;
+  color: var(--blue-1);
 }
 
 .markdown-text-box {

@@ -7,6 +7,8 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+
 //mui icons
 import FilterAltRoundedIcon from "@mui/icons-material/FilterAltRounded";
 import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
@@ -94,19 +96,17 @@ const FilterDialog = () => {
     <>
       <IconButton onClick={recipeFilterDialogToggle}>
         <FilterAltRoundedIcon
-          className="header-dialog-button"
-          style={{ color: filtered ? "#89FFAC" : "#fff" }}
+          className="icon"
+          style={{ color: filtered ? "rgb(125, 221, 112)" : "" }}
         />
       </IconButton>
       <Dialog
+        className="recipe-filter-dialog"
         fullScreen={!fullscreen}
         open={showRecipeFilterDialog}
         onClose={recipeFilterDialogToggle}
-        aria-labelledby="recipe-filter-dialog-title"
       >
-        <DialogTitle id="recipe-filter-dialog-title">
-          {"Filter Recipes"}
-        </DialogTitle>
+        <DialogTitle className="title">{"Filter Recipes"}</DialogTitle>
         <DialogContent>
           <div className="recipe-filter-selectors-input-container">
             <RecipeDropdown
@@ -155,23 +155,29 @@ const FilterDialog = () => {
             />
           </div>
         </DialogContent>
-        <DialogActions className="header-dialog-action-section">
-          <CancelRoundedIcon
-            className="header-dialog-button"
-            onClick={recipeFilterDialogToggle}
-            style={{ color: "rgb(255,0,0)" }}
-          />
-          <DoDisturbOnRoundedIcon
-            className="header-dialog-button"
-            onClick={clearSelections}
-            style={{ color: "rgb(218,165,32)" }}
-          />
+        <DialogActions className="filter-dialog-action-section">
+          <Tooltip title="Cancel" arrow>
+            <CancelRoundedIcon
+              className="icon"
+              onClick={recipeFilterDialogToggle}
+              style={{ color: "rgb(255, 93, 85)" }}
+            />
+          </Tooltip>
+          <Tooltip title="Clear Filters" arrow>
+            <DoDisturbOnRoundedIcon
+              className="icon"
+              onClick={clearSelections}
+              style={{ color: "rgb(242, 147, 57)" }}
+            />
+          </Tooltip>
 
-          <CheckCircleRoundedIcon
-            className="header-dialog-button"
-            onClick={handleFilterRecipes}
-            style={{ color: "rgb(34,139,34)" }}
-          />
+          <Tooltip title="Apply Filters" arrow>
+            <CheckCircleRoundedIcon
+              className="icon"
+              onClick={handleFilterRecipes}
+              style={{ color: "rgb(125, 221, 112)" }}
+            />
+          </Tooltip>
         </DialogActions>
       </Dialog>
     </>

@@ -1,6 +1,4 @@
 #authentication-page {
-  background-color: var(--sign-in-background);
-
   height: 100vh;
   width: 100%;
   display: flex;
@@ -13,8 +11,11 @@
   display: block;
   margin: 0 auto;
   top: 0%;
+  filter: invert(15%) sepia(23%) saturate(3811%) hue-rotate(175deg)
+    brightness(99%) contrast(101%);
 }
 #authentication-page .title {
+  color: var(--blue-1);
   text-align: center;
   font-size: 30px;
 }
@@ -84,12 +85,16 @@
 }
 #authentication-page .extra-button-1 {
   grid-area: right;
-  background-color: var(--neutral-btn);
+  background-color: var(--blue-4);
 }
 
 #authentication-page .extra-button-2 {
   grid-area: left;
-  background-color: var(--neutral-btn);
+  background-color: var(--blue-4);
+}
+#authentication-page .extra-button-1:hover,
+#authentication-page .extra-button-2:hover {
+  background-color: var(--blue-3);
 }
 
 @media only screen and (max-width: 600px) {

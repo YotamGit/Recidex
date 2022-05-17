@@ -43,11 +43,19 @@ const Favorite: FC<propTypes> = ({
   return (
     <AuthorizedButton type={"icon"} onClick={toggleFavorite} style={style}>
       {showCount && (
-        <span style={{ color: favorite ? "red" : "gray", fontSize: "20px" }}>
+        <span
+          style={{
+            color: favorite ? "rgb(255, 93, 85)" : "gray",
+            fontSize: "20px",
+          }}
+        >
           {favorited_by.length}
         </span>
       )}
-      <FavoriteRoundedIcon style={{ color: favorite ? "red" : "gray" }} />
+      <FavoriteRoundedIcon
+        className="icon"
+        style={{ color: favorite ? "rgb(255, 93, 85)" : "gray" }}
+      />
     </AuthorizedButton>
   );
 };

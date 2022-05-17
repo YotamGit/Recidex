@@ -1,15 +1,22 @@
-#drawer .MuiDrawer-paper {
-  background-color: #1976d2;
-  color: #ffffff;
+.drawer .MuiDrawer-paper {
+  background-color: var(--blue-1);
+  color: var(--blue-5);
+  /* color: white; */
+
   width: 300px;
 }
-
-#drawer-header {
+.drawer .MuiDivider-root {
+  background-color: var(--blue-2);
+}
+.drawer .drawer-header {
   display: flex;
   align-items: center;
   justify-content: flex-end;
 }
-#drawer .user-name {
+.drawer .drawer-header .icon {
+  color: var(--blue-5);
+}
+.drawer .user-name {
   flex-grow: 1;
   display: flex;
   align-items: center;
@@ -19,7 +26,7 @@
 }
 
 @media only screen and (max-width: 600px) {
-  #drawer .MuiDrawer-paper {
+  .drawer .MuiDrawer-paper {
     width: 100vw;
   }
 }

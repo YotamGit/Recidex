@@ -2,11 +2,6 @@
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-
-}
-
-.markdown-toolbar-container .markdown-icon {
-  height: 20px;
 }
 
 .markdown-toolbar {
@@ -16,7 +11,8 @@
   width: fit-content;
 }
 
-.markdown-toolbar-container .icon{
-  cursor:pointer;
+.markdown-toolbar-container .icon {
+  color: black;
+  font-size: 24px;
+  cursor: pointer;
 }
-

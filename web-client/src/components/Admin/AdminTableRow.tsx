@@ -38,7 +38,7 @@ const AdminTableRow: FC<propTypes> = ({ row, index, expand, minimalTable }) => {
         hover
         style={
           index % 2
-            ? { background: "rgb(224, 224, 224)" }
+            ? { background: "rgba(93, 130, 166, 0.63)" }
             : { background: "white" }
         }
       >

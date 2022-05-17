@@ -93,7 +93,7 @@ const EditUserButton: FC<propTypes> = ({ user }) => {
     <>
       <Button
         variant="contained"
-        style={{ backgroundColor: "rgb(4, 125, 198)", margin: "5px" }}
+        style={{ margin: "5px" }}
         onClick={handleOpen}
       >
         Edit
@@ -176,11 +176,7 @@ const EditUserButton: FC<propTypes> = ({ user }) => {
             </div>
             <div className="edit-user-buttons">
               <DeleteUserButton userId={user._id} />
-              <Button
-                variant="contained"
-                style={{ backgroundColor: "rgb(4, 125, 198)" }}
-                onClick={onEditUser}
-              >
+              <Button variant="contained" onClick={onEditUser}>
                 Submit
               </Button>
             </div>

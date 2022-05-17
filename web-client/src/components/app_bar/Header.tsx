@@ -36,14 +36,14 @@ const Header: FC<propTypes> = ({ pageName, showSearch }) => {
 
   return (
     <>
-      <AppBar position="sticky">
+      <AppBar position="sticky" className="header">
         <Toolbar className="app-bar">
           <IconButton
             aria-label="open drawer"
             onClick={handleToggleDrawer}
             edge="start"
           >
-            <MenuIcon style={{ fontSize: "30px", color: "white" }} />
+            <MenuIcon className="icon" />
           </IconButton>
 
           <div className="content">

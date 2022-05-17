@@ -1,6 +1,6 @@
 .recipe {
-  width:60%;
-  margin:auto;
+  width: 60%;
+  margin: auto;
 }
 
 /*header styling*/
@@ -8,116 +8,120 @@
   display: flex;
   flex-direction: column;
 }
-.recipe .recipe-title{
+.recipe .recipe-title {
+  color: var(--blue-1);
   font-size: 3rem;
   font-weight: 640;
-  font-style:italic;
+  font-style: italic;
+  word-break: break-word;
 }
-.recipe .recipe-description{
+.recipe .recipe-description {
   font-size: 130%;
   font-weight: 600;
-  font-style:italic;
+  font-style: italic;
 }
-.recipe .recipe-owner{
+.recipe .recipe-owner {
+  color: var(--blue-1);
+
   font-size: 110%;
 }
 .recipe .recipe-time {
-  color:rgb(145, 145, 145);
-  font-style:italic;
-  
+  color: var(--blue-3);
+
+  /* color: rgb(145, 145, 145); */
+  font-style: italic;
 }
 
 /*body styling*/
 .recipe .recipe-body {
-  width:90%;
-  margin:auto;
+  width: 90%;
+  margin: auto;
 }
 
-.recipe .recipe-image-and-additional-data-container{
+.recipe .recipe-image-and-additional-data-container {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
   align-items: flex-start;
-  margin-bottom:40px;
-  margin-top:40px;
+  margin-bottom: 40px;
+  margin-top: 40px;
   row-gap: 10px;
-
 }
-.recipe .recipe-image-and-additional-data-container > *{
+.recipe .recipe-image-and-additional-data-container > * {
   margin-inline: 1%;
 }
 .recipe .image {
-  width:100%;
+  width: 100%;
   max-width: 600px;
-  height:100%;
-  max-height:400px;
+  height: 100%;
+  max-height: 400px;
   object-fit: cover;
   border-radius: 10px;
 }
-.recipe .recipe-additional-data-container{
-  width:225px;
+.recipe .recipe-additional-data-container {
+  width: 225px;
   max-width: 600px;
-  max-height:400px;
+  max-height: 400px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  border:2px solid rgb(45, 182, 106);
+  border: 2px solid var(--blue-1);
   border-radius: 10px;
-  padding-left:10px;
-  padding-right:10px;
-  
+  padding-left: 10px;
+  padding-right: 10px;
 }
-.recipe .recipe-additional-data{
-  margin-bottom:10px;
+.recipe .additional-data-title {
+  color: var(--blue-1);
+
+  font-weight: 650;
+  text-decoration: underline;
+}
+.recipe .recipe-additional-data {
+  margin-bottom: 10px;
   word-break: break-word;
 }
-.recipe .additional-data-title{
-  font-weight:650;
-  text-decoration: underline;
-}
-
 
 /*footer styling*/
-.recipe .recipe-footer{
-  margin-top:25px;
-  margin-bottom:40px;
+.recipe .recipe-footer {
+  margin-top: 25px;
+  margin-bottom: 40px;
 }
-.recipe .recipe-footer-title{
-  font-weight:650;
+.recipe .recipe-footer-title {
+  font-weight: 650;
   text-decoration: underline;
+  color: var(--blue-1);
 }
 
 /*solves the headache of making the div grow only when it wraps to a new row*/
 @media only screen and (max-width: 1600px) {
-  .recipe .recipe-additional-data-container{
-    width:100%;
+  .recipe .recipe-additional-data-container {
+    width: 100%;
   }
 }
 
 @media only screen and (max-width: 600px) {
   .recipe {
-    width:90%;
+    width: 90%;
   }
 
-  .recipe .recipe-title{
+  .recipe .recipe-title {
     font-size: 2.5rem;
   }
 
   .recipe .recipe-body {
-    width:100%;
+    width: 100%;
   }
 
-  .recipe .recipe-image-and-additional-data-container{
-    
+  .recipe .recipe-image-and-additional-data-container {
     flex-direction: column;
     align-items: center;
-    margin-top:30px;
-    margin-bottom:30px;
+    margin-top: 30px;
+    margin-bottom: 30px;
   }
 
-  .recipe .recipe-additional-data-container{
-    margin-top:10px; 
-    width:100%;
+  .recipe .recipe-additional-data-container {
+    margin-top: 10px;
+    width: 100%;
   }
 }

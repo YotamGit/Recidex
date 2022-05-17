@@ -1,21 +1,21 @@
 .edit-user-modal {
   height: 100%;
-  padding-top:20px;
+  padding-top: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 .edit-user-modal .edit-user-id {
-  margin-bottom:25px;
+  margin-bottom: 25px;
 }
 
 .edit-user-modal .edit-user-inputs {
   display: grid;
   grid-gap: 10px;
   grid-template-areas:
-  "user-name role"
-  "first-name last-name"
+    "user-name role"
+    "first-name last-name"
     "email email";
   grid-template-columns: repeat(2, minmax(0, 1fr));
   margin-bottom: 30px;
@@ -28,10 +28,10 @@
   justify-content: center;
   grid-area: role;
 }
-.edit-user-inputs #edit-user-role > #role-selector-label{
-  left:-14px;
-  top:12px;
- }
+.edit-user-inputs #edit-user-role > #role-selector-label {
+  left: -14px;
+  top: 12px;
+}
 .edit-user-inputs #edit-user-firstname {
   grid-area: first-name;
 }
@@ -42,9 +42,6 @@
   grid-area: email;
 }
 
-.edit-user-modal .edit-user-buttons *{
-  margin-inline:10px;
-  /* display:flex; */
-/* justify-content: space-evenly; */
-
+.edit-user-modal .edit-user-buttons * {
+  margin-inline: 10px;
 }

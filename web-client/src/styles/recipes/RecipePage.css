@@ -9,27 +9,21 @@
   justify-content: space-between;
 }
 
-.recipe-page-top-button-row svg {
-  margin:1% !important;
-  font-size: 35px !important;
-}
-
-
 @media print {
-  .MuiAppBar-root, .MuiAppBar-root * {
-    display:none;
+  .MuiAppBar-root,
+  .MuiAppBar-root * {
+    display: none;
   }
-  
+
   .recipe-page-top-button-row,
-  .recipe .recipe-header *:not(.recipe .recipe-title), 
+  .recipe .recipe-header *:not(.recipe .recipe-title),
   .recipe .recipe-image-and-additional-data-container,
   .recipe .recipe-footer {
-    display:none;
+    display: none;
   }
 
   .recipe,
   .recipe .recipe-body {
-    width:95%;
+    width: 95%;
   }
- 
 }

@@ -14,7 +14,6 @@ import Typography from "@mui/material/Typography";
 //types
 import { FC } from "react";
 import { FullUser } from "../../slices/usersSlice";
-import { Divider } from "@mui/material";
 
 interface propTypes {
   row: FullUser;
@@ -28,7 +27,7 @@ const AdminTableDetailsRow: FC<propTypes> = ({ row, open, index }) => {
       className="admin-table-details-row"
       style={
         index % 2
-          ? { background: "rgb(224, 224, 224)" }
+          ? { background: "rgba(93, 130, 166, 0.63)" }
           : { background: "white" }
       }
     >

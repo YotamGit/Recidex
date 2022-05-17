@@ -136,16 +136,10 @@ const Main: FC<propTypes> = ({
   }, [recipes, fetchedAllRecipes, fetching]);
 
   return (
-    <div
-      className="main"
-      style={{
-        display: "flex",
-        alignItems: "center",
-        flexDirection: "column",
-      }}
-    >
+    <div className="main">
       {ownerOnly && (
         <ToggleButtonGroup
+          className="privacy-filter-button-group"
           style={{ marginTop: "5px" }}
           size="small"
           value={recipePrivacy}
@@ -155,22 +149,39 @@ const Main: FC<propTypes> = ({
           }
           aria-label="table mode"
         >
-          <ToggleButton value={"all"} aria-label="all recipes">
+          <ToggleButton
+            className="privacy-filter-button"
+            value={"all"}
+            aria-label="all recipes"
+          >
             All
           </ToggleButton>
-          <ToggleButton value={"public"} aria-label="public recipes">
+          <ToggleButton
+            className="privacy-filter-button"
+            value={"public"}
+            aria-label="public recipes"
+          >
             Public
           </ToggleButton>
           <ToggleButton
+            className="privacy-filter-button"
             value={"pending approval"}
             aria-label="pending approval recipes"
           >
             Pending Approval
           </ToggleButton>
-          <ToggleButton value={"approved"} aria-label="approved recipes">
+          <ToggleButton
+            className="privacy-filter-button"
+            value={"approved"}
+            aria-label="approved recipes"
+          >
             Approved
           </ToggleButton>
-          <ToggleButton value={"private"} aria-label="private recipes">
+          <ToggleButton
+            className="privacy-filter-button"
+            value={"private"}
+            aria-label="private recipes"
+          >
             Private
           </ToggleButton>
         </ToggleButtonGroup>

@@ -22,7 +22,7 @@ const DeleteUserButton: FC<propTypes> = ({ userId }) => {
   return (
     <Button
       variant="contained"
-      style={{ backgroundColor: "#fe4f4f" }}
+      style={{ backgroundColor: "rgb(255, 93, 85)" }}
       onClick={onDeleteUser}
     >
       Delete

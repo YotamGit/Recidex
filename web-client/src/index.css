@@ -1,14 +1,42 @@
 :root {
-  --app-bar:rgb(25,118,210);
-  --sign-in-background: rgb(240, 240, 240);
-  --recipes-background: rgb(240, 240, 240);
-  --recipe-card: rgb(240, 240, 240);
-  --chips:rgb(219, 219, 219);
-  --agree-btn:rgb(52, 163, 238);
-  --disagree-btn:rgb(52, 163, 238);
-  --neutral-btn:rgb(155, 155, 155);
+  --blue-1: #003756;
+  --blue-2: #335b7d;
+  --blue-3: #5d82a6;
+  --blue-4: #86abd1;
+  --blue-5: #94c9fd;
+  --sign-in-background: rgb(255, 255, 255);
+  --recipes-background: rgb(255, 255, 255);
+  --recipe-card: rgb(255, 255, 255);
+  --chips: rgb(219, 219, 219);
+  --agree-btn: rgb(52, 163, 238);
+  --disagree-btn: rgb(52, 163, 238);
+  --neutral-btn: rgb(155, 155, 155);
+}
+::selection {
+  background-color: #d1b586;
 }
 
+html .icon {
+  font-size: 30px;
+  color: var(--blue-3);
+}
+
+/*mui overrides*/
+html .MuiButton-root {
+  background-color: var(--blue-2);
+}
+html .MuiButton-root:hover {
+  background-color: var(--blue-1);
+}
+html .MuiTab-root {
+  color: var(--blue-4);
+}
+html .MuiTab-root.Mui-selected {
+  color: var(--blue-2);
+}
+html .MuiTabs-indicator {
+  background-color: var(--blue-4);
+}
 
 html,
 body,

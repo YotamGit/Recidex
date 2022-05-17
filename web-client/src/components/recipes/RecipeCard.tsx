@@ -45,10 +45,7 @@ const RecipeCard: FC<propTypes> = ({ recipe }) => {
   return (
     <div className="recipe-card">
       <div className="recipe-card-top-button-row" style={{ margin: "1%" }}>
-        <Link
-          to={`/recipes/${recipe._id}`}
-          style={{ color: "gray", lineHeight: 0 }}
-        >
+        <Link to={`/recipes/${recipe._id}`} style={{ lineHeight: 0 }}>
           <Tooltip title="Expand recipe" arrow>
             <OpenInFullRoundedIcon className="icon" />
           </Tooltip>
@@ -58,7 +55,7 @@ const RecipeCard: FC<propTypes> = ({ recipe }) => {
             <Tooltip title="Approved" arrow>
               <VerifiedIcon
                 className="icon"
-                style={{ color: "rgb(54, 219, 31)" }}
+                style={{ color: "rgb(125, 221, 112)" }}
               />
             </Tooltip>
           )}
@@ -66,7 +63,7 @@ const RecipeCard: FC<propTypes> = ({ recipe }) => {
             <Tooltip title="Private" arrow>
               <VpnLockRoundedIcon
                 className="icon"
-                style={{ color: "rgb(255, 48, 0)" }}
+                style={{ color: "rgb(255, 93, 85)" }}
               />
             </Tooltip>
           )}

@@ -91,7 +91,7 @@ const SearchBar: FC<propTypes> = ({ setExpanded }) => {
               onClick={() => searchRecipes()}
               aria-label="search"
             >
-              <SearchIcon style={{ fontSize: "30px", color: "white" }} />
+              <SearchIcon className="icon" />
             </IconButton>
             <Autocomplete
               className="search-bar-search-field"
@@ -121,7 +121,10 @@ const SearchBar: FC<propTypes> = ({ setExpanded }) => {
                     endAdornment: (
                       <>
                         {loading && (
-                          <CircularProgress color="inherit" size={20} />
+                          <CircularProgress
+                            style={{ marginRight: "10px", color: "#86abd1" }}
+                            size={20}
+                          />
                         )}
                         {params.InputProps.endAdornment}
                       </>
@@ -154,7 +157,10 @@ const SearchBar: FC<propTypes> = ({ setExpanded }) => {
             aria-label="search"
           >
             <SearchIcon
-              style={{ fontSize: "30px", color: filtered ? "#89FFAC" : "#fff" }}
+              className="icon"
+              style={{
+                color: filtered ? "rgb(125, 221, 112)" : "",
+              }}
             />
           </IconButton>
         </>

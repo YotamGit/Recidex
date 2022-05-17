@@ -52,16 +52,13 @@ const RecipePage: FC = () => {
         <div className="recipe-page">
           <div className="recipe-page-top-button-row">
             <Tooltip title="Go back" arrow>
-              <IconButton
-                onClick={() => navigate(-1)}
-                style={{ color: "gray" }}
-              >
-                <KeyboardBackspaceIcon />
+              <IconButton onClick={() => navigate(-1)}>
+                <KeyboardBackspaceIcon className="icon" />
               </IconButton>
             </Tooltip>
             <div style={{ display: "flex", flexDirection: "row" }}>
               <IconButton onClick={() => window.print()}>
-                <LocalPrintshopIcon />
+                <LocalPrintshopIcon className="icon" />
               </IconButton>
 
               <Share url={window.location.href} emailTitle={recipe.title} />
@@ -69,7 +66,6 @@ const RecipePage: FC = () => {
             <Tooltip title="Edit recipe" arrow>
               <IconButton
                 onClick={() => navigate(`/recipes/edit/${recipe._id}`)}
-                style={{ color: "gray" }}
               >
                 <EditRoundedIcon className="icon" />
               </IconButton>

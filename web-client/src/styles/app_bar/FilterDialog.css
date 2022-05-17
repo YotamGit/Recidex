@@ -1,9 +1,12 @@
-.header-dialog-action-section {
+.filter-dialog-action-section {
   display: flex !important;
   justify-content: center !important;
 }
 
-.header-dialog-button {
+.recipe-filter-dialog .title {
+  color: var(--blue-1);
+}
+
+.recipe-filter-dialog .icon {
   cursor: pointer;
-  font-size: 30px !important;
 }

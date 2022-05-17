@@ -62,12 +62,7 @@ const RecipeEditorPage: FC = () => {
           <div className="recipe-editor-page-top-button-row">
             <Tooltip title="Close Editor" arrow>
               <IconButton onClick={() => navigate(-1)}>
-                <CloseFullscreenRoundedIcon
-                  className="icon"
-                  style={{
-                    color: "gray",
-                  }}
-                />
+                <CloseFullscreenRoundedIcon className="icon" />
               </IconButton>
             </Tooltip>
             <AuthorizedButton type={"icon"} onClick={() => onDeleteRecipe()}>
@@ -75,7 +70,7 @@ const RecipeEditorPage: FC = () => {
                 <DeleteForeverRoundedIcon
                   className="icon"
                   style={{
-                    color: "red",
+                    color: "rgb(255, 93, 85)",
                   }}
                 />
               </Tooltip>

@@ -53,12 +53,12 @@ const NavDrawer: FC<propTypes> = ({ openDrawer, handleToggleDrawer }) => {
 
   return (
     <Drawer
-      id="drawer"
+      className="drawer"
       anchor="left"
       open={openDrawer}
       onClose={handleToggleDrawer as ModalProps["onClose"]}
     >
-      <div id="drawer-header">
+      <div className="drawer-header">
         {signedIn && (
           <>
             <div className="user-name">
@@ -74,7 +74,7 @@ const NavDrawer: FC<propTypes> = ({ openDrawer, handleToggleDrawer }) => {
           </>
         )}
         <IconButton onClick={handleToggleDrawer as MouseEventHandler}>
-          <ChevronLeftIcon />
+          <ChevronLeftIcon className="icon" />
         </IconButton>
       </div>
       <Divider />
