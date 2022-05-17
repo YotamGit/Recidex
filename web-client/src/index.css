@@ -32,7 +32,7 @@ html .MuiTab-root.Mui-selected {
   color: var(--blue-2);
 }
 html .MuiTabs-indicator {
-  background-color: var(--blue-4);
+  background-color: var(--blue-3);
 }
 
 html,

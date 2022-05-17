@@ -70,6 +70,7 @@
   min-height: 0;
   flex-grow: 1;
   width: 100%;
+  height: 0; /*to let the image grow*/
   display: block;
   object-fit: cover;
   cursor: pointer;
