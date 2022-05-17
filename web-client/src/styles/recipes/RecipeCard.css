@@ -75,8 +75,10 @@
   cursor: pointer;
 }
 .recipe-card .recipe-card-image.placeholder {
-  filter: invert(14%) sepia(31%) saturate(4387%) hue-rotate(179deg)
-    brightness(95%) contrast(101%);
+  /* filter: invert(14%) sepia(31%) saturate(4387%) hue-rotate(179deg)
+    brightness(95%) contrast(101%); */
+  filter: brightness(0) saturate(100%) invert(33%) sepia(35%) saturate(714%)
+    hue-rotate(166deg) brightness(88%) contrast(90%);
 }
 
 .recipe-card .recipe-additional-data {
