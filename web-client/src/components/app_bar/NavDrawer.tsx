@@ -119,7 +119,7 @@ const NavDrawer: FC<propTypes> = ({ openDrawer, handleToggleDrawer }) => {
           visible={signedIn}
           addDivider={true}
           currentPageUrl={activePage}
-          pageUrl={"/account"}
+          pageUrl={"/user/account"}
           text={"My Account"}
           closeDrawer={handleToggleDrawer}
           Icon={AccountCircleRoundedIcon}
