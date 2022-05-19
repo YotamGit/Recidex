@@ -39,14 +39,30 @@ router.get("/", async (req, res, next) => {
 });
 
 //GET A SPECIFIC USER PROFILE DATA
-router.get("/user/info", async (req, res, next) => {
+router.get("/user/info/:user_id", async (req, res, next) => {
   try {
-    let user = await User.findById(req.body.userData._id).select(
+    let userInfo = await User.findById(req.params.user_id).select(
       "firstname lastname registration_date"
     );
 
-    if (user) {
-      res.status(200).json(user);
+    if (userInfo) {
+      let userRecipes = await Recipe.find({
+        owner: req.params.user_id,
+        private: false,
+      })
+        .select("-image")
+        .populate("owner", "firstname lastname")
+        .sort({ creation_time: -1 });
+
+      let userFavoriteRecipes = await Recipe.find({
+        favorited_by: req.params.user_id,
+        private: false,
+      })
+        .select("-image")
+        .populate("owner", "firstname lastname")
+        .sort({ creation_time: -1 });
+
+      res.status(200).json({ userInfo, userRecipes, userFavoriteRecipes });
     } else {
       res.status(404).send("User not found");
     }
