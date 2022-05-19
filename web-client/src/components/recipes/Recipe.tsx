@@ -1,4 +1,5 @@
-import { FC, useEffect } from "react";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { marked } from "marked";
 import "../../styles/recipes/Recipe.css";
 
@@ -9,6 +10,7 @@ import isURL from "validator/lib/isURL";
 
 //types
 import { TRecipe } from "../../slices/recipesSlice";
+import { FC } from "react";
 
 marked.setOptions({
   gfm: true,
@@ -20,6 +22,8 @@ interface propTypes {
   recipe: TRecipe;
 }
 const Recipe: FC<propTypes> = ({ recipe }) => {
+  const navigate = useNavigate();
+
   useEffect(() => {
     //activate checkboxes
     let textBoxes = document.getElementsByClassName("markdown-box");
@@ -56,15 +60,22 @@ const Recipe: FC<propTypes> = ({ recipe }) => {
           }}
         />
         <div>
-          <div className="recipe-owner">
-            <span>{recipe.rtl ? "העלה:" : "By:"}</span>{" "}
-            <span dir="auto" style={{ fontSize: "120%" }}>
-              {recipe.owner &&
-                recipe.owner.firstname + " " + recipe.owner.lastname}
-            </span>
-          </div>
+          {recipe.owner && (
+            <>
+              <div
+                className="recipe-owner"
+                onClick={() => navigate(`/user/profile/${recipe.owner?._id}`)}
+              >
+                <span>{recipe.rtl ? "העלה: " : "By: "}</span>
+                <span dir="auto" style={{ fontSize: "120%" }}>
+                  {recipe.owner.firstname + " " + recipe.owner.lastname}
+                </span>
+              </div>
+            </>
+          )}
+
           <div className="recipe-time">
-            <span>{recipe.rtl ? "עודכן:" : "Updated:"}</span>{" "}
+            <span>{recipe.rtl ? "עודכן: " : "Updated: "}</span>
             <span>
               {recipe.last_update_time &&
                 new Date(recipe.last_update_time).toLocaleString("he-IL", {

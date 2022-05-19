@@ -21,6 +21,7 @@
   font-style: italic;
 }
 .recipe .recipe-owner {
+  cursor: pointer;
   color: var(--blue-1);
 
   font-size: 110%;
