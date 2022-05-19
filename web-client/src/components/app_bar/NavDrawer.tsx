@@ -66,7 +66,7 @@ const NavDrawer: FC<propTypes> = ({ openDrawer, handleToggleDrawer }) => {
               <div
                 style={{ cursor: "pointer" }}
                 onClick={() => {
-                  navigate("/account");
+                  navigate("/user/account");
                   handleToggleDrawer();
                 }}
               >{`${firstname} ${lastname}`}</div>

@@ -6,6 +6,7 @@ import RecipeCardChips from "./RecipeCardChips";
 import Favorite from "../buttons/Favorite";
 import Share from "../buttons/Share";
 import ImagePlaceholder from "../../utils-module/Photos/recipeImagePlaceholder.svg";
+import UserProfileLink from "../account/UserProfileLink";
 
 //mui
 import Divider from "@mui/material/Divider";
@@ -14,7 +15,6 @@ import Tooltip from "@mui/material/Tooltip";
 //mui icons
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import OpenInFullRoundedIcon from "@mui/icons-material/OpenInFullRounded";
-import FaceRoundedIcon from "@mui/icons-material/FaceRounded";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import CookieOutlinedIcon from "@mui/icons-material/CookieOutlined";
 import VerifiedIcon from "@mui/icons-material/Verified";
@@ -163,15 +163,7 @@ const RecipeCard: FC<propTypes> = ({ recipe }) => {
               </Tooltip>
             </div>
           )}
-          <div className="recipe-additional-data-field">
-            <FaceRoundedIcon className="icon" />
-            <Tooltip title="Owner" arrow>
-              <span className="data" dir="auto">
-                {recipe.owner &&
-                  recipe.owner.firstname + " " + recipe.owner.lastname}
-              </span>
-            </Tooltip>
-          </div>
+          {recipe.owner && <UserProfileLink owner={recipe.owner} />}
         </div>
       </div>
       <div className="recipe-card-bottom-button-row">

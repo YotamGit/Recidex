@@ -15,6 +15,7 @@ import Main from "./components/Main";
 import Authentication from "./components/Login/Authentication";
 import AdminPanel from "./components/admin/AdminPanel";
 import AccountInfoPage from "./components/account/AccountInfoPage";
+import UserProfilePage from "./components/account/UserProfilePage";
 
 //mui
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -147,7 +148,7 @@ function App() {
         />
 
         <Route
-          path="/account"
+          path="/user/account"
           element={
             <ProtectedRoute isAllowed={signedIn} redirectPath={"/home"}>
               <>
@@ -157,6 +158,16 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/user/profile/:user_id"
+          element={
+            <>
+              <Header pageName={"User Profile"} showSearch={false} />
+              <UserProfilePage />
+            </>
+          }
+        />
+
         <Route
           path="/recipe-moderation"
           element={

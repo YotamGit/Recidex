@@ -3,6 +3,8 @@ import "../../styles/recipe_moderation/ModerationRecipeCard.css";
 import { Link, useNavigate } from "react-router-dom";
 import { marked } from "marked";
 
+import UserProfileLink from "../account/UserProfileLink";
+
 //mui
 import Divider from "@mui/material/Divider";
 import Tooltip from "@mui/material/Tooltip";
@@ -83,12 +85,8 @@ const ModerationRecipeCard: FC<propTypes> = ({ recipe }) => {
         </span>
       </div>
       <Divider variant="middle" />
-      <div className="owner-field">
-        <FaceRoundedIcon className="icon" />
-        <span className="data" dir="auto">
-          {recipe.owner && recipe.owner.firstname + " " + recipe.owner.lastname}
-        </span>
-      </div>
+
+      {recipe.owner && <UserProfileLink owner={recipe.owner} />}
       <div className="bottom-button-row">
         <Button
           className="approve-button"

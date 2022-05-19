@@ -1,0 +1,12 @@
+.user-profile-link {
+  cursor: pointer;
+  color: var(--blue-1);
+  padding-top: 5px;
+  padding-bottom: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.user-profile-link .icon {
+  color: var(--blue-1);
+}

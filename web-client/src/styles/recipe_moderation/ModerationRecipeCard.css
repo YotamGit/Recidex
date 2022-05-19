@@ -39,17 +39,6 @@
   height: 20px;
 }
 
-.moderation-recipe-card .owner-field {
-  color: var(--blue-1);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.moderation-recipe-card .owner-field .icon {
-  color: var(--blue-1);
-}
-
 .moderation-recipe-card .bottom-button-row {
   display: flex;
   flex-direction: row;
@@ -59,7 +48,6 @@
 
 .moderation-recipe-card .approve-button {
   margin-inline: 5px;
-  margin-top: 10px;
   margin-bottom: 10px;
 }
 @media only screen and (max-width: 600px) {

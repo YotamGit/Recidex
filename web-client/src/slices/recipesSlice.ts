@@ -37,6 +37,7 @@ export type TRecipe = {
   owner?: {
     firstname: string;
     lastname: string;
+    _id: string;
   };
   favorited_by?: string[];
   title: string;
