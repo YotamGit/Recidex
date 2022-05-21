@@ -7,6 +7,7 @@ import MarkdownPreviewSection from "../markdown/MarkdownPreviewSection";
 import RecipeDropdown from "../RecipeDropdown";
 import AuthorizedButton from "../Login/AuthorizedButton";
 import { toBase64 } from "../../utils-module/images";
+import TabPanel from "../TabPanel";
 
 //mui
 import Chip from "@mui/material/Chip";
@@ -448,13 +449,3 @@ const RecipeEditor: FC<propTypes> = ({ action, recipe }) => {
 };
 
 export default RecipeEditor;
-
-interface tabPanelProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
-}
-function TabPanel(props: tabPanelProps) {
-  const { children, value, index } = props;
-  return <>{value === index && children}</>;
-}
