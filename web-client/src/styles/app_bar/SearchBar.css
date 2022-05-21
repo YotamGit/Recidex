@@ -2,6 +2,9 @@
   display: flex;
   justify-content: space-between;
 }
+.search-bar-container .icon {
+  color: var(--blue-5);
+}
 
 .search-container {
   flex-grow: 1;

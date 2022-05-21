@@ -6,6 +6,15 @@ export type recipePrivacyState =
   | "approved"
   | "pending approval"
   | "private";
+
+export type TSelectedFilters = {
+  [key: string]: any;
+  category: string | undefined;
+  sub_category: string | undefined;
+  difficulty: string | undefined;
+  prep_time: string | undefined;
+  total_time: string | undefined;
+};
 interface FiltersState {
   selectedFilters: {
     [key: string]: any;

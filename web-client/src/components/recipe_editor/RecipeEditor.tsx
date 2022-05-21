@@ -300,6 +300,7 @@ const RecipeEditor: FC<propTypes> = ({ action, recipe }) => {
             id_prefix={"editor-category"}
             class_name={"recipe-editor-form-control"}
             onChange={setCategory}
+            resetField={() => setSubCategory("")} //empty string to remove previous value
           />
           <RecipeDropdown
             value={sub_category}

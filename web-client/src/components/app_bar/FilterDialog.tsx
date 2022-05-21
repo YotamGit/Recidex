@@ -22,11 +22,17 @@ import { setFiltered, setFilters } from "../../slices/filtersSlice";
 
 //types
 import { FC } from "react";
+import { TSelectedFilters } from "../../slices/filtersSlice";
 
 interface propTypes {
-  getRecipesFunction?: Function;
+  localSearch?: {
+    getRecipes: Function;
+    filtered: boolean;
+    setFiltered: Function;
+    selectedFilters: TSelectedFilters;
+  };
 }
-const FilterDialog: FC<propTypes> = ({ getRecipesFunction }) => {
+const FilterDialog: FC<propTypes> = ({ localSearch }) => {
   const dispatch = useAppDispatch();
 
   const fullscreen = useAppSelector((state) => state.utilities.fullscreen);
@@ -44,8 +50,8 @@ const FilterDialog: FC<propTypes> = ({ getRecipesFunction }) => {
 
   const filtered = useAppSelector((state) => state.filters.filtered);
 
-  const selectedFilters = useAppSelector(
-    (state) => state.filters.selectedFilters
+  const selectedFilters = useAppSelector((state) =>
+    localSearch ? localSearch.selectedFilters : state.filters.selectedFilters
   );
   const [category, setCategory] = useState(selectedFilters.category);
   const [sub_category, setSubCategory] = useState(selectedFilters.sub_category);
@@ -65,6 +71,12 @@ const FilterDialog: FC<propTypes> = ({ getRecipesFunction }) => {
       prep_time,
       total_time,
     };
+    if (localSearch) {
+      await localSearch.getRecipes(filters);
+      recipeFilterDialogToggle();
+      return;
+    }
+
     dispatch(setFilters(filters));
     let filterRes = await dispatch(getRecipes({ replace: true }));
 
@@ -110,7 +122,11 @@ const FilterDialog: FC<propTypes> = ({ getRecipesFunction }) => {
       <IconButton onClick={recipeFilterDialogToggle}>
         <FilterAltRoundedIcon
           className="icon"
-          style={{ color: filtered ? "rgb(125, 221, 112)" : "" }}
+          style={{
+            color: (localSearch ? localSearch.filtered : filtered)
+              ? "rgb(125, 221, 112)"
+              : "",
+          }}
         />
       </IconButton>
       <Dialog
@@ -129,6 +145,7 @@ const FilterDialog: FC<propTypes> = ({ getRecipesFunction }) => {
               id_prefix={"filter-category"}
               class_name={"recipe-filter-form-control"}
               onChange={setCategory}
+              resetField={() => setSubCategory(undefined)} //undefined to reset filter
             />
             <RecipeDropdown
               value={sub_category}

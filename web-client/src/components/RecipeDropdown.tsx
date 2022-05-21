@@ -14,6 +14,7 @@ interface propTypes {
   id_prefix: string;
   class_name: string;
   onChange: Function;
+  resetField?: Function; //for resetting a field
 }
 const RecipeDropdown: FC<propTypes> = ({
   value,
@@ -22,6 +23,7 @@ const RecipeDropdown: FC<propTypes> = ({
   id_prefix,
   class_name,
   onChange,
+  resetField,
 }) => {
   return (
     <Box sx={{ minWidth: 120, margin: "5px" }}>
@@ -32,7 +34,10 @@ const RecipeDropdown: FC<propTypes> = ({
           id={`${id_prefix}-category-selector`}
           value={value ? value : ""}
           label={label_text}
-          onChange={(e) => onChange(e.target.value)}
+          onChange={(e) => {
+            onChange(e.target.value);
+            resetField && resetField();
+          }}
         >
           {items.map((option) => (
             <MenuItem key={option} value={option}>

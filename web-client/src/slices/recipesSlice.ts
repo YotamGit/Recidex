@@ -76,7 +76,7 @@ export const getRecipes = createAsyncThunk<
   let privacyState = state.filters.privacyState;
   let favoritesOnly = state.filters.favoritesOnly;
   let approvalRequiredOnly = state.filters.approvalRequiredOnly;
-  let selecetedfilters = state.filters.selectedFilters;
+  let selectedFilters = state.filters.selectedFilters;
   let result = await axios.get("/api/recipes", {
     params: {
       latest: params.args?.latest || new Date(),
@@ -86,7 +86,7 @@ export const getRecipes = createAsyncThunk<
       favoritesOnly: favoritesOnly || undefined,
       approvalRequiredOnly: approvalRequiredOnly || undefined,
       searchText: searchText,
-      filters: selecetedfilters,
+      filters: selectedFilters,
     },
   });
 

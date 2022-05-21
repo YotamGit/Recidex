@@ -36,8 +36,9 @@ marked.setOptions({
 
 interface propTypes {
   recipe: TRecipe;
+  chipsFilterFunction?: Function;
 }
-const RecipeCard: FC<propTypes> = ({ recipe }) => {
+const RecipeCard: FC<propTypes> = ({ recipe, chipsFilterFunction }) => {
   const navigate = useNavigate();
 
   const fullscreen = useAppSelector((state) => state.utilities.fullscreen);
@@ -117,7 +118,10 @@ const RecipeCard: FC<propTypes> = ({ recipe }) => {
         <Divider variant="middle" />
       </div>
       <div className="recipe-body">
-        <RecipeCardChips recipe={recipe} />
+        <RecipeCardChips
+          recipe={recipe}
+          chipsFilterFunction={chipsFilterFunction}
+        />
         {recipe.description && (
           <div
             className="recipe-description"

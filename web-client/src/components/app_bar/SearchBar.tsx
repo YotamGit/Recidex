@@ -1,4 +1,4 @@
-import { useState, useEffect, FC } from "react";
+import { useState, useEffect } from "react";
 import FilterDialog from "./FilterDialog";
 import "../../styles/app_bar/SearchBar.css";
 
@@ -19,10 +19,22 @@ import { useAppSelector, useAppDispatch } from "../../hooks";
 import { getRecipes } from "../../slices/recipesSlice";
 import { setSearchText as setStoreSearchText } from "../../slices/filtersSlice";
 
+//types
+import { FC } from "react";
+import { TSelectedFilters } from "../../slices/filtersSlice";
+
 interface propTypes {
-  setExpanded: Function;
+  setExpanded?: Function;
+  localSearch?: {
+    getRecipes: Function;
+    filtered: boolean;
+    setFiltered: Function;
+    searchText: string;
+    setSearchText: Function;
+    selectedFilters: TSelectedFilters;
+  };
 }
-const SearchBar: FC<propTypes> = ({ setExpanded }) => {
+const SearchBar: FC<propTypes> = ({ setExpanded, localSearch }) => {
   const dispatch = useAppDispatch();
   const fullscreen = useAppSelector((state) => state.utilities.fullscreen);
   const filtered = useAppSelector((state) => state.filters.filtered);
@@ -38,6 +50,13 @@ const SearchBar: FC<propTypes> = ({ setExpanded }) => {
   const loading = openOptions && titles.length === 0;
 
   const searchRecipes = async () => {
+    //search recipes without the store
+    if (localSearch) {
+      localSearch.getRecipes();
+      return;
+    }
+
+    //search recipes using store
     dispatch(setStoreSearchText(searchText));
     await dispatch(getRecipes({ replace: true }));
   };
@@ -101,9 +120,11 @@ const SearchBar: FC<propTypes> = ({ setExpanded }) => {
               onClose={() => setOpenOptions(false)}
               options={titles}
               onChange={(e, value) => {
-                setSearchText(value || "");
+                localSearch
+                  ? localSearch.setSearchText(value || "")
+                  : setSearchText(value || "");
               }}
-              value={searchText}
+              value={localSearch ? localSearch.searchText : searchText}
               //can't figure out what the types of option and value should be
               //so I'm leaving it as "any" for now
               isOptionEqualToValue={(option: any, value: any) =>
@@ -113,7 +134,9 @@ const SearchBar: FC<propTypes> = ({ setExpanded }) => {
                 <TextField
                   {...params}
                   onChange={(e) => {
-                    setSearchText(e.target.value);
+                    localSearch
+                      ? localSearch.setSearchText(e.target.value)
+                      : setSearchText(e.target.value);
                   }}
                   placeholder="Search Recipes"
                   InputProps={{
@@ -133,13 +156,13 @@ const SearchBar: FC<propTypes> = ({ setExpanded }) => {
                 />
               )}
             />
-            <FilterDialog />
+            <FilterDialog localSearch={localSearch} />
           </div>
           {maximizeSearch && (
             <IconButton
               onClick={() => {
                 setMaximizeSearch(false);
-                setExpanded(false);
+                setExpanded && setExpanded(false);
               }}
             >
               <ChevronRightIcon />
@@ -152,14 +175,16 @@ const SearchBar: FC<propTypes> = ({ setExpanded }) => {
             className="search-icon-wrapper"
             onClick={() => {
               setMaximizeSearch(true);
-              setExpanded(true);
+              setExpanded && setExpanded(true);
             }}
             aria-label="search"
           >
             <SearchIcon
               className="icon"
               style={{
-                color: filtered ? "rgb(125, 221, 112)" : "",
+                color: (localSearch ? localSearch.filtered : filtered)
+                  ? "rgb(125, 221, 112)"
+                  : "",
               }}
             />
           </IconButton>

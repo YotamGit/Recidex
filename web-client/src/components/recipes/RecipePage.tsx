@@ -1,14 +1,14 @@
 import Recipe from "./Recipe";
 import "../../styles/recipes/RecipePage.css";
 import { useNavigate, useParams } from "react-router-dom";
-import { FC, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import Share from "../buttons/Share";
 
 //utils
 import { getRecipe } from "../../utils-module/recipes";
 
-//icons
+//mui icons
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import LocalPrintshopIcon from "@mui/icons-material/LocalPrintshop";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
@@ -22,6 +22,7 @@ import { useAppSelector } from "../../hooks";
 
 //types
 import { TRecipe } from "../../slices/recipesSlice";
+import { FC } from "react";
 
 const RecipePage: FC = () => {
   const navigate = useNavigate();
