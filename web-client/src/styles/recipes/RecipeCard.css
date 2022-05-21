@@ -114,6 +114,7 @@
   }
   .recipe-card .recipe-card-image {
     max-height: 300px;
+    height: auto;
   }
   .recipe-card .recipe-description {
     display: none;
