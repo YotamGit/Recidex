@@ -85,6 +85,13 @@ const FilterDialog: FC<propTypes> = ({ getRecipesFunction }) => {
     setPrepTime(undefined);
     setTotalTime(undefined);
   };
+  const resetSelections = () => {
+    setCategory(selectedFilters.category);
+    setSubCategory(selectedFilters.sub_category);
+    setDifficulty(selectedFilters.difficulty);
+    setPrepTime(selectedFilters.prep_time);
+    setTotalTime(selectedFilters.total_time);
+  };
 
   useEffect(() => {
     clearSelections();
@@ -165,7 +172,10 @@ const FilterDialog: FC<propTypes> = ({ getRecipesFunction }) => {
           <Tooltip title="Cancel" arrow>
             <CancelRoundedIcon
               className="icon"
-              onClick={recipeFilterDialogToggle}
+              onClick={() => {
+                recipeFilterDialogToggle();
+                resetSelections();
+              }}
               style={{ color: "rgb(255, 93, 85)" }}
             />
           </Tooltip>

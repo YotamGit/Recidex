@@ -15,20 +15,26 @@ import { FC } from "react";
 
 interface propTypes {
   recipe: TRecipe;
+  chipsFilterFunction?: Function;
 }
-const RecipeCardChips: FC<propTypes> = ({ recipe }) => {
+const RecipeCardChips: FC<propTypes> = ({ recipe, chipsFilterFunction }) => {
   const dispatch = useAppDispatch();
 
   const chipCategoryOnClick = async () => {
-    dispatch(
-      setFilters({
-        category: recipe.category,
-        sub_category: undefined,
-        difficulty: undefined,
-        prep_time: undefined,
-        total_time: undefined,
-      })
-    );
+    let filters = {
+      category: recipe.category,
+      sub_category: undefined,
+      difficulty: undefined,
+      prep_time: undefined,
+      total_time: undefined,
+    };
+
+    if (chipsFilterFunction) {
+      chipsFilterFunction(filters);
+      return;
+    }
+
+    dispatch(setFilters(filters));
     let filterRes = await dispatch(getRecipes({ replace: true }));
 
     if (filterRes.meta.requestStatus === "fulfilled") {
@@ -36,30 +42,40 @@ const RecipeCardChips: FC<propTypes> = ({ recipe }) => {
     }
   };
   const chipSubCategoryOnClick = async () => {
-    dispatch(
-      setFilters({
-        category: recipe.category,
-        sub_category: recipe.sub_category,
-        difficulty: undefined,
-        prep_time: undefined,
-        total_time: undefined,
-      })
-    );
+    let filters = {
+      category: recipe.category,
+      sub_category: recipe.sub_category,
+      difficulty: undefined,
+      prep_time: undefined,
+      total_time: undefined,
+    };
+
+    if (chipsFilterFunction) {
+      chipsFilterFunction(filters);
+      return;
+    }
+
+    dispatch(setFilters(filters));
     let filterRes = await dispatch(getRecipes({ replace: true }));
     if (filterRes.meta.requestStatus === "fulfilled") {
       dispatch(setFiltered(true));
     }
   };
   const chipDifficultyOnClick = async () => {
-    dispatch(
-      setFilters({
-        category: undefined,
-        sub_category: undefined,
-        difficulty: recipe.difficulty,
-        prep_time: undefined,
-        total_time: undefined,
-      })
-    );
+    let filters = {
+      category: undefined,
+      sub_category: undefined,
+      difficulty: recipe.difficulty,
+      prep_time: undefined,
+      total_time: undefined,
+    };
+
+    if (chipsFilterFunction) {
+      chipsFilterFunction(filters);
+      return;
+    }
+
+    dispatch(setFilters(filters));
     let filterRes = await dispatch(getRecipes({ replace: true }));
     if (filterRes.meta.requestStatus === "fulfilled") {
       dispatch(setFiltered(true));
