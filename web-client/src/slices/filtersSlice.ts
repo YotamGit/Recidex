@@ -27,6 +27,7 @@ interface FiltersState {
   ownerOnly: boolean | undefined;
   privacyState: recipePrivacyState;
   favoritesOnly: boolean | undefined;
+  approvedOnly: boolean | undefined;
   approvalRequiredOnly: boolean | undefined;
   searchText: string | undefined;
   filtered: boolean;
@@ -58,6 +59,7 @@ const initialState: FiltersState = {
   ownerOnly: undefined,
   privacyState: "all",
   favoritesOnly: undefined,
+  approvedOnly: undefined,
   approvalRequiredOnly: undefined,
   searchText: undefined,
   filtered: false,
@@ -117,8 +119,11 @@ const filtersSlice = createSlice({
     setApprovalRequiredOnly(state, action: PayloadAction<boolean>) {
       state.approvalRequiredOnly = action.payload;
     },
-    setfavoritesOnly(state, action: PayloadAction<boolean>) {
+    setFavoritesOnly(state, action: PayloadAction<boolean>) {
       state.favoritesOnly = action.payload;
+    },
+    setApprovedOnly(state, action: PayloadAction<boolean>) {
+      state.approvedOnly = action.payload;
     },
     setFiltered(state, action: PayloadAction<boolean>) {
       state.filtered = action.payload;
@@ -138,7 +143,8 @@ export const {
   setPrivacyState,
   setApprovalRequiredOnly,
   setSearchText,
-  setfavoritesOnly,
+  setFavoritesOnly,
+  setApprovedOnly,
   resetFilters,
 } = filtersSlice.actions;
 

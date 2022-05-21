@@ -82,6 +82,7 @@ function App() {
               <Main
                 ownerOnly={false}
                 favoritesOnly={false}
+                approvedOnly={true}
                 approvalRequiredOnly={false}
               />
             </>
@@ -97,6 +98,7 @@ function App() {
                 <Main
                   ownerOnly={true}
                   favoritesOnly={false}
+                  approvedOnly={false}
                   approvalRequiredOnly={false}
                 />
               </>
@@ -112,6 +114,7 @@ function App() {
                 <Main
                   ownerOnly={false}
                   favoritesOnly={true}
+                  approvedOnly={false}
                   approvalRequiredOnly={false}
                 />
               </>
@@ -180,6 +183,7 @@ function App() {
                 <Main
                   ownerOnly={false}
                   favoritesOnly={false}
+                  approvedOnly={false}
                   approvalRequiredOnly={true}
                 />
               </>

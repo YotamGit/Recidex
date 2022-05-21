@@ -40,10 +40,13 @@ const UserProfilePage: FC = () => {
       let result = await axios.get("/api/recipes", {
         params: {
           latest: new Date(),
-          count: 12,
           favoritesOnly: favoritesOnly || undefined,
           searchText: searchText || undefined,
-          filters: { ...(filters ? filters : selectedFilters), owner: user_id },
+          filters: {
+            ...(filters ? filters : selectedFilters),
+            owner: user_id,
+            private: false,
+          },
         },
       });
       if (filters) {
@@ -78,6 +81,7 @@ const UserProfilePage: FC = () => {
         </Tooltip>
       </div>
       {"TOP BUTTON ROW"}
+      {JSON.stringify(userData)}
       <SearchBar
         localSearch={{
           getRecipes,

@@ -46,23 +46,7 @@ router.get("/user/info/:user_id", async (req, res, next) => {
     );
 
     if (userInfo) {
-      let userRecipes = await Recipe.find({
-        owner: req.params.user_id,
-        private: false,
-      })
-        .select("-image")
-        .populate("owner", "firstname lastname")
-        .sort({ creation_time: -1 });
-
-      let userFavoriteRecipes = await Recipe.find({
-        favorited_by: req.params.user_id,
-        private: false,
-      })
-        .select("-image")
-        .populate("owner", "firstname lastname")
-        .sort({ creation_time: -1 });
-
-      res.status(200).json({ userInfo, userRecipes, userFavoriteRecipes });
+      res.status(200).json({ userInfo });
     } else {
       res.status(404).send("User not found");
     }

@@ -17,14 +17,29 @@ router.get("/", async (req, res, next) => {
     const validatedToken = validateToken(req.cookies?.userToken);
 
     if (Object.keys(req.query).length > 0) {
+      //to be able to delete filters
+      if (req.query.filters) {
+        req.query.filters = JSON.parse(req.query.filters);
+      }
+
       let publicRecipeQuery =
-        req.query.ownerOnly === undefined &&
-        req.query.favoritesOnly === undefined &&
-        req.query.approvalRequiredOnly === undefined
-          ? { approved: true }
+        !validatedToken ||
+        (req.query.ownerOnly === undefined &&
+          req.query.favoritesOnly === undefined &&
+          req.query.approvedOnly === undefined &&
+          req.query.approvalRequiredOnly === undefined)
+          ? { private: false }
           : {};
 
-      //assemble ownerOnly query
+      //only moderators are allowed to use these fields when building a custom query
+      if (
+        !validatedToken ||
+        req.query.customQuery !== "true" ||
+        !(await isModeratorUser(validatedToken))
+      ) {
+        req.query.filters.private = false;
+      }
+
       let ownerOnlyQuery = {};
       if (validatedToken && req.query.ownerOnly === "true") {
         switch (req.query.privacyState) {
@@ -62,18 +77,23 @@ router.get("/", async (req, res, next) => {
           ? { favorited_by: validatedToken._id, private: false }
           : {};
 
+      let approvedOnlyQuery =
+        req.query.approvedOnly === "true"
+          ? { approved: true, private: false }
+          : {};
+
       let textSearchQuery = req.query?.searchText
         ? { title: { $regex: req.query.searchText, $options: "mi" } }
         : {};
-
       let recipes = await Recipe.find({
         creation_time: { $lt: req.query.latest },
         ...publicRecipeQuery,
         ...ownerOnlyQuery,
         ...approvalRequiredOnlyQuery,
         ...favoritesOnlyQuery,
+        ...approvedOnlyQuery,
         ...textSearchQuery,
-        ...JSON.parse(req.query?.filters),
+        ...req.query?.filters,
       })
         .select("-image")
         .populate("owner", "firstname lastname")

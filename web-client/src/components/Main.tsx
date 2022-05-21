@@ -9,7 +9,8 @@ import { getRecipes } from "../slices/recipesSlice";
 import {
   setOwnerOnly,
   setPrivacyState,
-  setfavoritesOnly,
+  setFavoritesOnly,
+  setApprovedOnly,
   setApprovalRequiredOnly,
 } from "../slices/filtersSlice";
 
@@ -28,12 +29,14 @@ import { recipePrivacyState } from "../slices/filtersSlice";
 interface propTypes {
   ownerOnly: boolean;
   favoritesOnly: boolean;
+  approvedOnly: boolean;
   approvalRequiredOnly: boolean;
 }
 
 const Main: FC<propTypes> = ({
   ownerOnly,
   favoritesOnly,
+  approvedOnly,
   approvalRequiredOnly,
 }) => {
   const dispatch = useAppDispatch();
@@ -65,7 +68,6 @@ const Main: FC<propTypes> = ({
   };
 
   const initialRecipesLoad = async () => {
-    console.log("aaaaaaaaaaaaaa");
     try {
       await dispatch(
         getRecipes({
@@ -96,7 +98,8 @@ const Main: FC<propTypes> = ({
       location.pathname !== lastMainPageVisited ||
       (recipes.length === 0 && !fetchedAllRecipes)
     ) {
-      dispatch(setfavoritesOnly(favoritesOnly));
+      dispatch(setFavoritesOnly(favoritesOnly));
+      dispatch(setApprovedOnly(approvedOnly));
       dispatch(setApprovalRequiredOnly(approvalRequiredOnly));
       dispatch(setOwnerOnly(ownerOnly));
       if (ownerOnly) {
