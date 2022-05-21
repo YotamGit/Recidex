@@ -20,7 +20,13 @@ import { useAppSelector, useAppDispatch } from "../../hooks";
 import { getRecipes } from "../../slices/recipesSlice";
 import { setFiltered, setFilters } from "../../slices/filtersSlice";
 
-const FilterDialog = () => {
+//types
+import { FC } from "react";
+
+interface propTypes {
+  getRecipesFunction?: Function;
+}
+const FilterDialog: FC<propTypes> = ({ getRecipesFunction }) => {
   const dispatch = useAppDispatch();
 
   const fullscreen = useAppSelector((state) => state.utilities.fullscreen);

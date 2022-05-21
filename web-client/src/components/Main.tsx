@@ -5,10 +5,7 @@ import { useLocation } from "react-router-dom";
 
 //redux
 import { useAppDispatch, useAppSelector } from "../hooks";
-import {
-  getRecipes,
-  setRecipes as setStoreRecipes,
-} from "../slices/recipesSlice";
+import { getRecipes } from "../slices/recipesSlice";
 import {
   setOwnerOnly,
   setPrivacyState,
@@ -52,13 +49,6 @@ const Main: FC<propTypes> = ({
   const attemptSignIn = useAppSelector((state) => state.users.attemptSignIn);
   const routeHistory = useAppSelector((state) => state.utilities.routeHistory);
 
-  useEffect(() => {
-    if (ownerOnly) {
-      dispatch(setPrivacyState(recipePrivacy));
-      initialRecipesLoad();
-    }
-  }, [ownerOnly, recipePrivacy]);
-
   const loadRecipes = async () => {
     if (recipes.length > 0) {
       setFetching(true);
@@ -75,6 +65,7 @@ const Main: FC<propTypes> = ({
   };
 
   const initialRecipesLoad = async () => {
+    console.log("aaaaaaaaaaaaaa");
     try {
       await dispatch(
         getRecipes({
@@ -106,12 +97,22 @@ const Main: FC<propTypes> = ({
       (recipes.length === 0 && !fetchedAllRecipes)
     ) {
       dispatch(setfavoritesOnly(favoritesOnly));
-      dispatch(setOwnerOnly(ownerOnly));
       dispatch(setApprovalRequiredOnly(approvalRequiredOnly));
+      dispatch(setOwnerOnly(ownerOnly));
+      if (ownerOnly) {
+        dispatch(setPrivacyState(recipePrivacy));
+      }
       initialRecipesLoad();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ownerOnly, favoritesOnly, approvalRequiredOnly, attemptSignIn, location]);
+  }, [
+    ownerOnly,
+    favoritesOnly,
+    approvalRequiredOnly,
+    attemptSignIn,
+    location,
+    recipePrivacy,
+  ]);
 
   useEffect(() => {
     const handleScroll = async () => {
