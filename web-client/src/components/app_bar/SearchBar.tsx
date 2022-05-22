@@ -25,6 +25,7 @@ import { TSelectedFilters } from "../../slices/filtersSlice";
 
 interface propTypes {
   setExpanded?: Function;
+  responsive: boolean;
   localSearch?: {
     getRecipes: Function;
     filtered: boolean;
@@ -34,7 +35,7 @@ interface propTypes {
     selectedFilters: TSelectedFilters;
   };
 }
-const SearchBar: FC<propTypes> = ({ setExpanded, localSearch }) => {
+const SearchBar: FC<propTypes> = ({ setExpanded, localSearch, responsive }) => {
   const dispatch = useAppDispatch();
   const fullscreen = useAppSelector((state) => state.utilities.fullscreen);
   const filtered = useAppSelector((state) => state.filters.filtered);
@@ -102,7 +103,7 @@ const SearchBar: FC<propTypes> = ({ setExpanded, localSearch }) => {
 
   return (
     <>
-      {fullscreen || maximizeSearch ? (
+      {!responsive || fullscreen || maximizeSearch ? (
         <div className="search-bar-container">
           <div className="search-container">
             <IconButton

@@ -1,5 +1,6 @@
 import "../styles/Main.css";
 import Recipes from "./recipes/Recipes";
+import RecipesPrivacySelector from "./recipes/RecipesPrivacySelector";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -18,8 +19,6 @@ import {
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
 import Alert from "@mui/material/Alert";
-import ToggleButton from "@mui/material/ToggleButton";
-import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 
 //types
 import { FC } from "react";
@@ -142,53 +141,10 @@ const Main: FC<propTypes> = ({
   return (
     <div className="main">
       {ownerOnly && (
-        <ToggleButtonGroup
-          className="privacy-filter-button-group"
-          style={{ marginTop: "5px" }}
-          size="small"
-          value={recipePrivacy}
-          exclusive
-          onChange={(e, value: recipePrivacyState) =>
-            value !== null && setRecipePrivacy(value)
-          }
-          aria-label="table mode"
-        >
-          <ToggleButton
-            className="privacy-filter-button"
-            value={"all"}
-            aria-label="all recipes"
-          >
-            All
-          </ToggleButton>
-          <ToggleButton
-            className="privacy-filter-button"
-            value={"public"}
-            aria-label="public recipes"
-          >
-            Public
-          </ToggleButton>
-          <ToggleButton
-            className="privacy-filter-button"
-            value={"pending approval"}
-            aria-label="pending approval recipes"
-          >
-            Pending Approval
-          </ToggleButton>
-          <ToggleButton
-            className="privacy-filter-button"
-            value={"approved"}
-            aria-label="approved recipes"
-          >
-            Approved
-          </ToggleButton>
-          <ToggleButton
-            className="privacy-filter-button"
-            value={"private"}
-            aria-label="private recipes"
-          >
-            Private
-          </ToggleButton>
-        </ToggleButtonGroup>
+        <RecipesPrivacySelector
+          setRecipePrivacy={setRecipePrivacy}
+          recipePrivacy={recipePrivacy}
+        />
       )}
       {recipes.length > 0 ? (
         <>

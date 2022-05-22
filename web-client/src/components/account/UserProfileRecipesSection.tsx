@@ -1,15 +1,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import "../../styles/account/UserProfileRecipesSection.css";
 
 import SearchBar from "../app_bar/SearchBar";
 import Recipes from "../recipes/Recipes";
-import TabPanel from "../TabPanel";
 
 //mui
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+import Divider from "@mui/material/Divider";
 
 //types
 import { FC } from "react";
@@ -20,7 +19,7 @@ interface propTypes {
   user_id: string;
 }
 const UserProfileRecipesSection: FC<propTypes> = ({ user_id }) => {
-  const [favoritesOnly, setfavoritesOnly] = useState<boolean>(false);
+  const [favoritesOnly, setFavoritesOnly] = useState<boolean>(false);
   const [recipes, setRecipes] = useState<TRecipe[]>();
   const [filtered, setFiltered] = useState<boolean>(false);
   const [selectedFilters, setSelectedFilters] = useState<TSelectedFilters>({
@@ -53,10 +52,8 @@ const UserProfileRecipesSection: FC<propTypes> = ({ user_id }) => {
         );
       }
       setRecipes(result.data);
-      return true;
     } catch (err: any) {
       window.alert("Failed to Fetch Recipes.\nReason: " + err.message);
-      return false;
     }
   };
 
@@ -67,45 +64,57 @@ const UserProfileRecipesSection: FC<propTypes> = ({ user_id }) => {
     getRecipes(selectedFilters);
   }, [user_id, favoritesOnly]);
 
+  useEffect(() => {
+    setFavoritesOnly(false);
+    setSelectedFilters({
+      category: undefined,
+      sub_category: undefined,
+      difficulty: undefined,
+      prep_time: undefined,
+      total_time: undefined,
+    });
+  }, [user_id]);
+
   return (
-    <div>
-      <SearchBar
-        localSearch={{
-          getRecipes,
-          filtered,
-          setFiltered,
-          searchText,
-          setSearchText,
-          selectedFilters,
-        }}
-      />
-      <ToggleButtonGroup
-        className="profile-favorites-filter-button-group"
-        // style={{ marginTop: "5px" }}
-        size="small"
-        value={favoritesOnly}
-        exclusive
-        onChange={(e, value: boolean) =>
-          value !== null && setfavoritesOnly(value)
-        }
-        aria-label="table mode"
-      >
-        <ToggleButton
-          className="profile-favorites-filter-button"
-          value={false}
-          aria-label="all recipes"
+    <div className="profile-recipes-section">
+      <div className="filters-container">
+        <ToggleButtonGroup
+          className="profile-favorites-filter-button-group"
+          size="small"
+          value={favoritesOnly}
+          exclusive
+          onChange={(e, value: boolean) =>
+            value !== null && setFavoritesOnly(value)
+          }
+          aria-label="table mode"
         >
-          All
-        </ToggleButton>
-        <ToggleButton
-          className="profile-favorites-filter-button"
-          value={true}
-          aria-label="favorite recipes"
-        >
-          Favorites
-        </ToggleButton>
-      </ToggleButtonGroup>
-      <div>{JSON.stringify(favoritesOnly)}</div>
+          <ToggleButton
+            className="profile-favorites-filter-button"
+            value={false}
+            aria-label="owned recipes"
+          >
+            Owned
+          </ToggleButton>
+          <ToggleButton
+            className="profile-favorites-filter-button"
+            value={true}
+            aria-label="favorite recipes"
+          >
+            Favorites
+          </ToggleButton>
+        </ToggleButtonGroup>
+        <SearchBar
+          responsive={false}
+          localSearch={{
+            getRecipes,
+            filtered,
+            setFiltered,
+            searchText,
+            setSearchText,
+            selectedFilters,
+          }}
+        />
+      </div>
       {recipes && (
         <Recipes
           approvalRequiredOnly={false}

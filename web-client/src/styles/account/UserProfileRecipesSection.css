@@ -1,0 +1,30 @@
+.profile-recipes-section {
+  padding-top: 20px;
+  width: 90%;
+  margin: auto;
+}
+
+.profile-recipes-section .filters-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 999;
+  background-color: white;
+  position: sticky;
+  top: 64px;
+}
+.profile-recipes-section .filters-container > * {
+  padding: 3px;
+}
+
+@media only screen and (max-width: 600px) {
+  .profile-recipes-section {
+    width: 100%;
+    margin: auto;
+  }
+
+  .search-bar-container {
+    width: 100%;
+    padding: 1%;
+  }
+}

@@ -52,11 +52,9 @@
 
 @media only screen and (max-width: 600px) {
   .search-bar-container {
-    position: relative;
     width: 100%;
   }
   .search-bar-search-field {
     width: 100%;
-    position: relative;
   }
 }

@@ -46,7 +46,29 @@ router.get("/user/info/:user_id", async (req, res, next) => {
     );
 
     if (userInfo) {
-      res.status(200).json({ userInfo });
+      let approvedRecipesCount = await Recipe.find({
+        owner: req.params.user_id,
+        approved: true,
+      }).distinct("_id");
+
+      let publicRecipesCount = await Recipe.find({
+        owner: req.params.user_id,
+        private: false,
+      }).distinct("_id");
+
+      let favoriteRecipesCount = await Recipe.find({
+        favorited_by: req.params.user_id,
+        private: false,
+      }).distinct("_id");
+
+      res.status(200).json({
+        userInfo,
+        metrics: {
+          approvedRecipesCount: approvedRecipesCount.length,
+          publicRecipesCount: publicRecipesCount.length,
+          favoriteRecipesCount: favoriteRecipesCount.length,
+        },
+      });
     } else {
       res.status(404).send("User not found");
     }

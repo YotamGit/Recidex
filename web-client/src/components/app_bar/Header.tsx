@@ -59,7 +59,9 @@ const Header: FC<propTypes> = ({ pageName, showSearch }) => {
               ></img>
               <span>&nbsp;{pageName}</span>
             </span>
-            {showSearch && <SearchBar setExpanded={setMaximizeSearch} />}
+            {showSearch && (
+              <SearchBar responsive={true} setExpanded={setMaximizeSearch} />
+            )}
           </div>
         </Toolbar>
       </AppBar>

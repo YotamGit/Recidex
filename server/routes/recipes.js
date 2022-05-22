@@ -38,7 +38,9 @@ router.get("/", async (req, res, next) => {
         req.query.customQuery !== "true" ||
         !(await isModeratorUser(validatedToken))
       ) {
-        req.query.filters.private = false;
+        if (req.query.filters.private) {
+          req.query.filters.private = false;
+        }
       }
 
       let ownerOnlyQuery = {};

@@ -1,8 +1,7 @@
-import axios from "axios";
-
+import "../../styles/account/UserProfilePage.css";
 import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
 import UserProfileRecipesSection from "./UserProfileRecipesSection";
+import UserProfileInfoSection from "./UserProfileInfoSection";
 
 //mui icons
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
@@ -20,16 +19,9 @@ const UserProfilePage: FC = () => {
   const navigate = useNavigate();
 
   const { user_id } = useParams();
-  const [userData, setUserData] = useState<any>();
-
-  useEffect(() => {
-    axios
-      .get(`/api/users/user/info/${user_id}`)
-      .then((result) => setUserData(result.data));
-  }, [user_id]);
 
   return (
-    <>
+    <div className="user-profile-page">
       <div className="user-profile-page-top-button-row">
         <Tooltip title="Go back" arrow>
           <IconButton onClick={() => navigate(-1)}>
@@ -37,10 +29,12 @@ const UserProfilePage: FC = () => {
           </IconButton>
         </Tooltip>
       </div>
-      {"TOP BUTTON ROW"}
-      {JSON.stringify(userData)}
+
+      {/* <UserProfileInfoSection user_id={"dfsdfsdfsdf"} />
+      <UserProfileRecipesSection user_id={"asdasdasd"} /> */}
+      <UserProfileInfoSection user_id={user_id || ""} />
       <UserProfileRecipesSection user_id={user_id || ""} />
-    </>
+    </div>
   );
 };
 
