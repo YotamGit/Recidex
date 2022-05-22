@@ -1,13 +1,12 @@
 .scroll-to-top-btn {
-  background-color: var(--blue-1);
-  position: fixed;
+  background-color: var(--blue-1) !important;
+  position: fixed !important;
   bottom: 16px;
   right: 16px;
-  z-index: 20;
 }
 
 .scroll-to-top-btn:hover {
-  background-color: var(--blue-2);
+  background-color: var(--blue-2) !important;
 }
 .scroll-to-top-btn .icon {
   color: var(--blue-5);
