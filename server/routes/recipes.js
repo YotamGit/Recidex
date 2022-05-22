@@ -27,7 +27,8 @@ router.get("/", async (req, res, next) => {
         (req.query.ownerOnly === undefined &&
           req.query.favoritesOnly === undefined &&
           req.query.approvedOnly === undefined &&
-          req.query.approvalRequiredOnly === undefined)
+          req.query.approvalRequiredOnly === undefined &&
+          req.query.customQuery === undefined)
           ? { private: false }
           : {};
 

@@ -26,7 +26,7 @@ const UserProfilePage: FC = () => {
     axios
       .get(`/api/users/user/info/${user_id}`)
       .then((result) => setUserData(result.data));
-  }, []);
+  }, [user_id]);
 
   return (
     <>

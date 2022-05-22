@@ -8,6 +8,8 @@ import TabPanel from "../TabPanel";
 //mui
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
+import ToggleButton from "@mui/material/ToggleButton";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 
 //types
 import { FC } from "react";
@@ -35,12 +37,12 @@ const UserProfileRecipesSection: FC<propTypes> = ({ user_id }) => {
       let result = await axios.get("/api/recipes", {
         params: {
           latest: new Date(),
-          favoritesOnly: favoritesOnly || undefined,
           searchText: searchText || undefined,
           filters: {
-            ...(filters ? filters : selectedFilters),
-            owner: user_id,
+            favorited_by: favoritesOnly ? user_id : undefined,
+            owner: favoritesOnly ? undefined : user_id,
             private: false,
+            ...(filters ? filters : selectedFilters),
           },
         },
       });
@@ -59,8 +61,12 @@ const UserProfileRecipesSection: FC<propTypes> = ({ user_id }) => {
   };
 
   useEffect(() => {
+    if (!user_id) {
+      return;
+    }
     getRecipes(selectedFilters);
-  }, []);
+  }, [user_id, favoritesOnly]);
+
   return (
     <div>
       <SearchBar
@@ -73,6 +79,33 @@ const UserProfileRecipesSection: FC<propTypes> = ({ user_id }) => {
           selectedFilters,
         }}
       />
+      <ToggleButtonGroup
+        className="profile-favorites-filter-button-group"
+        // style={{ marginTop: "5px" }}
+        size="small"
+        value={favoritesOnly}
+        exclusive
+        onChange={(e, value: boolean) =>
+          value !== null && setfavoritesOnly(value)
+        }
+        aria-label="table mode"
+      >
+        <ToggleButton
+          className="profile-favorites-filter-button"
+          value={false}
+          aria-label="all recipes"
+        >
+          All
+        </ToggleButton>
+        <ToggleButton
+          className="profile-favorites-filter-button"
+          value={true}
+          aria-label="favorite recipes"
+        >
+          Favorites
+        </ToggleButton>
+      </ToggleButtonGroup>
+      <div>{JSON.stringify(favoritesOnly)}</div>
       {recipes && (
         <Recipes
           approvalRequiredOnly={false}
