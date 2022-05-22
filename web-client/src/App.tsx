@@ -1,11 +1,11 @@
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
+import ScrollToTop from "./components/ScrollToTop";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 //redux
 import { useAppDispatch, useAppSelector } from "./hooks";
 import { addRouteToHistory, setFullscreen } from "./slices/utilitySlice";
-
-import ProtectedRoute from "./components/ProtectedRoute";
 
 import RecipePage from "./components/recipes/RecipePage";
 import RecipeEditorPage from "./components/recipe_editor/RecipeEditorPage";
@@ -46,6 +46,7 @@ function App() {
 
   return (
     <div>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Navigate to="/home" />} />
         <Route
