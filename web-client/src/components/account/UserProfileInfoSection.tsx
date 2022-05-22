@@ -50,16 +50,16 @@ const UserProfileInfoSection: FC<propTypes> = ({ user_id }) => {
           </div>
           <div className="user-profile-kpis">
             <div className="user-profile-kpi">
-              <div>{"Favorites"}</div>
-              <div>{userData.metrics.favoriteRecipesCount}</div>
-            </div>
-            <div className="user-profile-kpi">
               <div>{"Public"}</div>
               <div>{userData.metrics.publicRecipesCount}</div>
             </div>
             <div className="user-profile-kpi">
               <div>{"Approved"}</div>
               <div>{userData.metrics.approvedRecipesCount}</div>
+            </div>
+            <div className="user-profile-kpi">
+              <div>{"Favorites"}</div>
+              <div>{userData.metrics.favoriteRecipesCount}</div>
             </div>
           </div>
         </>
