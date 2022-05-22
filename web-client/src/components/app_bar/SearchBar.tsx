@@ -39,6 +39,7 @@ const SearchBar: FC<propTypes> = ({ setExpanded, localSearch, responsive }) => {
   const dispatch = useAppDispatch();
   const fullscreen = useAppSelector((state) => state.utilities.fullscreen);
   const filtered = useAppSelector((state) => state.filters.filtered);
+  const titleFilters = useAppSelector((state) => state.filters.titleFilters);
 
   const [maximizeSearch, setMaximizeSearch] = useState(false);
 
@@ -82,7 +83,7 @@ const SearchBar: FC<propTypes> = ({ setExpanded, localSearch, responsive }) => {
     }
 
     (async () => {
-      let res: string[] = await getRecipeTitles();
+      let res: string[] = await getRecipeTitles(titleFilters);
       if (active) {
         setTitles(res);
       }
@@ -91,7 +92,7 @@ const SearchBar: FC<propTypes> = ({ setExpanded, localSearch, responsive }) => {
     return () => {
       active = false;
     };
-  }, [loading]);
+  }, [loading, titleFilters]);
 
   // reset titles when dropdown is closed to retrieve an updated list
   // next time it is opened

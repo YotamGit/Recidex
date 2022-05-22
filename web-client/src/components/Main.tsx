@@ -8,8 +8,9 @@ import { useLocation } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { getRecipes } from "../slices/recipesSlice";
 import {
-  setOwnerOnly,
+  setTitleFilters,
   setPrivacyState,
+  setOwnerOnly,
   setFavoritesOnly,
   setApprovedOnly,
   setApprovalRequiredOnly,
@@ -48,6 +49,7 @@ const Main: FC<propTypes> = ({
     (state) => state.recipes.fetchedAllRecipes
   );
 
+  const user_id = useAppSelector((state) => state.users.userData._id);
   const attemptSignIn = useAppSelector((state) => state.users.attemptSignIn);
   const routeHistory = useAppSelector((state) => state.utilities.routeHistory);
 
@@ -106,11 +108,23 @@ const Main: FC<propTypes> = ({
       }
       initialRecipesLoad();
     }
+
+    //set title filters for search
+    if (ownerOnly) {
+      dispatch(setTitleFilters({ owner: user_id }));
+    } else if (favoritesOnly) {
+      dispatch(setTitleFilters({ favorited_by: user_id, private: false }));
+    } else if (approvedOnly) {
+      dispatch(setTitleFilters({ approved: true, private: false }));
+    } else if (approvalRequiredOnly) {
+      dispatch(setTitleFilters({ approval_required: true, private: false }));
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     ownerOnly,
     favoritesOnly,
     approvalRequiredOnly,
+    approvedOnly,
     attemptSignIn,
     location,
     recipePrivacy,

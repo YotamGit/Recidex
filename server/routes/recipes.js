@@ -162,7 +162,7 @@ router.get("/image/:recipe_id", async (req, res, next) => {
 // GET ALL RECIPE TITLES
 router.get("/titles", async (req, res, next) => {
   try {
-    const titles = await Recipe.find({}).distinct("title");
+    const titles = await Recipe.find({ ...req.query }).distinct("title");
     res.status(200).send(titles);
   } catch (err) {
     next(err);

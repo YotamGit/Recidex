@@ -30,6 +30,7 @@ interface FiltersState {
   approvedOnly: boolean | undefined;
   approvalRequiredOnly: boolean | undefined;
   searchText: string | undefined;
+  titleFilters: object | undefined;
   filtered: boolean;
   recipe_categories: {
     [key: string]: any;
@@ -62,6 +63,7 @@ const initialState: FiltersState = {
   approvedOnly: undefined,
   approvalRequiredOnly: undefined,
   searchText: undefined,
+  titleFilters: undefined,
   filtered: false,
   recipe_categories: {
     Proteins: ["Meat", "Chicken", "Fish", "Other"],
@@ -107,6 +109,9 @@ const filtersSlice = createSlice({
     setFilters(state, action: PayloadAction<any>) {
       state.selectedFilters = { ...state.selectedFilters, ...action.payload };
     },
+    setTitleFilters(state, action: PayloadAction<any>) {
+      state.titleFilters = action.payload;
+    },
     setSearchText(state, action: PayloadAction<string>) {
       state.searchText = action.payload === "" ? undefined : action.payload;
     },
@@ -138,6 +143,7 @@ const filtersSlice = createSlice({
 
 export const {
   setFilters,
+  setTitleFilters,
   setFiltered,
   setOwnerOnly,
   setPrivacyState,

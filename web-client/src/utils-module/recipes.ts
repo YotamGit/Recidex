@@ -11,9 +11,9 @@ export async function getRecipe(recipeId: string) {
 }
 
 // GET RECIPE TITLES
-export async function getRecipeTitles() {
+export async function getRecipeTitles(filters?: object) {
   try {
-    let response = await axios.get("/api/recipes/titles");
+    let response = await axios.get("/api/recipes/titles", { params: filters });
     return response.data;
   } catch (error: any) {
     window.alert("Failed to Fetch Recipe Titles\nReason: " + error.message);

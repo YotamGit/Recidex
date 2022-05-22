@@ -8,8 +8,9 @@ import Recipes from "../recipes/Recipes";
 //mui
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
-import Divider from "@mui/material/Divider";
-
+//redux
+import { useAppDispatch } from "../../hooks";
+import { setTitleFilters } from "../../slices/filtersSlice";
 //types
 import { FC } from "react";
 import { TRecipe } from "../../slices/recipesSlice";
@@ -19,6 +20,7 @@ interface propTypes {
   user_id: string;
 }
 const UserProfileRecipesSection: FC<propTypes> = ({ user_id }) => {
+  const dispatch = useAppDispatch();
   const [favoritesOnly, setFavoritesOnly] = useState<boolean>(false);
   const [recipes, setRecipes] = useState<TRecipe[]>();
   const [filtered, setFiltered] = useState<boolean>(false);
@@ -60,6 +62,11 @@ const UserProfileRecipesSection: FC<propTypes> = ({ user_id }) => {
   useEffect(() => {
     if (!user_id) {
       return;
+    }
+    if (favoritesOnly) {
+      dispatch(setTitleFilters({ favorited_by: user_id, private: false }));
+    } else {
+      dispatch(setTitleFilters({ owner: user_id, private: false }));
     }
     getRecipes(selectedFilters);
   }, [user_id, favoritesOnly]);
