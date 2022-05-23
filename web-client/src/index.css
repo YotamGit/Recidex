@@ -37,7 +37,8 @@ html .MuiTabs-indicator {
 
 html,
 body,
-#root {
+#root,
+#root > div {
   min-height: 100vh;
 }
 body {
