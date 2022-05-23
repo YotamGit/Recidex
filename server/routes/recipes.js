@@ -8,6 +8,10 @@ import {
   validateToken,
 } from "../utils-module/authentication.js";
 import { reduceImgQuality } from "../utils-module/images.js";
+import {
+  emailUserRecipeApproved,
+  emailUserRecipeDisapproved,
+} from "../utils-module/notifications.js";
 
 // Routes
 
@@ -382,16 +386,57 @@ router.post("/edit/approve/:recipe_id", async (req, res, next) => {
     if (!recipe.private) {
       const isModerator = await isModeratorUser(req.headers.validatedToken);
 
+      if (req.body.approve === undefined) {
+        res.status(403).send(`Missing argument "approve".`);
+        return;
+      }
       if (isModerator) {
-        await Recipe.updateOne(
+        const recipe = await Recipe.findOneAndUpdate(
           { _id: req.params.recipe_id },
           {
             approved: req.body.approve,
             approval_required: false,
             private: false,
+          },
+          { new: true }
+        )
+          .select("title _id")
+          .populate("owner", "firstname lastname email");
+
+        if (recipe === null) {
+          res.status(404).send("Recipe not found");
+          return;
+        }
+        res.status(200).json({ approved: req.body.approve });
+
+        //email result to user
+        try {
+          switch (req.body.approve) {
+            case true:
+              await emailUserRecipeApproved({
+                recipe: recipe,
+                owner: recipe.owner,
+                moderator: {
+                  firstname: req.headers.validatedToken.firstname,
+                  lastname: req.headers.validatedToken.lastname,
+                },
+              });
+              break;
+            case false:
+              await emailUserRecipeDisapproved({
+                recipe: recipe,
+                owner: recipe.owner,
+                moderator: {
+                  firstname: req.headers.validatedToken.firstname,
+                  lastname: req.headers.validatedToken.lastname,
+                },
+                reason: req.body.reason,
+              });
+              break;
           }
-        );
-        res.status(200).json({ approved: true });
+        } catch (err) {
+          console.log(err);
+        }
       } else {
         res.status(403).send("Missing privileges to approve recipe.");
       }
@@ -399,6 +444,7 @@ router.post("/edit/approve/:recipe_id", async (req, res, next) => {
       res.status(403).send("Cant approve a private recipe.");
     }
   } catch (err) {
+    console.log(err);
     next(err);
   }
 });

@@ -10,6 +10,7 @@ import {
   isEmailTaken,
   isUsernameTaken,
 } from "../utils-module/authentication.js";
+import { emailNewUser } from "../utils-module/notifications.js";
 
 // Routes
 
@@ -126,6 +127,8 @@ router.post("/signup", async (req, res, next) => {
         email: newUser.email,
       },
     });
+
+    await emailNewUser(newUser);
   } catch (err) {
     next(err);
   }
