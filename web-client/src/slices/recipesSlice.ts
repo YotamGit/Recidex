@@ -250,9 +250,10 @@ const recipesSlice = createSlice({
         if (action.payload.replace) {
           state.recipes = [...action.payload.recipes];
         } else {
-          state.recipes = action.payload.recipes
-            ? [...state.recipes, ...action.payload.recipes]
-            : state.recipes;
+          if (action.payload.recipes) {
+            // state.recipes = [...state.recipes, ...action.payload.recipes];
+            state.recipes.push(...action.payload.recipes);
+          }
         }
       })
       .addCase(getRecipes.rejected, (state, action: PayloadAction<any>) => {

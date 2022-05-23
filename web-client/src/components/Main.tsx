@@ -175,7 +175,15 @@ const Main: FC<propTypes> = ({
           {fetching ? (
             <CircularProgress />
           ) : (
-            <Button variant="contained" component="div" onClick={loadRecipes}>
+            <Button
+              variant="contained"
+              component="div"
+              onClick={async () => {
+                recipes.length > 0
+                  ? await loadRecipes()
+                  : await initialRecipesLoad();
+              }}
+            >
               Load More Recipes
             </Button>
           )}
