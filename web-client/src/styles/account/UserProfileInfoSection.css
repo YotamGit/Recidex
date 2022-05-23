@@ -16,6 +16,14 @@
   flex-direction: column;
   align-items: center;
 }
+.user-profile-info-section .user-role-flare {
+  font-size: 1rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  color: var(--blue-5);
+  border: 2px solid;
+  border-radius: 30px;
+}
 .user-profile-info-section .user-name {
   font-size: 3rem;
   font-weight: 600;
@@ -50,6 +58,13 @@
 @media only screen and (max-width: 600px) {
   .user-profile-info-section > *:nth-child(n + 2) {
     margin-top: 5%;
+  }
+
+  .user-profile-info-section .user-role-flare {
+    font-size: 0.75rem;
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
+    border: 1px solid;
   }
 
   .user-profile-info-section .user-name {

@@ -42,7 +42,7 @@ router.get("/", async (req, res, next) => {
 router.get("/user/info/:user_id", async (req, res, next) => {
   try {
     let userInfo = await User.findById(req.params.user_id).select(
-      "firstname lastname registration_date"
+      "firstname lastname registration_date role"
     );
 
     if (userInfo) {

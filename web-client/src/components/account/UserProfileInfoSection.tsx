@@ -1,9 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import "../../styles/account/UserProfileInfoSection.css";
-import Kpi from "../admin/Kpi";
-//mui
-import Divider from "@mui/material/Divider";
 
 //types
 import { FC } from "react";
@@ -32,7 +29,10 @@ const UserProfileInfoSection: FC<propTypes> = ({ user_id }) => {
       {userData && (
         <>
           <div className="user-name-container">
-            <div className="user-name">{`${userData?.userInfo.firstname} ${userData?.userInfo.lastname}`}</div>
+            <div className="user-role-flare">{userData?.userInfo.role}</div>
+            <div className="user-name">
+              {`${userData?.userInfo.firstname} ${userData?.userInfo.lastname}`}
+            </div>
             <div className="registration-date-container">
               <span className="registration-date-title">Member since:</span>
               <span className="registration-date">
