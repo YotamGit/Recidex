@@ -9,6 +9,7 @@ export async function emailNewUser(newUser) {
       message: {
         to: {
           email: newUser.email,
+          user_id: owner._id,
         },
         template: process.env.USER_SIGNUP_EMAIL_TOKEN,
         data: {
@@ -51,10 +52,12 @@ export async function emailUserRecipeApproved({
       message: {
         to: {
           email: owner.email,
+          user_id: owner._id,
         },
         template: byEdit
           ? process.env.RECIPE_APPROVED_BY_EDIT_EMAIL_TOKEN
           : process.env.RECIPE_APPROVED_EMAIL_TOKEN,
+
         data: {
           name: {
             first: owner.firstname,
@@ -91,6 +94,7 @@ export async function emailUserRecipeDisapproved({
       message: {
         to: {
           email: owner.email,
+          user_id: owner._id,
         },
         template: process.env.RECIPE_DISAPPROVED_EMAIL_TOKEN,
         data: {

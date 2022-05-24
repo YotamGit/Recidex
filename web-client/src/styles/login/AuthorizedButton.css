@@ -40,6 +40,7 @@
 }
 .login-modal > #authentication-page {
   height: fit-content;
+  min-height: 0;
   width: fit-content;
   background: none;
 }
