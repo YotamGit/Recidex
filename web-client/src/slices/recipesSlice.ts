@@ -208,6 +208,7 @@ export const favoriteRecipe = createAsyncThunk<
 interface ApproveRecipeProps {
   _id: string;
   approve: boolean;
+  reason?: string;
 }
 export const approveRecipe = createAsyncThunk<
   TRecipe[],
@@ -219,6 +220,7 @@ export const approveRecipe = createAsyncThunk<
   try {
     let res = await axios.post(`/api/recipes/edit/approve/${props._id}`, {
       approve: props.approve,
+      reason: props.reason,
     });
     //TODO return a single recipe instead of all of the recipes
     return state.recipes.recipes.filter(

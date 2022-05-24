@@ -40,18 +40,21 @@ export async function emailUserRecipeApproved({
   recipe,
   owner,
   moderator,
+  byEdit,
 } = {}) {
   try {
-    console.log(recipe, owner, moderator);
     const courier = CourierClient({
       authorizationToken: process.env.EMAIL_NOTIFICATION_AUTH_TOKEN,
     });
+
     const emailRes = await courier.send({
       message: {
         to: {
           email: owner.email,
         },
-        template: process.env.RECIPE_APPROVED_EMAIL_TOKEN,
+        template: byEdit
+          ? process.env.RECIPE_APPROVED_BY_EDIT_EMAIL_TOKEN
+          : process.env.RECIPE_APPROVED_EMAIL_TOKEN,
         data: {
           name: {
             first: owner.firstname,
@@ -105,7 +108,7 @@ export async function emailUserRecipeDisapproved({
             hour: "numeric",
             minute: "numeric",
           }),
-          disapproveReason: reason,
+          disapproveReason: reason ? reason : "No reason was given.",
         },
       },
     });

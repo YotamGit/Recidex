@@ -1,9 +1,9 @@
 import "../../styles/recipe_moderation/ModerationRecipeCard.css";
+import { useState } from "react";
 
 import { Link, useNavigate } from "react-router-dom";
-import { marked } from "marked";
-
 import UserProfileLink from "../account/UserProfileLink";
+import DisapproveReasonDialog from "./DisapproveReasonDialog";
 
 //mui
 import Divider from "@mui/material/Divider";
@@ -28,17 +28,24 @@ interface propTypes {
 }
 const ModerationRecipeCard: FC<propTypes> = ({ recipe }) => {
   const dispatch = useAppDispatch();
-
   const navigate = useNavigate();
 
-  const onApprove = async (approve: boolean) => {
+  const [disapproveReason, setDisapproveReason] = useState();
+  const [openModModal, setOpenModModal] = useState(false);
+
+  const onApprove = async (approve: boolean, reason?: string) => {
     let confirm = window.confirm(
       `${approve ? "Approve" : "Disapprove"} recipe ${recipe.title}?`
     );
     if (confirm) {
       await dispatch(
-        approveRecipe({ _id: recipe._id as string, approve: approve })
+        approveRecipe({
+          _id: recipe._id as string,
+          approve: approve,
+          reason: disapproveReason,
+        })
       );
+      setOpenModModal(false);
     }
   };
 
@@ -100,11 +107,17 @@ const ModerationRecipeCard: FC<propTypes> = ({ recipe }) => {
           className="approve-button"
           variant="contained"
           style={{ backgroundColor: "rgb(255, 93, 85)" }}
-          onClick={() => onApprove(false)}
+          onClick={() => setOpenModModal(true)}
         >
           disapprove
         </Button>
       </div>
+      <DisapproveReasonDialog
+        open={openModModal}
+        setOpen={setOpenModModal}
+        setReason={setDisapproveReason}
+        onSubmit={() => onApprove(false)}
+      />
     </div>
   );
 };

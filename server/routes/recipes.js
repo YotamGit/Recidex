@@ -327,7 +327,29 @@ router.post("/edit/:recipe_id", async (req, res, next) => {
       );
       const recipe = await Recipe.findById({ _id: req.params.recipe_id })
         .select("-image")
-        .populate("owner", "firstname lastname");
+        .populate("owner", "firstname lastname email");
+
+      //notify user of recipe approval by a moderator
+      if (
+        !recipe.private &&
+        recipe.approved &&
+        req.headers.validatedToken._id != recipe.owner._id
+      ) {
+        try {
+          await emailUserRecipeApproved({
+            recipe: recipe,
+            owner: recipe.owner,
+            moderator: {
+              firstname: req.headers.validatedToken.firstname,
+              lastname: req.headers.validatedToken.lastname,
+            },
+            byEdit: true,
+          });
+        } catch (err) {
+          console.log(err);
+        }
+      }
+
       res.status(200).json(recipe);
     } else {
       res
@@ -407,7 +429,6 @@ router.post("/edit/approve/:recipe_id", async (req, res, next) => {
           res.status(404).send("Recipe not found");
           return;
         }
-        res.status(200).json({ approved: req.body.approve });
 
         //email result to user
         try {
@@ -420,6 +441,7 @@ router.post("/edit/approve/:recipe_id", async (req, res, next) => {
                   firstname: req.headers.validatedToken.firstname,
                   lastname: req.headers.validatedToken.lastname,
                 },
+                byEdit: false,
               });
               break;
             case false:
@@ -437,6 +459,8 @@ router.post("/edit/approve/:recipe_id", async (req, res, next) => {
         } catch (err) {
           console.log(err);
         }
+
+        res.status(200).json({ approved: req.body.approve });
       } else {
         res.status(403).send("Missing privileges to approve recipe.");
       }
@@ -444,7 +468,6 @@ router.post("/edit/approve/:recipe_id", async (req, res, next) => {
       res.status(403).send("Cant approve a private recipe.");
     }
   } catch (err) {
-    console.log(err);
     next(err);
   }
 });

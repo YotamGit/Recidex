@@ -1,0 +1,7 @@
+.disapprove-reason-dialog .disapprove-dialog-title {
+  color: var(--blue-1);
+}
+
+.disapprove-reason-dialog .disapprove-cancel-button {
+  background-color: var(--blue-4);
+}
