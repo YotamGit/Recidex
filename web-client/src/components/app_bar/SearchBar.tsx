@@ -174,7 +174,6 @@ const SearchBar: FC<propTypes> = ({ setExpanded, localSearch, responsive }) => {
       ) : (
         <>
           <IconButton
-            className="search-icon-wrapper"
             onClick={() => {
               setMaximizeSearch(true);
               setExpanded && setExpanded(true);

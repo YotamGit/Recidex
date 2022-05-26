@@ -14,7 +14,6 @@
   position: relative;
   border-radius: 5px;
   background-color: var(--blue-2);
-  width: auto;
   display: flex;
   align-items: center;
   flex-direction: row;
@@ -30,22 +29,13 @@
 }
 
 .search-bar-search-field {
-  flex-grow: 1;
-  flex-shrink: 1;
   width: 25ch;
-  transition: width 0.2s;
 }
 
 .search-container:hover {
   background-color: var(--blue-3);
 }
-.search-icon-wrapepr {
-  height: 100%;
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+
 .search-container .MuiOutlinedInput-notchedOutline {
   border: none;
 }
