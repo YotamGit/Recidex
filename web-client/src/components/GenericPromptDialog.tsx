@@ -1,9 +1,9 @@
-import "../../styles/recipe_moderation/DisapproveReasonDialog.css";
-import DialogCloseButton from "../buttons/DialogCloseButton";
+import "../styles/GenericPromptDialog.css";
+
+import DialogCloseButton from "./buttons/DialogCloseButton";
 
 //mui
 import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -11,53 +11,49 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
 //redux
-import { useAppSelector } from "../../hooks";
+import { useAppSelector } from "../hooks";
+
 //types
 import { FC } from "react";
+
 interface propTypes {
   open: boolean;
   setOpen: Function;
-  setReason: Function;
-  onSubmit: Function;
+  onConfirm: Function;
+  title?: string;
+  text?: string;
 }
-const DisapproveReasonDialog: FC<propTypes> = ({
+const GenericPromptDialog: FC<propTypes> = ({
   open,
   setOpen,
-  setReason,
-  onSubmit,
+  onConfirm,
+  title,
+  text,
 }) => {
   const fullscreen = useAppSelector((state) => state.utilities.fullscreen);
 
   const handleCancel = () => {
     setOpen(false);
-    setReason();
   };
   return (
     <Dialog
-      className="disapprove-reason-dialog"
+      className="generic-prompt-dialog"
       open={open}
       onClose={handleCancel}
       fullScreen={!fullscreen}
     >
       <DialogCloseButton onClick={handleCancel} />
-      <DialogTitle className="disapprove-dialog-title">
-        Disapprove Recipe
+      <DialogTitle className="title">
+        {title || "Confirmation Required"}
       </DialogTitle>
       <DialogContent>
-        <DialogContentText>
-          State reason for disapproving the recipe and what changes are needed.
+        <DialogContentText style={{ whiteSpace: "pre-line" }}>
+          {text || "Confirm?"}
         </DialogContentText>
-        <TextField
-          autoFocus
-          fullWidth
-          label="Reason"
-          variant="standard"
-          onChange={(e) => setReason(e.target.value)}
-        />
       </DialogContent>
       <DialogActions>
         <Button
-          className="disapprove-cancel-button secondary"
+          className="cancel-button secondary"
           variant="contained"
           onClick={handleCancel}
         >
@@ -66,14 +62,15 @@ const DisapproveReasonDialog: FC<propTypes> = ({
         <Button
           variant="contained"
           onClick={() => {
-            onSubmit();
+            onConfirm();
+            handleCancel();
           }}
         >
-          Submit
+          Confirm
         </Button>
       </DialogActions>
     </Dialog>
   );
 };
 
-export default DisapproveReasonDialog;
+export default GenericPromptDialog;

@@ -8,6 +8,7 @@ import RecipeDropdown from "../RecipeDropdown";
 import AuthorizedButton from "../Login/AuthorizedButton";
 import { toBase64 } from "../../utils-module/images";
 import TabPanel from "../TabPanel";
+import GenericPromptDialog from "../GenericPromptDialog";
 
 //mui
 import Chip from "@mui/material/Chip";
@@ -35,7 +36,9 @@ interface propTypes {
 const RecipeEditor: FC<propTypes> = ({ action, recipe }) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
 
+  //categories for inputs
   const recipe_categories = useAppSelector(
     (state) => state.filters.recipe_categories
   );
@@ -46,6 +49,7 @@ const RecipeEditor: FC<propTypes> = ({ action, recipe }) => {
     (state) => state.filters.recipe_durations
   );
 
+  //states for inputs
   const _id = recipe._id;
   const [privateRecipe, setPrivateRecipe] = useState(recipe.private);
   const [approval_required, setApprovalRequired] = useState(
@@ -112,11 +116,7 @@ const RecipeEditor: FC<propTypes> = ({ action, recipe }) => {
   };
 
   const onSaveRecipeChanges = async () => {
-    let save = window.confirm(
-      `${action === "edit" && "The recipe will need to be re-approved."} Save?`
-    );
     let recipeData: TRecipe = {
-      _id,
       private: privateRecipe,
       approval_required,
       title,
@@ -135,31 +135,31 @@ const RecipeEditor: FC<propTypes> = ({ action, recipe }) => {
       image,
     };
 
-    if (save) {
-      switch (action) {
-        case "edit":
-          setDisableButtons(true);
-          let editRes = await dispatch(editRecipe({ recipeData: recipeData }));
-          setDisableButtons(false);
+    switch (action) {
+      case "edit":
+        setDisableButtons(true);
+        let editRes = await dispatch(
+          editRecipe({ recipeData: recipeData, recipeId: _id })
+        );
+        setDisableButtons(false);
 
-          if (editRes.meta.requestStatus === "fulfilled") {
-            navigate(-1);
-          }
+        if (editRes.meta.requestStatus === "fulfilled") {
+          navigate(-1);
+        }
 
-          break;
-        case "add":
-          delete recipeData._id;
-          setDisableButtons(true);
-          let addRes = await dispatch(addRecipe({ recipeData: recipeData }));
-          setDisableButtons(false);
+        break;
+      case "add":
+        delete recipeData._id;
+        setDisableButtons(true);
+        let addRes = await dispatch(addRecipe({ recipeData: recipeData }));
+        setDisableButtons(false);
 
-          if (addRes.meta.requestStatus === "fulfilled") {
-            navigate("/home");
-          }
-          break;
-        default:
-          throw new Error("Unknown Action");
-      }
+        if (addRes.meta.requestStatus === "fulfilled") {
+          navigate("/home");
+        }
+        break;
+      default:
+        throw new Error("Unknown Action");
     }
   };
 
@@ -432,7 +432,7 @@ const RecipeEditor: FC<propTypes> = ({ action, recipe }) => {
         <AuthorizedButton
           type={"button"}
           disabled={disableButtons}
-          onClick={onSaveRecipeChanges}
+          onClick={() => setOpenConfirmDialog(true)}
         >
           <LoadingButton
             style={{ margin: "5px" }}
@@ -444,6 +444,20 @@ const RecipeEditor: FC<propTypes> = ({ action, recipe }) => {
           </LoadingButton>
         </AuthorizedButton>
       </div>
+      <GenericPromptDialog
+        open={openConfirmDialog}
+        setOpen={setOpenConfirmDialog}
+        onConfirm={onSaveRecipeChanges}
+        text={
+          action === "add"
+            ? `Upload new recipe - "${title}"?`
+            : `Save changes to recipe - "${title}"?${
+                recipe.approved
+                  ? `\nThe recipe will need to be re-approved.`
+                  : ""
+              }`
+        }
+      />
     </div>
   );
 };

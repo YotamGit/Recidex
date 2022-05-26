@@ -199,12 +199,13 @@ router.post("/new", async (req, res, next) => {
     );
 
     //delete certain fields for security reasons(other fields are limited b)
+    delete req.body.recipeData._id;
     delete req.body.recipeData.creation_time;
     delete req.body.recipeData.last_update_time;
     delete req.body.recipeData.owner;
     delete req.body.recipeData.favorited_by;
 
-    //auto approve a recipe if a moderator edits it
+    //auto approve a recipe if a moderator addss it
     if (isModerator && !req.body.recipeData.private) {
       req.body.recipeData.approved = true;
       req.body.recipeData.approval_required = false;
@@ -222,7 +223,7 @@ router.post("/new", async (req, res, next) => {
           req.body.recipeData.image
         );
       } catch (err) {
-        res.status(400).send("Cannot edit recipe. Invalid Image");
+        res.status(400).send("Cannot add recipe. Invalid Image");
       }
     }
 
@@ -230,7 +231,6 @@ router.post("/new", async (req, res, next) => {
       ...req.body.recipeData,
       owner: req.headers.validatedToken._id,
     });
-    delete savedRecipe.image;
     // find the recipe again in order to populate the owner with the names and send it to the client
     res
       .status(200)
@@ -287,6 +287,7 @@ router.post("/edit/:recipe_id", async (req, res, next) => {
       );
 
       //delete certain fields for security reasons(other fields are limited b)
+      delete req.body.recipeData._id;
       delete req.body.recipeData.creation_time;
       delete req.body.recipeData.last_update_time;
       delete req.body.recipeData.owner;

@@ -99,6 +99,7 @@ export const getRecipes = createAsyncThunk<
 
 interface EditRecipeProps {
   recipeData: TRecipe;
+  recipeId?: string;
 }
 export const editRecipe = createAsyncThunk<
   TRecipe[],
@@ -107,12 +108,9 @@ export const editRecipe = createAsyncThunk<
 >("recipes/editRecipe", async (props, thunkAPI) => {
   const state = thunkAPI.getState() as RootState;
   try {
-    var editedRecipe = await axios.post(
-      `/api/recipes/edit/${props.recipeData._id}`,
-      {
-        recipeData: props.recipeData,
-      }
-    );
+    var editedRecipe = await axios.post(`/api/recipes/edit/${props.recipeId}`, {
+      recipeData: props.recipeData,
+    });
   } catch (error: any) {
     return thunkAPI.rejectWithValue({
       statusCode: error?.response?.status,
@@ -163,7 +161,6 @@ export const addRecipe = createAsyncThunk<
   AddRecipeProps,
   AsyncThunkConfig
 >("recipes/addRecipe", async (props, thunkAPI) => {
-  delete props.recipeData?._id; //no id is needed when creating a new recipe
   try {
     let result = await axios.post(`/api/recipes/new`, {
       recipeData: props.recipeData,

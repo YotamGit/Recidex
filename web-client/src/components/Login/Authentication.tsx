@@ -304,7 +304,7 @@ const Authentication: FC<propTypes> = ({
           </LoadingButton>
           {showSignAsGuest && (
             <Button
-              className="extra-button-1"
+              className="extra-button-1 secondary"
               variant="contained"
               onClick={() => navigate("/home")}
             >
@@ -313,7 +313,7 @@ const Authentication: FC<propTypes> = ({
           )}
           {showOtherAuthOption && (
             <Button
-              className="extra-button-2"
+              className="extra-button-2 secondary"
               variant="contained"
               onClick={() =>
                 navigate(`/${action === "signup" ? "login" : "signup"}`)

@@ -22,6 +22,9 @@ html .icon {
 html .MuiButton-root {
   background-color: var(--blue-2);
 }
+html .MuiButton-root.secondary {
+  background-color: var(--blue-4);
+}
 html .MuiButton-root:hover {
   background-color: var(--blue-1);
 }

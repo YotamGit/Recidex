@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import UserProfileLink from "../account/UserProfileLink";
 import DisapproveReasonDialog from "./DisapproveReasonDialog";
+import GenericPromptDialog from "../GenericPromptDialog";
 
 //mui
 import Divider from "@mui/material/Divider";
@@ -32,21 +33,17 @@ const ModerationRecipeCard: FC<propTypes> = ({ recipe }) => {
 
   const [disapproveReason, setDisapproveReason] = useState();
   const [openModModal, setOpenModModal] = useState(false);
+  const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
 
   const onApprove = async (approve: boolean, reason?: string) => {
-    let confirm = window.confirm(
-      `${approve ? "Approve" : "Disapprove"} recipe ${recipe.title}?`
+    await dispatch(
+      approveRecipe({
+        _id: recipe._id as string,
+        approve: approve,
+        reason: disapproveReason,
+      })
     );
-    if (confirm) {
-      await dispatch(
-        approveRecipe({
-          _id: recipe._id as string,
-          approve: approve,
-          reason: disapproveReason,
-        })
-      );
-      setOpenModModal(false);
-    }
+    setOpenModModal(false);
   };
 
   return (
@@ -98,18 +95,18 @@ const ModerationRecipeCard: FC<propTypes> = ({ recipe }) => {
         <Button
           className="approve-button"
           variant="contained"
-          style={{ backgroundColor: "rgb(117, 219, 104)" }}
-          onClick={() => onApprove(true)}
-        >
-          approve
-        </Button>
-        <Button
-          className="approve-button"
-          variant="contained"
           style={{ backgroundColor: "rgb(255, 93, 85)" }}
           onClick={() => setOpenModModal(true)}
         >
           disapprove
+        </Button>
+        <Button
+          className="approve-button"
+          variant="contained"
+          style={{ backgroundColor: "rgb(117, 219, 104)" }}
+          onClick={() => setOpenConfirmDialog(true)}
+        >
+          approve
         </Button>
       </div>
       <DisapproveReasonDialog
@@ -117,6 +114,13 @@ const ModerationRecipeCard: FC<propTypes> = ({ recipe }) => {
         setOpen={setOpenModModal}
         setReason={setDisapproveReason}
         onSubmit={() => onApprove(false)}
+      />
+      <GenericPromptDialog
+        open={openConfirmDialog}
+        setOpen={setOpenConfirmDialog}
+        onConfirm={() => onApprove(true)}
+        title="Approve Recipe?"
+        text={`Approve recipe - "${recipe.title}"\nby - ${recipe.owner?.firstname} ${recipe.owner?.lastname}?`}
       />
     </div>
   );
