@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { validUsername, validEmail } from "../../utils-module/validation";
+import GenericPromptDialog from "../GenericPromptDialog";
 
 //redux
 import { editUser } from "../../slices/usersSlice";
@@ -21,6 +22,8 @@ interface propTypes {
 }
 const UserInfoEditSection: FC<propTypes> = ({ userData, setViewEdit }) => {
   const dispatch = useAppDispatch();
+
+  const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
 
   const [username, setUsername] = useState(userData.username);
   const [firstname, setFirstname] = useState(userData.firstname);
@@ -50,28 +53,25 @@ const UserInfoEditSection: FC<propTypes> = ({ userData, setViewEdit }) => {
   };
 
   const onEditUser = async () => {
-    let editChoice = window.confirm("Save changes to user?");
-    if (editChoice) {
-      let isValidInputs = await validateInput();
-      if (!isValidInputs) {
-        return;
-      }
-      let editRes = await dispatch(
-        editUser({
-          action: "editSelf",
-          userData: {
-            _id: userData._id,
-            role: userData.role,
-            username,
-            firstname,
-            lastname,
-            email,
-          },
-        })
-      );
-      if (editRes.meta.requestStatus === "fulfilled") {
-        setViewEdit(false);
-      }
+    let isValidInputs = await validateInput();
+    if (!isValidInputs) {
+      return;
+    }
+    let editRes = await dispatch(
+      editUser({
+        action: "editSelf",
+        userData: {
+          _id: userData._id,
+          role: userData.role,
+          username,
+          firstname,
+          lastname,
+          email,
+        },
+      })
+    );
+    if (editRes.meta.requestStatus === "fulfilled") {
+      setViewEdit(false);
     }
   };
 
@@ -130,9 +130,16 @@ const UserInfoEditSection: FC<propTypes> = ({ userData, setViewEdit }) => {
       <Button variant="contained" onClick={() => setViewEdit(false)}>
         Cancel
       </Button>
-      <Button variant="contained" onClick={onEditUser}>
+      <Button variant="contained" onClick={() => setOpenConfirmDialog(true)}>
         Save Changes
       </Button>
+      <GenericPromptDialog
+        open={openConfirmDialog}
+        setOpen={setOpenConfirmDialog}
+        onConfirm={onEditUser}
+        title="Confirm Changes?"
+        text={`Save changes made to account info?`}
+      />
     </div>
   );
 };

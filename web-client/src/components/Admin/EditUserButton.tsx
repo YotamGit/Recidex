@@ -4,6 +4,7 @@ import "../../styles/admin/EditUserButton.css";
 import DialogCloseButton from "../buttons/DialogCloseButton";
 import DeleteUserButton from "./DeleteUserButton";
 import { validUsername, validEmail } from "../../utils-module/validation";
+import GenericPromptDialog from "../GenericPromptDialog";
 
 //mui
 import Button from "@mui/material/Button";
@@ -35,6 +36,7 @@ const EditUserButton: FC<propTypes> = ({ user }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [openSubmitDialog, setOpenSubmitDialog] = useState(false);
 
   const [role, setRole] = useState(user.role);
   const [username, setUsername] = useState(user.username);
@@ -65,28 +67,25 @@ const EditUserButton: FC<propTypes> = ({ user }) => {
   };
 
   const onEditUser = async () => {
-    let editChoice = window.confirm("Save changes to user?");
-    if (editChoice) {
-      let isValidInputs = await validateInput();
-      if (!isValidInputs) {
-        return;
-      }
-      let editRes = await dispatch(
-        editUser({
-          action: "editOther",
-          userData: {
-            _id: user._id,
-            role,
-            username,
-            firstname,
-            lastname,
-            email,
-          },
-        })
-      );
-      if (editRes.meta.requestStatus === "fulfilled") {
-        handleClose();
-      }
+    let isValidInputs = await validateInput();
+    if (!isValidInputs) {
+      return;
+    }
+    let editRes = await dispatch(
+      editUser({
+        action: "editOther",
+        userData: {
+          _id: user._id,
+          role,
+          username,
+          firstname,
+          lastname,
+          email,
+        },
+      })
+    );
+    if (editRes.meta.requestStatus === "fulfilled") {
+      handleClose();
     }
   };
   return (
@@ -176,13 +175,23 @@ const EditUserButton: FC<propTypes> = ({ user }) => {
             </div>
             <div className="edit-user-buttons">
               <DeleteUserButton userId={user._id} />
-              <Button variant="contained" onClick={onEditUser}>
+              <Button
+                variant="contained"
+                onClick={() => setOpenSubmitDialog(true)}
+              >
                 Submit
               </Button>
             </div>
           </div>
         </DialogContent>
       </Dialog>
+      <GenericPromptDialog
+        open={openSubmitDialog}
+        setOpen={setOpenSubmitDialog}
+        onConfirm={onEditUser}
+        title="Confirm Changes?"
+        text={`Save changes made to user "${user.username}"?\nuser_id: "${user._id}"`}
+      />
     </>
   );
 };

@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect, FC } from "react";
 
 import { getRecipe } from "../../utils-module/recipes";
+import GenericPromptDialog from "../GenericPromptDialog";
 
 import "../../styles/recipe_editor/RecipeEditorPage.css";
 import AuthorizedButton from "../Login/AuthorizedButton";
@@ -23,6 +24,7 @@ const RecipeEditorPage: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { recipe_id } = useParams();
+  const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
 
   const [recipe, setRecipe] = useState(
     useAppSelector(
@@ -32,21 +34,16 @@ const RecipeEditorPage: FC = () => {
   );
 
   const onDeleteRecipe = async () => {
-    let remove = window.confirm("Delete Recipe: " + recipe.title + "?");
-    if (remove) {
-      if (!recipe._id) return;
+    if (!recipe._id) return;
 
-      let deleteRes = await dispatch(deleteRecipe({ id: recipe._id }));
+    let deleteRes = await dispatch(deleteRecipe({ id: recipe._id }));
 
-      if (deleteRes.meta.requestStatus === "fulfilled") {
-        navigate("/home");
-      }
+    if (deleteRes.meta.requestStatus === "fulfilled") {
+      navigate("/home");
     }
   };
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-
     if (recipe === undefined && recipe_id) {
       getRecipe(recipe_id).then((res) => {
         setRecipe(res);
@@ -65,7 +62,10 @@ const RecipeEditorPage: FC = () => {
                 <CloseFullscreenRoundedIcon className="icon" />
               </IconButton>
             </Tooltip>
-            <AuthorizedButton type={"icon"} onClick={() => onDeleteRecipe()}>
+            <AuthorizedButton
+              type={"icon"}
+              onClick={() => setOpenConfirmDialog(true)}
+            >
               <Tooltip title="Delete recipe" arrow>
                 <DeleteForeverRoundedIcon
                   className="icon"
@@ -80,6 +80,13 @@ const RecipeEditorPage: FC = () => {
           <RecipeEditor action={"edit"} recipe={recipe} />
         </>
       )}
+      <GenericPromptDialog
+        open={openConfirmDialog}
+        setOpen={setOpenConfirmDialog}
+        onConfirm={onDeleteRecipe}
+        title="Delete Recipe?"
+        text={`Delete recipe - "${recipe.title}"?`}
+      />
     </div>
   );
 };

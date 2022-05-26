@@ -1,3 +1,7 @@
+import { useState } from "react";
+import GenericPromptDialog from "../GenericPromptDialog";
+
+//mui
 import Button from "@mui/material/Button";
 
 //redux
@@ -13,20 +17,28 @@ interface propTypes {
 
 const DeleteUserButton: FC<propTypes> = ({ userId }) => {
   const dispatch = useAppDispatch();
+  const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
+
   const onDeleteUser = async () => {
-    let deleteChoice = window.confirm(`Delete User: ${userId}?`);
-    if (deleteChoice) {
-      await dispatch(deleteUser({ userId }));
-    }
+    await dispatch(deleteUser({ userId }));
   };
   return (
-    <Button
-      variant="contained"
-      style={{ backgroundColor: "rgb(255, 93, 85)" }}
-      onClick={onDeleteUser}
-    >
-      Delete
-    </Button>
+    <>
+      <Button
+        variant="contained"
+        style={{ backgroundColor: "rgb(255, 93, 85)" }}
+        onClick={() => setOpenConfirmDialog(true)}
+      >
+        Delete
+      </Button>
+      <GenericPromptDialog
+        open={openConfirmDialog}
+        setOpen={setOpenConfirmDialog}
+        onConfirm={onDeleteUser}
+        title="Delete User?"
+        text={`Delete user "${userId}"?`}
+      />
+    </>
   );
 };
 

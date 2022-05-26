@@ -35,7 +35,6 @@ const RecipePage: FC = () => {
   );
 
   useEffect(() => {
-    window.scrollTo(0, 0);
     //fetch recipe if the page refeshes/loads from url
     if (recipe === undefined && recipe_id !== undefined) {
       getRecipe(recipe_id).then((res: TRecipe) => {
