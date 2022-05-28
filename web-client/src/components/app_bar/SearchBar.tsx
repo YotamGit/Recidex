@@ -22,6 +22,7 @@ import { setSearchText as setStoreSearchText } from "../../slices/filtersSlice";
 //types
 import { FC } from "react";
 import { TSelectedFilters } from "../../slices/filtersSlice";
+import { setAlert } from "../../slices/utilitySlice";
 
 interface propTypes {
   setExpanded?: Function;
@@ -52,6 +53,7 @@ const SearchBar: FC<propTypes> = ({ setExpanded, localSearch, responsive }) => {
   const loading = openOptions && titles.length === 0;
 
   const searchRecipes = async () => {
+    dispatch(setAlert({ message: "testing", details: "details" }));
     //search recipes without the store
     if (localSearch) {
       localSearch.getRecipes();

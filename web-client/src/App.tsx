@@ -16,6 +16,7 @@ import Authentication from "./components/Login/Authentication";
 import AdminPanel from "./components/admin/AdminPanel";
 import AccountInfoPage from "./components/account/AccountInfoPage";
 import UserProfilePage from "./components/account/UserProfilePage";
+import AlertSnackbar from "./components/AlertSnackbar";
 
 //mui
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -47,6 +48,7 @@ function App() {
   return (
     <div>
       <ScrollToTop />
+      <AlertSnackbar />
       <Routes>
         <Route path="/" element={<Navigate to="/home" />} />
         <Route
