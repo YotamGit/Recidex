@@ -2,6 +2,7 @@ import axios from "axios";
 import Cookies from "universal-cookie";
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { AppDispatch, RootState } from "../store";
+import { setAlert } from "./utilitySlice";
 
 interface UsersState {
   signedIn: boolean;
@@ -123,6 +124,22 @@ export const signInUser = createAsyncThunk<
       action: props.action,
     };
   } catch (error: any) {
+    thunkAPI.dispatch(setAttemptSignIn(false));
+    if (error.response.status === 401) {
+      thunkAPI.dispatch(setWrongCredentials(true));
+    }
+
+    thunkAPI.dispatch(
+      setAlert({
+        severity: "error",
+        title: "Error",
+        message: `Failed to ${
+          props.action === "signup" ? "Sign Up" : "Log In"
+        }.`,
+        details: error.response.data ? error.response.data : undefined,
+      })
+    );
+
     return thunkAPI.rejectWithValue({
       statusCode: error?.response?.status,
       data: error?.response?.data,
@@ -144,16 +161,34 @@ export const deleteUser = createAsyncThunk<
     let deletedUser = await axios.post("/api/users/user/delete", {
       _id: props.userId,
     });
+
+    thunkAPI.dispatch(
+      setAlert({
+        severity: "success",
+        title: "Success",
+        message: "User deleted successfully",
+      })
+    );
+
+    return state.users.users.filter(
+      (user: FullUser) => user._id !== props.userId
+    );
   } catch (error: any) {
+    thunkAPI.dispatch(
+      setAlert({
+        severity: "error",
+        title: "Error",
+        message: "Failed to delete user, Please try again.",
+        details: error.response.data ? error.response.data : undefined,
+      })
+    );
+
     return thunkAPI.rejectWithValue({
       statusCode: error?.response?.status,
       data: error?.response?.data,
       message: error.message,
     });
   }
-  return state.users.users.filter(
-    (user: FullUser) => user._id !== props.userId
-  );
 });
 
 interface EditUserProps {
@@ -182,21 +217,38 @@ export const editUser = createAsyncThunk<
     await axios.post(`/api/users/user/edit`, {
       userData: props.userData,
     });
+
+    thunkAPI.dispatch(
+      setAlert({
+        severity: "success",
+        title: "Success",
+        message: "User edited successfully",
+      })
+    );
+
+    return {
+      action: props.action,
+      userData: props.userData as User,
+      users: state.users.users.map((user: FullUser) =>
+        user._id === props.userData._id ? { ...user, ...props.userData } : user
+      ) as FullUser[],
+    };
   } catch (error: any) {
+    thunkAPI.dispatch(
+      setAlert({
+        severity: "error",
+        title: "Error",
+        message: "Failed to edit user, Please try again.",
+        details: error.response.data ? error.response.data : undefined,
+      })
+    );
+
     return thunkAPI.rejectWithValue({
       statusCode: error?.response?.status,
       data: error?.response?.data,
       message: error.message,
     });
   }
-
-  return {
-    action: props.action,
-    userData: props.userData as User,
-    users: state.users.users.map((user: FullUser) =>
-      user._id === props.userData._id ? { ...user, ...props.userData } : user
-    ) as FullUser[],
-  };
 });
 
 export const getUsers = createAsyncThunk<FullUser[], {}, AsyncThunkConfig>(
@@ -207,6 +259,14 @@ export const getUsers = createAsyncThunk<FullUser[], {}, AsyncThunkConfig>(
       let res = await axios.get("/api/users");
       return res.data;
     } catch (error: any) {
+      thunkAPI.dispatch(
+        setAlert({
+          severity: "error",
+          title: "Error",
+          message: "Failed to fetch users, Please try again.",
+          details: error.response.data ? error.response.data : undefined,
+        })
+      );
       return thunkAPI.rejectWithValue({
         statusCode: error?.response?.status,
         data: error?.response?.data,
@@ -221,8 +281,10 @@ const usersSlice = createSlice({
   initialState,
   reducers: {
     setAttemptSignIn(state, action: PayloadAction<boolean>) {
-      const attemptSignIn = action.payload;
-      state.attemptSignIn = attemptSignIn;
+      state.attemptSignIn = action.payload;
+    },
+    setWrongCredentials(state, action: PayloadAction<boolean>) {
+      state.wrongCredentials = action.payload;
     },
     setUserData(
       state,
@@ -267,43 +329,13 @@ const usersSlice = createSlice({
       .addCase(getUsers.fulfilled, (state, action) => {
         state.users = action.payload;
       })
-      .addCase(getUsers.rejected, (state, action: PayloadAction<any>) => {
-        if (action.payload.statusCode === 403) {
-          window.alert(
-            "Failed to fetch users.\nReason: " + action.payload.data
-          );
-        } else {
-          window.alert(
-            "Failed to fetch users.\nReason: " + action.payload.message
-          );
-        }
-      })
       .addCase(signInUser.pending, (state) => {
         state.attemptSignIn = true;
       })
       .addCase(signInUser.fulfilled, (state, action) => {
         state.attemptSignIn = false;
+        state.wrongCredentials = false;
         usersSlice.caseReducers.setUserData(state, action);
-      })
-      .addCase(signInUser.rejected, (state, action: PayloadAction<any>) => {
-        state.attemptSignIn = false;
-        if (
-          action.payload.action === "login" &&
-          action.payload.statusCode === 401
-        ) {
-          state.wrongCredentials = true;
-        } else if (
-          action.payload.action === "signup" &&
-          action.payload.statusCode === 409
-        ) {
-          window.alert("Failed to Sign Up.\nReason: " + action.payload.data);
-        } else {
-          window.alert(
-            `Failed to ${
-              action.payload.action === "signup" ? "Sign Up" : "Log In"
-            }.\nReason: ` + action.payload.message
-          );
-        }
       })
       .addCase(userPing.pending, (state) => {
         state.attemptSignIn = true;
@@ -356,16 +388,6 @@ const usersSlice = createSlice({
       .addCase(deleteUser.fulfilled, (state, action) => {
         state.users = action.payload;
       })
-      .addCase(deleteUser.rejected, (state, action: PayloadAction<any>) => {
-        if ([403, 404].includes(action.payload.statusCode)) {
-          window.alert("Failed to delete user\nReason: " + action.payload.data);
-        } else {
-          window.alert(
-            "Failed to delete user, Please Try Again.\nReason: " +
-              action.payload.message
-          );
-        }
-      })
       .addCase(editUser.fulfilled, (state, action) => {
         if (action.payload.action == "editSelf" && action.payload.userData) {
           state.userData.username = action.payload.userData.username;
@@ -379,23 +401,15 @@ const usersSlice = createSlice({
         ) {
           state.users = action.payload.users;
         }
-      })
-      .addCase(editUser.rejected, (state, action: PayloadAction<any>) => {
-        if ([403, 404, 409].includes(action.payload.statusCode)) {
-          window.alert(
-            "Failed to Edit User in Database.\nReason: " + action.payload.data
-          );
-        } else {
-          window.alert(
-            "Failed to Edit User in Database, Please Try Again.\nReason: " +
-              action.payload.message
-          );
-        }
       });
   },
 });
 
-export const { setAttemptSignIn, setUserData, clearUserData } =
-  usersSlice.actions;
+export const {
+  setAttemptSignIn,
+  setWrongCredentials,
+  setUserData,
+  clearUserData,
+} = usersSlice.actions;
 
 export default usersSlice.reducer;

@@ -6,6 +6,7 @@ import GenericPromptDialog from "../GenericPromptDialog";
 //redux
 import { editUser } from "../../slices/usersSlice";
 import { useAppDispatch, useAppSelector } from "../../hooks";
+import { setAlert } from "../../slices/utilitySlice";
 
 //mui
 import Button from "@mui/material/Button";
@@ -38,7 +39,13 @@ const UserInfoEditSection: FC<propTypes> = ({ userData, setViewEdit }) => {
       email === "" ||
       username === ""
     ) {
-      window.alert("Please fill all of the fields.");
+      dispatch(
+        setAlert({
+          severity: "warning",
+          title: "Warning",
+          message: "Please fill all of the fields.",
+        })
+      );
       return false;
     }
 

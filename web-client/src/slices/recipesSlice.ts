@@ -1,6 +1,7 @@
 import axios from "axios";
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { AppDispatch, RootState } from "../store";
+import { setAlert } from "./utilitySlice";
 
 interface RecipesState {
   recipes: TRecipe[];
@@ -79,22 +80,39 @@ export const getRecipes = createAsyncThunk<
   let approvalRequiredOnly = state.filters.approvalRequiredOnly;
   let selectedFilters = state.filters.selectedFilters;
 
-  let result = await axios.get("/api/recipes", {
-    params: {
-      latest: params.args?.latest || new Date(),
-      count: 12,
-      ownerOnly: ownerOnly || undefined,
-      privacyState: ownerOnly ? privacyState : undefined,
-      favoritesOnly: favoritesOnly || undefined,
-      approvedOnly: approvedOnly || undefined,
-      approvalRequiredOnly: approvalRequiredOnly || undefined,
-      searchText: searchText,
-      filters: selectedFilters,
-    },
-  });
+  try {
+    let result = await axios.get("/api/recipes", {
+      params: {
+        latest: params.args?.latest || new Date(),
+        count: 12,
+        ownerOnly: ownerOnly || undefined,
+        privacyState: ownerOnly ? privacyState : undefined,
+        favoritesOnly: favoritesOnly || undefined,
+        approvedOnly: approvedOnly || undefined,
+        approvalRequiredOnly: approvalRequiredOnly || undefined,
+        searchText: searchText,
+        filters: selectedFilters,
+      },
+    });
 
-  thunkAPI.dispatch(setFetchedAllRecipes(result.data.length));
-  return { replace: params.replace, recipes: result.data };
+    thunkAPI.dispatch(setFetchedAllRecipes(result.data.length));
+    return { replace: params.replace, recipes: result.data };
+  } catch (error: any) {
+    thunkAPI.dispatch(
+      setAlert({
+        severity: "error",
+        title: "Error",
+        message: "Failed to fetch recipes, Please refresh the page.",
+        details: error.response.data ? error.response.data : undefined,
+      })
+    );
+
+    return thunkAPI.rejectWithValue({
+      statusCode: error?.response?.status,
+      data: error?.response?.data,
+      message: error.message,
+    });
+  }
 });
 
 interface EditRecipeProps {
@@ -111,22 +129,38 @@ export const editRecipe = createAsyncThunk<
     var editedRecipe = await axios.post(`/api/recipes/edit/${props.recipeId}`, {
       recipeData: props.recipeData,
     });
+
+    thunkAPI.dispatch(
+      setAlert({
+        severity: "success",
+        title: "Success",
+        message: "Recipe edited successfully.",
+      })
+    );
+
+    if (editedRecipe.data.approved || state.filters.ownerOnly) {
+      return state.recipes.recipes.map((recipe: TRecipe) =>
+        recipe._id === editedRecipe.data._id ? editedRecipe.data : recipe
+      );
+    }
+    return state.recipes.recipes.filter(
+      (recipe: TRecipe) => recipe._id !== editedRecipe.data._id
+    );
   } catch (error: any) {
+    thunkAPI.dispatch(
+      setAlert({
+        severity: "error",
+        title: "Error",
+        message: "Failed to edit recipe, Please try again.",
+        details: error.response.data ? error.response.data : undefined,
+      })
+    );
     return thunkAPI.rejectWithValue({
       statusCode: error?.response?.status,
       data: error?.response?.data,
       message: error.message,
     });
   }
-
-  if (editedRecipe.data.approved || state.filters.ownerOnly) {
-    return state.recipes.recipes.map((recipe: TRecipe) =>
-      recipe._id === editedRecipe.data._id ? editedRecipe.data : recipe
-    );
-  }
-  return state.recipes.recipes.filter(
-    (recipe: TRecipe) => recipe._id !== editedRecipe.data._id
-  );
 });
 
 interface DeleteRecipeProps {
@@ -140,17 +174,31 @@ export const deleteRecipe = createAsyncThunk<
   const state = thunkAPI.getState() as RootState;
   try {
     await axios.post(`/api/recipes/delete/${props.id}`);
+    thunkAPI.dispatch(
+      setAlert({
+        severity: "success",
+        title: "Success",
+        message: "Recipe deleted successfully",
+      })
+    );
+    return state.recipes.recipes.filter(
+      (recipe: TRecipe) => recipe._id !== props.id
+    );
   } catch (error: any) {
+    thunkAPI.dispatch(
+      setAlert({
+        severity: "error",
+        title: "Error",
+        message: "Failed to delete recipe, Please try again.",
+        details: error.response.data ? error.response.data : undefined,
+      })
+    );
     return thunkAPI.rejectWithValue({
       statusCode: error?.response?.status,
       data: error?.response?.data,
       message: error.message,
     });
   }
-
-  return state.recipes.recipes.filter(
-    (recipe: TRecipe) => recipe._id !== props.id
-  );
 });
 
 interface AddRecipeProps {
@@ -165,8 +213,23 @@ export const addRecipe = createAsyncThunk<
     let result = await axios.post(`/api/recipes/new`, {
       recipeData: props.recipeData,
     });
+    thunkAPI.dispatch(
+      setAlert({
+        severity: "success",
+        title: "Success",
+        message: "Recipe added successfully.",
+      })
+    );
     return result.data;
   } catch (error: any) {
+    thunkAPI.dispatch(
+      setAlert({
+        severity: "error",
+        title: "Error",
+        message: "Failed to add recipe, Please try again.",
+        details: error.response.data ? error.response.data : undefined,
+      })
+    );
     return thunkAPI.rejectWithValue({
       statusCode: error?.response?.status,
       data: error?.response?.data,
@@ -195,6 +258,14 @@ export const favoriteRecipe = createAsyncThunk<
       recipe._id === props.id ? { ...recipe, favorited_by: res.data } : recipe
     );
   } catch (error: any) {
+    thunkAPI.dispatch(
+      setAlert({
+        severity: "error",
+        title: "Error",
+        message: "Failed to favorite recipe, Please try again.",
+        details: error.response.data ? error.response.data : undefined,
+      })
+    );
     return thunkAPI.rejectWithValue({
       statusCode: error?.response?.status,
       data: error?.response?.data,
@@ -224,6 +295,14 @@ export const approveRecipe = createAsyncThunk<
       (recipe: TRecipe) => recipe._id !== props._id
     );
   } catch (error: any) {
+    thunkAPI.dispatch(
+      setAlert({
+        severity: "error",
+        title: "Error",
+        message: "Failed to approve recipe, Please try again.",
+        details: error.response.data ? error.response.data : undefined,
+      })
+    );
     return thunkAPI.rejectWithValue({
       statusCode: error?.response?.status,
       data: error?.response?.data,
@@ -255,91 +334,23 @@ const recipesSlice = createSlice({
           }
         }
       })
-      .addCase(getRecipes.rejected, (state, action: PayloadAction<any>) => {
-        window.alert(
-          "Failed to Fetch Recipes.\nReason: " + action.payload.error.message
-        );
-      })
+      // .addCase(getRecipes.rejected, (state, action: PayloadAction<any>) => {})
       .addCase(editRecipe.fulfilled, (state, action) => {
         state.recipes = action.payload;
-      })
-      .addCase(editRecipe.rejected, (state, action: PayloadAction<any>) => {
-        if (action.payload.statusCode === 401) {
-          window.alert(
-            "Failed to Edit Recipe in Database.\nReason: " + action.payload.data
-          );
-        } else {
-          window.alert(
-            "Failed to Edit Recipe in Database, Please Try Again.\nReason: " +
-              action.payload.message
-          );
-        }
       })
       .addCase(addRecipe.fulfilled, (state, action) => {
         if (action.payload.approved) {
           state.recipes = [action.payload, ...state.recipes];
         }
       })
-      .addCase(addRecipe.rejected, (state, action: PayloadAction<any>) => {
-        if (action.payload.statusCode === 401) {
-          window.alert(
-            "Failed to Add Recipe to Database, Please Try Again.\nReason: " +
-              action.payload.data
-          );
-        } else {
-          window.alert(
-            "Failed to Add Recipe to Database, Please Try Again.\nReason: " +
-              action.payload.message
-          );
-        }
-      })
       .addCase(deleteRecipe.fulfilled, (state, action) => {
         state.recipes = action.payload;
-      })
-      .addCase(deleteRecipe.rejected, (state, action: PayloadAction<any>) => {
-        if (action.payload.statusCode === 401) {
-          window.alert(
-            "Failed to Delete Recipe from Database.\nReason: " +
-              action.payload.data
-          );
-        } else {
-          window.alert(
-            "Failed to Delete Recipe from Database, Please Try Again.\nReason: " +
-              action.payload.message
-          );
-        }
       })
       .addCase(favoriteRecipe.fulfilled, (state, action) => {
         state.recipes = action.payload;
       })
-      .addCase(favoriteRecipe.rejected, (state, action: PayloadAction<any>) => {
-        if (action.payload.statusCode === 403) {
-          window.alert(
-            "Failed to Favorite Recipe, Please Try Again.\nReason: " +
-              action.payload.data
-          );
-        } else {
-          window.alert(
-            "Failed to Favorite Recipe, Please Try Again.\nReason: " +
-              action.payload.message
-          );
-        }
-      })
       .addCase(approveRecipe.fulfilled, (state, action) => {
         state.recipes = action.payload;
-      })
-      .addCase(approveRecipe.rejected, (state, action: PayloadAction<any>) => {
-        if (action.payload.statusCode === 403) {
-          window.alert(
-            "Failed to approve recipe, Please try again.\nReason: " +
-              action.payload.data
-          );
-        } else {
-          window.alert(
-            "Failed to approve recipe, Please try again.\nReason: " +
-              action.payload.message
-          );
-        }
       });
   },
 });

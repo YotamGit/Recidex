@@ -18,11 +18,11 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { useAppSelector, useAppDispatch } from "../../hooks";
 import { getRecipes } from "../../slices/recipesSlice";
 import { setSearchText as setStoreSearchText } from "../../slices/filtersSlice";
+import { setAlert } from "../../slices/utilitySlice";
 
 //types
 import { FC } from "react";
 import { TSelectedFilters } from "../../slices/filtersSlice";
-import { setAlert } from "../../slices/utilitySlice";
 
 interface propTypes {
   setExpanded?: Function;

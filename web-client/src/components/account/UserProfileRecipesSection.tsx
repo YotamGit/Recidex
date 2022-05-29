@@ -11,6 +11,8 @@ import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 //redux
 import { useAppDispatch } from "../../hooks";
 import { setTitleFilters } from "../../slices/filtersSlice";
+import { setAlert } from "../../slices/utilitySlice";
+
 //types
 import { FC } from "react";
 import { TRecipe } from "../../slices/recipesSlice";
@@ -55,7 +57,14 @@ const UserProfileRecipesSection: FC<propTypes> = ({ user_id }) => {
       }
       setRecipes(result.data);
     } catch (err: any) {
-      window.alert("Failed to Fetch Recipes.\nReason: " + err.message);
+      dispatch(
+        setAlert({
+          severity: "error",
+          title: "Error",
+          message: "Failed to fetch recipes.",
+          details: err.response.data ? err.response.data : undefined,
+        })
+      );
     }
   };
 

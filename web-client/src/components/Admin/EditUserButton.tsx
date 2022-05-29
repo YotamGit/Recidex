@@ -19,6 +19,7 @@ import MenuItem from "@mui/material/MenuItem";
 //redux
 import { editUser } from "../../slices/usersSlice";
 import { useAppDispatch, useAppSelector } from "../../hooks";
+import { setAlert } from "../../slices/utilitySlice";
 
 //types
 import { FC } from "react";
@@ -52,7 +53,13 @@ const EditUserButton: FC<propTypes> = ({ user }) => {
       email === "" ||
       username === ""
     ) {
-      window.alert("Please fill all of the fields.");
+      dispatch(
+        setAlert({
+          severity: "warning",
+          title: "Warning",
+          message: "Please fill all of the fields.",
+        })
+      );
       return false;
     }
 

@@ -1,4 +1,7 @@
 import axios from "axios";
+//redux
+import store from "../store";
+import { setAlert } from "../slices/utilitySlice";
 
 // GET A SPECIFIC RECIPE
 export async function getRecipe(recipeId: string) {
@@ -6,7 +9,14 @@ export async function getRecipe(recipeId: string) {
     let response = await axios.get(`/api/recipes/id/${recipeId}`);
     return response.data;
   } catch (error: any) {
-    window.alert("Failed to Fetch Recipe.\nReason: " + error.response.data);
+    store.dispatch(
+      setAlert({
+        severity: "error",
+        title: "Error",
+        message: "Failed to fetch recipe, Please refresh the page.",
+        details: error.response.data ? error.response.data : undefined,
+      })
+    );
   }
 }
 
@@ -16,7 +26,14 @@ export async function getRecipeTitles(filters?: object) {
     let response = await axios.get("/api/recipes/titles", { params: filters });
     return response.data;
   } catch (error: any) {
-    window.alert("Failed to Fetch Recipe Titles\nReason: " + error.message);
+    store.dispatch(
+      setAlert({
+        severity: "error",
+        title: "Error",
+        message: "Failed to Fetch Recipe Titles.",
+        details: error.response.data ? error.response.data : undefined,
+      })
+    );
     return [];
   }
 }
@@ -27,6 +44,13 @@ export async function getRecipeCount() {
     let count = await axios.get("/api/recipes/count");
     return Number(count.data);
   } catch (error: any) {
-    window.alert("Failed to get recipes count.\nReason: " + error.message);
+    store.dispatch(
+      setAlert({
+        severity: "error",
+        title: "Error",
+        message: "Failed to get recipes count.",
+        details: error.response.data ? error.response.data : undefined,
+      })
+    );
   }
 }

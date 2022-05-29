@@ -2,6 +2,10 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import "../../styles/account/UserProfileInfoSection.css";
 
+//redux
+import { useAppDispatch } from "../../hooks";
+import { setAlert } from "../../slices/utilitySlice";
+
 //types
 import { FC } from "react";
 
@@ -9,6 +13,7 @@ interface propTypes {
   user_id: string;
 }
 const UserProfileInfoSection: FC<propTypes> = ({ user_id }) => {
+  const dispatch = useAppDispatch();
   const [userData, setUserData] = useState<any>();
 
   const getUserInfo = async () => {
@@ -16,7 +21,14 @@ const UserProfileInfoSection: FC<propTypes> = ({ user_id }) => {
       var result = await axios.get(`/api/users/user/info/${user_id}`);
       setUserData(result.data);
     } catch (err: any) {
-      window.alert("Failed to Fetch User Info.\nReason: " + err.message);
+      dispatch(
+        setAlert({
+          severity: "error",
+          title: "Error",
+          message: "Failed to Fetch User Info.",
+          details: err.response.data ? err.response.data : undefined,
+        })
+      );
     }
   };
 

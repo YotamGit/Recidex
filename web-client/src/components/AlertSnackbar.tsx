@@ -26,9 +26,20 @@ const AlertSnackbar: FC = () => {
   const message = useAppSelector((state) => state.utilities.alert.message);
   const details = useAppSelector((state) => state.utilities.alert.details);
 
+  const [hideDelay, setHideDelay] = useState<number | null>(5000);
   const [showDetails, setShowDetails] = useState(false);
+
+  const toggleAutoHide = () => {
+    if (hideDelay === null) {
+      setHideDelay(5000);
+      return;
+    }
+    setHideDelay(null);
+  };
+
   const toggleShowDetails = () => {
     setShowDetails(!showDetails);
+    toggleAutoHide();
   };
 
   const handleClose = (
@@ -40,6 +51,7 @@ const AlertSnackbar: FC = () => {
     }
     dispatch(resetAlert());
     setShowDetails(false);
+    setHideDelay(5000);
   };
 
   return (
@@ -48,7 +60,7 @@ const AlertSnackbar: FC = () => {
       key={message || "" + Date.now()}
       anchorOrigin={{ vertical: "top", horizontal: "center" }}
       open={openAlert}
-      // autoHideDuration={5000}
+      autoHideDuration={hideDelay}
       onClose={handleClose}
     >
       <Alert

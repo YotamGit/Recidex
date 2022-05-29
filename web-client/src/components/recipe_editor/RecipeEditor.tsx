@@ -24,6 +24,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 //redux
 import { editRecipe, addRecipe } from "../../slices/recipesSlice";
 import { useAppSelector, useAppDispatch } from "../../hooks";
+import { setAlert } from "../../slices/utilitySlice";
 
 //types
 import { TRecipe } from "../../slices/recipesSlice";
@@ -106,7 +107,14 @@ const RecipeEditor: FC<propTypes> = ({ action, recipe }) => {
         });
       }
     } catch (error: any) {
-      window.alert("Failed to Upload Image.\nReason: " + error.message);
+      dispatch(
+        setAlert({
+          severity: "error",
+          title: "Error",
+          message: "Failed to Upload Image.",
+          details: error.response.data ? error.response.data : undefined,
+        })
+      );
     }
   };
 
@@ -142,7 +150,6 @@ const RecipeEditor: FC<propTypes> = ({ action, recipe }) => {
           editRecipe({ recipeData: recipeData, recipeId: _id })
         );
         setDisableButtons(false);
-
         if (editRes.meta.requestStatus === "fulfilled") {
           navigate(-1);
         }
@@ -153,7 +160,6 @@ const RecipeEditor: FC<propTypes> = ({ action, recipe }) => {
         setDisableButtons(true);
         let addRes = await dispatch(addRecipe({ recipeData: recipeData }));
         setDisableButtons(false);
-
         if (addRes.meta.requestStatus === "fulfilled") {
           navigate("/home");
         }

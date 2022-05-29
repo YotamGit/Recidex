@@ -11,8 +11,6 @@ import {
 import { useState, useEffect, FC } from "react";
 import { useNavigate } from "react-router-dom";
 
-import axios from "axios";
-
 //mui
 
 import IconButton from "@mui/material/IconButton";
@@ -30,6 +28,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 //redux
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { signInUser } from "../../slices/usersSlice";
+import { setAlert } from "../../slices/utilitySlice";
 
 //types
 import { User } from "../../slices/usersSlice";
@@ -81,7 +80,7 @@ const Authentication: FC<propTypes> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [firstname, lastname, email, username, password, passwordconfirm]);
 
-  const validateInput = () => {
+  const validateInput = async () => {
     //check existance of required fields
     if (
       firstname === "" ||
@@ -91,7 +90,13 @@ const Authentication: FC<propTypes> = ({
       password === ""
     ) {
       //print error required fields
-      window.alert("Please fill all of the fields.");
+      dispatch(
+        setAlert({
+          severity: "warning",
+          title: "Warning",
+          message: "Please fill all of the fields.",
+        })
+      );
       return false;
     }
 
@@ -103,7 +108,7 @@ const Authentication: FC<propTypes> = ({
       return false;
     }
 
-    if (!validEmail(email)) {
+    if (!(await validEmail(email))) {
       setInvalidEmail(true);
       return false;
     } else {
@@ -124,7 +129,7 @@ const Authentication: FC<propTypes> = ({
       return;
     }
 
-    if (action === "signup" && !validateInput()) {
+    if (action === "signup" && !(await validateInput())) {
       return;
     }
 
@@ -195,7 +200,7 @@ const Authentication: FC<propTypes> = ({
 
               <FormControl id="authentication-email-input" variant="outlined">
                 <InputLabel htmlFor="authentication-email-input">
-                  Email (password reset)
+                  Email
                 </InputLabel>
                 <OutlinedInput
                   type="text"
