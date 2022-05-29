@@ -64,6 +64,7 @@ const DisapproveReasonDialog: FC<propTypes> = ({
           Cancel
         </Button>
         <Button
+          className="primary"
           variant="contained"
           onClick={() => {
             onSubmit();

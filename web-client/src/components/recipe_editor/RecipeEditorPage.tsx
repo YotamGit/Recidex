@@ -78,15 +78,15 @@ const RecipeEditorPage: FC = () => {
           </div>
 
           <RecipeEditor action={"edit"} recipe={recipe} />
+          <GenericPromptDialog
+            open={openConfirmDialog}
+            setOpen={setOpenConfirmDialog}
+            onConfirm={onDeleteRecipe}
+            title="Delete Recipe?"
+            text={`Delete recipe - "${recipe.title}"?`}
+          />
         </>
       )}
-      <GenericPromptDialog
-        open={openConfirmDialog}
-        setOpen={setOpenConfirmDialog}
-        onConfirm={onDeleteRecipe}
-        title="Delete Recipe?"
-        text={`Delete recipe - "${recipe.title}"?`}
-      />
     </div>
   );
 };

@@ -66,7 +66,11 @@ const Share: FC<propTypes> = ({ url, emailTitle }) => {
               <span style={{ marginBottom: "7px" }}>Or</span>
               <div className="url-copy-section">
                 <input id="share-url-input" type="text" value={url} readOnly />
-                <Button variant="contained" onClick={copyUrl}>
+                <Button
+                  className="primary"
+                  variant="contained"
+                  onClick={copyUrl}
+                >
                   copy
                 </Button>
               </div>

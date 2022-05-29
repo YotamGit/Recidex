@@ -295,7 +295,7 @@ const Authentication: FC<propTypes> = ({
         </div>
         <div className="button-section">
           <LoadingButton
-            className="main-button-1"
+            className="main-button-1 primary"
             variant="contained"
             onClick={onSubmit}
             loading={disableButtons}

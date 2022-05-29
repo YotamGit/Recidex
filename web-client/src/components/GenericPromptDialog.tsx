@@ -60,6 +60,7 @@ const GenericPromptDialog: FC<propTypes> = ({
           Cancel
         </Button>
         <Button
+          className="primary"
           variant="contained"
           onClick={() => {
             onConfirm();

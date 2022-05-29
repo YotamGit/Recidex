@@ -4,16 +4,16 @@ import { useEffect, useState } from "react";
 import Snackbar, { SnackbarOrigin } from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
 import Alert from "@mui/material/Alert";
+import Button from "@mui/material/Button";
 //mui icons
 import CloseIcon from "@mui/icons-material/Close";
 
 //types
 import { FC } from "react";
-import AlertType from "../slices/utilitySlice";
 
 //redux
 import { useAppDispatch, useAppSelector } from "../hooks";
-import { setAlert } from "../slices/utilitySlice";
+import { setAlert, resetAlert } from "../slices/utilitySlice";
 
 const AlertSnackbar: FC = () => {
   const dispatch = useAppDispatch();
@@ -28,7 +28,7 @@ const AlertSnackbar: FC = () => {
     if (reason === "clickaway") {
       return;
     }
-    dispatch(setAlert({ open: false, message: undefined, details: undefined }));
+    dispatch(resetAlert());
   };
 
   return (
@@ -36,10 +36,8 @@ const AlertSnackbar: FC = () => {
       key={message || "" + Date.now()}
       anchorOrigin={{ vertical: "top", horizontal: "center" }}
       open={openAlert}
-      autoHideDuration={5000}
+      // autoHideDuration={5000}
       onClose={handleClose}
-      // TransitionProps={{ onExited: handleExited }}
-      // message={message ? message : undefined}
       action={
         <>
           {" "}
@@ -60,7 +58,8 @@ const AlertSnackbar: FC = () => {
         severity="error"
         sx={{ width: "100%" }}
       >
-        {message}
+        <span>{message}</span>
+        {details && <Button variant="outlined">Details</Button>}
       </Alert>
     </Snackbar>
   );

@@ -14,7 +14,11 @@ interface propTypes {
 const UserInfoPreviewSection: FC<propTypes> = ({ userData, setViewEdit }) => {
   return (
     <div className="user-info-preview-section">
-      <Button variant="contained" onClick={() => setViewEdit(true)}>
+      <Button
+        className="primary"
+        variant="contained"
+        onClick={() => setViewEdit(true)}
+      >
         Edit Info
       </Button>
       <div className="info-container">

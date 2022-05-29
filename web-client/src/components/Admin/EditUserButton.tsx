@@ -91,6 +91,7 @@ const EditUserButton: FC<propTypes> = ({ user }) => {
   return (
     <>
       <Button
+        className="primary"
         variant="contained"
         style={{ margin: "5px" }}
         onClick={handleOpen}
@@ -176,6 +177,7 @@ const EditUserButton: FC<propTypes> = ({ user }) => {
             <div className="edit-user-buttons">
               <DeleteUserButton userId={user._id} />
               <Button
+                className="primary"
                 variant="contained"
                 onClick={() => setOpenSubmitDialog(true)}
               >

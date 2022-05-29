@@ -127,10 +127,18 @@ const UserInfoEditSection: FC<propTypes> = ({ userData, setViewEdit }) => {
           />
         </FormControl>
       </div>
-      <Button variant="contained" onClick={() => setViewEdit(false)}>
+      <Button
+        className="secondary"
+        variant="contained"
+        onClick={() => setViewEdit(false)}
+      >
         Cancel
       </Button>
-      <Button variant="contained" onClick={() => setOpenConfirmDialog(true)}>
+      <Button
+        className="primary"
+        variant="contained"
+        onClick={() => setOpenConfirmDialog(true)}
+      >
         Save Changes
       </Button>
       <GenericPromptDialog

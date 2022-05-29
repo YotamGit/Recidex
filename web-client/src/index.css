@@ -19,13 +19,16 @@ html .icon {
 }
 
 /*mui overrides*/
-html .MuiButton-root {
+html .MuiButton-root.primary:not(.Mui-disabled) {
   background-color: var(--blue-2);
 }
-html .MuiButton-root.secondary {
+html .MuiButton-root.secondary:not(.Mui-disabled) {
   background-color: var(--blue-4);
 }
-html .MuiButton-root:hover {
+html .MuiButton-root.primary:hover {
+  background-color: var(--blue-1);
+}
+html .MuiButton-root.secondary:hover {
   background-color: var(--blue-1);
 }
 html .MuiTab-root {

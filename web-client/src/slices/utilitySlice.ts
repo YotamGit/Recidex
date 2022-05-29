@@ -1,7 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { AlertColor } from "@mui/material";
 
 export type AlertType = {
   openAlert: boolean;
+  severity: AlertColor;
   message?: string;
   details?: string;
 };
@@ -14,7 +16,12 @@ interface UtilityState {
 const initialState: UtilityState = {
   fullscreen: undefined,
   routeHistory: [],
-  alert: { openAlert: false, message: undefined, details: undefined },
+  alert: {
+    openAlert: false,
+    severity: "info",
+    message: undefined,
+    details: undefined,
+  },
 };
 
 const utilitySlice = createSlice({
@@ -40,10 +47,16 @@ const utilitySlice = createSlice({
       state.alert.message = action.payload?.message;
       state.alert.details = action.payload?.details;
     },
+    resetAlert(state) {
+      state.alert.openAlert = false;
+      state.alert.severity = "info";
+      state.alert.message = undefined;
+      state.alert.details = undefined;
+    },
   },
 });
 
-export const { setFullscreen, addRouteToHistory, setAlert } =
+export const { setFullscreen, addRouteToHistory, setAlert, resetAlert } =
   utilitySlice.actions;
 
 export default utilitySlice.reducer;

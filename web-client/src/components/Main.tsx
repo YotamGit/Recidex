@@ -176,6 +176,7 @@ const Main: FC<propTypes> = ({
             <CircularProgress />
           ) : (
             <Button
+              className="primary"
               variant="contained"
               component="div"
               onClick={async () => {

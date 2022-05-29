@@ -353,7 +353,7 @@ const RecipeEditor: FC<propTypes> = ({ action, recipe }) => {
               }
               style={{ display: "none" }}
             />
-            <Button variant="contained" component="span">
+            <Button className="primary" variant="contained" component="span">
               Upload Image
             </Button>
           </label>
@@ -435,6 +435,7 @@ const RecipeEditor: FC<propTypes> = ({ action, recipe }) => {
           onClick={() => setOpenConfirmDialog(true)}
         >
           <LoadingButton
+            className="primary"
             style={{ margin: "5px" }}
             loading={disableButtons}
             variant="contained"
