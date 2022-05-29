@@ -62,7 +62,7 @@ const UserProfileRecipesSection: FC<propTypes> = ({ user_id }) => {
           severity: "error",
           title: "Error",
           message: "Failed to fetch recipes.",
-          details: err.response.data ? err.response.data : undefined,
+          details: err.response.data ? err.response?.data : undefined,
         })
       );
     }
