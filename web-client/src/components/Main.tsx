@@ -173,6 +173,7 @@ const Main: FC<propTypes> = ({
           className="primary"
           variant="contained"
           component="div"
+          style={{ marginTop: "10px" }}
           onClick={async () => {
             recipes.length > 0
               ? await loadRecipes()

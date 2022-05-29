@@ -101,7 +101,7 @@ export const getRecipes = createAsyncThunk<
         setAlert({
           severity: "info",
           title: "Info",
-          message: "Fetched all recipes.",
+          message: "No recipes to fetch.",
         })
       );
     }
