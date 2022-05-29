@@ -96,6 +96,15 @@ export const getRecipes = createAsyncThunk<
     });
 
     thunkAPI.dispatch(setFetchedAllRecipes(result.data.length));
+    if (result.data.length === 0) {
+      thunkAPI.dispatch(
+        setAlert({
+          severity: "info",
+          title: "Info",
+          message: "Fetched all recipes.",
+        })
+      );
+    }
     return { replace: params.replace, recipes: result.data };
   } catch (error: any) {
     thunkAPI.dispatch(

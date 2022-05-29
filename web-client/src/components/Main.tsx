@@ -135,6 +135,7 @@ const Main: FC<propTypes> = ({
       if (fetching) {
         return;
       }
+
       if (
         window.innerHeight + document.documentElement.scrollTop >=
         document.documentElement.offsetHeight - 1
@@ -168,9 +169,20 @@ const Main: FC<propTypes> = ({
           />
         </>
       ) : (
-        "No Recipes To Show" //show skeleton loading animation if fetching is true
+        <Button
+          className="primary"
+          variant="contained"
+          component="div"
+          onClick={async () => {
+            recipes.length > 0
+              ? await loadRecipes()
+              : await initialRecipesLoad();
+          }}
+        >
+          Load Recipes
+        </Button> //show skeleton loading animation if fetching is true
       )}
-      {!fetchedAllRecipes ? (
+      {!fetchedAllRecipes && (
         <div>
           {fetching ? (
             <CircularProgress />
@@ -189,9 +201,6 @@ const Main: FC<propTypes> = ({
             </Button>
           )}
         </div>
-      ) : (
-        //switch to alert
-        <Alert severity="info">No more recipes to show</Alert>
       )}
     </div>
   );
