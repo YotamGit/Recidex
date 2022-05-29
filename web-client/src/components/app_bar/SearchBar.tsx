@@ -53,7 +53,6 @@ const SearchBar: FC<propTypes> = ({ setExpanded, localSearch, responsive }) => {
   const loading = openOptions && titles.length === 0;
 
   const searchRecipes = async () => {
-    dispatch(setAlert({ message: "testing", details: "details" }));
     //search recipes without the store
     if (localSearch) {
       localSearch.getRecipes();

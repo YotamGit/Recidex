@@ -4,6 +4,7 @@ import { AlertColor } from "@mui/material";
 export type AlertType = {
   openAlert: boolean;
   severity: AlertColor;
+  title?: string;
   message?: string;
   details?: string;
 };
@@ -19,6 +20,7 @@ const initialState: UtilityState = {
   alert: {
     openAlert: false,
     severity: "info",
+    title: undefined,
     message: undefined,
     details: undefined,
   },
@@ -38,18 +40,27 @@ const utilitySlice = createSlice({
       state,
       action: PayloadAction<{
         open?: boolean;
-        message?: string;
+        severity?: AlertColor;
+        title: string;
+        message: string;
         details?: string;
       }>
     ) {
       state.alert.openAlert =
         action.payload.open !== undefined ? action.payload.open : true;
-      state.alert.message = action.payload?.message;
+      state.alert.severity =
+        action.payload.severity !== undefined
+          ? action.payload.severity
+          : "info";
+
+      state.alert.title = action.payload.title;
+      state.alert.message = action.payload.message;
       state.alert.details = action.payload?.details;
     },
     resetAlert(state) {
       state.alert.openAlert = false;
       state.alert.severity = "info";
+      state.alert.title = undefined;
       state.alert.message = undefined;
       state.alert.details = undefined;
     },
