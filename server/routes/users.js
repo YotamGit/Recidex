@@ -10,6 +10,7 @@ import {
   isEmailTaken,
   isUsernameTaken,
 } from "../utils-module/authentication.js";
+import { isValidObjectId } from "../utils-module/misc.js";
 
 // Routes
 
@@ -38,9 +39,33 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+//CHECK IF A USER EXISTS
+router.get("/user/exists/:user_id", async (req, res, next) => {
+  try {
+    if (!isValidObjectId(req.params.user_id)) {
+      res.status(200).send(false);
+      return;
+    }
+
+    let userExists = await User.exists({ _id: req.params.user_id });
+
+    if (userExists) {
+      res.status(200).send(true);
+    } else {
+      res.status(200).send(false);
+    }
+  } catch (err) {
+    next(err);
+  }
+});
 //GET A SPECIFIC USER PROFILE DATA
 router.get("/user/info/:user_id", async (req, res, next) => {
   try {
+    if (!isValidObjectId(req.params.user_id)) {
+      res.status(404).send("User not found");
+      return;
+    }
+
     let userInfo = await User.findById(req.params.user_id).select(
       "firstname lastname registration_date role"
     );
@@ -80,6 +105,10 @@ router.get("/user/info/:user_id", async (req, res, next) => {
 //DELETE A USER
 router.post("/user/delete", async (req, res, next) => {
   try {
+    if (!isValidObjectId(req.body._id)) {
+      res.status(404).send("User not found");
+      return;
+    }
     let user = await User.findById(req.body._id);
     if (user) {
       let allowedToEdit = await isAllowedToEditUser(
@@ -105,6 +134,11 @@ router.post("/user/delete", async (req, res, next) => {
 //EDIT USER DETAILES
 router.post("/user/edit", async (req, res, next) => {
   try {
+    if (!isValidObjectId(req.body._id)) {
+      res.status(404).send("User not found");
+      return;
+    }
+
     let userToEdit = await User.findById(req.body.userData._id);
 
     if (userToEdit) {

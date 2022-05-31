@@ -66,39 +66,45 @@ const AccountAvatar: FC = () => {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        {signedIn ? (
-          <>
-            <MenuItem onClick={() => navigate(`/user/profile/${userData._id}`)}>
-              <Avatar className="avatar" /> Profile
-            </MenuItem>
-            <MenuItem onClick={() => navigate(`/user/account`)}>
-              <Avatar className="avatar" /> My Account
-            </MenuItem>
-            <Divider />
+        {signedIn
+          ? [
+              <MenuItem
+                key="profile"
+                onClick={() => navigate(`/user/profile/${userData._id}`)}
+              >
+                <Avatar className="avatar" /> Profile
+              </MenuItem>,
 
-            <MenuItem onClick={() => dispatch(clearUserData())}>
-              <ListItemIcon>
-                <LogoutRoundedIcon fontSize="small" />
-              </ListItemIcon>
-              Log Out
-            </MenuItem>
-          </>
-        ) : (
-          <>
-            <MenuItem onClick={() => navigate(`/login`)}>
-              <ListItemIcon>
-                <LoginRoundedIcon fontSize="small" />
-              </ListItemIcon>
-              Log In
-            </MenuItem>
-            <MenuItem onClick={() => navigate(`/signup`)}>
-              <ListItemIcon>
-                <PersonAddAltRoundedIcon fontSize="small" />
-              </ListItemIcon>
-              Sign Up
-            </MenuItem>
-          </>
-        )}
+              <MenuItem
+                key="my-account"
+                onClick={() => navigate(`/user/account`)}
+              >
+                <Avatar className="avatar" /> My Account
+              </MenuItem>,
+
+              <Divider key="divider" />,
+              <MenuItem key="logout" onClick={() => dispatch(clearUserData())}>
+                <ListItemIcon>
+                  <LogoutRoundedIcon fontSize="small" />
+                </ListItemIcon>
+                Log Out
+              </MenuItem>,
+            ]
+          : [
+              <MenuItem key="login" onClick={() => navigate(`/login`)}>
+                <ListItemIcon>
+                  <LoginRoundedIcon fontSize="small" />
+                </ListItemIcon>
+                Log In
+              </MenuItem>,
+
+              <MenuItem key="signup" onClick={() => navigate(`/signup`)}>
+                <ListItemIcon>
+                  <PersonAddAltRoundedIcon fontSize="small" />
+                </ListItemIcon>
+                Sign Up
+              </MenuItem>,
+            ]}
       </Menu>
     </>
   );
