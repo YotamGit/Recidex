@@ -115,18 +115,10 @@ const NavDrawer: FC<propTypes> = ({ openDrawer, handleToggleDrawer }) => {
           closeDrawer={handleToggleDrawer}
           Icon={AddCircleRoundedIcon}
         />
-        <DrawerItem
-          visible={signedIn}
-          addDivider={true}
-          currentPageUrl={activePage}
-          pageUrl={"/user/account"}
-          text={"My Account"}
-          closeDrawer={handleToggleDrawer}
-          Icon={AccountCircleRoundedIcon}
-        />
+
         <DrawerItem
           visible={signedIn && ["admin", "moderator"].includes(userRole || "")}
-          addDivider={false}
+          addDivider={true}
           currentPageUrl={activePage}
           pageUrl={"/admin-panel"}
           text={"Admin Panel"}

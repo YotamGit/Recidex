@@ -1,0 +1,12 @@
+.account-avatar-menu .MuiMenu-paper {
+  margin-top: 5px;
+}
+.account-avatar .MuiAvatar-colorDefault {
+  background-color: var(--blue-4);
+}
+.account-avatar-menu .avatar {
+  width: 32px;
+  height: 32px;
+  margin-left: -4px;
+  margin-right: 8px;
+}
