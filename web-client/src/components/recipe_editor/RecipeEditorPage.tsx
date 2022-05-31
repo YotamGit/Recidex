@@ -4,6 +4,7 @@ import { useState, useEffect, FC } from "react";
 
 import { getRecipe } from "../../utils-module/recipes";
 import GenericPromptDialog from "../GenericPromptDialog";
+import PageTitle from "../PageTitle";
 
 import "../../styles/recipe_editor/RecipeEditorPage.css";
 import AuthorizedButton from "../Login/AuthorizedButton";
@@ -76,7 +77,7 @@ const RecipeEditorPage: FC = () => {
               </Tooltip>
             </AuthorizedButton>
           </div>
-
+          <PageTitle />
           <RecipeEditor action={"edit"} recipe={recipe} />
           <GenericPromptDialog
             open={openConfirmDialog}

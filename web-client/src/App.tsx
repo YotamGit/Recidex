@@ -14,7 +14,7 @@ import {
 
 import RecipePage from "./components/recipes/RecipePage";
 import RecipeEditorPage from "./components/recipe_editor/RecipeEditorPage";
-import AddRecipe from "./components/recipe_editor/AddRecipe";
+import AddRecipePage from "./components/recipe_editor/AddRecipePage";
 import Header from "./components/app_bar/Header";
 import Main from "./components/Main";
 import Authentication from "./components/Login/Authentication";
@@ -210,7 +210,7 @@ function App() {
             >
               <>
                 <Header pageName={"Add Recipe"} showSearch={false} />
-                <AddRecipe />
+                <AddRecipePage />
               </>
             </ComponentWrapper>
           }
