@@ -9,12 +9,14 @@ export type AlertType = {
   details?: string;
 };
 interface UtilityState {
+  currentPageTitle: string;
   fullscreen: boolean | undefined;
   routeHistory: string[];
   alert: AlertType;
 }
 
 const initialState: UtilityState = {
+  currentPageTitle: "",
   fullscreen: undefined,
   routeHistory: [],
   alert: {
@@ -30,6 +32,9 @@ const utilitySlice = createSlice({
   name: "utility",
   initialState,
   reducers: {
+    setCurrentPageTitle(state, action: PayloadAction<string>) {
+      state.currentPageTitle = action.payload;
+    },
     setFullscreen(state, action: PayloadAction<boolean>) {
       state.fullscreen = action.payload;
     },
@@ -67,7 +72,12 @@ const utilitySlice = createSlice({
   },
 });
 
-export const { setFullscreen, addRouteToHistory, setAlert, resetAlert } =
-  utilitySlice.actions;
+export const {
+  setCurrentPageTitle,
+  setFullscreen,
+  addRouteToHistory,
+  setAlert,
+  resetAlert,
+} = utilitySlice.actions;
 
 export default utilitySlice.reducer;

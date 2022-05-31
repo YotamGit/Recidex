@@ -16,7 +16,7 @@
   justify-content: space-between;
   align-items: center;
 }
-.app-bar .page-title {
+.app-bar .logo-container {
   flex-grow: 1;
   display: flex;
   padding-left: 5px;

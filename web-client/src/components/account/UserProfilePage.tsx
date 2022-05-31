@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import UserProfileRecipesSection from "./UserProfileRecipesSection";
 import UserProfileInfoSection from "./UserProfileInfoSection";
+import PageTitle from "../PageTitle";
 
 //mui icons
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
@@ -70,6 +71,7 @@ const UserProfilePage: FC = () => {
           </IconButton>
         </Tooltip>
       </div>
+      <PageTitle />
       {userExists && (
         <>
           <UserProfileInfoSection user_id={user_id || ""} />

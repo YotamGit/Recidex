@@ -52,7 +52,7 @@ const Header: FC<propTypes> = ({ pageName, showSearch }) => {
 
           <div className="content">
             {!maximizeSearch && (
-              <span className="page-title">
+              <span className="logo-container">
                 <img
                   className="logo"
                   src={RecipesLogo}
