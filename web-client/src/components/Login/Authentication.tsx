@@ -157,7 +157,12 @@ const Authentication: FC<propTypes> = ({
 
   return (
     <div id="authentication-page">
-      <img className="recipes-logo" src={RecipesLogo} alt=""></img>
+      <img
+        onClick={() => navigate("/home")}
+        className="recipes-logo"
+        src={RecipesLogo}
+        alt=""
+      ></img>
       <div className="authentication-section">
         <div className="title">
           {action === "signup" ? "Sign up" : "Sign In"}

@@ -19,10 +19,9 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { FC } from "react";
 
 interface propTypes {
-  pageName: string;
   showSearch: boolean;
 }
-const Header: FC<propTypes> = ({ pageName, showSearch }) => {
+const Header: FC<propTypes> = ({ showSearch }) => {
   const navigate = useNavigate();
 
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -59,7 +58,6 @@ const Header: FC<propTypes> = ({ pageName, showSearch }) => {
                   onClick={() => navigate("/home")}
                   alt=""
                 ></img>
-                <span>&nbsp;{pageName}</span>
               </span>
             )}
             {showSearch && (

@@ -1,4 +1,5 @@
 import RecipeEditor from "./RecipeEditor";
+import PageTitle from "../PageTitle";
 
 //types
 import { FC } from "react";
@@ -28,6 +29,7 @@ const AddRecipe: FC = () => {
   return (
     <>
       <div className="add-recipe-page-top-button-row"></div>
+      <PageTitle style={{ marginTop: "1rem" }} />
       <RecipeEditor action={"add"} recipe={recipeTemplate}></RecipeEditor>
     </>
   );

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 
 import AdminTable from "./AdminTable";
 import AdminKpis from "./AdminKpis";
+import PageTitle from "../PageTitle";
 
 //redux
 import { getUsers } from "../../slices/usersSlice";
@@ -21,6 +22,7 @@ const AdminPanel: FC = () => {
 
   return (
     <div className="admin-panel-page">
+      <PageTitle style={{ marginTop: "1rem" }} />
       <AdminKpis />
       <AdminTable />
     </div>

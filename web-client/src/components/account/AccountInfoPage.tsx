@@ -4,6 +4,7 @@ import "../../styles/account/AccountInfoPage.css";
 
 import UserInfoEditSection from "./UserInfoEditSection";
 import UserInfoPreviewSection from "./UserInfoPreviewSection";
+import PageTitle from "../PageTitle";
 
 //mui
 import { Button } from "@mui/material";
@@ -35,6 +36,7 @@ const AccountInfoPage: FC = () => {
 
   return (
     <div>
+      <PageTitle style={{ marginTop: "1rem" }} />
       {viewEditUser ? (
         <>
           <UserInfoEditSection userData={userData} setViewEdit={setViewEdit} />

@@ -1,18 +1,19 @@
 import "../styles/PageTitle.css";
-import { useEffect } from "react";
-//mui
-import Divider from "@mui/material/Divider";
+
 //redux
 import { useAppSelector } from "../hooks";
 //types
 import { FC } from "react";
 
-const PageTitle: FC = () => {
+interface propTypes {
+  style?: React.CSSProperties;
+}
+const PageTitle: FC<propTypes> = ({ style }) => {
   const currentPageTitle = useAppSelector(
     (state) => state.utilities.currentPageTitle
   );
   return (
-    <div className="page-title">
+    <div className="page-title" style={style ? style : {}}>
       <div className="title">{currentPageTitle}</div>
     </div>
   );

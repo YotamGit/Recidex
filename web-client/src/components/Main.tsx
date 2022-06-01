@@ -1,6 +1,7 @@
 import "../styles/Main.css";
 import Recipes from "./recipes/Recipes";
 import RecipesPrivacySelector from "./recipes/RecipesPrivacySelector";
+import PageTitle from "./PageTitle";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -155,6 +156,7 @@ const Main: FC<propTypes> = ({
 
   return (
     <div className="main">
+      <PageTitle style={{ marginTop: "1rem" }} />
       {ownerOnly && (
         <RecipesPrivacySelector
           setRecipePrivacy={setRecipePrivacy}

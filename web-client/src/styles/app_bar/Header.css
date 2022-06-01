@@ -40,8 +40,3 @@
 .app-bar .search-bar-container {
   margin-right: 0.5rem;
 }
-@media only screen and (max-width: 600px) {
-  .app-bar .page-title {
-    font-size: 25px;
-  }
-}

@@ -43,21 +43,6 @@ function App() {
   const currentPageTitle = useAppSelector(
     (state) => state.utilities.currentPageTitle
   );
-  // const routesPageTitlesMap = {
-  //   "/": "Our Recipes",
-  //   "/home": "Home",
-  //   "/login": "Log In",
-  //   "/signup": "Sign Up",
-  //   "/my-recipes": "My Recipes",
-  //   "/favorites": "Favorites",
-  //   "/recipes/:recipe_id": "Recipe",
-  //   "/recipes/edit/:recipe_id": "Edit Recipe",
-  //   "/recipes/new": "Add Recipe",
-  //   "/user/account": "Account",
-  //   "/user/profile/:user_id": "User Profile",
-  //   "/recipe-moderation": "Recipe Moderation",
-  //   "/admin-panel": "Admin Panel",
-  // };
 
   useEffect(() => {
     dispatch(addRouteToHistory(location.pathname));
@@ -123,7 +108,7 @@ function App() {
               func={() => dispatch(setCurrentPageTitle("Home"))}
             >
               <>
-                <Header pageName={"Home"} showSearch={true} />
+                <Header showSearch={true} />
                 <Main
                   ownerOnly={false}
                   favoritesOnly={false}
@@ -143,7 +128,7 @@ function App() {
                 func={() => dispatch(setCurrentPageTitle("My Recipes"))}
               >
                 <>
-                  <Header pageName={"My Recipes"} showSearch={true} />
+                  <Header showSearch={true} />
                   <Main
                     ownerOnly={true}
                     favoritesOnly={false}
@@ -163,7 +148,7 @@ function App() {
                 func={() => dispatch(setCurrentPageTitle("Favorites"))}
               >
                 <>
-                  <Header pageName={"Favorites"} showSearch={true} />
+                  <Header showSearch={true} />
                   <Main
                     ownerOnly={false}
                     favoritesOnly={true}
@@ -182,7 +167,7 @@ function App() {
               func={() => dispatch(setCurrentPageTitle("Recipe"))}
             >
               <>
-                <Header pageName={"Recipe"} showSearch={false} />
+                <Header showSearch={false} />
                 <RecipePage />
               </>
             </ComponentWrapper>
@@ -195,7 +180,7 @@ function App() {
               func={() => dispatch(setCurrentPageTitle("Edit Recipe"))}
             >
               <>
-                <Header pageName={"Edit Recipe"} showSearch={false} />
+                <Header showSearch={false} />
                 <RecipeEditorPage />
               </>
             </ComponentWrapper>
@@ -209,7 +194,7 @@ function App() {
               func={() => dispatch(setCurrentPageTitle("Add Recipe"))}
             >
               <>
-                <Header pageName={"Add Recipe"} showSearch={false} />
+                <Header showSearch={false} />
                 <AddRecipePage />
               </>
             </ComponentWrapper>
@@ -224,7 +209,7 @@ function App() {
                 func={() => dispatch(setCurrentPageTitle("Account"))}
               >
                 <>
-                  <Header pageName={"Account"} showSearch={false} />
+                  <Header showSearch={false} />
                   <AccountInfoPage />
                 </>
               </ComponentWrapper>
@@ -238,7 +223,7 @@ function App() {
               func={() => dispatch(setCurrentPageTitle("User Profile"))}
             >
               <>
-                <Header pageName={"User Profile"} showSearch={false} />
+                <Header showSearch={false} />
                 <UserProfilePage />
               </>
             </ComponentWrapper>
@@ -256,7 +241,7 @@ function App() {
                 func={() => dispatch(setCurrentPageTitle("Recipe Moderation"))}
               >
                 <>
-                  <Header pageName={"Recipe Moderation"} showSearch={true} />
+                  <Header showSearch={true} />
                   <Main
                     ownerOnly={false}
                     favoritesOnly={false}
@@ -279,7 +264,7 @@ function App() {
                 func={() => dispatch(setCurrentPageTitle("Admin Panel"))}
               >
                 <>
-                  <Header pageName={"Admin Panel"} showSearch={false} />
+                  <Header showSearch={false} />
                   <AdminPanel />
                 </>
               </ComponentWrapper>
