@@ -1,0 +1,38 @@
+.account-info-page {
+}
+.account-info-page .account-info-preview-section {
+  position: relative;
+  padding: 1%;
+  border: 2px var(--blue-3) solid;
+  border-radius: 10px;
+  width: 60%;
+  margin: auto;
+}
+.account-info-page .account-info-preview-section .edit-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+.account-info-page .account-info-preview-section .info-container {
+  margin-top: 2rem;
+}
+.account-info-page .account-info-preview-section .info-container > * {
+  margin-bottom: 1rem;
+}
+.account-info-page .account-info-preview-section .info-name,
+.account-info-page .account-info-preview-section .info-user {
+  display: flex;
+}
+.account-info-page .account-info-preview-section .info-name > *,
+.account-info-page .account-info-preview-section .info-user > * {
+  width: 50%;
+}
+
+.account-info-page .account-info-preview-section .title {
+  color: var(--blue-3);
+  font-size: 1rem;
+}
+.account-info-page .account-info-preview-section .data {
+  font-size: 1.6rem;
+  font-weight: 600;
+}

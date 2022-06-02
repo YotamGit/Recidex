@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../styles/account/AccountInfoPage.css";
 
-import UserInfoEditSection from "./UserInfoEditSection";
-import UserInfoPreviewSection from "./UserInfoPreviewSection";
+import AccountInfoEditSection from "./AccountInfoEditSection";
+import AccountInfoPreviewSection from "./AccountInfoPreviewSection";
 import PageTitle from "../PageTitle";
 
 //mui
@@ -35,15 +35,19 @@ const AccountInfoPage: FC = () => {
   }, [signedIn]);
 
   return (
-    <div>
+    <div className="account-info-page">
       <PageTitle style={{ marginTop: "1rem" }} />
+
       {viewEditUser ? (
         <>
-          <UserInfoEditSection userData={userData} setViewEdit={setViewEdit} />
+          <AccountInfoEditSection
+            userData={userData}
+            setViewEdit={setViewEdit}
+          />
         </>
       ) : (
         <>
-          <UserInfoPreviewSection
+          <AccountInfoPreviewSection
             userData={userData}
             setViewEdit={setViewEdit}
           />
