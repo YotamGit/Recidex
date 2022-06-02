@@ -58,7 +58,6 @@ function App() {
     document.title = `Our Recipes${
       currentPageTitle !== "" ? ` | ${currentPageTitle}` : ""
     }`;
-    console.log(location);
   }, [currentPageTitle, location]);
 
   return (

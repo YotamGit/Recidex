@@ -20,6 +20,7 @@ const RecipeSchema = mongoose.Schema(
     description: String,
     ingredients: String,
     directions: String,
+    notes: String,
     rtl: {
       type: Boolean,
       default: false,

@@ -224,6 +224,7 @@ router.post("/new", async (req, res, next) => {
         );
       } catch (err) {
         res.status(400).send("Cannot add recipe. Invalid Image");
+        return;
       }
     }
 
@@ -312,6 +313,7 @@ router.post("/edit/:recipe_id", async (req, res, next) => {
           );
         } catch (err) {
           res.status(400).send("Cannot edit recipe. Invalid Image");
+          return;
         }
       } else if (req.body.recipeData.image === false) {
         //false means the image is to be deleted
