@@ -1,6 +1,7 @@
 .account-info-page {
 }
-.account-info-page .account-info-preview-section {
+.account-info-page .account-info-preview-section,
+.account-info-page .account-info-edit-section {
   position: relative;
   padding: 1%;
   border: 2px var(--blue-3) solid;
@@ -8,6 +9,7 @@
   width: 60%;
   margin: auto;
 }
+
 .account-info-page .account-info-preview-section .edit-button {
   position: absolute;
   top: 5px;
@@ -16,7 +18,8 @@
 .account-info-page .account-info-preview-section .info-container {
   margin-top: 2rem;
 }
-.account-info-page .account-info-preview-section .info-container > * {
+.account-info-page .account-info-preview-section .info-container > *,
+.account-info-page .account-info-edit-section .edit-container > * {
   margin-bottom: 1rem;
 }
 .account-info-page .account-info-preview-section .info-name,
