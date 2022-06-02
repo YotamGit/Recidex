@@ -51,6 +51,7 @@ export type TRecipe = {
   description: string;
   ingredients: string;
   directions: string;
+  notes: string;
   rtl: boolean;
   source: string;
   imageName: string;

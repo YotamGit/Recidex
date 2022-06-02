@@ -70,13 +70,15 @@ const RecipeEditor: FC<propTypes> = ({ action, recipe }) => {
   const [description, setDescription] = useState(recipe.description);
   const [ingredients, setIngredients] = useState(recipe.ingredients);
   const [directions, setDirections] = useState(recipe.directions);
+  const [notes, setNotes] = useState(recipe.notes);
+
   const [rtl, setRtl] = useState(recipe.rtl);
-  const [imageName, setImageName] = useState(recipe.imageName);
 
   //string:uploading a new photo
   //boolean(false):deleting a photo
   //undefined:no changes to photo
   const [image, setImage] = useState<string | boolean | undefined>(undefined);
+  const [imageName, setImageName] = useState(recipe.imageName);
 
   const [activeTab, setActiveTab] = useState(0);
   const [disableButtons, setDisableButtons] = useState(false);
@@ -137,6 +139,7 @@ const RecipeEditor: FC<propTypes> = ({ action, recipe }) => {
       description,
       ingredients,
       directions,
+      notes,
       rtl,
       source,
       imageName,
@@ -403,6 +406,12 @@ const RecipeEditor: FC<propTypes> = ({ action, recipe }) => {
             data={directions}
             rtl={rtl}
           />
+          <MarkdownEditSection
+            sectionTitle={rtl ? "הערות" : "Notes"}
+            setData={setNotes}
+            data={notes}
+            rtl={rtl}
+          />
         </div>
       </TabPanel>
       <TabPanel value={activeTab} index={1}>
@@ -420,6 +429,11 @@ const RecipeEditor: FC<propTypes> = ({ action, recipe }) => {
           <MarkdownPreviewSection
             sectionTitle={rtl ? "הוראות" : "Directions"}
             markdownText={directions}
+            rtl={rtl}
+          />
+          <MarkdownPreviewSection
+            sectionTitle={rtl ? "הערות" : "Notes"}
+            markdownText={notes}
             rtl={rtl}
           />
           {imageName && (

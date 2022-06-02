@@ -197,6 +197,7 @@ router.post("/new", async (req, res, next) => {
     req.body.recipeData.directions = sanitizeHtml(
       req.body.recipeData.directions
     );
+    req.body.recipeData.notes = sanitizeHtml(req.body.recipeData.notes);
 
     //delete certain fields for security reasons(other fields are limited b)
     delete req.body.recipeData._id;
@@ -286,6 +287,7 @@ router.post("/edit/:recipe_id", async (req, res, next) => {
       req.body.recipeData.directions = sanitizeHtml(
         req.body.recipeData.directions
       );
+      req.body.recipeData.notes = sanitizeHtml(req.body.recipeData.notes);
 
       //delete certain fields for security reasons(other fields are limited b)
       delete req.body.recipeData._id;

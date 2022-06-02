@@ -20,6 +20,7 @@ const AddRecipe: FC = () => {
     description: "",
     ingredients: "",
     directions: "",
+    notes: "",
     rtl: false,
     source: "",
     imageName: "",

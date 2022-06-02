@@ -138,6 +138,13 @@ const Recipe: FC<propTypes> = ({ recipe }) => {
             markdownText={recipe.directions}
             rtl={recipe.rtl}
           />
+          {recipe.notes && (
+            <MarkdownPreviewSection
+              sectionTitle={recipe.rtl ? "הערות" : "Notes"}
+              markdownText={recipe.notes}
+              rtl={recipe.rtl}
+            />
+          )}
         </div>
       </div>
       <div className="recipe-footer">
