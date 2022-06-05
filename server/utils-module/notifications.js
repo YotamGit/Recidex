@@ -4,7 +4,7 @@ import { User } from "../models/User.js";
 export async function emailNewUser(recipient) {
   try {
     let newUser = await User.findById(recipient).select(
-      "firstname lastname email notification_opt_in"
+      "username firstname lastname email notification_opt_in"
     );
     if (!newUser.notification_opt_in) {
       return;
