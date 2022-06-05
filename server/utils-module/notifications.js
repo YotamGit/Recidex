@@ -6,9 +6,6 @@ export async function emailNewUser(recipient) {
     let newUser = await User.findById(recipient).select(
       "username firstname lastname email notification_opt_in"
     );
-    if (!newUser.notification_opt_in) {
-      return;
-    }
 
     const courier = CourierClient({
       authorizationToken: process.env.EMAIL_NOTIFICATION_AUTH_TOKEN,
