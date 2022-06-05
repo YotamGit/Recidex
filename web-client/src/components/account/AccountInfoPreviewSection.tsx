@@ -15,15 +15,8 @@ interface propTypes {
 const UserInfoPreviewSection: FC<propTypes> = ({ userData, setViewEdit }) => {
   return (
     <div className="account-info-preview-section">
-      <Button
-        className="edit-button"
-        variant="outlined"
-        onClick={() => setViewEdit(true)}
-      >
-        Edit Info
-      </Button>
       <div className="info-container">
-        <div className="info-user">
+        <div className="info">
           <div>
             <div className="title">Username</div>
             <div className="data">{userData.username}</div>
@@ -34,7 +27,7 @@ const UserInfoPreviewSection: FC<propTypes> = ({ userData, setViewEdit }) => {
           </div>
         </div>
         <Divider />
-        <div className="info-name">
+        <div className="info">
           <div>
             <div className="title">First Name</div>
             <div className="data">{userData.firstname}</div>
@@ -45,11 +38,20 @@ const UserInfoPreviewSection: FC<propTypes> = ({ userData, setViewEdit }) => {
           </div>
         </div>
         <Divider />
-        <div className="info-email">
-          <div className="title">Email</div>
-          <div className="data">{userData.email}</div>
+        <div className="info">
+          <div>
+            <div className="title">Email</div>
+            <div className="data">{userData.email}</div>
+          </div>
         </div>
       </div>
+      <Button
+        className="edit-button"
+        variant="outlined"
+        onClick={() => setViewEdit(true)}
+      >
+        Edit Info
+      </Button>
     </div>
   );
 };

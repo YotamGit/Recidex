@@ -118,15 +118,11 @@ const UserInfoEditSection: FC<propTypes> = ({ userData, setViewEdit }) => {
   return (
     <div className="account-info-edit-section">
       <div className="edit-container">
-        <div>Basic Info</div>
+        <div className="edit-section-title">Basic Info</div>
 
-        <div>
+        <div className="edit-input">
           <FormControl className="edit-user-firstname">
             <TextField
-              sx={{
-                minWidth: 120,
-                margin: "5px",
-              }}
               label="First Name"
               variant="outlined"
               defaultValue={firstname}
@@ -135,10 +131,6 @@ const UserInfoEditSection: FC<propTypes> = ({ userData, setViewEdit }) => {
           </FormControl>
           <FormControl className="edit-user-lastname">
             <TextField
-              sx={{
-                minWidth: 120,
-                margin: "5px",
-              }}
               label="Last Name"
               variant="outlined"
               defaultValue={lastname}
@@ -146,34 +138,29 @@ const UserInfoEditSection: FC<propTypes> = ({ userData, setViewEdit }) => {
             />
           </FormControl>
         </div>
-
-        <FormControl className="edit-user-email">
-          <TextField
-            sx={{
-              minWidth: 120,
-              margin: "5px",
-            }}
-            label="Email"
-            variant="outlined"
-            defaultValue={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </FormControl>
+        <div className="edit-input">
+          <FormControl className="edit-user-email">
+            <TextField
+              label="Email"
+              variant="outlined"
+              defaultValue={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </FormControl>
+        </div>
         <Divider />
-        <div>Authentication</div>
-        <FormControl className="edit-user-username">
-          <TextField
-            sx={{
-              minWidth: 120,
-              margin: "5px",
-            }}
-            label="Username"
-            variant="outlined"
-            defaultValue={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </FormControl>
-        <div>
+        <div className="edit-section-title">Authentication</div>
+        <div className="edit-input">
+          <FormControl className="edit-user-username">
+            <TextField
+              label="Username"
+              variant="outlined"
+              defaultValue={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </FormControl>
+        </div>
+        <div className="edit-input">
           <FormControl id="edit-password-input" variant="outlined">
             <InputLabel htmlFor="edit-password-input">Password</InputLabel>
             <OutlinedInput
@@ -228,28 +215,30 @@ const UserInfoEditSection: FC<propTypes> = ({ userData, setViewEdit }) => {
           </FormControl>
         </div>
       </div>
-      <Button
-        className="secondary"
-        variant="contained"
-        onClick={() => setViewEdit(false)}
-      >
-        Cancel
-      </Button>
-      <LoadingButton
-        className="primary"
-        variant="contained"
-        onClick={() => setOpenConfirmDialog(true)}
-        loading={disableButtons}
-      >
-        Save Changes
-      </LoadingButton>
-      <GenericPromptDialog
-        open={openConfirmDialog}
-        setOpen={setOpenConfirmDialog}
-        onConfirm={onEditUser}
-        title="Confirm Changes?"
-        text={`Save changes made to account info?`}
-      />
+      <div className="edit-buttons">
+        <Button
+          className="secondary"
+          variant="contained"
+          onClick={() => setViewEdit(false)}
+        >
+          Cancel
+        </Button>
+        <LoadingButton
+          className="primary"
+          variant="contained"
+          onClick={() => setOpenConfirmDialog(true)}
+          loading={disableButtons}
+        >
+          Save Changes
+        </LoadingButton>
+        <GenericPromptDialog
+          open={openConfirmDialog}
+          setOpen={setOpenConfirmDialog}
+          onConfirm={onEditUser}
+          title="Confirm Changes?"
+          text={`Save changes made to account info?`}
+        />
+      </div>
     </div>
   );
 };
