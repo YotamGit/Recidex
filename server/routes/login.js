@@ -50,7 +50,7 @@ router.post("/", async (req, res, next) => {
         res.status(401).send(false);
       }
     } else {
-      res.status(401).send(false);
+      res.status(404).send("User not found.");
     }
   } catch (err) {
     next(err);

@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 
-import { validUsername, validEmail } from "../../utils-module/validation";
+import {
+  validUsername,
+  validEmail,
+  validPassword,
+} from "../../utils-module/validation";
 import GenericPromptDialog from "../GenericPromptDialog";
 
 //redux
@@ -71,6 +75,9 @@ const UserInfoEditSection: FC<propTypes> = ({ userData, setViewEdit }) => {
       setPasswordConfirm("");
       return false;
     }
+    if (password && !validPassword(password)) {
+      return false;
+    }
 
     if (!validUsername(username || "")) {
       return false;
@@ -98,6 +105,7 @@ const UserInfoEditSection: FC<propTypes> = ({ userData, setViewEdit }) => {
           firstname,
           lastname,
           email,
+          password: password || undefined,
         },
       })
     );
@@ -166,10 +174,8 @@ const UserInfoEditSection: FC<propTypes> = ({ userData, setViewEdit }) => {
           />
         </FormControl>
         <div>
-          <FormControl id="authentication-password-input" variant="outlined">
-            <InputLabel htmlFor="authentication-password-input">
-              Password
-            </InputLabel>
+          <FormControl id="edit-password-input" variant="outlined">
+            <InputLabel htmlFor="edit-password-input">Password</InputLabel>
             <OutlinedInput
               autoComplete="new-password"
               type={showPassword ? "text" : "password"}
@@ -191,11 +197,8 @@ const UserInfoEditSection: FC<propTypes> = ({ userData, setViewEdit }) => {
               }
             />
           </FormControl>
-          <FormControl
-            id="authentication-passwordconfirm-input"
-            variant="outlined"
-          >
-            <InputLabel htmlFor="authentication-passwordconfirm-input">
+          <FormControl id="edit-passwordconfirm-input" variant="outlined">
+            <InputLabel htmlFor="edit-passwordconfirm-input">
               Confirm Password
             </InputLabel>
             <OutlinedInput

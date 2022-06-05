@@ -1,4 +1,5 @@
 import express from "express";
+import bcrypt from "bcryptjs";
 
 const router = express.Router();
 import { User } from "../models/User.js";
@@ -134,7 +135,7 @@ router.post("/user/delete", async (req, res, next) => {
 //EDIT USER DETAILES
 router.post("/user/edit", async (req, res, next) => {
   try {
-    if (!isValidObjectId(req.body._id)) {
+    if (!isValidObjectId(req.body.userData._id)) {
       res.status(404).send("User not found");
       return;
     }
@@ -167,11 +168,16 @@ router.post("/user/edit", async (req, res, next) => {
             return;
           }
         }
+        if (req.body.userData.password) {
+          var updatePasswordQuery = {
+            password: await bcrypt.hash(req.body.userData.password, 10),
+          };
+        }
+
         let response = await User.updateOne(
           { _id: req.body.userData._id },
-          { $set: req.body.userData }
+          { $set: { ...req.body.userData, ...updatePasswordQuery } }
         );
-
         res.status(200).send(response);
       } else {
         res.status(403).send("Missing privileges");

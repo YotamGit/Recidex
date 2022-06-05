@@ -200,6 +200,7 @@ interface EditUserProps {
     firstname?: string;
     lastname?: string;
     email?: string;
+    password?: string;
   };
   action: "editSelf" | "editOther" | undefined;
 }
@@ -225,7 +226,7 @@ export const editUser = createAsyncThunk<
         message: "User edited successfully",
       })
     );
-
+    delete props.userData.password;
     return {
       action: props.action,
       userData: props.userData as User,
@@ -389,14 +390,14 @@ const usersSlice = createSlice({
         state.users = action.payload;
       })
       .addCase(editUser.fulfilled, (state, action) => {
-        if (action.payload.action == "editSelf" && action.payload.userData) {
+        if (action.payload.action === "editSelf" && action.payload.userData) {
           state.userData.username = action.payload.userData.username;
           state.userData.firstname = action.payload.userData.firstname;
           state.userData.lastname = action.payload.userData.lastname;
           state.userData.role = action.payload.userData.role;
           state.userData.email = action.payload.userData.email;
         } else if (
-          action.payload.action == "editOther" &&
+          action.payload.action === "editOther" &&
           action.payload.users
         ) {
           state.users = action.payload.users;
