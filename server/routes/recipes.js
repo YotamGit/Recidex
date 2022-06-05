@@ -2,6 +2,7 @@ import express from "express";
 import sanitizeHtml from "sanitize-html";
 const router = express.Router();
 import { Recipe } from "../models/Recipe.js";
+import { User } from "../models/User.js";
 import {
   authenticateRecipeOwnership,
   isModeratorUser,
@@ -332,7 +333,7 @@ router.post("/edit/:recipe_id", async (req, res, next) => {
       );
       const recipe = await Recipe.findById({ _id: req.params.recipe_id })
         .select("-image")
-        .populate("owner", "firstname lastname email");
+        .populate("owner", "firstname lastname");
 
       //notify user of recipe approval by a moderator
       if (
@@ -343,7 +344,7 @@ router.post("/edit/:recipe_id", async (req, res, next) => {
         try {
           await emailUserRecipeApproved({
             recipe: recipe,
-            owner: recipe.owner,
+            recipient: recipe.owner._id,
             moderator: {
               firstname: req.headers.validatedToken.firstname,
               lastname: req.headers.validatedToken.lastname,
@@ -440,8 +441,8 @@ router.post("/edit/approve/:recipe_id", async (req, res, next) => {
           switch (req.body.approve) {
             case true:
               await emailUserRecipeApproved({
+                recipient: recipe.owner._id,
                 recipe: recipe,
-                owner: recipe.owner,
                 moderator: {
                   firstname: req.headers.validatedToken.firstname,
                   lastname: req.headers.validatedToken.lastname,
@@ -451,8 +452,8 @@ router.post("/edit/approve/:recipe_id", async (req, res, next) => {
               break;
             case false:
               await emailUserRecipeDisapproved({
+                recipient: recipe.owner._id,
                 recipe: recipe,
-                owner: recipe.owner,
                 moderator: {
                   firstname: req.headers.validatedToken.firstname,
                   lastname: req.headers.validatedToken.lastname,

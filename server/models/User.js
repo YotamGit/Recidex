@@ -10,6 +10,10 @@ const UserSchema = mongoose.Schema(
     email: String,
     username: String,
     password: String,
+    notification_opt_in: {
+      type: Boolean,
+      default: true,
+    },
     registration_date: {
       type: Date,
       default: Date.now,

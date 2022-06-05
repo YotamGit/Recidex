@@ -1,40 +1,24 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import "../../styles/account/UserProfileInfoSection.css";
 
-//redux
-import { useAppDispatch } from "../../hooks";
-import { setAlert } from "../../slices/utilitySlice";
+import { getProfileInfo } from "../../utils-module/users";
 
 //types
 import { FC } from "react";
 
 interface propTypes {
-  user_id: string;
+  userId: string;
 }
-const UserProfileInfoSection: FC<propTypes> = ({ user_id }) => {
-  const dispatch = useAppDispatch();
+const UserProfileInfoSection: FC<propTypes> = ({ userId }) => {
   const [userData, setUserData] = useState<any>();
 
-  const getUserInfo = async () => {
-    try {
-      var result = await axios.get(`/api/users/user/info/${user_id}`);
-      setUserData(result.data);
-    } catch (err: any) {
-      dispatch(
-        setAlert({
-          severity: "error",
-          title: "Error",
-          message: "Failed to Fetch User Info.",
-          details: err.response.data ? err.response.data : undefined,
-        })
-      );
-    }
-  };
-
   useEffect(() => {
-    getUserInfo();
-  }, [user_id]);
+    getProfileInfo(userId || "").then((res: any) => {
+      if (res) {
+        setUserData(res);
+      }
+    });
+  }, [userId]);
 
   return (
     <div className="user-profile-info-section">

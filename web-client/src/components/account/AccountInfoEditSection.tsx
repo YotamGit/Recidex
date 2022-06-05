@@ -22,6 +22,8 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import InputAdornment from "@mui/material/InputAdornment";
 import LoadingButton from "@mui/lab/LoadingButton";
+import Checkbox from "@mui/material/Checkbox";
+import FormControlLabel from "@mui/material/FormControlLabel";
 
 //mui icons
 import Visibility from "@mui/icons-material/Visibility";
@@ -34,8 +36,13 @@ import { User } from "../../slices/usersSlice";
 interface propTypes {
   userData: User;
   setViewEdit: React.Dispatch<React.SetStateAction<boolean>>;
+  onEdit: Function;
 }
-const UserInfoEditSection: FC<propTypes> = ({ userData, setViewEdit }) => {
+const AccountInfoEditSection: FC<propTypes> = ({
+  userData,
+  setViewEdit,
+  onEdit,
+}) => {
   const dispatch = useAppDispatch();
 
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
@@ -44,6 +51,9 @@ const UserInfoEditSection: FC<propTypes> = ({ userData, setViewEdit }) => {
   const [firstname, setFirstname] = useState(userData.firstname);
   const [lastname, setLastname] = useState(userData.lastname);
   const [email, setEmail] = useState(userData.email);
+  const [notificationOptIn, setNotificationOptIn] = useState(
+    userData.notification_opt_in
+  );
 
   const [password, setPassword] = useState("");
   const [passwordconfirm, setPasswordConfirm] = useState("");
@@ -106,11 +116,13 @@ const UserInfoEditSection: FC<propTypes> = ({ userData, setViewEdit }) => {
           lastname,
           email,
           password: password || undefined,
+          notification_opt_in: notificationOptIn,
         },
       })
     );
     setDisableButtons(false);
     if (editRes.meta.requestStatus === "fulfilled") {
+      onEdit();
       setViewEdit(false);
     }
   };
@@ -148,6 +160,25 @@ const UserInfoEditSection: FC<propTypes> = ({ userData, setViewEdit }) => {
             />
           </FormControl>
         </div>
+        <Divider />
+        <div className="edit-section-title">Notifications</div>
+
+        <div className="edit-input">
+          <div>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={notificationOptIn}
+                  onChange={(e) => setNotificationOptIn(e.target.checked)}
+                />
+              }
+              label="Opt in to receive email notifications"
+              labelPlacement="end"
+            />
+            <div>Receive emails regarding recipe approval/disapproval.</div>
+          </div>
+        </div>
+
         <Divider />
         <div className="edit-section-title">Authentication</div>
         <div className="edit-input">
@@ -243,4 +274,4 @@ const UserInfoEditSection: FC<propTypes> = ({ userData, setViewEdit }) => {
   );
 };
 
-export default UserInfoEditSection;
+export default AccountInfoEditSection;

@@ -23,6 +23,7 @@ const initialState: UsersState = {
     lastname: undefined,
     role: undefined,
     email: undefined,
+    notification_opt_in: undefined,
   },
   users: [],
 };
@@ -51,6 +52,7 @@ export type User = {
   lastname: string | undefined;
   email: string | undefined;
   role: string | undefined;
+  notification_opt_in: boolean | undefined;
 };
 
 //an interface used for users that are being used in the users table
@@ -201,6 +203,7 @@ interface EditUserProps {
     lastname?: string;
     email?: string;
     password?: string;
+    notification_opt_in?: boolean;
   };
   action: "editSelf" | "editOther" | undefined;
 }
@@ -227,6 +230,7 @@ export const editUser = createAsyncThunk<
       })
     );
     delete props.userData.password;
+    delete props.userData.notification_opt_in;
     return {
       action: props.action,
       userData: props.userData as User,
@@ -296,7 +300,6 @@ const usersSlice = createSlice({
       state.userData.firstname = action.payload.userData.firstname;
       state.userData.lastname = action.payload.userData.lastname;
       state.userData.role = action.payload.userData.role;
-      state.userData.email = action.payload.userData.email;
       state.signedIn = true;
 
       let expiration_date = new Date();
@@ -317,7 +320,6 @@ const usersSlice = createSlice({
       state.userData.username = undefined;
       state.userData.firstname = undefined;
       state.userData.lastname = undefined;
-      state.userData.email = undefined;
 
       const cookies = new Cookies();
       cookies.remove("userToken", { path: "/" });
@@ -352,7 +354,6 @@ const usersSlice = createSlice({
             state.userData.username = action.payload.userData.username;
             state.userData.firstname = action.payload.userData.firstname;
             state.userData.lastname = action.payload.userData.lastname;
-            state.userData.email = action.payload.userData.email;
             localStorage.setItem("signedIn", String(state.signedIn));
             localStorage.setItem("userRole", String(state.userData.role));
           }
@@ -370,7 +371,6 @@ const usersSlice = createSlice({
           state.userData.username = action.payload.data.userData.username;
           state.userData.firstname = action.payload.data.userData.firstname;
           state.userData.lastname = action.payload.data.userData.lastname;
-          state.userData.email = action.payload.data.userData.email;
 
           let expiration_date = new Date();
           expiration_date.setFullYear(expiration_date.getFullYear() + 2);
@@ -395,7 +395,6 @@ const usersSlice = createSlice({
           state.userData.firstname = action.payload.userData.firstname;
           state.userData.lastname = action.payload.userData.lastname;
           state.userData.role = action.payload.userData.role;
-          state.userData.email = action.payload.userData.email;
         } else if (
           action.payload.action === "editOther" &&
           action.payload.users

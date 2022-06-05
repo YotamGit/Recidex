@@ -115,6 +115,7 @@ router.post("/signup", async (req, res, next) => {
       email: req.body.email,
       username: req.body.username,
       password: hashedPassword,
+      notifications_opt_in: req.body.notifications_opt_in,
     });
     res.status(200).json({
       token: generateToken(newUser),
@@ -128,7 +129,7 @@ router.post("/signup", async (req, res, next) => {
       },
     });
 
-    await emailNewUser(newUser);
+    await emailNewUser(newUser._id);
   } catch (err) {
     next(err);
   }

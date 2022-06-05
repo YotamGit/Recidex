@@ -19,9 +19,9 @@ import { TRecipe } from "../../slices/recipesSlice";
 import { TSelectedFilters } from "../../slices/filtersSlice";
 
 interface propTypes {
-  user_id: string;
+  userId: string;
 }
-const UserProfileRecipesSection: FC<propTypes> = ({ user_id }) => {
+const UserProfileRecipesSection: FC<propTypes> = ({ userId }) => {
   const dispatch = useAppDispatch();
   const [favoritesOnly, setFavoritesOnly] = useState<boolean>(false);
   const [recipes, setRecipes] = useState<TRecipe[]>();
@@ -42,8 +42,8 @@ const UserProfileRecipesSection: FC<propTypes> = ({ user_id }) => {
           latest: new Date(),
           searchText: searchText || undefined,
           filters: {
-            favorited_by: favoritesOnly ? user_id : undefined,
-            owner: favoritesOnly ? undefined : user_id,
+            favorited_by: favoritesOnly ? userId : undefined,
+            owner: favoritesOnly ? undefined : userId,
             private: false,
             ...(filters ? filters : selectedFilters),
           },
@@ -69,16 +69,16 @@ const UserProfileRecipesSection: FC<propTypes> = ({ user_id }) => {
   };
 
   useEffect(() => {
-    if (!user_id) {
+    if (!userId) {
       return;
     }
     if (favoritesOnly) {
-      dispatch(setTitleFilters({ favorited_by: user_id, private: false }));
+      dispatch(setTitleFilters({ favorited_by: userId, private: false }));
     } else {
-      dispatch(setTitleFilters({ owner: user_id, private: false }));
+      dispatch(setTitleFilters({ owner: userId, private: false }));
     }
     getRecipes(selectedFilters);
-  }, [user_id, favoritesOnly]);
+  }, [userId, favoritesOnly]);
 
   useEffect(() => {
     setFavoritesOnly(false);
@@ -89,7 +89,7 @@ const UserProfileRecipesSection: FC<propTypes> = ({ user_id }) => {
       prep_time: undefined,
       total_time: undefined,
     });
-  }, [user_id]);
+  }, [userId]);
 
   return (
     <div className="profile-recipes-section">

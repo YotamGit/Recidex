@@ -1,11 +1,11 @@
 import "../../styles/account/UserProfilePage.css";
-import axios from "axios";
 
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import UserProfileRecipesSection from "./UserProfileRecipesSection";
 import UserProfileInfoSection from "./UserProfileInfoSection";
 import PageTitle from "../PageTitle";
+import { isUserExist } from "../../utils-module/users";
 
 //mui icons
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
@@ -14,51 +14,18 @@ import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 
-//redux
-import { useAppDispatch } from "../../hooks";
-import { setAlert } from "../../slices/utilitySlice";
-
 //types
 import { FC } from "react";
 
 const UserProfilePage: FC = () => {
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
 
   const { user_id } = useParams();
   const [userExists, setUserExists] = useState(false);
 
   useEffect(() => {
-    const isUserExist = async () => {
-      try {
-        var result = await axios.get(`/api/users/user/exists/${user_id}`);
-        setUserExists(result.data);
-
-        if (!result.data) {
-          dispatch(
-            setAlert({
-              severity: "error",
-              title: "Error",
-              message: "Failed to Fetch User Info.",
-              details: "User not found",
-            })
-          );
-        }
-      } catch (err: any) {
-        setUserExists(false);
-        dispatch(
-          setAlert({
-            severity: "error",
-            title: "Error",
-            message: "Failed to Fetch User Info.",
-            details: err.response.data ? err.response.data : undefined,
-          })
-        );
-      }
-    };
-
     if (user_id) {
-      isUserExist();
+      isUserExist(user_id).then((res: boolean) => setUserExists(res));
     }
   }, [user_id]);
 
@@ -74,8 +41,8 @@ const UserProfilePage: FC = () => {
       <PageTitle />
       {userExists && (
         <>
-          <UserProfileInfoSection user_id={user_id || ""} />
-          <UserProfileRecipesSection user_id={user_id || ""} />
+          <UserProfileInfoSection userId={user_id || ""} />
+          <UserProfileRecipesSection userId={user_id || ""} />
         </>
       )}
     </div>

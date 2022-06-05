@@ -185,26 +185,6 @@ const Main: FC<propTypes> = ({
           Load Recipes
         </Button> //show skeleton loading animation if fetching is true
       )}
-      {!fetchedAllRecipes && (
-        <div>
-          {fetching ? (
-            <CircularProgress />
-          ) : (
-            <Button
-              className="primary"
-              variant="contained"
-              component="div"
-              onClick={async () => {
-                recipes.length > 0
-                  ? await loadRecipes()
-                  : await initialRecipesLoad();
-              }}
-            >
-              Load More Recipes
-            </Button>
-          )}
-        </div>
-      )}
     </div>
   );
 };

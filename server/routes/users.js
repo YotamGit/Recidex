@@ -59,6 +59,7 @@ router.get("/user/exists/:user_id", async (req, res, next) => {
     next(err);
   }
 });
+
 //GET A SPECIFIC USER PROFILE DATA
 router.get("/user/info/:user_id", async (req, res, next) => {
   try {
@@ -95,6 +96,27 @@ router.get("/user/info/:user_id", async (req, res, next) => {
           favoriteRecipesCount: favoriteRecipesCount.length,
         },
       });
+    } else {
+      res.status(404).send("User not found");
+    }
+  } catch (err) {
+    next(err);
+  }
+});
+//GET A SPECIFIC USER PROFILE DATA
+router.get("/user/account/info/:user_id", async (req, res, next) => {
+  try {
+    if (!isValidObjectId(req.params.user_id)) {
+      res.status(404).send("User not found");
+      return;
+    }
+
+    let userInfo = await User.findById(req.params.user_id).select(
+      "username firstname lastname email role notification_opt_in"
+    );
+
+    if (userInfo) {
+      res.status(200).json(userInfo);
     } else {
       res.status(404).send("User not found");
     }

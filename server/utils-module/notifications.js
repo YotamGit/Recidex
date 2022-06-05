@@ -1,15 +1,24 @@
 import { CourierClient } from "@trycourier/courier";
+import { User } from "../models/User.js";
 
-export async function emailNewUser(newUser) {
+export async function emailNewUser(recipient) {
   try {
+    let newUser = await User.findById(recipient).select(
+      "firstname lastname email notification_opt_in"
+    );
+    if (!newUser.notification_opt_in) {
+      return;
+    }
+
     const courier = CourierClient({
       authorizationToken: process.env.EMAIL_NOTIFICATION_AUTH_TOKEN,
     });
+
     const emailRes = await courier.send({
       message: {
         to: {
           email: newUser.email,
-          user_id: owner._id,
+          user_id: newUser._id,
         },
         template: process.env.USER_SIGNUP_EMAIL_TOKEN,
         data: {
@@ -39,11 +48,18 @@ export async function emailNewUser(newUser) {
 
 export async function emailUserRecipeApproved({
   recipe,
-  owner,
+  recipient,
   moderator,
   byEdit,
 } = {}) {
   try {
+    let owner = await User.findById(recipient).select(
+      "firstname lastname email notification_opt_in"
+    );
+    if (!owner.notification_opt_in) {
+      return;
+    }
+
     const courier = CourierClient({
       authorizationToken: process.env.EMAIL_NOTIFICATION_AUTH_TOKEN,
     });
@@ -82,14 +98,22 @@ export async function emailUserRecipeApproved({
 }
 export async function emailUserRecipeDisapproved({
   recipe,
-  owner,
+  recipient,
   moderator,
   reason,
 } = {}) {
   try {
+    let owner = await User.findById(recipient).select(
+      "firstname lastname email notification_opt_in"
+    );
+    if (!owner.notification_opt_in) {
+      return;
+    }
+
     const courier = CourierClient({
       authorizationToken: process.env.EMAIL_NOTIFICATION_AUTH_TOKEN,
     });
+
     const emailRes = await courier.send({
       message: {
         to: {

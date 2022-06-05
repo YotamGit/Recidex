@@ -12,7 +12,10 @@ interface propTypes {
   userData: User;
   setViewEdit: React.Dispatch<React.SetStateAction<boolean>>;
 }
-const UserInfoPreviewSection: FC<propTypes> = ({ userData, setViewEdit }) => {
+const AccountInfoPreviewSection: FC<propTypes> = ({
+  userData,
+  setViewEdit,
+}) => {
   return (
     <div className="account-info-preview-section">
       <div className="info-container">
@@ -56,4 +59,4 @@ const UserInfoPreviewSection: FC<propTypes> = ({ userData, setViewEdit }) => {
   );
 };
 
-export default UserInfoPreviewSection;
+export default AccountInfoPreviewSection;
