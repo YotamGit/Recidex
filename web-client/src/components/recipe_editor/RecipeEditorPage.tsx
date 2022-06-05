@@ -34,13 +34,23 @@ const RecipeEditorPage: FC = () => {
     )
   );
 
+  const routeHistory = useAppSelector((state) => state.utilities.routeHistory);
+
   const onDeleteRecipe = async () => {
     if (!recipe._id) return;
 
     let deleteRes = await dispatch(deleteRecipe({ id: recipe._id }));
 
     if (deleteRes.meta.requestStatus === "fulfilled") {
-      navigate("/home");
+      let lastMainPageVisited = [...routeHistory]
+        .slice(0, routeHistory.length - 1)
+        .reverse()
+        .find((element) =>
+          ["/home", "/my-recipes", "/favorites", "/recipe-moderation"].includes(
+            element
+          )
+        );
+      navigate(lastMainPageVisited || "/home");
     }
   };
 
