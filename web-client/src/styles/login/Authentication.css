@@ -76,6 +76,15 @@
   grid-area: confirm-password;
 }
 
+#authentication-page .text-button {
+  color: var(--blue-3);
+  font-weight: 650;
+  cursor: pointer;
+}
+#authentication-page .text-button:hover {
+  color: var(--blue-4);
+}
+
 /*button grid*/
 #authentication-page .button-section {
   display: grid;

@@ -158,7 +158,7 @@ const Authentication: FC<propTypes> = ({
   return (
     <div id="authentication-page">
       <img
-        onClick={() => navigate("/home")}
+        onClick={() => navigate("/")}
         className="recipes-logo"
         src={RecipesLogo}
         alt=""
@@ -216,7 +216,7 @@ const Authentication: FC<propTypes> = ({
                   label="Email"
                 />
                 {invalidEmail && (
-                  <span style={{ color: "red", fontSize: "13px" }}>
+                  <span style={{ color: "red", fontSize: "0.8rem" }}>
                     Invalid Email, Please Try Again
                   </span>
                 )}
@@ -260,11 +260,37 @@ const Authentication: FC<propTypes> = ({
               }
             />
             {action === "login" && wrongCredentials && (
-              <span style={{ color: "red", fontSize: "13px" }}>
+              <span style={{ color: "red", fontSize: "0.8rem" }}>
                 Wrong Credentials, Please Try Again
               </span>
             )}
           </FormControl>
+
+          {action === "login" && (
+            <>
+              <span style={{ fontSize: "0.925rem" }}>
+                {"Forgot your "}
+                <span
+                  className="text-button"
+                  onClick={() => {
+                    navigate("/forgot-credentials/username");
+                  }}
+                >
+                  username
+                </span>
+                {" or "}
+                <span
+                  className="text-button"
+                  onClick={() => {
+                    navigate("/forgot-credentials/password");
+                  }}
+                >
+                  password
+                </span>
+                {"?"}
+              </span>
+            </>
+          )}
 
           {action === "signup" && (
             <>

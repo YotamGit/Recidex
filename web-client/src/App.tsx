@@ -18,9 +18,11 @@ import AddRecipePage from "./components/recipe_editor/AddRecipePage";
 import Header from "./components/app_bar/Header";
 import Main from "./components/Main";
 import Authentication from "./components/Login/Authentication";
+import ForgotCredentialsPage from "./components/Login/ForgotCredentialsPage";
 import AdminPanel from "./components/admin/AdminPanel";
 import AccountInfoPage from "./components/account/AccountInfoPage";
 import UserProfilePage from "./components/account/UserProfilePage";
+
 import AlertSnackbar from "./components/AlertSnackbar";
 
 //mui
@@ -97,6 +99,26 @@ function App() {
                   navigateAfterLogin={true}
                 />
               </>
+            </ComponentWrapper>
+          }
+        />
+        <Route
+          path="/forgot-credentials/:type"
+          element={
+            <ComponentWrapper
+              func={() => dispatch(setCurrentPageTitle("Forgot Credentials"))}
+            >
+              <ForgotCredentialsPage />
+            </ComponentWrapper>
+          }
+        />
+        <Route
+          path="/reset-password/:token"
+          element={
+            <ComponentWrapper
+              func={() => dispatch(setCurrentPageTitle("Reset Password"))}
+            >
+              <div>reset password</div>
             </ComponentWrapper>
           }
         />
@@ -268,6 +290,14 @@ function App() {
                 </>
               </ComponentWrapper>
             </ProtectedRoute>
+          }
+        />
+        <Route
+          path="*"
+          element={
+            <>
+              <span>404</span>
+            </>
           }
         />
       </Routes>

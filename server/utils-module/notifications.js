@@ -4,7 +4,7 @@ import { User } from "../models/User.js";
 export async function emailNewUser(recipient) {
   try {
     let newUser = await User.findById(recipient).select(
-      "username firstname lastname email notification_opt_in"
+      "username firstname lastname email"
     );
 
     const courier = CourierClient({
@@ -34,6 +34,37 @@ export async function emailNewUser(recipient) {
           name: {
             first: newUser.firstname,
             last: newUser.lastname,
+          },
+        },
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export async function emailUserPasswordReset(recipient, token) {
+  try {
+    let user = await User.findById(recipient).select(
+      "firstname lastname email"
+    );
+
+    const courier = CourierClient({
+      authorizationToken: process.env.EMAIL_NOTIFICATION_AUTH_TOKEN,
+    });
+
+    const emailRes = await courier.send({
+      message: {
+        to: {
+          email: user.email,
+          user_id: user._id,
+        },
+        template: process.env.USER_PASSWORD_RESET_EMAIL_TOKEN,
+        data: {
+          resetLink: `https://recipes.yotamgolan.com/reset-password/${token}`,
+          name: {
+            first: user.firstname,
+            last: user.lastname,
           },
         },
       },

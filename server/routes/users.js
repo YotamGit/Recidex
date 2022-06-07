@@ -1,9 +1,11 @@
 import express from "express";
 import bcrypt from "bcryptjs";
+import crypto from "crypto";
 
 const router = express.Router();
 import { User } from "../models/User.js";
 import { Recipe } from "../models/Recipe.js";
+import { Token } from "../models/Token.js";
 import {
   isAdminUser,
   isModeratorUser,
@@ -12,6 +14,7 @@ import {
   isUsernameTaken,
 } from "../utils-module/authentication.js";
 import { isValidObjectId } from "../utils-module/misc.js";
+import { emailUserPasswordReset } from "../utils-module/notifications.js";
 
 // Routes
 
@@ -103,7 +106,8 @@ router.get("/user/info/:user_id", async (req, res, next) => {
     next(err);
   }
 });
-//GET A SPECIFIC USER PROFILE DATA
+
+//GET A SPECIFIC USER ACCOUNT DATA
 router.get("/user/account/info/:user_id", async (req, res, next) => {
   try {
     if (!isValidObjectId(req.params.user_id)) {
@@ -207,6 +211,33 @@ router.post("/user/edit", async (req, res, next) => {
     } else {
       res.status(404).send("User not found");
     }
+  } catch (err) {
+    next(err);
+  }
+});
+
+//RESET USER PASSWORD
+router.post("/user/forgot-password", async (req, res, next) => {
+  try {
+    let user = await User.findOne({
+      username: req.body.userData.username,
+      email: req.body.userData.email,
+    });
+
+    if (user) {
+      let hashToken = crypto
+        .createHash("sha256")
+        .update(crypto.randomBytes(16))
+        .digest("hex");
+
+      let token = await Token.create({
+        token: hashToken,
+        type: "password_reset",
+        user: user._id,
+      });
+      await emailUserPasswordReset(user._id, hashToken);
+    }
+    res.status(200).send(true);
   } catch (err) {
     next(err);
   }

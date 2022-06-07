@@ -4,23 +4,23 @@ import * as EmailValidator from "email-validator";
 import store from "../store";
 import { setAlert } from "../slices/utilitySlice";
 
-export function validUsername(username: string) {
-  let res = username.length >= 6;
-  if (!res) {
+export function validUsername(username: string, showAlert?: boolean) {
+  let res = username.length >= 6 && username.length <= 16;
+  if (!res && showAlert) {
     store.dispatch(
       setAlert({
         severity: "warning",
         title: "Warning",
         message:
-          "Invalid Username. \nUsername must be at least 6 characters long.",
+          "Invalid Username. \nUsername must be between 6 and 16 characters long.",
       })
     );
   }
   return res;
 }
-export function validPassword(password: string) {
+export function validPassword(password: string, showAlert?: boolean) {
   let res = password.length >= 6 && password.length <= 16;
-  if (!res) {
+  if (!res && showAlert) {
     store.dispatch(
       setAlert({
         severity: "warning",
@@ -33,9 +33,10 @@ export function validPassword(password: string) {
   return res;
 }
 
-export async function validEmail(email: string) {
+export async function validEmail(email: string, showAlert?: boolean) {
   let res = await EmailValidator.validate(email);
-  if (!res) {
+  console.log(res);
+  if (!res && showAlert) {
     store.dispatch(
       setAlert({
         severity: "warning",
