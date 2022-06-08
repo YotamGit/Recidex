@@ -73,6 +73,36 @@ export async function emailUserPasswordReset(recipient, token) {
     console.log(err);
   }
 }
+export async function emailUserUsername(recipient) {
+  try {
+    let user = await User.findById(recipient).select(
+      "username firstname lastname email"
+    );
+
+    const courier = CourierClient({
+      authorizationToken: process.env.EMAIL_NOTIFICATION_AUTH_TOKEN,
+    });
+
+    const emailRes = await courier.send({
+      message: {
+        to: {
+          email: user.email,
+          user_id: user._id,
+        },
+        template: process.env.USER_USERNAME_RECOVERY_EMAIL_TOKEN,
+        data: {
+          username: user.username,
+          name: {
+            first: user.firstname,
+            last: user.lastname,
+          },
+        },
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
 
 export async function emailUserRecipeApproved({
   recipe,

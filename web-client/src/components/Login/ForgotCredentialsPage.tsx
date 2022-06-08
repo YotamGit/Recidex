@@ -56,7 +56,7 @@ const ForgotCredentialsPage: FC = () => {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [email, username]);
+  }, [email, username, invalidEmail, invalidUsername]);
 
   const validateInput = async () => {
     //check existance of required fields

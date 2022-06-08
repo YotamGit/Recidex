@@ -14,7 +14,10 @@ import {
   isUsernameTaken,
 } from "../utils-module/authentication.js";
 import { isValidObjectId } from "../utils-module/misc.js";
-import { emailUserPasswordReset } from "../utils-module/notifications.js";
+import {
+  emailUserPasswordReset,
+  emailUserUsername,
+} from "../utils-module/notifications.js";
 
 // Routes
 
@@ -236,6 +239,21 @@ router.post("/user/forgot-password", async (req, res, next) => {
         user: user._id,
       });
       await emailUserPasswordReset(user._id, hashToken);
+    }
+    res.status(200).send(true);
+  } catch (err) {
+    next(err);
+  }
+});
+//RESET USER PASSWORD
+router.post("/user/forgot-username", async (req, res, next) => {
+  try {
+    let user = await User.findOne({
+      email: req.body.userData.email,
+    });
+
+    if (user) {
+      await emailUserUsername(user._id);
     }
     res.status(200).send(true);
   } catch (err) {

@@ -35,7 +35,6 @@ export function validPassword(password: string, showAlert?: boolean) {
 
 export async function validEmail(email: string, showAlert?: boolean) {
   let res = await EmailValidator.validate(email);
-  console.log(res);
   if (!res && showAlert) {
     store.dispatch(
       setAlert({
