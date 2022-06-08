@@ -7,12 +7,7 @@
   flex-direction: column;
   justify-content: flex-start;
 }
-#authentication-page .recipes-logo {
-  cursor: pointer;
-  height: 27%;
-  filter: invert(15%) sepia(23%) saturate(3811%) hue-rotate(175deg)
-    brightness(99%) contrast(101%);
-}
+
 #authentication-page .authentication-section {
   background-color: rgb(255, 255, 255);
   border-radius: 5px;
@@ -112,10 +107,6 @@
     border-radius: 0;
     box-shadow: none;
     width: 100%;
-    margin-top: 10%;
-  }
-  #authentication-page .recipes-logo {
-    height: 17vh;
-    top: 0%;
+    margin-top: 10vh;
   }
 }

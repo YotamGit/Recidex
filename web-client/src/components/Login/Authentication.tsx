@@ -1,5 +1,4 @@
 import "../../styles/login/Authentication.css";
-import RecipesLogo from "../../utils-module/Photos/Recipes.svg";
 
 //utils
 import {
@@ -10,6 +9,8 @@ import {
 
 import { useState, useEffect, FC } from "react";
 import { useNavigate } from "react-router-dom";
+
+import RecipesLogo from "../RecipesLogo";
 
 //mui
 
@@ -157,12 +158,7 @@ const Authentication: FC<propTypes> = ({
 
   return (
     <div id="authentication-page">
-      <img
-        onClick={() => navigate("/")}
-        className="recipes-logo"
-        src={RecipesLogo}
-        alt=""
-      ></img>
+      <RecipesLogo />
       <div className="authentication-section">
         <div className="title">
           {action === "signup" ? "Sign up" : "Sign In"}

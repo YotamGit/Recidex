@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 import "../../styles/login/ForgotCredentialsPage.css";
-import RecipesLogo from "../../utils-module/Photos/Recipes.svg";
+import RecipesLogo from "../RecipesLogo";
 
 import { useAppDispatch } from "../../hooks";
 import { setAlert } from "../../slices/utilitySlice";
@@ -13,10 +13,8 @@ import InputTextError from "../InputTextError";
 import { validUsername, validEmail } from "../../utils-module/validation";
 
 //mui
-import IconButton from "@mui/material/IconButton";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
-import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
 import LoadingButton from "@mui/lab/LoadingButton";
@@ -37,12 +35,15 @@ const ForgotCredentialsPage: FC = () => {
 
   const [disableButtons, setDisableButtons] = useState(false);
 
-  const [emailSent, setEmailSent] = useState(false);
+  const [requestSent, setRequestSent] = useState(false);
 
   useEffect(() => {
     if (!["password", "username"].includes(type || "")) {
       navigate("/");
     }
+    setEmail("");
+    setUsername("");
+    setRequestSent(false);
   }, [type]);
 
   //detect enter key to sign up/in
@@ -92,7 +93,7 @@ const ForgotCredentialsPage: FC = () => {
           username: type === "password" ? username : undefined,
         },
       });
-      setEmailSent(true);
+      setRequestSent(true);
       setDisableButtons(false);
     } catch (err: any) {
       setDisableButtons(false);
@@ -100,15 +101,42 @@ const ForgotCredentialsPage: FC = () => {
   };
   return (
     <div className="forgot-credentials-page">
-      <img
-        onClick={() => navigate("/home")}
-        className="recipes-logo"
-        src={RecipesLogo}
-        alt=""
-      ></img>
-
-      {type === "password" && (
+      <RecipesLogo />
+      <div className="forgot-credentials-container">
+        <div className="title">
+          {type === "password" ? "Reset Password" : "Recover Username"}
+        </div>
+        <div style={{ marginBottom: "0.5rem" }}>
+          {type === "password"
+            ? "Insert the username and email associated with your Recipes account and we'll send you an email with a link to reset your password."
+            : "Insert the email associated with your Recipes account and we'll' send you an email with your username."}
+        </div>
         <div className="input-section">
+          {type === "password" && (
+            <>
+              <FormControl
+                id="forgot-credentials-username-input"
+                variant="outlined"
+              >
+                <InputLabel htmlFor="forgot-credentials-username-input">
+                  Username
+                </InputLabel>
+                <OutlinedInput
+                  type="text"
+                  value={username}
+                  onChange={async (e) => {
+                    setUsername(e.target.value);
+                    setInvalidUsername(!validUsername(e.target.value));
+                  }}
+                  label="Username"
+                />
+                <InputTextError
+                  showError={invalidUsername}
+                  message={"Username must be between 6 and 16 characters long."}
+                />
+              </FormControl>
+            </>
+          )}
           <FormControl id="forgot-credentials-email-input" variant="outlined">
             <InputLabel htmlFor="forgot-credentials-email-input">
               Email
@@ -127,39 +155,38 @@ const ForgotCredentialsPage: FC = () => {
               message={"Invalid Email"}
             />
           </FormControl>
-
-          <FormControl
-            id="forgot-credentials-username-input"
-            variant="outlined"
-          >
-            <InputLabel htmlFor="forgot-credentials-username-input">
-              Username
-            </InputLabel>
-            <OutlinedInput
-              type="text"
-              value={username}
-              onChange={async (e) => {
-                setUsername(e.target.value);
-                setInvalidUsername(!validUsername(e.target.value));
-              }}
-              label="Username"
-            />
-            <InputTextError
-              showError={invalidUsername}
-              message={"Username must be between 6 and 16 characters long."}
-            />
-          </FormControl>
         </div>
-      )}
-      <LoadingButton
-        className={"primary"}
-        variant="contained"
-        disabled={emailSent}
-        loading={disableButtons}
-        onClick={onSubmit}
-      >
-        {type === "password" ? "Reset Password" : "Get Username"}
-      </LoadingButton>
+        <div className="button-container">
+          <LoadingButton
+            className={"primary"}
+            variant="contained"
+            disabled={requestSent}
+            loading={disableButtons}
+            onClick={onSubmit}
+          >
+            {type === "password" ? "Reset Password" : "Get Username"}
+          </LoadingButton>
+          <Button
+            variant="text"
+            onClick={() =>
+              navigate(
+                `/forgot-credentials/${
+                  type === "password" ? "username" : "password"
+                }`
+              )
+            }
+          >
+            {type === "password" ? "forgot username?" : "forgot password?"}
+          </Button>
+        </div>
+        {requestSent && (
+          <div style={{ marginTop: "1rem" }}>
+            {type === "password"
+              ? "If the username and email match, you'll receive an email with a link to reset your password."
+              : "If there is an account associated with the email you'll receive an email with your username."}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
