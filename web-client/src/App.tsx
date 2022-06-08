@@ -75,6 +75,8 @@ function App() {
               func={() => dispatch(setCurrentPageTitle("Log In"))}
             >
               <>
+                <Header showLogo={false} showSearch={false} />
+
                 <Authentication
                   action={"login"}
                   showSignAsGuest={true}
@@ -92,6 +94,7 @@ function App() {
               func={() => dispatch(setCurrentPageTitle("Sign Up"))}
             >
               <>
+                <Header showLogo={false} showSearch={false} />
                 <Authentication
                   action={"signup"}
                   showSignAsGuest={true}
@@ -108,7 +111,10 @@ function App() {
             <ComponentWrapper
               func={() => dispatch(setCurrentPageTitle("Forgot Credentials"))}
             >
-              <ForgotCredentialsPage />
+              <>
+                <Header showLogo={false} showSearch={false} />
+                <ForgotCredentialsPage />
+              </>
             </ComponentWrapper>
           }
         />

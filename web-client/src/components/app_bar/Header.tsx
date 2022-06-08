@@ -20,8 +20,9 @@ import { FC } from "react";
 
 interface propTypes {
   showSearch: boolean;
+  showLogo?: boolean;
 }
-const Header: FC<propTypes> = ({ showSearch }) => {
+const Header: FC<propTypes> = ({ showSearch, showLogo }) => {
   const navigate = useNavigate();
 
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -50,7 +51,7 @@ const Header: FC<propTypes> = ({ showSearch }) => {
           </IconButton>
 
           <div className="content">
-            {!maximizeSearch && (
+            {!maximizeSearch && (showLogo === undefined ? true : showLogo) && (
               <span className="logo-container">
                 <img
                   className="logo"
