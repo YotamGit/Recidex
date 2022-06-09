@@ -1,5 +1,5 @@
 import { useState } from "react";
-import GenericPromptDialog from "../GenericPromptDialog";
+import GenericPromptDialog from "../utilities/GenericPromptDialog";
 
 //mui
 import Button from "@mui/material/Button";

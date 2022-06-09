@@ -1,7 +1,7 @@
-import "../styles/PageTitle.css";
+import "../../styles/utilities/PageTitle.css";
 
 //redux
-import { useAppSelector } from "../hooks";
+import { useAppSelector } from "../../hooks";
 //types
 import { FC } from "react";
 

@@ -219,7 +219,7 @@ router.post("/user/edit", async (req, res, next) => {
   }
 });
 
-//RESET USER PASSWORD
+//SEND USER PASSWORD RESET LINK
 router.post("/user/forgot-password", async (req, res, next) => {
   try {
     let user = await User.findOne({
@@ -228,9 +228,10 @@ router.post("/user/forgot-password", async (req, res, next) => {
     });
 
     if (user) {
+      let rawToken = crypto.randomBytes(16).toString("hex");
       let hashToken = crypto
         .createHash("sha256")
-        .update(crypto.randomBytes(16))
+        .update(rawToken)
         .digest("hex");
 
       let token = await Token.create({
@@ -238,14 +239,14 @@ router.post("/user/forgot-password", async (req, res, next) => {
         type: "password_reset",
         user: user._id,
       });
-      await emailUserPasswordReset(user._id, hashToken);
+      await emailUserPasswordReset(user._id, rawToken);
     }
     res.status(200).send(true);
   } catch (err) {
     next(err);
   }
 });
-//RESET USER PASSWORD
+//FORGOT USERNAME
 router.post("/user/forgot-username", async (req, res, next) => {
   try {
     let user = await User.findOne({
@@ -260,5 +261,29 @@ router.post("/user/forgot-username", async (req, res, next) => {
     next(err);
   }
 });
+
+// //RESET USER PASSWORD
+// router.post("/user/reset-password", async (req, res, next) => {
+//   try {
+//     if (!req.body.token) {
+//       res.status(400).send("Missing reset token.");
+//       return;
+//     }
+
+//     const resetToken = await Token.findOne({
+//       type: "password_reset",
+//       token: crypto.createHash("sha256").update(req.body.token).digest("hex"),
+//     });
+
+//     console.log(resetToken);
+//     let user = await User.findOne({
+//       email: req.body.userData.email,
+//     });
+
+//     res.status(200).send(true);
+//   } catch (err) {
+//     next(err);
+//   }
+// });
 
 export default router;

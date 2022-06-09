@@ -1,5 +1,5 @@
 import "../../styles/recipes/RecipesPrivacySelector.css";
-import RecipeDropdown from "../RecipeDropdown";
+import RecipeDropdown from "../utilities/RecipeDropdown";
 
 //mui
 import ToggleButton from "@mui/material/ToggleButton";

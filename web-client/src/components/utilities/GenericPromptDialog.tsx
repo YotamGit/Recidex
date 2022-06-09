@@ -1,6 +1,6 @@
-import "../styles/GenericPromptDialog.css";
+import "../../styles/utilities/GenericPromptDialog.css";
 
-import DialogCloseButton from "./buttons/DialogCloseButton";
+import DialogCloseButton from "../buttons/DialogCloseButton";
 
 //mui
 import Button from "@mui/material/Button";
@@ -11,7 +11,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
 //redux
-import { useAppSelector } from "../hooks";
+import { useAppSelector } from "../../hooks";
 
 //types
 import { FC } from "react";

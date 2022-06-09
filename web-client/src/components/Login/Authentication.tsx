@@ -10,7 +10,7 @@ import {
 import { useState, useEffect, FC } from "react";
 import { useNavigate } from "react-router-dom";
 
-import RecipesLogo from "../RecipesLogo";
+import RecipesLogo from "../utilities/RecipesLogo";
 
 //mui
 

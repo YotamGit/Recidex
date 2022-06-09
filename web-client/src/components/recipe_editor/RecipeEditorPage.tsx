@@ -3,8 +3,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect, FC } from "react";
 
 import { getRecipe } from "../../utils-module/recipes";
-import GenericPromptDialog from "../GenericPromptDialog";
-import PageTitle from "../PageTitle";
+import GenericPromptDialog from "../utilities/GenericPromptDialog";
+import PageTitle from "../utilities/PageTitle";
 
 import "../../styles/recipe_editor/RecipeEditorPage.css";
 import AuthorizedButton from "../Login/AuthorizedButton";

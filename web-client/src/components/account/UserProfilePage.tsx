@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import UserProfileRecipesSection from "./UserProfileRecipesSection";
 import UserProfileInfoSection from "./UserProfileInfoSection";
-import PageTitle from "../PageTitle";
+import PageTitle from "../utilities/PageTitle";
 import { isUserExist } from "../../utils-module/users";
 
 //mui icons

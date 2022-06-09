@@ -1,5 +1,5 @@
 import RecipeEditor from "./RecipeEditor";
-import PageTitle from "../PageTitle";
+import PageTitle from "../utilities/PageTitle";
 
 //types
 import { FC } from "react";

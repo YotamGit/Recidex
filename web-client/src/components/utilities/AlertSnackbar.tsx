@@ -1,4 +1,4 @@
-import "../styles/AlertSnackbar.css";
+import "../../styles/utilities/AlertSnackbar.css";
 import { useEffect, useState } from "react";
 
 //mui
@@ -15,8 +15,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import { FC } from "react";
 
 //redux
-import { useAppDispatch, useAppSelector } from "../hooks";
-import { setAlert, resetAlert } from "../slices/utilitySlice";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { setAlert, resetAlert } from "../../slices/utilitySlice";
 
 const AlertSnackbar: FC = () => {
   const dispatch = useAppDispatch();

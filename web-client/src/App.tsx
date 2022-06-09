@@ -1,8 +1,8 @@
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import ScrollToTop from "./components/ScrollToTop";
-import ProtectedRoute from "./components/ProtectedRoute";
-import ComponentWrapper from "./components/ComponentWrapper";
+import ScrollToTop from "./components/utilities/ScrollToTop";
+import ProtectedRoute from "./components/utilities/ProtectedRoute";
+import ComponentWrapper from "./components/utilities/ComponentWrapper";
 
 //redux
 import { useAppDispatch, useAppSelector } from "./hooks";
@@ -16,14 +16,15 @@ import RecipePage from "./components/recipes/RecipePage";
 import RecipeEditorPage from "./components/recipe_editor/RecipeEditorPage";
 import AddRecipePage from "./components/recipe_editor/AddRecipePage";
 import Header from "./components/app_bar/Header";
-import Main from "./components/Main";
+import BaseRecipesPage from "./components/BaseRecipesPage";
 import Authentication from "./components/Login/Authentication";
 import ForgotCredentialsPage from "./components/Login/ForgotCredentialsPage";
-import AdminPanel from "./components/admin/AdminPanel";
+import ResetPasswordPage from "./components/Login/ResetPasswordPage";
+import AdminPanelPage from "./components/admin/AdminPanelPage";
 import AccountInfoPage from "./components/account/AccountInfoPage";
 import UserProfilePage from "./components/account/UserProfilePage";
 
-import AlertSnackbar from "./components/AlertSnackbar";
+import AlertSnackbar from "./components/utilities/AlertSnackbar";
 
 //mui
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -124,7 +125,10 @@ function App() {
             <ComponentWrapper
               func={() => dispatch(setCurrentPageTitle("Reset Password"))}
             >
-              <div>reset password</div>
+              <>
+                <Header showLogo={false} showSearch={false} />
+                <ResetPasswordPage />
+              </>
             </ComponentWrapper>
           }
         />
@@ -136,7 +140,7 @@ function App() {
             >
               <>
                 <Header showSearch={true} />
-                <Main
+                <BaseRecipesPage
                   ownerOnly={false}
                   favoritesOnly={false}
                   approvedOnly={true}
@@ -156,7 +160,7 @@ function App() {
               >
                 <>
                   <Header showSearch={true} />
-                  <Main
+                  <BaseRecipesPage
                     ownerOnly={true}
                     favoritesOnly={false}
                     approvedOnly={false}
@@ -176,7 +180,7 @@ function App() {
               >
                 <>
                   <Header showSearch={true} />
-                  <Main
+                  <BaseRecipesPage
                     ownerOnly={false}
                     favoritesOnly={true}
                     approvedOnly={false}
@@ -269,7 +273,7 @@ function App() {
               >
                 <>
                   <Header showSearch={true} />
-                  <Main
+                  <BaseRecipesPage
                     ownerOnly={false}
                     favoritesOnly={false}
                     approvedOnly={false}
@@ -292,7 +296,7 @@ function App() {
               >
                 <>
                   <Header showSearch={false} />
-                  <AdminPanel />
+                  <AdminPanelPage />
                 </>
               </ComponentWrapper>
             </ProtectedRoute>

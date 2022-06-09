@@ -4,7 +4,7 @@ import "../../styles/admin/EditUserButton.css";
 import DialogCloseButton from "../buttons/DialogCloseButton";
 import DeleteUserButton from "./DeleteUserButton";
 import { validUsername, validEmail } from "../../utils-module/validation";
-import GenericPromptDialog from "../GenericPromptDialog";
+import GenericPromptDialog from "../utilities/GenericPromptDialog";
 
 //mui
 import Button from "@mui/material/Button";

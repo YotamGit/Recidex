@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import RecipeDropdown from "../RecipeDropdown";
+import RecipeDropdown from "../utilities/RecipeDropdown";
 import "../../styles/app_bar/FilterDialog.css";
 //mui
 import Dialog from "@mui/material/Dialog";

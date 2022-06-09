@@ -4,11 +4,11 @@ import { useNavigate } from "react-router-dom";
 
 import MarkdownEditSection from "../markdown/MarkdownEditSection";
 import MarkdownPreviewSection from "../markdown/MarkdownPreviewSection";
-import RecipeDropdown from "../RecipeDropdown";
+import RecipeDropdown from "../utilities/RecipeDropdown";
 import AuthorizedButton from "../Login/AuthorizedButton";
 import { toBase64 } from "../../utils-module/images";
-import TabPanel from "../TabPanel";
-import GenericPromptDialog from "../GenericPromptDialog";
+import TabPanel from "../utilities/TabPanel";
+import GenericPromptDialog from "../utilities/GenericPromptDialog";
 
 //mui
 import Chip from "@mui/material/Chip";

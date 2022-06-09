@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import UserProfileLink from "../account/UserProfileLink";
 import DisapproveReasonDialog from "./DisapproveReasonDialog";
-import GenericPromptDialog from "../GenericPromptDialog";
+import GenericPromptDialog from "../utilities/GenericPromptDialog";
 
 //mui
 import Divider from "@mui/material/Divider";

@@ -1,10 +1,10 @@
 import axios from "axios";
-import "../../styles/admin/AdminPanel.css";
+import "../../styles/admin/AdminPanelPage.css";
 import { useState, useEffect } from "react";
 
 import AdminTable from "./AdminTable";
 import AdminKpis from "./AdminKpis";
-import PageTitle from "../PageTitle";
+import PageTitle from "../utilities/PageTitle";
 
 //redux
 import { getUsers } from "../../slices/usersSlice";
@@ -13,7 +13,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks";
 //types
 import { FC } from "react";
 
-const AdminPanel: FC = () => {
+const AdminPanelPage: FC = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -29,4 +29,4 @@ const AdminPanel: FC = () => {
   );
 };
 
-export default AdminPanel;
+export default AdminPanelPage;

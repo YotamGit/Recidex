@@ -1,7 +1,7 @@
 import { Navigate, Route } from "react-router-dom";
 
 //redux
-import { useAppSelector } from "../hooks";
+import { useAppSelector } from "../../hooks";
 
 //types
 import { FC } from "react";

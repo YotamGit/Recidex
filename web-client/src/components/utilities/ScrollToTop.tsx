@@ -1,4 +1,4 @@
-import "../styles/ScrollToTop.css";
+import "../../styles/utilities/ScrollToTop.css";
 import { useState, useEffect } from "react";
 
 //mui

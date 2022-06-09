@@ -1,5 +1,5 @@
-import "../styles/RecipesLogo.css";
-import RecipesLogoImage from "../utils-module/Photos/Recipes.svg";
+import "../../styles/utilities/RecipesLogo.css";
+import RecipesLogoImage from "../../utils-module/Photos/Recipes.svg";
 
 import { useNavigate } from "react-router-dom";
 

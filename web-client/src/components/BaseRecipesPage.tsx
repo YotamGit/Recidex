@@ -1,7 +1,7 @@
-import "../styles/Main.css";
+import "../styles/BaseRecipesPage.css";
 import Recipes from "./recipes/Recipes";
 import RecipesPrivacySelector from "./recipes/RecipesPrivacySelector";
-import PageTitle from "./PageTitle";
+import PageTitle from "./utilities/PageTitle";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -34,7 +34,7 @@ interface propTypes {
   approvalRequiredOnly: boolean;
 }
 
-const Main: FC<propTypes> = ({
+const BaseRecipesPage: FC<propTypes> = ({
   ownerOnly,
   favoritesOnly,
   approvedOnly,
@@ -189,4 +189,4 @@ const Main: FC<propTypes> = ({
   );
 };
 
-export default Main;
+export default BaseRecipesPage;

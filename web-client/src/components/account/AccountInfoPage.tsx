@@ -5,7 +5,7 @@ import "../../styles/account/AccountInfoPage.css";
 
 import AccountInfoEditSection from "./AccountInfoEditSection";
 import AccountInfoPreviewSection from "./AccountInfoPreviewSection";
-import PageTitle from "../PageTitle";
+import PageTitle from "../utilities/PageTitle";
 
 import { getAccountInfo } from "../../utils-module/users";
 

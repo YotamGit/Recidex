@@ -3,11 +3,11 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 import "../../styles/login/ForgotCredentialsPage.css";
-import RecipesLogo from "../RecipesLogo";
+import RecipesLogo from "../utilities/RecipesLogo";
 
 import { useAppDispatch } from "../../hooks";
 import { setAlert } from "../../slices/utilitySlice";
-import InputTextError from "../InputTextError";
+import InputTextError from "../utilities/InputTextError";
 
 //utils
 import { validUsername, validEmail } from "../../utils-module/validation";
@@ -44,6 +44,8 @@ const ForgotCredentialsPage: FC = () => {
     setEmail("");
     setUsername("");
     setRequestSent(false);
+    setInvalidEmail(false);
+    setInvalidUsername(false);
   }, [type]);
 
   //detect enter key to sign up/in

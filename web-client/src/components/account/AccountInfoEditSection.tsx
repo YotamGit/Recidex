@@ -5,7 +5,7 @@ import {
   validEmail,
   validPassword,
 } from "../../utils-module/validation";
-import GenericPromptDialog from "../GenericPromptDialog";
+import GenericPromptDialog from "../utilities/GenericPromptDialog";
 
 //redux
 import { editUser } from "../../slices/usersSlice";
