@@ -152,7 +152,7 @@ const ForgotCredentialsPage: FC = () => {
         {requestSent && (
           <div style={{ marginTop: "1rem", whiteSpace: "pre-line" }}>
             {type === "password"
-              ? "If the username and email match, you'll receive an email with a link to reset your password.\n*The link will expire in 10 minutes."
+              ? "If the username and email match, you'll receive an email with a link to reset your password.\n*The reset link will expire in 10 minutes."
               : "If there is an account associated with the email you'll receive an email with your username."}
           </div>
         )}

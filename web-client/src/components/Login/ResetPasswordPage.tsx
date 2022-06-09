@@ -93,10 +93,10 @@ const ResetPasswordPage: FC = () => {
     <div className="reset-password-page">
       <RecipesLogo />
       <div className="reset-password-container">
-        <div className="title">{"Change Your Password"}</div>
-        <div style={{ marginBottom: "0.5rem" }}>
+        <div className="title">{"Change Password"}</div>
+        <div style={{ marginBottom: "0.5rem", whiteSpace: "pre-line" }}>
           {
-            "Insert the email associated with your Recipes account and we'll' send you an email with your username."
+            "Insert your new password.\nMake sure to remember it and keep it secure."
           }
         </div>
         <div className="input-section">
