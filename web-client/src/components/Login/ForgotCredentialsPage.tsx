@@ -7,15 +7,12 @@ import RecipesLogo from "../utilities/RecipesLogo";
 
 import { useAppDispatch } from "../../hooks";
 import { setAlert } from "../../slices/utilitySlice";
-import InputTextError from "../utilities/InputTextError";
+import InputWithError from "../utilities/InputWithError";
 
 //utils
 import { validUsername, validEmail } from "../../utils-module/validation";
 
 //mui
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
-import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
 import LoadingButton from "@mui/lab/LoadingButton";
 
@@ -30,9 +27,6 @@ const ForgotCredentialsPage: FC = () => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
 
-  const [invalidEmail, setInvalidEmail] = useState(false);
-  const [invalidUsername, setInvalidUsername] = useState(false);
-
   const [disableButtons, setDisableButtons] = useState(false);
 
   const [requestSent, setRequestSent] = useState(false);
@@ -44,8 +38,6 @@ const ForgotCredentialsPage: FC = () => {
     setEmail("");
     setUsername("");
     setRequestSent(false);
-    setInvalidEmail(false);
-    setInvalidUsername(false);
   }, [type]);
 
   //detect enter key to sign up/in
@@ -58,7 +50,7 @@ const ForgotCredentialsPage: FC = () => {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [email, username, invalidEmail, invalidUsername]);
+  }, [email, username]);
 
   const validateInput = async () => {
     //check existance of required fields
@@ -76,7 +68,10 @@ const ForgotCredentialsPage: FC = () => {
       );
       return false;
     }
-    if (invalidEmail || invalidUsername) {
+    if (
+      !(await validEmail(email)) ||
+      (type === "password" && !validUsername(username))
+    ) {
       return false;
     }
 
@@ -115,48 +110,23 @@ const ForgotCredentialsPage: FC = () => {
         </div>
         <div className="input-section">
           {type === "password" && (
-            <>
-              <FormControl
-                id="forgot-credentials-username-input"
-                variant="outlined"
-              >
-                <InputLabel htmlFor="forgot-credentials-username-input">
-                  Username
-                </InputLabel>
-                <OutlinedInput
-                  type="text"
-                  value={username}
-                  onChange={async (e) => {
-                    setUsername(e.target.value);
-                    setInvalidUsername(!validUsername(e.target.value));
-                  }}
-                  label="Username"
-                />
-                <InputTextError
-                  showError={invalidUsername}
-                  message={"Username must be between 6 and 16 characters long."}
-                />
-              </FormControl>
-            </>
+            <InputWithError
+              inputId="forgot-credentials-username-input"
+              labelText="Username"
+              value={username}
+              setValue={setUsername}
+              isValidFunc={validUsername}
+              errorMessage="Username must be between 6 and 16 characters long."
+            />
           )}
-          <FormControl id="forgot-credentials-email-input" variant="outlined">
-            <InputLabel htmlFor="forgot-credentials-email-input">
-              Email
-            </InputLabel>
-            <OutlinedInput
-              type="text"
-              value={email}
-              onChange={async (e) => {
-                setEmail(e.target.value);
-                setInvalidEmail(!(await validEmail(e.target.value)));
-              }}
-              label="Email"
-            />
-            <InputTextError
-              showError={invalidEmail}
-              message={"Invalid Email"}
-            />
-          </FormControl>
+          <InputWithError
+            inputId="forgot-credentials-email-input"
+            labelText="Email"
+            value={email}
+            setValue={setEmail}
+            isValidFunc={validEmail}
+            errorMessage="Invalid Email"
+          />
         </div>
         <div className="button-container">
           <LoadingButton
