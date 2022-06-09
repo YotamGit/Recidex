@@ -161,7 +161,7 @@ router.post("/user/delete", async (req, res, next) => {
   }
 });
 
-//EDIT USER DETAILES
+//EDIT USER DETAILS
 router.post("/user/edit", async (req, res, next) => {
   try {
     if (!isValidObjectId(req.body.userData._id)) {
@@ -262,28 +262,40 @@ router.post("/user/forgot-username", async (req, res, next) => {
   }
 });
 
-// //RESET USER PASSWORD
-// router.post("/user/reset-password", async (req, res, next) => {
-//   try {
-//     if (!req.body.token) {
-//       res.status(400).send("Missing reset token.");
-//       return;
-//     }
+//RESET USER PASSWORD
+router.post("/user/reset-password", async (req, res, next) => {
+  try {
+    if (!req.body.token) {
+      res.status(400).send("Missing reset token.");
+      return;
+    }
 
-//     const resetToken = await Token.findOne({
-//       type: "password_reset",
-//       token: crypto.createHash("sha256").update(req.body.token).digest("hex"),
-//     });
+    const resetToken = await Token.findOne({
+      type: "password_reset",
+      token: crypto.createHash("sha256").update(req.body.token).digest("hex"),
+    });
 
-//     console.log(resetToken);
-//     let user = await User.findOne({
-//       email: req.body.userData.email,
-//     });
+    if (resetToken) {
+      const user = await User.findOneAndUpdate(
+        { _id: resetToken.user },
+        { password: await bcrypt.hash(req.body.password, 10) }
+      );
 
-//     res.status(200).send(true);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
+      if (!user) {
+        res.status(410).send("User no longer exists.");
+        return;
+      }
+
+      await Token.deleteMany({ type: "password_reset", user: resetToken.user });
+      res.status(200).send();
+    } else {
+      res
+        .status(401)
+        .send("Failed to reset password.\nReset link expired or invalid.");
+    }
+  } catch (err) {
+    next(err);
+  }
+});
 
 export default router;

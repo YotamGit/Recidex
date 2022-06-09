@@ -16,6 +16,7 @@
 }
 
 .snackbar-alert .details {
+  white-space: pre-line;
   max-height: 50vh;
   overflow: auto;
   word-break: break-word;

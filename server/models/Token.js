@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const TokenSchema = mongoose.Schema(
   {
-    createdAt: { type: Date, expires: "2m", default: Date.now },
+    createdAt: { type: Date, expires: "10m", default: Date.now },
     token: String,
     type: { type: String, enums: ["password_reset"] },
     user: { type: mongoose.Types.ObjectId, ref: "UserModel", required: true },

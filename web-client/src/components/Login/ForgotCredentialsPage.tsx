@@ -91,10 +91,8 @@ const ForgotCredentialsPage: FC = () => {
         },
       });
       setRequestSent(true);
-      setDisableButtons(false);
-    } catch (err: any) {
-      setDisableButtons(false);
-    }
+    } catch (err: any) {}
+    setDisableButtons(false);
   };
   return (
     <div className="forgot-credentials-page">
@@ -152,9 +150,9 @@ const ForgotCredentialsPage: FC = () => {
           </Button>
         </div>
         {requestSent && (
-          <div style={{ marginTop: "1rem" }}>
+          <div style={{ marginTop: "1rem", whiteSpace: "pre-line" }}>
             {type === "password"
-              ? "If the username and email match, you'll receive an email with a link to reset your password."
+              ? "If the username and email match, you'll receive an email with a link to reset your password.\n*The link will expire in 10 minutes."
               : "If there is an account associated with the email you'll receive an email with your username."}
           </div>
         )}
