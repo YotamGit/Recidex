@@ -103,8 +103,8 @@ const ForgotCredentialsPage: FC = () => {
         </div>
         <div style={{ marginBottom: "0.5rem" }}>
           {type === "password"
-            ? "Insert the username and email associated with your Recipes account and we'll send you an email with a link to reset your password."
-            : "Insert the email associated with your Recipes account and we'll' send you an email with your username."}
+            ? "Insert the username and email associated with your Recidex account and we'll send you an email with a link to reset your password."
+            : "Insert the email associated with your Recidex account and we'll' send you an email with your username."}
         </div>
         <div className="input-section">
           {type === "password" && (

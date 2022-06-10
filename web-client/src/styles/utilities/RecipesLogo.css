@@ -1,13 +1,13 @@
 .recipes-logo {
   margin-top: 1rem;
   cursor: pointer;
-  height: 27%;
+  height: 20vh;
   filter: invert(15%) sepia(23%) saturate(3811%) hue-rotate(175deg)
     brightness(99%) contrast(101%);
 }
 
 @media only screen and (max-width: 600px) {
   .recipes-logo {
-    height: 17vh;
+    height: 15vh;
   }
 }

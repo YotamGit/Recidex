@@ -175,7 +175,7 @@ const RecipeEditor: FC<propTypes> = ({ action, recipe }) => {
   return (
     <div className="recipe-editor">
       <div className="metadata-section">
-        <div style={{ marginTop: "30px" }}>Privacy</div>
+        <div style={{ marginTop: "30px" }}>Recipe Privacy</div>
         <Divider
           variant="middle"
           orientation="horizontal"

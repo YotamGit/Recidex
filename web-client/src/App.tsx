@@ -59,7 +59,7 @@ function App() {
   }, [fullscreen]);
 
   useEffect(() => {
-    document.title = `Our Recipes${
+    document.title = `Recidex${
       currentPageTitle !== "" ? ` | ${currentPageTitle}` : ""
     }`;
   }, [currentPageTitle, location]);

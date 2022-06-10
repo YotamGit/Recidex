@@ -155,7 +155,7 @@ const BaseRecipesPage: FC<propTypes> = ({
   }, [recipes, fetchedAllRecipes, fetching]);
 
   return (
-    <div className="main">
+    <div className="base-recipes-page">
       <PageTitle style={{ marginTop: "1rem" }} />
       {ownerOnly && (
         <RecipesPrivacySelector

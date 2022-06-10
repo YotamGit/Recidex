@@ -1,4 +1,4 @@
-var cacheName = "Recipes";
+var cacheName = "Recidex";
 var filesToCache = ["/", "/favicon.ico"];
 
 self.addEventListener("install", function (e) {

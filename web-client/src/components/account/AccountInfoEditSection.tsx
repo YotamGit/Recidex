@@ -172,7 +172,7 @@ const AccountInfoEditSection: FC<propTypes> = ({
                   onChange={(e) => setNotificationOptIn(e.target.checked)}
                 />
               }
-              label="Opt in to receive email notifications"
+              label="Opt in to receive email notifications."
               labelPlacement="end"
             />
             <div>Receive emails regarding recipe approval/disapproval.</div>
