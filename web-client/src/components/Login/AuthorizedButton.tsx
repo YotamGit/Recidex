@@ -3,7 +3,7 @@ import Authentication from "./Authentication";
 import "../../styles/login/AuthorizedButton.css";
 import DialogCloseButton from "../buttons/DialogCloseButton";
 
-import RecipesLogo from "../../utils-module/Photos/Recipes.svg";
+import RecidexLogo from "../../utils-module/Photos/RecidexLogo.svg";
 
 //mui
 import IconButton from "@mui/material/IconButton";
@@ -88,7 +88,7 @@ const AuthorizedButton: FC<propTypes> = ({
         <DialogContent>
           <div className="auth-choice-modal">
             <DialogCloseButton onClick={handleCloseChoice} />
-            <img src={RecipesLogo} className="recipes-logo" alt="" />
+            <img src={RecidexLogo} className="recipes-logo" alt="" />
             <div className="choice-content">
               <span style={{ marginBottom: "2px" }}>New to Recipes?</span>
               <span style={{ marginBottom: "20px" }}>

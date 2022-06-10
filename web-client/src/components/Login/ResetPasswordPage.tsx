@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 
 import axios from "axios";
 
-import RecipesLogo from "../utilities/RecipesLogo";
+import RecidexLogo from "../utilities/RecidexLogo";
 import InputWithError from "../utilities/InputWithError";
 import { validPassword } from "../../utils-module/validation";
 
@@ -91,7 +91,7 @@ const ResetPasswordPage: FC = () => {
   };
   return (
     <div className="reset-password-page">
-      <RecipesLogo />
+      <RecidexLogo />
       <div className="reset-password-container">
         <div className="title">{"Change Password"}</div>
         <div style={{ marginBottom: "0.5rem", whiteSpace: "pre-line" }}>

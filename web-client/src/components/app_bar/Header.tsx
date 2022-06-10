@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../styles/app_bar/Header.css";
-import RecipesLogo from "../../utils-module/Photos/Recipes.svg";
+import RecidexLogo from "../../utils-module/Photos/RecidexLogo.svg";
 
 import NavDrawer from "./NavDrawer";
 import SearchBar from "./SearchBar";
@@ -55,7 +55,7 @@ const Header: FC<propTypes> = ({ showSearch, showLogo }) => {
               <span className="logo-container">
                 <img
                   className="logo"
-                  src={RecipesLogo}
+                  src={RecidexLogo}
                   onClick={() => navigate("/home")}
                   alt=""
                 ></img>

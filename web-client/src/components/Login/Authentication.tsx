@@ -10,7 +10,7 @@ import {
 import { useState, useEffect, FC } from "react";
 import { useNavigate } from "react-router-dom";
 
-import RecipesLogo from "../utilities/RecipesLogo";
+import RecidexLogo from "../utilities/RecidexLogo";
 
 //mui
 
@@ -158,7 +158,7 @@ const Authentication: FC<propTypes> = ({
 
   return (
     <div id="authentication-page">
-      <RecipesLogo />
+      <RecidexLogo />
       <div className="authentication-section">
         <div className="title">
           {action === "signup" ? "Sign up" : "Sign In"}

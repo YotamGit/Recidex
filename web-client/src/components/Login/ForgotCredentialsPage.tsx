@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 import "../../styles/login/ForgotCredentialsPage.css";
-import RecipesLogo from "../utilities/RecipesLogo";
+import RecidexLogo from "../utilities/RecidexLogo";
 
 import { useAppDispatch } from "../../hooks";
 import { setAlert } from "../../slices/utilitySlice";
@@ -96,7 +96,7 @@ const ForgotCredentialsPage: FC = () => {
   };
   return (
     <div className="forgot-credentials-page">
-      <RecipesLogo />
+      <RecidexLogo />
       <div className="forgot-credentials-container">
         <div className="title">
           {type === "password" ? "Reset Password" : "Recover Username"}
