@@ -23,6 +23,7 @@ import ResetPasswordPage from "./components/Login/ResetPasswordPage";
 import AdminPanelPage from "./components/admin/AdminPanelPage";
 import AccountInfoPage from "./components/account/AccountInfoPage";
 import UserProfilePage from "./components/account/UserProfilePage";
+import PrivacyPolicyPage from "./components/PrivacyPolicyPage";
 
 import AlertSnackbar from "./components/utilities/AlertSnackbar";
 
@@ -300,6 +301,19 @@ function App() {
                 </>
               </ComponentWrapper>
             </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/privacy-policy"
+          element={
+            <ComponentWrapper
+              func={() => dispatch(setCurrentPageTitle("Privacy Policy"))}
+            >
+              <>
+                <Header showSearch={false} />
+                <PrivacyPolicyPage />
+              </>
+            </ComponentWrapper>
           }
         />
         <Route

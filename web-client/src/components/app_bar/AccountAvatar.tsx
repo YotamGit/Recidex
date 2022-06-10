@@ -14,6 +14,7 @@ import Divider from "@mui/material/Divider";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import LoginRoundedIcon from "@mui/icons-material/LoginRounded";
 import PersonAddAltRoundedIcon from "@mui/icons-material/PersonAddAltRounded";
+import GppGoodRoundedIcon from "@mui/icons-material/GppGoodRounded";
 
 //redux
 import { useAppSelector, useAppDispatch } from "../../hooks";
@@ -106,6 +107,15 @@ const AccountAvatar: FC = () => {
                 Sign Up
               </MenuItem>,
             ]}
+        <MenuItem
+          key="privacy-policy"
+          onClick={() => navigate(`/privacy-policy`)}
+        >
+          <ListItemIcon>
+            <GppGoodRoundedIcon fontSize="small" />
+          </ListItemIcon>
+          Privacy Policy
+        </MenuItem>
       </Menu>
     </>
   );
