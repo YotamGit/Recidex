@@ -1,6 +1,7 @@
 import RecipeCard from "./RecipeCard";
 import ModerationRecipeCard from "../recipe_moderation/ModerationRecipeCard";
 import "../../styles/recipes/Recipes.css";
+import { memo } from "react";
 
 //redux
 import { useAppSelector } from "../../hooks";
@@ -14,6 +15,7 @@ interface propTypes {
   recipes: TRecipe[];
   chipsFilterFunction?: Function;
 }
+
 const Recipes: FC<propTypes> = ({
   recipes,
   approvalRequiredOnly,
@@ -36,4 +38,4 @@ const Recipes: FC<propTypes> = ({
   );
 };
 
-export default Recipes;
+export default memo(Recipes);
