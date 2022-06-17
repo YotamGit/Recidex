@@ -106,7 +106,7 @@ router.get("/", async (req, res, next) => {
         .select("-image")
         .populate("owner", "firstname lastname")
         .sort({ creation_time: -1 })
-        .limit(parseInt(req.query.count));
+        .limit(parseInt(req.query.count || "0"));
 
       res.sentCount = Object.keys(recipes).length;
       res.status(200).json(recipes);

@@ -13,7 +13,7 @@
   justify-content: center;
 }
 
-.auth-choice-modal .recipes-logo {
+.auth-choice-modal .recidex-logo {
   height: 70px;
   margin-bottom: 20px;
   filter: invert(15%) sepia(23%) saturate(3811%) hue-rotate(175deg)
@@ -35,7 +35,7 @@
   color: var(--blue-4);
 }
 
-.login-modal #authentication-page .recipes-logo {
+.login-modal #authentication-page .recidex-logo {
   display: none;
 }
 .login-modal > #authentication-page {

@@ -88,7 +88,7 @@ const AuthorizedButton: FC<propTypes> = ({
         <DialogContent>
           <div className="auth-choice-modal">
             <DialogCloseButton onClick={handleCloseChoice} />
-            <img src={RecidexLogo} className="recipes-logo" alt="" />
+            <img src={RecidexLogo} className="recidex-logo" alt="" />
             <div className="choice-content">
               <span style={{ marginBottom: "2px" }}>New to Recipes?</span>
               <span style={{ marginBottom: "20px" }}>
