@@ -253,7 +253,7 @@ interface FavoriteRecipeProps {
   favorite: boolean;
 }
 export const favoriteRecipe = createAsyncThunk<
-  TRecipe[],
+  { recipeId: string; favorited_by: string[] },
   FavoriteRecipeProps,
   AsyncThunkConfig
 >("recipes/favoriteRecipe", async (props, thunkAPI) => {
@@ -264,9 +264,7 @@ export const favoriteRecipe = createAsyncThunk<
       favorite: props.favorite,
     });
     //TODO return a single recipe instead of all of the recipes
-    return state.recipes.recipes.map((recipe: TRecipe) =>
-      recipe._id === props.id ? { ...recipe, favorited_by: res.data } : recipe
-    );
+    return { recipeId: props.id, favorited_by: res.data };
   } catch (error: any) {
     thunkAPI.dispatch(
       setAlert({
@@ -357,7 +355,11 @@ const recipesSlice = createSlice({
         state.recipes = action.payload;
       })
       .addCase(favoriteRecipe.fulfilled, (state, action) => {
-        state.recipes = action.payload;
+        state.recipes = state.recipes.map((recipe: TRecipe) =>
+          recipe._id === action.payload.recipeId
+            ? { ...recipe, favorited_by: action.payload.favorited_by }
+            : recipe
+        );
       })
       .addCase(approveRecipe.fulfilled, (state, action) => {
         state.recipes = action.payload;

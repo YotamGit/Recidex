@@ -101,6 +101,7 @@ const ResetPasswordPage: FC = () => {
         </div>
         <div className="input-section">
           <InputWithError
+            type="password"
             inputId="reset-password-password-input"
             labelText="New Password"
             value={password}
@@ -109,6 +110,7 @@ const ResetPasswordPage: FC = () => {
             errorMessage="Password must be between 6 and 16 characters long."
           />
           <InputWithError
+            type="password"
             inputId="reset-password-passwordconfirm-input"
             labelText="Confirm Password"
             value={passwordConfirm}

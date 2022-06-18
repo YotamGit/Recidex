@@ -24,11 +24,16 @@ const Favorite: FC<propTypes> = ({
   const dispatch = useAppDispatch();
   const userId = useAppSelector((state) => state.users.userData._id || "");
   const [favorite, setFavorite] = useState(favorited_by.includes(userId));
+  const [localFavoritedBy, setlocalFavoritedBy] = useState(favorited_by);
+
+  useEffect(() => {
+    setlocalFavoritedBy(favorited_by);
+  }, [favorited_by]);
 
   //update favorite color if the user logs out
   useEffect(() => {
-    setFavorite(favorited_by.includes(userId));
-  }, [userId, favorited_by]);
+    setFavorite(localFavoritedBy.includes(userId));
+  }, [userId, localFavoritedBy]);
 
   const toggleFavorite = async () => {
     let favRes = await dispatch(
@@ -36,6 +41,8 @@ const Favorite: FC<propTypes> = ({
     );
 
     if (favRes.meta.requestStatus === "fulfilled") {
+      let payload: any = favRes.payload;
+      setlocalFavoritedBy(payload.favorited_by);
       setFavorite(!favorite);
     }
   };
@@ -49,7 +56,7 @@ const Favorite: FC<propTypes> = ({
             fontSize: "20px",
           }}
         >
-          {favorited_by.length}
+          {localFavoritedBy.length}
         </span>
       )}
       <FavoriteRoundedIcon
