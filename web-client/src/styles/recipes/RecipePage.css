@@ -10,9 +10,8 @@
 }
 
 @media print {
-  .MuiAppBar-root,
-  .MuiAppBar-root * {
-    display: none;
+  .header {
+    display: none !important;
   }
 
   .recipe-page-top-button-row,
