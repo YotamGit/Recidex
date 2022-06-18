@@ -1,5 +1,6 @@
 import "../../styles/admin/AdminTableRow.css";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import AdminTableDetailsRow from "./AdminTableDetailsRow";
 import EditUserButton from "./EditUserButton";
@@ -24,6 +25,7 @@ interface propTypes {
   minimalTable: boolean;
 }
 const AdminTableRow: FC<propTypes> = ({ row, index, expand, minimalTable }) => {
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
   const labelId = `enhanced-table-checkbox-${index}`;
@@ -65,7 +67,12 @@ const AdminTableRow: FC<propTypes> = ({ row, index, expand, minimalTable }) => {
           scope="row"
           padding="normal"
         >
-          {row._id}
+          <span
+            style={{ cursor: "pointer" }}
+            onClick={() => navigate(`/user/profile/${row._id}`)}
+          >
+            {row._id}
+          </span>
         </TableCell>
         <TableCell className="table-cell" align="center">
           {row.role}
