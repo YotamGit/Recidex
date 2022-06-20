@@ -7,7 +7,7 @@ import { FC } from "react";
 const PrivacyPolicyPage: FC = () => {
   return (
     <div className="privacy-policy-page">
-      <PageTitle style={{ marginTop: "1rem", marginBottom: "3rem" }} />
+      <PageTitle marginTop={true} style={{ marginBottom: "3rem" }} />
       <div className="policy-content">
         <p>Last updated: June 10, 2022</p>
         <p>

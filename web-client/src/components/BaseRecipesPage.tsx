@@ -152,7 +152,7 @@ const BaseRecipesPage: FC<propTypes> = ({
 
   return (
     <div className="base-recipes-page">
-      <PageTitle style={{ marginTop: "1rem" }} />
+      <PageTitle marginTop={true} />
       {ownerOnly && (
         <RecipesPrivacySelector
           setRecipePrivacy={setRecipePrivacy}

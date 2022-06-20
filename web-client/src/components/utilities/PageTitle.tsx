@@ -7,13 +7,20 @@ import { FC } from "react";
 
 interface propTypes {
   style?: React.CSSProperties;
+  marginTop?: boolean;
 }
-const PageTitle: FC<propTypes> = ({ style }) => {
+const PageTitle: FC<propTypes> = ({ style, marginTop }) => {
   const currentPageTitle = useAppSelector(
     (state) => state.utilities.currentPageTitle
   );
   return (
-    <div className="page-title" style={style ? style : {}}>
+    <div
+      className="page-title"
+      style={{
+        ...(marginTop ? { marginTop: "1rem" } : {}),
+        ...(style ? style : {}),
+      }}
+    >
       <div className="title">{currentPageTitle}</div>
     </div>
   );

@@ -30,7 +30,7 @@ const AddRecipe: FC = () => {
   return (
     <>
       <div className="add-recipe-page-top-button-row"></div>
-      <PageTitle style={{ marginTop: "1rem" }} />
+      <PageTitle marginTop={true} />
       <RecipeEditor action={"add"} recipe={recipeTemplate}></RecipeEditor>
     </>
   );

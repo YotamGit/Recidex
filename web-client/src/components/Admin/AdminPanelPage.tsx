@@ -22,7 +22,7 @@ const AdminPanelPage: FC = () => {
 
   return (
     <div className="admin-panel-page">
-      <PageTitle style={{ marginTop: "1rem" }} />
+      <PageTitle marginTop={true} />
       <AdminKpis />
       <AdminTable />
     </div>

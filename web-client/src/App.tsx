@@ -24,6 +24,7 @@ import AdminPanelPage from "./components/admin/AdminPanelPage";
 import AccountInfoPage from "./components/account/AccountInfoPage";
 import UserProfilePage from "./components/account/UserProfilePage";
 import PrivacyPolicyPage from "./components/PrivacyPolicyPage";
+import NotFoundPage from "./components/NotFoundPage";
 
 import AlertSnackbar from "./components/utilities/AlertSnackbar";
 
@@ -338,9 +339,14 @@ function App() {
         <Route
           path="*"
           element={
-            <>
-              <span>404</span>
-            </>
+            <ComponentWrapper
+              func={() => dispatch(setCurrentPageTitle("Not Found"))}
+            >
+              <>
+                <Header showSearch={false} />
+                <NotFoundPage />
+              </>
+            </ComponentWrapper>
           }
         />
       </Routes>

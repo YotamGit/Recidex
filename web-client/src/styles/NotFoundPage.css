@@ -1,0 +1,29 @@
+.page-not-found-page {
+  width: 100%;
+}
+.page-not-found-page .body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 95%;
+}
+.page-not-found-page .message {
+  color: var(--blue-2);
+  font-size: 3rem;
+  font-style: italic;
+  font-weight: 600;
+}
+.page-not-found-page .cake-button {
+  margin-top: 2rem;
+  color: var(--blue-2);
+}
+
+@media only screen and (max-width: 600px) {
+  .page-not-found-page .message {
+    font-size: 1.5rem;
+  }
+  .page-not-found-page .cake-button {
+    margin-top: 2rem;
+  }
+}

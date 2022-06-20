@@ -51,7 +51,7 @@ const AccountInfoPage: FC = () => {
 
   return (
     <div className="account-info-page">
-      <PageTitle style={{ marginTop: "1rem" }} />
+      <PageTitle marginTop={true} />
       {accountData && (
         <>
           {viewEditUser ? (
