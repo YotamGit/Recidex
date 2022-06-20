@@ -57,8 +57,18 @@ function App() {
 
   useEffect(() => {
     dispatch(
-      addRouteToHistory({ pathname: location.pathname, key: location.key })
+      addRouteToHistory({
+        pathname: location.pathname,
+        key: location.key,
+      })
     );
+    console.log(window.scrollY);
+
+    window.scrollTo({
+      top: 0,
+    });
+    console.log(window.scrollY);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
 
