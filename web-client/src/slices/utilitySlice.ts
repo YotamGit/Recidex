@@ -11,7 +11,7 @@ export type AlertType = {
 interface UtilityState {
   currentPageTitle: string;
   fullscreen: boolean | undefined;
-  routeHistory: string[];
+  routeHistory: [{ pathname: string; key: string }] | [];
   alert: AlertType;
 }
 
@@ -38,8 +38,15 @@ const utilitySlice = createSlice({
     setFullscreen(state, action: PayloadAction<boolean>) {
       state.fullscreen = action.payload;
     },
-    addRouteToHistory(state, action: PayloadAction<string>) {
-      state.routeHistory.push(action.payload);
+    addRouteToHistory(
+      state,
+      action: PayloadAction<{ pathname: string; key: string }>
+    ) {
+      if (state.routeHistory.length !== 0) {
+        state.routeHistory.push(action.payload);
+      } else {
+        state.routeHistory = [action.payload];
+      }
     },
     setAlert(
       state,

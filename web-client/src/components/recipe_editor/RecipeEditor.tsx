@@ -164,7 +164,7 @@ const RecipeEditor: FC<propTypes> = ({ action, recipe }) => {
         let addRes = await dispatch(addRecipe({ recipeData: recipeData }));
         setDisableButtons(false);
         if (addRes.meta.requestStatus === "fulfilled") {
-          navigate(`/recipes/${Object(addRes.payload)._id}`);
+          navigate(`/recipes/${Object(addRes.payload)._id}`, { replace: true });
         }
         break;
       default:

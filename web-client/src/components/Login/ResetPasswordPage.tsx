@@ -76,7 +76,7 @@ const ResetPasswordPage: FC = () => {
           message: "Password changed successfully",
         })
       );
-      navigate("/login");
+      navigate("/login", { replace: true });
     } catch (err: any) {
       setDisableButtons(false);
       dispatch(

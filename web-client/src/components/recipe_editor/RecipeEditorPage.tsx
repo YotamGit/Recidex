@@ -1,6 +1,7 @@
 import RecipeEditor from "./RecipeEditor";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect, FC } from "react";
+import { mainRecipesRoutes } from "../../App";
 
 import { getRecipe } from "../../utils-module/recipes";
 import GenericPromptDialog from "../utilities/GenericPromptDialog";
@@ -46,10 +47,8 @@ const RecipeEditorPage: FC = () => {
         .slice(0, routeHistory.length - 1)
         .reverse()
         .find((element) =>
-          ["/home", "/my-recipes", "/favorites", "/recipe-moderation"].includes(
-            element
-          )
-        );
+          mainRecipesRoutes.includes(element.pathname)
+        )?.pathname;
       navigate(lastMainPageVisited || "/home");
     }
   };

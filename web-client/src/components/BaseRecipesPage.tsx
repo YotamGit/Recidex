@@ -4,6 +4,7 @@ import RecipesPrivacySelector from "./recipes/RecipesPrivacySelector";
 import PageTitle from "./utilities/PageTitle";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { mainRecipesRoutes } from "../App";
 
 //redux
 import { useAppDispatch, useAppSelector } from "../hooks";
@@ -80,7 +81,14 @@ const BaseRecipesPage: FC<propTypes> = ({
   };
 
   useEffect(() => {
+    //fetching while attempting to sign in might result in 2 fetch requests
     if (attemptSignIn) {
+      return;
+    }
+
+    //making sure the current location and the store location are synchronized
+    //in order to correctly determine whether to fetch recipes or not.
+    if (routeHistory.slice(-1)[0].key !== location.key) {
       return;
     }
 
@@ -88,18 +96,10 @@ const BaseRecipesPage: FC<propTypes> = ({
       .slice(0, routeHistory.length - 1)
       .reverse()
       .find((element) =>
-        ["/home", "/my-recipes", "/favorites", "/recipe-moderation"].includes(
-          element
-        )
-      );
+        mainRecipesRoutes.includes(element.pathname)
+      )?.pathname;
 
-    if (
-      ["/home", "/my-recipes", "/favorites", "/recipe-moderation"].includes(
-        routeHistory.slice(-1)[0]
-      ) ||
-      location.pathname !== lastMainPageVisited ||
-      (recipes.length === 0 && !fetchedAllRecipes)
-    ) {
+    if (location.pathname !== lastMainPageVisited) {
       dispatch(setFavoritesOnly(favoritesOnly));
       dispatch(setApprovedOnly(approvedOnly));
       dispatch(setApprovalRequiredOnly(approvalRequiredOnly));
@@ -108,6 +108,10 @@ const BaseRecipesPage: FC<propTypes> = ({
         dispatch(setPrivacyState(recipePrivacy));
       }
       initialRecipesLoad();
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
     }
 
     //set title filters for search
@@ -121,15 +125,7 @@ const BaseRecipesPage: FC<propTypes> = ({
       dispatch(setTitleFilters({ approval_required: true, private: false }));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    ownerOnly,
-    favoritesOnly,
-    approvalRequiredOnly,
-    approvedOnly,
-    attemptSignIn,
-    location,
-    recipePrivacy,
-  ]);
+  }, [attemptSignIn, recipePrivacy, location, routeHistory]);
 
   useEffect(() => {
     const handleScroll = async () => {

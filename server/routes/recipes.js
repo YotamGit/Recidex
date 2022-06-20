@@ -77,7 +77,7 @@ router.get("/", async (req, res, next) => {
 
       let approvalRequiredOnlyQuery =
         validatedToken && req.query.approvalRequiredOnly === "true"
-          ? { approval_required: true }
+          ? { approval_required: true, private: false }
           : {};
 
       let favoritesOnlyQuery =

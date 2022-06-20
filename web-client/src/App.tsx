@@ -31,6 +31,13 @@ import AlertSnackbar from "./components/utilities/AlertSnackbar";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 
+export let mainRecipesRoutes = [
+  "/home",
+  "/my-recipes",
+  "/favorites",
+  "/recipe-moderation",
+];
+
 function App() {
   const dispatch = useAppDispatch();
   const location = useLocation();
@@ -49,7 +56,9 @@ function App() {
   );
 
   useEffect(() => {
-    dispatch(addRouteToHistory(location.pathname));
+    dispatch(
+      addRouteToHistory({ pathname: location.pathname, key: location.key })
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
 

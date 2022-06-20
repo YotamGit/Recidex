@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, memo } from "react";
 import { useNavigate } from "react-router-dom";
 import { marked } from "marked";
 import "../../styles/recipes/Recipe.css";
@@ -165,4 +165,4 @@ const Recipe: FC<propTypes> = ({ recipe }) => {
   );
 };
 
-export default Recipe;
+export default memo(Recipe);
