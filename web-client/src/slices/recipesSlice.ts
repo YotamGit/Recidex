@@ -335,7 +335,9 @@ const recipesSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getRecipes.pending, (state, action) => {
-        state.fetching = true;
+        if (state.fetchedAllRecipes === false) {
+          state.fetching = true;
+        }
       })
       .addCase(getRecipes.fulfilled, (state, action) => {
         if (action.payload.replace) {

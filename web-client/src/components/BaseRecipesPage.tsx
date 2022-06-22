@@ -8,7 +8,7 @@ import { mainRecipesRoutes } from "../App";
 
 //redux
 import { useAppDispatch, useAppSelector } from "../hooks";
-import { getRecipes } from "../slices/recipesSlice";
+import { getRecipes, setRecipes } from "../slices/recipesSlice";
 import {
   setTitleFilters,
   setPrivacyState,
@@ -70,6 +70,7 @@ const BaseRecipesPage: FC<propTypes> = ({
 
   const initialRecipesLoad = async () => {
     try {
+      dispatch(setRecipes([]));
       await dispatch(
         getRecipes({
           replace: true,
@@ -106,10 +107,6 @@ const BaseRecipesPage: FC<propTypes> = ({
         dispatch(setPrivacyState(recipePrivacy));
       }
       initialRecipesLoad();
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
     }
 
     //set title filters for search
@@ -157,15 +154,13 @@ const BaseRecipesPage: FC<propTypes> = ({
           recipePrivacy={recipePrivacy}
         />
       )}
-      {recipes.length > 0 ? (
-        <>
-          <Recipes
-            loading={fetching}
-            recipes={recipes}
-            approvalRequiredOnly={approvalRequiredOnly}
-          />
-        </>
-      ) : (
+
+      <Recipes
+        loading={fetching}
+        recipes={recipes}
+        approvalRequiredOnly={approvalRequiredOnly}
+      />
+      {recipes.length === 0 && (
         <Button
           className="primary"
           variant="contained"

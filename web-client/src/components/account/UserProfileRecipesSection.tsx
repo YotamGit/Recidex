@@ -38,6 +38,7 @@ const UserProfileRecipesSection: FC<propTypes> = ({ userId }) => {
   const [fetching, setFetching] = useState(false);
 
   const getRecipes = async (filters: any) => {
+    setRecipes([]);
     setFetching(true);
     try {
       let result = await axios.get("/api/recipes", {
