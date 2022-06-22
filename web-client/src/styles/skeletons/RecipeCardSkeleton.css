@@ -1,0 +1,85 @@
+.recipe-card-skeleton {
+  border-radius: 10px;
+  border: 2px solid var(--blue-1);
+  margin: 1%;
+  background-color: var(--recipe-card);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.recipe-card-skeleton.regular {
+  width: 505px;
+  height: 500px;
+  padding-block: 3rem;
+}
+.recipe-card-skeleton.moderation {
+  height: fit-content;
+  width: 350px;
+  padding-top: 2.59rem;
+  padding-bottom: 0rem;
+}
+.recipe-card-skeleton > * {
+  width: 100%;
+}
+
+.recipe-card-skeleton .MuiDivider-middle {
+  width: 95%;
+}
+.recipe-card-skeleton .chips-skeleton {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.recipe-card-skeleton .description-skeleton {
+  margin-left: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.recipe-card-skeleton .image-skeleton {
+  min-height: 0;
+  flex-grow: 1;
+  width: 100%;
+  height: 0; /*to let the image grow*/
+  display: block;
+}
+
+.recipe-card-skeleton .additional-data-skeleton {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.recipe-card-skeleton .additional-data-field-skeleton {
+  gap: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.recipe-card-skeleton .approve-buttons-skeleton {
+  gap: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+  .recipe-card-skeleton {
+    height: fit-content !important;
+    width: 100vw !important;
+  }
+  .recipe-card-skeleton .image-skeleton {
+    height: 180px !important;
+  }
+  .recipe-card-skeleton .description-skeleton {
+    display: none;
+  }
+}

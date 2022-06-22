@@ -9,7 +9,7 @@ import Recipes from "../recipes/Recipes";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 //redux
-import { useAppDispatch } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import { setTitleFilters } from "../../slices/filtersSlice";
 import { setAlert } from "../../slices/utilitySlice";
 
@@ -35,7 +35,10 @@ const UserProfileRecipesSection: FC<propTypes> = ({ userId }) => {
   });
   const [searchText, setSearchText] = useState<string>("");
 
+  const [fetching, setFetching] = useState(false);
+
   const getRecipes = async (filters: any) => {
+    setFetching(true);
     try {
       let result = await axios.get("/api/recipes", {
         params: {
@@ -66,6 +69,7 @@ const UserProfileRecipesSection: FC<propTypes> = ({ userId }) => {
         })
       );
     }
+    setFetching(false);
   };
 
   useEffect(() => {
@@ -133,6 +137,7 @@ const UserProfileRecipesSection: FC<propTypes> = ({ userId }) => {
       </div>
       {recipes && (
         <Recipes
+          loading={fetching}
           approvalRequiredOnly={false}
           recipes={recipes}
           chipsFilterFunction={getRecipes}

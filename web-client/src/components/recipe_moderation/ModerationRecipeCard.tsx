@@ -14,7 +14,6 @@ import Button from "@mui/material/Button";
 //mui icons
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import OpenInFullRoundedIcon from "@mui/icons-material/OpenInFullRounded";
-import FaceRoundedIcon from "@mui/icons-material/FaceRounded";
 
 //redux
 import { useAppDispatch } from "../../hooks";

@@ -43,13 +43,13 @@ const BaseRecipesPage: FC<propTypes> = ({
 }) => {
   const dispatch = useAppDispatch();
   const location = useLocation();
-  const [fetching, setFetching] = useState(false);
   const [recipePrivacy, setRecipePrivacy] = useState<recipePrivacyState>("all");
 
   const recipes = useAppSelector((state) => state.recipes.recipes);
   const fetchedAllRecipes = useAppSelector(
     (state) => state.recipes.fetchedAllRecipes
   );
+  const fetching = useAppSelector((state) => state.recipes.fetching);
 
   const user_id = useAppSelector((state) => state.users.userData._id);
   const attemptSignIn = useAppSelector((state) => state.users.attemptSignIn);
@@ -57,7 +57,6 @@ const BaseRecipesPage: FC<propTypes> = ({
 
   const loadRecipes = async () => {
     if (recipes.length > 0) {
-      setFetching(true);
       await dispatch(
         getRecipes({
           replace: false,
@@ -66,7 +65,6 @@ const BaseRecipesPage: FC<propTypes> = ({
           },
         })
       );
-      setFetching(false);
     }
   };
 
@@ -162,6 +160,7 @@ const BaseRecipesPage: FC<propTypes> = ({
       {recipes.length > 0 ? (
         <>
           <Recipes
+            loading={fetching}
             recipes={recipes}
             approvalRequiredOnly={approvalRequiredOnly}
           />
@@ -179,7 +178,7 @@ const BaseRecipesPage: FC<propTypes> = ({
           }}
         >
           Load Recipes
-        </Button> //show skeleton loading animation if fetching is true
+        </Button>
       )}
     </div>
   );

@@ -3,6 +3,8 @@ import ModerationRecipeCard from "../recipe_moderation/ModerationRecipeCard";
 import "../../styles/recipes/Recipes.css";
 import { memo } from "react";
 
+//import
+import RecipeCardSkeleton from "../skeletons/RecipeCardSkeleton";
 //redux
 import { useAppSelector } from "../../hooks";
 
@@ -14,24 +16,35 @@ interface propTypes {
   approvalRequiredOnly: boolean;
   recipes: TRecipe[];
   chipsFilterFunction?: Function;
+  loading?: boolean;
 }
 
 const Recipes: FC<propTypes> = ({
   recipes,
   approvalRequiredOnly,
   chipsFilterFunction,
+  loading,
 }) => {
   return (
     <div className="recipes-container">
-      {recipes.map((recipe) =>
-        approvalRequiredOnly ? (
-          <ModerationRecipeCard key={recipe._id} recipe={recipe} />
-        ) : (
-          <RecipeCard
-            key={recipe._id}
-            recipe={recipe}
-            chipsFilterFunction={chipsFilterFunction}
-          />
+      {loading ? (
+        
+        for (var i=0; i < 5; i++) {
+          
+          <RecipeCardSkeleton  key={i} kind={approvalRequiredOnly ? "moderation" : "regular"}/>
+      }
+      ) 
+          : (
+        recipes.map((recipe) =>
+          approvalRequiredOnly ? (
+            <ModerationRecipeCard key={recipe._id} recipe={recipe} />
+          ) : (
+            <RecipeCard
+              key={recipe._id}
+              recipe={recipe}
+              chipsFilterFunction={chipsFilterFunction}
+            />
+          )
         )
       )}
     </div>

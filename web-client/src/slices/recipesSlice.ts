@@ -6,10 +6,12 @@ import { setAlert } from "./utilitySlice";
 interface RecipesState {
   recipes: TRecipe[];
   fetchedAllRecipes: boolean;
+  fetching: boolean;
 }
 const initialState: RecipesState = {
   recipes: [],
   fetchedAllRecipes: false,
+  fetching: false,
 };
 
 interface RecipesSliceError {
@@ -332,7 +334,12 @@ const recipesSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(getRecipes.pending, (state, action) => {
+        state.fetching = true;
+      })
       .addCase(getRecipes.fulfilled, (state, action) => {
+        state.fetching = false;
+
         if (action.payload.replace) {
           state.recipes = [...action.payload.recipes];
         } else {
@@ -342,7 +349,7 @@ const recipesSlice = createSlice({
           }
         }
       })
-      // .addCase(getRecipes.rejected, (state, action: PayloadAction<any>) => {})
+
       .addCase(editRecipe.fulfilled, (state, action) => {
         state.recipes = action.payload;
       })
