@@ -338,8 +338,6 @@ const recipesSlice = createSlice({
         state.fetching = true;
       })
       .addCase(getRecipes.fulfilled, (state, action) => {
-        state.fetching = false;
-
         if (action.payload.replace) {
           state.recipes = [...action.payload.recipes];
         } else {
@@ -348,6 +346,7 @@ const recipesSlice = createSlice({
             state.recipes.push(...action.payload.recipes);
           }
         }
+        state.fetching = false;
       })
 
       .addCase(editRecipe.fulfilled, (state, action) => {

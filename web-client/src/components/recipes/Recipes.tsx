@@ -27,26 +27,24 @@ const Recipes: FC<propTypes> = ({
 }) => {
   return (
     <div className="recipes-container">
-      {loading ? (
-        
-        for (var i=0; i < 5; i++) {
-          
-          <RecipeCardSkeleton  key={i} kind={approvalRequiredOnly ? "moderation" : "regular"}/>
-      }
-      ) 
-          : (
-        recipes.map((recipe) =>
-          approvalRequiredOnly ? (
-            <ModerationRecipeCard key={recipe._id} recipe={recipe} />
-          ) : (
-            <RecipeCard
-              key={recipe._id}
-              recipe={recipe}
-              chipsFilterFunction={chipsFilterFunction}
+      {loading
+        ? Array.from({ length: 12 }, (v, k) => k + 1).map((_) => (
+            <RecipeCardSkeleton
+              key={_}
+              kind={approvalRequiredOnly ? "moderation" : "regular"}
             />
-          )
-        )
-      )}
+          ))
+        : recipes.map((recipe) =>
+            approvalRequiredOnly ? (
+              <ModerationRecipeCard key={recipe._id} recipe={recipe} />
+            ) : (
+              <RecipeCard
+                key={recipe._id}
+                recipe={recipe}
+                chipsFilterFunction={chipsFilterFunction}
+              />
+            )
+          )}
     </div>
   );
 };
