@@ -1,0 +1,96 @@
+.user-profile-info-section-skeleton {
+  width: 90%;
+  margin: auto;
+  padding: 10px;
+  background-color: var(--blue-1);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+/* * {
+  outline: 2px solid red;
+} */
+
+.user-profile-info-section-skeleton .MuiSkeleton-root {
+  background-color: #94c8fd69;
+}
+.user-profile-info-section-skeleton > *:nth-child(n + 2) {
+  margin-top: 1%;
+}
+
+.user-profile-info-section-skeleton .user-name-container-skeleton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-profile-info-section-skeleton .role-skeleton {
+  width: 64px;
+  height: 25px;
+}
+.user-profile-info-section-skeleton .name-skeleton {
+  width: 320px;
+  height: 64px;
+}
+.user-profile-info-section-skeleton .date-skeleton {
+  width: 205px;
+  height: 25px;
+}
+
+.user-profile-info-section-skeleton .user-profile-kpis-skeleton {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.user-profile-info-section-skeleton .user-profile-kpi-skeleton {
+  margin: 1%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.user-profile-info-section-skeleton
+  .user-profile-kpi-skeleton
+  > *:nth-child(1) {
+  width: 100px;
+  height: 43px;
+}
+.user-profile-info-section-skeleton
+  .user-profile-kpi-skeleton
+  > *:nth-child(2) {
+  width: 30px;
+  height: 43px;
+}
+
+@media only screen and (max-width: 600px) {
+  .user-profile-info-section-skeleton > *:nth-child(n + 2) {
+    margin-top: 5%;
+  }
+
+  .user-profile-info-section-skeleton .role-skeleton {
+    width: 48px;
+    height: 18px;
+  }
+  .user-profile-info-section-skeleton .name-skeleton {
+    width: 80%;
+    height: 37px;
+  }
+  .user-profile-info-section-skeleton .date-skeleton {
+    width: 60%;
+    height: 21px;
+  }
+
+  .user-profile-info-section-skeleton
+    .user-profile-kpi-skeleton
+    > *:nth-child(1) {
+    width: 80px;
+    height: 27px;
+  }
+  .user-profile-info-section-skeleton
+    .user-profile-kpi-skeleton
+    > *:nth-child(2) {
+    width: 22px;
+    height: 27px;
+  }
+}

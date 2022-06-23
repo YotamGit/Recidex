@@ -39,7 +39,7 @@ const Recipes: FC<propTypes> = ({
         )
       )}
       {loading &&
-        Array.from({ length: 4 }, (v, k) => k + 1).map((_) => (
+        Array.from({ length: 8 }, (v, k) => k + 1).map((_) => (
           <RecipeCardSkeleton
             key={_}
             kind={approvalRequiredOnly ? "moderation" : "regular"}

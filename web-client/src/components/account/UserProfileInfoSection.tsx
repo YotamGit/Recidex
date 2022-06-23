@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "../../styles/account/UserProfileInfoSection.css";
 
 import { getProfileInfo } from "../../utils-module/users";
+import UserProfileInfoSectionSkeleton from "../skeletons/UserProfileInfoSectionSkeleton";
 
 //types
 import { FC } from "react";
@@ -11,19 +12,27 @@ interface propTypes {
 }
 const UserProfileInfoSection: FC<propTypes> = ({ userId }) => {
   const [userData, setUserData] = useState<any>();
+  const [fetching, setFetching] = useState(true);
 
   useEffect(() => {
-    getProfileInfo(userId || "").then((res: any) => {
+    const fetchUserData = async () => {
+      setUserData(undefined);
+      setFetching(true);
+      const res = await getProfileInfo(userId || "");
       if (res) {
         setUserData(res);
       }
-    });
+      setFetching(false);
+    };
+    fetchUserData();
   }, [userId]);
 
-  return (
-    <div className="user-profile-info-section">
+  return fetching ? (
+    <UserProfileInfoSectionSkeleton />
+  ) : (
+    <>
       {userData && (
-        <>
+        <div className="user-profile-info-section">
           <div className="user-name-container">
             <div className="user-role-flare">{userData?.userInfo.role}</div>
             <div className="user-name">
@@ -58,9 +67,9 @@ const UserProfileInfoSection: FC<propTypes> = ({ userId }) => {
               <div>{userData.metrics.favoriteRecipesCount}</div>
             </div>
           </div>
-        </>
+        </div>
       )}
-    </div>
+    </>
   );
 };
 

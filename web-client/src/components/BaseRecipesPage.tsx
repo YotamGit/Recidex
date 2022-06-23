@@ -2,7 +2,7 @@ import "../styles/BaseRecipesPage.css";
 import Recipes from "./recipes/Recipes";
 import RecipesPrivacySelector from "./recipes/RecipesPrivacySelector";
 import PageTitle from "./utilities/PageTitle";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { mainRecipesRoutes } from "../App";
 
@@ -70,11 +70,7 @@ const BaseRecipesPage: FC<propTypes> = ({
 
   const initialRecipesLoad = async () => {
     try {
-      await dispatch(
-        getRecipes({
-          replace: true,
-        })
-      );
+      await dispatch(getRecipes({ replace: true }));
     } catch (error) {}
   };
 
@@ -140,7 +136,9 @@ const BaseRecipesPage: FC<propTypes> = ({
       return;
     };
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [recipes, fetchedAllRecipes, fetching]);
 
@@ -159,7 +157,7 @@ const BaseRecipesPage: FC<propTypes> = ({
         recipes={recipes}
         approvalRequiredOnly={approvalRequiredOnly}
       />
-      {recipes.length === 0 && (
+      {recipes.length === 0 && !fetching && (
         <Button
           className="primary"
           variant="contained"

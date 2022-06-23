@@ -7,6 +7,10 @@
   flex-direction: column;
   align-items: center;
 }
+
+.recipe-card-skeleton .MuiSkeleton-root {
+  background-color: #0037562c;
+}
 .recipe-card-skeleton.regular {
   width: 505px;
   height: 500px;
