@@ -70,7 +70,6 @@ const BaseRecipesPage: FC<propTypes> = ({
 
   const initialRecipesLoad = async () => {
     try {
-      dispatch(setRecipes([]));
       await dispatch(
         getRecipes({
           replace: true,

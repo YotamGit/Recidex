@@ -98,7 +98,6 @@ export const getRecipes = createAsyncThunk<
       },
     });
 
-    thunkAPI.dispatch(setFetchedAllRecipes(result.data.length));
     if (result.data.length === 0) {
       thunkAPI.dispatch(
         setAlert({
@@ -325,8 +324,8 @@ const recipesSlice = createSlice({
   name: "recipes",
   initialState,
   reducers: {
-    setFetchedAllRecipes(state, action: PayloadAction<number>) {
-      state.fetchedAllRecipes = action.payload === 0 ? true : false;
+    setFetchedAllRecipes(state, action: PayloadAction<boolean>) {
+      state.fetchedAllRecipes = action.payload;
     },
     setRecipes(state, action: PayloadAction<TRecipe[]>) {
       state.recipes = action.payload;
@@ -335,6 +334,12 @@ const recipesSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getRecipes.pending, (state, action) => {
+        if (action.meta.arg.replace) {
+          state.recipes = [];
+          state.fetchedAllRecipes = false;
+          state.fetching = true;
+        }
+
         if (state.fetchedAllRecipes === false) {
           state.fetching = true;
         }
@@ -344,10 +349,10 @@ const recipesSlice = createSlice({
           state.recipes = [...action.payload.recipes];
         } else {
           if (action.payload.recipes) {
-            // state.recipes = [...state.recipes, ...action.payload.recipes];
             state.recipes.push(...action.payload.recipes);
           }
         }
+        state.fetchedAllRecipes = action.payload.recipes.length === 0;
         state.fetching = false;
       })
 
