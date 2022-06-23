@@ -1,5 +1,5 @@
 .admin-kpis {
-  flex-grow:1;
+  margin: 1rem;
   display: flex;
   justify-content: space-evenly;
   align-items: center;

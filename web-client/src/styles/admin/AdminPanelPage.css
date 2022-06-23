@@ -1,7 +1,7 @@
 .admin-panel-page {
   width: 100%;
+  max-height: calc(100vh - 64px);
   height: calc(100vh - 64px);
-  overflow: hidden;
   display: flex;
   flex-direction: column;
 }

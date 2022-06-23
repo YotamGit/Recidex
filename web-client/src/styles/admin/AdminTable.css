@@ -1,5 +1,11 @@
+.admin-table {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-height: 0;
+}
 .admin-table .table-container {
-  height: 60vh;
+  flex-grow: 1;
 }
 
 .admin-table .pagination-row {
