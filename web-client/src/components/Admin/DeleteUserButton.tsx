@@ -2,7 +2,7 @@ import { useState } from "react";
 import GenericPromptDialog from "../utilities/GenericPromptDialog";
 
 //mui
-import Button from "@mui/material/Button";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 //redux
 import { deleteUser } from "../../slices/usersSlice";
@@ -18,19 +18,23 @@ interface propTypes {
 const DeleteUserButton: FC<propTypes> = ({ userId }) => {
   const dispatch = useAppDispatch();
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
+  const [disableButton, setDisableButton] = useState(false);
 
   const onDeleteUser = async () => {
+    setDisableButton(true);
     await dispatch(deleteUser({ userId }));
+    setDisableButton(false);
   };
   return (
     <>
-      <Button
+      <LoadingButton
+        loading={disableButton}
         variant="contained"
         style={{ backgroundColor: "rgb(255, 93, 85)" }}
         onClick={() => setOpenConfirmDialog(true)}
       >
         Delete
-      </Button>
+      </LoadingButton>
       <GenericPromptDialog
         open={openConfirmDialog}
         setOpen={setOpenConfirmDialog}

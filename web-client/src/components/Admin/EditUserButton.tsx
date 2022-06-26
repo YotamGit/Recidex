@@ -7,6 +7,7 @@ import { validUsername, validEmail } from "../../utils-module/validation";
 import GenericPromptDialog from "../utilities/GenericPromptDialog";
 
 //mui
+import LoadingButton from "@mui/lab/LoadingButton";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
@@ -38,6 +39,7 @@ const EditUserButton: FC<propTypes> = ({ user }) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [openSubmitDialog, setOpenSubmitDialog] = useState(false);
+  const [disableButton, setDisableButton] = useState(false);
 
   const [role, setRole] = useState(user.role);
   const [username, setUsername] = useState(user.username);
@@ -78,6 +80,7 @@ const EditUserButton: FC<propTypes> = ({ user }) => {
     if (!isValidInputs) {
       return;
     }
+    setDisableButton(true);
     let editRes = await dispatch(
       editUser({
         action: "editOther",
@@ -94,6 +97,7 @@ const EditUserButton: FC<propTypes> = ({ user }) => {
     if (editRes.meta.requestStatus === "fulfilled") {
       handleClose();
     }
+    setDisableButton(false);
   };
   return (
     <>
@@ -183,13 +187,14 @@ const EditUserButton: FC<propTypes> = ({ user }) => {
             </div>
             <div className="edit-user-buttons">
               <DeleteUserButton userId={user._id} />
-              <Button
+              <LoadingButton
+                loading={disableButton}
                 className="primary"
                 variant="contained"
                 onClick={() => setOpenSubmitDialog(true)}
               >
                 Submit
-              </Button>
+              </LoadingButton>
             </div>
           </div>
         </DialogContent>

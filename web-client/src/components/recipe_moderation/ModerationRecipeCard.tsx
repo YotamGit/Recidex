@@ -10,6 +10,7 @@ import GenericPromptDialog from "../utilities/GenericPromptDialog";
 import Divider from "@mui/material/Divider";
 import Tooltip from "@mui/material/Tooltip";
 import Button from "@mui/material/Button";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 //mui icons
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
@@ -34,15 +35,20 @@ const ModerationRecipeCard: FC<propTypes> = ({ recipe }) => {
   const [openModModal, setOpenModModal] = useState(false);
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
 
+  const [disableButton, setDisableButton] = useState(false);
+
   const onApprove = async (approve: boolean, reason?: string) => {
-    await dispatch(
+    setDisableButton(true);
+    let approveRes = await dispatch(
       approveRecipe({
         _id: recipe._id as string,
         approve: approve,
         reason: disapproveReason,
       })
     );
-    setOpenModModal(false);
+    if (approveRes.meta.requestStatus === "rejected") {
+      setDisableButton(false);
+    }
   };
 
   return (
@@ -91,22 +97,24 @@ const ModerationRecipeCard: FC<propTypes> = ({ recipe }) => {
 
       {recipe.owner && <UserProfileLink owner={recipe.owner} />}
       <div className="bottom-button-row">
-        <Button
+        <LoadingButton
+          loading={disableButton}
           className="approve-button"
           variant="contained"
           style={{ backgroundColor: "rgb(255, 93, 85)" }}
           onClick={() => setOpenModModal(true)}
         >
           disapprove
-        </Button>
-        <Button
+        </LoadingButton>
+        <LoadingButton
+          loading={disableButton}
           className="approve-button"
           variant="contained"
           style={{ backgroundColor: "rgb(117, 219, 104)" }}
           onClick={() => setOpenConfirmDialog(true)}
         >
           approve
-        </Button>
+        </LoadingButton>
       </div>
       <DisapproveReasonDialog
         open={openModModal}

@@ -69,17 +69,11 @@ const Authentication: FC<propTypes> = ({
 
   const [disableButtons, setDisableButtons] = useState(false);
 
-  //detect enter key to sign up/in
-  useEffect(() => {
-    const handleKeyDown = async (e: KeyboardEvent) => {
-      if (e.code === "Enter") {
-        onSubmit();
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [firstname, lastname, email, username, password, passwordconfirm]);
+  const handleKeyPress = async (e: React.KeyboardEvent<HTMLElement>) => {
+    if (e.code === "Enter" || e.code === "NumpadEnter") {
+      onSubmit();
+    }
+  };
 
   const validateInput = async () => {
     //check existance of required fields
@@ -157,7 +151,7 @@ const Authentication: FC<propTypes> = ({
   };
 
   return (
-    <div id="authentication-page">
+    <div id="authentication-page" onKeyPress={handleKeyPress}>
       <RecidexLogo />
       <div className="authentication-section">
         <div className="title">
@@ -198,25 +192,6 @@ const Authentication: FC<propTypes> = ({
                   label="Lastname"
                 />
               </FormControl>
-
-              <FormControl id="authentication-email-input" variant="outlined">
-                <InputLabel htmlFor="authentication-email-input">
-                  Email
-                </InputLabel>
-                <OutlinedInput
-                  type="text"
-                  value={email}
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                  }}
-                  label="Email"
-                />
-                {invalidEmail && (
-                  <span style={{ color: "red", fontSize: "0.8rem" }}>
-                    Invalid Email, Please Try Again
-                  </span>
-                )}
-              </FormControl>
             </>
           )}
           <FormControl id="authentication-username-input" variant="outlined">
@@ -232,6 +207,26 @@ const Authentication: FC<propTypes> = ({
               label="Username"
             />
           </FormControl>
+          {action === "signup" && (
+            <FormControl id="authentication-email-input" variant="outlined">
+              <InputLabel htmlFor="authentication-email-input">
+                Email
+              </InputLabel>
+              <OutlinedInput
+                type="text"
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+                label="Email"
+              />
+              {invalidEmail && (
+                <span style={{ color: "red", fontSize: "0.8rem" }}>
+                  Invalid Email, Please Try Again
+                </span>
+              )}
+            </FormControl>
+          )}
           <FormControl id="authentication-password-input" variant="outlined">
             <InputLabel htmlFor="authentication-password-input">
               Password
@@ -243,6 +238,7 @@ const Authentication: FC<propTypes> = ({
                 setPassword(e.target.value);
               }}
               label="Password"
+              autoComplete={`${action === "signup" && "new-"}password`}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton

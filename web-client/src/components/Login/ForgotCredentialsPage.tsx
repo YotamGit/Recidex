@@ -40,17 +40,11 @@ const ForgotCredentialsPage: FC = () => {
     setRequestSent(false);
   }, [type]);
 
-  //detect enter key to sign up/in
-  useEffect(() => {
-    const handleKeyDown = async (e: KeyboardEvent) => {
-      if (e.code === "Enter") {
-        onSubmit();
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [email, username]);
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLElement>) => {
+    if (e.code === "Enter" || e.code === "NumpadEnter") {
+      onSubmit();
+    }
+  };
 
   const validateInput = async () => {
     //check existance of required fields
@@ -95,7 +89,7 @@ const ForgotCredentialsPage: FC = () => {
     setDisableButtons(false);
   };
   return (
-    <div className="forgot-credentials-page">
+    <div className="forgot-credentials-page" onKeyPress={handleKeyPress}>
       <RecidexLogo />
       <div className="forgot-credentials-container">
         <div className="title">

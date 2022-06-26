@@ -1,5 +1,6 @@
 import "../../styles/utilities/GenericPromptDialog.css";
 
+import { useEffect, useRef } from "react";
 import DialogCloseButton from "../buttons/DialogCloseButton";
 
 //mui
@@ -35,12 +36,22 @@ const GenericPromptDialog: FC<propTypes> = ({
   const handleCancel = () => {
     setOpen(false);
   };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLElement>) => {
+    e.preventDefault();
+    if (e.code === "Enter" || e.code === "NumpadEnter") {
+      onConfirm();
+      handleCancel();
+    }
+  };
+
   return (
     <Dialog
       className="generic-prompt-dialog"
       open={open}
       onClose={handleCancel}
       fullScreen={!fullscreen}
+      onKeyPress={handleKeyPress}
     >
       <DialogCloseButton onClick={handleCancel} />
       <DialogTitle className="title">

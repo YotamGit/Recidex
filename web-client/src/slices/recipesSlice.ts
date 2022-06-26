@@ -314,7 +314,7 @@ export const approveRecipe = createAsyncThunk<
       setAlert({
         severity: "error",
         title: "Error",
-        message: "Failed to approve recipe, Please try again.",
+        message: "Failed to approve/disapprove recipe, Please try again.",
         details: error.response.data ? error.response.data : undefined,
       })
     );

@@ -63,17 +63,13 @@ const SearchBar: FC<propTypes> = ({ setExpanded, localSearch, responsive }) => {
     dispatch(setStoreSearchText(searchText));
     await dispatch(getRecipes({ replace: true }));
   };
-  //detect enter key to search
-  useEffect(() => {
-    const handleKeyDown = async (e: KeyboardEvent) => {
-      if (e.code === "Enter") {
-        await searchRecipes();
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchText]);
+
+  const handleKeyPress = async (e: React.KeyboardEvent<HTMLElement>) => {
+    if (e.code === "Enter" || e.code === "NumpadEnter") {
+      console.log("search");
+      await searchRecipes();
+    }
+  };
 
   // get recipe titles when dropdown is opened
   useEffect(() => {
@@ -106,7 +102,7 @@ const SearchBar: FC<propTypes> = ({ setExpanded, localSearch, responsive }) => {
   return (
     <>
       {!responsive || fullscreen || maximizeSearch ? (
-        <div className="search-bar-container">
+        <div className="search-bar-container" onKeyPress={handleKeyPress}>
           <div className="search-container">
             <IconButton
               className="search-icon-wrapper"

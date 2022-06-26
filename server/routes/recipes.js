@@ -411,6 +411,11 @@ router.post("/edit/favorite/:recipe_id", async (req, res, next) => {
 router.post("/edit/approve/:recipe_id", async (req, res, next) => {
   try {
     const recipe = await Recipe.findById({ _id: req.params.recipe_id });
+    if (recipe === null) {
+      res.status(404).send("Recipe not found");
+      return;
+    }
+
     if (!recipe.private) {
       const isModerator = await isModeratorUser(req.headers.validatedToken);
 

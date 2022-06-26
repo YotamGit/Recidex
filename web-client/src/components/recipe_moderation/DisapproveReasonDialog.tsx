@@ -1,5 +1,6 @@
 import "../../styles/recipe_moderation/DisapproveReasonDialog.css";
 import DialogCloseButton from "../buttons/DialogCloseButton";
+import { useEffect } from "react";
 
 //mui
 import Button from "@mui/material/Button";
@@ -32,12 +33,21 @@ const DisapproveReasonDialog: FC<propTypes> = ({
     setOpen(false);
     setReason();
   };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLElement>) => {
+    if (e.code === "Enter") {
+      onSubmit();
+      handleCancel();
+    }
+  };
+
   return (
     <Dialog
       className="disapprove-reason-dialog"
       open={open}
       onClose={handleCancel}
       fullScreen={!fullscreen}
+      onKeyPress={handleKeyPress}
     >
       <DialogCloseButton onClick={handleCancel} />
       <DialogTitle className="disapprove-dialog-title">
@@ -68,6 +78,7 @@ const DisapproveReasonDialog: FC<propTypes> = ({
           variant="contained"
           onClick={() => {
             onSubmit();
+            handleCancel();
           }}
         >
           Submit
