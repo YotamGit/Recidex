@@ -65,6 +65,7 @@ export type TRecipe = {
 // get recipes from the server
 interface GetRecipesProps {
   replace: boolean;
+  abortController?: AbortController;
   args?: any;
 }
 // params - {replace:Boolean, args:{filters to pass to the db}}, see implementation...
@@ -85,6 +86,9 @@ export const getRecipes = createAsyncThunk<
 
   try {
     let result = await axios.get("/api/recipes", {
+      signal: params.abortController
+        ? params.abortController.signal
+        : undefined,
       params: {
         latest: params.args?.latest || new Date(),
         count: 12,
@@ -109,14 +113,16 @@ export const getRecipes = createAsyncThunk<
     }
     return { replace: params.replace, recipes: result.data };
   } catch (error: any) {
-    thunkAPI.dispatch(
-      setAlert({
-        severity: "error",
-        title: "Error",
-        message: "Failed to fetch recipes, Please refresh the page.",
-        details: error.response.data ? error.response.data : undefined,
-      })
-    );
+    if (!params.abortController?.signal.aborted) {
+      thunkAPI.dispatch(
+        setAlert({
+          severity: "error",
+          title: "Error",
+          message: "Failed to fetch recipes, Please refresh the page.",
+          details: error.response?.data ? error.response?.data : undefined,
+        })
+      );
+    }
 
     return thunkAPI.rejectWithValue({
       statusCode: error?.response?.status,

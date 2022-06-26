@@ -55,10 +55,19 @@ const BaseRecipesPage: FC<propTypes> = ({
   const attemptSignIn = useAppSelector((state) => state.users.attemptSignIn);
   const routeHistory = useAppSelector((state) => state.utilities.routeHistory);
 
+  const abortControllerRef = useRef<AbortController>(new AbortController());
+
+  useEffect(() => {
+    return () => {
+      abortControllerRef.current.abort();
+    };
+  }, []);
+
   const loadRecipes = async () => {
     if (recipes.length > 0) {
       await dispatch(
         getRecipes({
+          abortController: abortControllerRef.current,
           replace: false,
           args: {
             latest: recipes.at(-1)?.creation_time,
@@ -70,7 +79,12 @@ const BaseRecipesPage: FC<propTypes> = ({
 
   const initialRecipesLoad = async () => {
     try {
-      await dispatch(getRecipes({ replace: true }));
+      await dispatch(
+        getRecipes({
+          abortController: abortControllerRef.current,
+          replace: true,
+        })
+      );
     } catch (error) {}
   };
 
@@ -101,6 +115,9 @@ const BaseRecipesPage: FC<propTypes> = ({
       if (ownerOnly) {
         dispatch(setPrivacyState(recipePrivacy));
       }
+      //abort previous requests
+      abortControllerRef.current.abort();
+      abortControllerRef.current = new AbortController();
       initialRecipesLoad();
     }
 
