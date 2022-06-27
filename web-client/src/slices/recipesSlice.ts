@@ -305,7 +305,13 @@ export const approveRecipe = createAsyncThunk<
       approve: props.approve,
       reason: props.reason,
     });
-    //TODO return a single recipe instead of all of the recipes
+    thunkAPI.dispatch(
+      setAlert({
+        severity: "success",
+        title: "Success",
+        message: `Recipe ${props.approve ? "approved" : "disapproved"}`,
+      })
+    );
     return state.recipes.recipes.filter(
       (recipe: TRecipe) => recipe._id !== props._id
     );
