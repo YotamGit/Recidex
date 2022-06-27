@@ -142,7 +142,9 @@ const AdminTable: FC = () => {
           </ToggleButton>
         </ToggleButtonGroup>
         <TablePagination
-          rowsPerPageOptions={[5, 10, 25, users.length].sort((a, b) => a - b)}
+          rowsPerPageOptions={[5, 10, 25, 50, 100, users.length]
+            .filter((value) => value <= users.length)
+            .sort((a, b) => a - b)}
           component="div"
           count={users.length}
           rowsPerPage={rowsPerPage}

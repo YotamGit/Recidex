@@ -66,7 +66,6 @@ const SearchBar: FC<propTypes> = ({ setExpanded, localSearch, responsive }) => {
 
   const handleKeyPress = async (e: React.KeyboardEvent<HTMLElement>) => {
     if (e.code === "Enter" || e.code === "NumpadEnter") {
-      console.log("search");
       await searchRecipes();
     }
   };
@@ -113,6 +112,7 @@ const SearchBar: FC<propTypes> = ({ setExpanded, localSearch, responsive }) => {
             </IconButton>
             <Autocomplete
               className="search-bar-search-field"
+              freeSolo
               autoComplete={true}
               open={openOptions}
               onOpen={() => setOpenOptions(true)}
@@ -124,11 +124,6 @@ const SearchBar: FC<propTypes> = ({ setExpanded, localSearch, responsive }) => {
                   : setSearchText(value || "");
               }}
               value={localSearch ? localSearch.searchText : searchText}
-              //can't figure out what the types of option and value should be
-              //so I'm leaving it as "any" for now
-              isOptionEqualToValue={(option: any, value: any) =>
-                option.value === value.value
-              } //disable warning
               renderInput={(params) => (
                 <TextField
                   {...params}
