@@ -43,7 +43,9 @@ const BaseRecipesPage: FC<propTypes> = ({
 }) => {
   const dispatch = useAppDispatch();
   const location = useLocation();
-  const [recipePrivacy, setRecipePrivacy] = useState<recipePrivacyState>("all");
+  const [recipePrivacy, setRecipePrivacy] = useState<recipePrivacyState>(
+    useAppSelector((state) => state.filters.privacyState)
+  );
 
   const recipes = useAppSelector((state) => state.recipes.recipes);
   const fetchedAllRecipes = useAppSelector(
@@ -107,7 +109,7 @@ const BaseRecipesPage: FC<propTypes> = ({
         mainRecipesRoutes.includes(element.pathname)
       )?.pathname;
 
-    if (location.pathname !== lastMainPageVisited) {
+    if (location.pathname !== lastMainPageVisited || ownerOnly) {
       dispatch(setFavoritesOnly(favoritesOnly));
       dispatch(setApprovedOnly(approvedOnly));
       dispatch(setApprovalRequiredOnly(approvalRequiredOnly));
