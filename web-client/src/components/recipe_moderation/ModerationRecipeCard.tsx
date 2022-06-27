@@ -3,7 +3,6 @@ import { useState } from "react";
 
 import { Link, useNavigate } from "react-router-dom";
 import UserProfileLink from "../account/UserProfileLink";
-import DisapproveReasonDialog from "./DisapproveReasonDialog";
 import GenericPromptDialog from "../utilities/GenericPromptDialog";
 
 //mui
@@ -11,6 +10,7 @@ import Divider from "@mui/material/Divider";
 import Tooltip from "@mui/material/Tooltip";
 import Button from "@mui/material/Button";
 import LoadingButton from "@mui/lab/LoadingButton";
+import TextField from "@mui/material/TextField";
 
 //mui icons
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
@@ -31,7 +31,9 @@ const ModerationRecipeCard: FC<propTypes> = ({ recipe }) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const [disapproveReason, setDisapproveReason] = useState();
+  const [disapproveReason, setDisapproveReason] = useState<
+    string | undefined
+  >();
   const [openModModal, setOpenModModal] = useState(false);
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
 
@@ -116,18 +118,29 @@ const ModerationRecipeCard: FC<propTypes> = ({ recipe }) => {
           approve
         </LoadingButton>
       </div>
-      <DisapproveReasonDialog
+      <GenericPromptDialog
         open={openModModal}
         setOpen={setOpenModModal}
-        setReason={setDisapproveReason}
-        onSubmit={() => onApprove(false)}
+        onConfirm={() => onApprove(false)}
+        onCancel={() => setDisapproveReason(undefined)}
+        title="Disapprove Recipe?"
+        text={`Disapprove recipe: "${recipe.title}"\nBy: ${recipe.owner?.firstname} ${recipe.owner?.lastname}?\n\nState reason for disapproving the recipe and what changes are needed.`}
+        content={
+          <TextField
+            autoFocus
+            fullWidth
+            label="Reason"
+            variant="standard"
+            onChange={(e) => setDisapproveReason(e.target.value)}
+          />
+        }
       />
       <GenericPromptDialog
         open={openConfirmDialog}
         setOpen={setOpenConfirmDialog}
         onConfirm={() => onApprove(true)}
         title="Approve Recipe?"
-        text={`Approve recipe - "${recipe.title}"\nby - ${recipe.owner?.firstname} ${recipe.owner?.lastname}?`}
+        text={`Approve recipe: "${recipe.title}"\nBy: ${recipe.owner?.firstname} ${recipe.owner?.lastname}?`}
       />
     </div>
   );

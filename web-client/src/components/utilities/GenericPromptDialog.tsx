@@ -21,24 +21,28 @@ interface propTypes {
   open: boolean;
   setOpen: Function;
   onConfirm: Function;
+  onCancel?: Function;
   title?: string;
   text?: string;
+  content?: JSX.Element;
 }
 const GenericPromptDialog: FC<propTypes> = ({
   open,
   setOpen,
   onConfirm,
+  onCancel,
   title,
   text,
+  content,
 }) => {
   const fullscreen = useAppSelector((state) => state.utilities.fullscreen);
 
   const handleCancel = () => {
     setOpen(false);
+    onCancel && onCancel();
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLElement>) => {
-    e.preventDefault();
     if (e.code === "Enter" || e.code === "NumpadEnter") {
       onConfirm();
       handleCancel();
@@ -61,6 +65,7 @@ const GenericPromptDialog: FC<propTypes> = ({
         <DialogContentText style={{ whiteSpace: "pre-line" }}>
           {text || "Confirm?"}
         </DialogContentText>
+        {content}
       </DialogContent>
       <DialogActions>
         <Button
