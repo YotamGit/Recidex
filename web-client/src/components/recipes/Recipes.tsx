@@ -49,4 +49,4 @@ const Recipes: FC<propTypes> = ({
   );
 };
 
-export default memo(Recipes);
+export default Recipes;

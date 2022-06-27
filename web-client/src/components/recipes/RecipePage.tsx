@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import Share from "../buttons/Share";
+import RecipeActionsMenuButton from "./RecipeActionsMenuButton";
 
 //utils
 import { getRecipe } from "../../utils-module/recipes";
@@ -63,6 +64,7 @@ const RecipePage: FC = () => {
 
               <Share url={window.location.href} emailTitle={recipe.title} />
             </div>
+            <RecipeActionsMenuButton recipe={recipe} />
             <Tooltip title="Edit recipe" arrow>
               <IconButton
                 onClick={() => navigate(`/recipes/edit/${recipe._id}`)}

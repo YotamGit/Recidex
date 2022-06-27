@@ -207,14 +207,12 @@ router.post("/new", async (req, res, next) => {
     delete req.body.recipeData.owner;
     delete req.body.recipeData.favorited_by;
 
-    //auto approve a recipe if a moderator addss it
-    if (isModerator && !req.body.recipeData.private) {
-      req.body.recipeData.approved = true;
-      req.body.recipeData.approval_required = false;
-    } else if (req.body.recipeData.private) {
-      req.body.recipeData.approval_required = false;
+    //handle privacy
+    if (!isModerator && !req.body.recipeData.private) {
       req.body.recipeData.approved = false;
-    } else {
+    }
+    if (req.body.recipeData.private) {
+      req.body.recipeData.approval_required = false;
       req.body.recipeData.approved = false;
     }
 
@@ -297,14 +295,12 @@ router.post("/edit/:recipe_id", async (req, res, next) => {
       delete req.body.recipeData.owner;
       delete req.body.recipeData.favorited_by;
 
-      //auto approve a recipe if a moderator edits it
-      if (isModerator && !req.body.recipeData.private) {
-        req.body.recipeData.approved = true;
-        req.body.recipeData.approval_required = false;
-      } else if (req.body.recipeData.private) {
-        req.body.recipeData.approval_required = false;
+      //handle privacy
+      if (!isModerator && !req.body.recipeData.private) {
         req.body.recipeData.approved = false;
-      } else {
+      }
+      if (req.body.recipeData.private) {
+        req.body.recipeData.approval_required = false;
         req.body.recipeData.approved = false;
       }
 

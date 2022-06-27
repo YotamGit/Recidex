@@ -7,13 +7,14 @@ import Favorite from "../buttons/Favorite";
 import Share from "../buttons/Share";
 import ImagePlaceholder from "../../utils-module/Photos/recipeImagePlaceholder.svg";
 import UserProfileLink from "../account/UserProfileLink";
+import RecipeActionsMenuButton from "./RecipeActionsMenuButton";
 
 //mui
 import Divider from "@mui/material/Divider";
 import Tooltip from "@mui/material/Tooltip";
+import IconButton from "@mui/material/IconButton";
 
 //mui icons
-import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import OpenInFullRoundedIcon from "@mui/icons-material/OpenInFullRounded";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import CookieOutlinedIcon from "@mui/icons-material/CookieOutlined";
@@ -45,46 +46,36 @@ const RecipeCard: FC<propTypes> = ({ recipe, chipsFilterFunction }) => {
 
   return (
     <div className="recipe-card">
-      <div className="recipe-card-top-button-row" style={{ margin: "1%" }}>
-        <Link to={`/recipes/${recipe._id}`} style={{ lineHeight: 0 }}>
-          <Tooltip title="Expand recipe" arrow>
+      <div className="recipe-card-top-button-row">
+        <Tooltip title="Expand recipe" arrow>
+          <IconButton onClick={() => navigate(`/recipes/${recipe._id}`)}>
             <OpenInFullRoundedIcon className="icon" />
+          </IconButton>
+        </Tooltip>
+
+        {recipe.approved && (
+          <Tooltip title="Approved" arrow>
+            <VerifiedIcon
+              className="icon"
+              style={{ color: "rgb(125, 221, 112)" }}
+            />
           </Tooltip>
-        </Link>
-        <div>
-          {recipe.approved && (
-            <Tooltip title="Approved" arrow>
-              <VerifiedIcon
-                className="icon"
-                style={{ color: "rgb(125, 221, 112)" }}
-              />
-            </Tooltip>
-          )}
-          {recipe.private && (
-            <Tooltip title="Private" arrow>
-              <VpnLockRoundedIcon
-                className="icon"
-                style={{ color: "rgb(255, 93, 85)" }}
-              />
-            </Tooltip>
-          )}
-          {recipe.approval_required && (
-            <Tooltip title="Pending Approval" arrow>
-              <PendingRoundedIcon
-                className="icon"
-                style={{ color: "#f29339" }}
-              />
-            </Tooltip>
-          )}
-        </div>
-        <Link
-          to={`/recipes/edit/${recipe._id}`}
-          style={{ color: "gray", lineHeight: 0 }}
-        >
-          <Tooltip title="Edit recipe" arrow>
-            <EditRoundedIcon className="icon" />
+        )}
+        {recipe.private && (
+          <Tooltip title="Private" arrow>
+            <VpnLockRoundedIcon
+              className="icon"
+              style={{ color: "rgb(255, 93, 85)" }}
+            />
           </Tooltip>
-        </Link>
+        )}
+        {recipe.approval_required && (
+          <Tooltip title="Pending Approval" arrow>
+            <PendingRoundedIcon className="icon" style={{ color: "#f29339" }} />
+          </Tooltip>
+        )}
+
+        <RecipeActionsMenuButton recipe={recipe} />
       </div>
       <div className="recipe-header">
         <div
