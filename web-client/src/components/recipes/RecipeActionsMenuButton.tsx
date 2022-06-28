@@ -53,69 +53,66 @@ const RecipeActionsMenuButton: FC<propTypes> = ({ recipe }) => {
 
   return (
     <>
-      {isAllowed && (
-        <>
-          <Tooltip title="Actions" arrow>
-            <IconButton onClick={handleClick}>
-              <MoreVertIcon className="icon" />
-            </IconButton>
-          </Tooltip>
-          <Menu
-            anchorEl={anchorElement}
-            className="recipe-actions-menu"
-            open={open}
-            onClose={handleClose}
-            onClick={handleClose}
-            transformOrigin={{ horizontal: "right", vertical: "top" }}
-            anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-          >
-            <MenuItem
-              key="edit"
-              onClick={() => navigate(`/recipes/edit/${recipe._id}`)}
-            >
-              <ListItemIcon>
-                <EditRoundedIcon />
-              </ListItemIcon>
-              Edit Recipe
-            </MenuItem>
-            {!recipe.private && !recipe.approved && !recipe.approval_required && (
-              <MenuItem key="request-approval">
-                <ListItemIcon>
-                  <FlakyIcon />
-                </ListItemIcon>
-                Request Approval
-              </MenuItem>
-            )}
-            <MenuItem key="change-privacy">
-              <ListItemIcon>
-                <PrivacyTipRoundedIcon />
-              </ListItemIcon>
-              Change Privacy
-            </MenuItem>
-            {isModerator &&
-              !recipe.private &&
-              (recipe.approved
-                ? [
-                    <Divider key="divider" />,
-                    <MenuItem key="disapprove">
-                      <ListItemIcon>
-                        <BlockIcon />
-                      </ListItemIcon>
-                      Disapprove Recipe
-                    </MenuItem>,
-                  ]
-                : [
-                    <Divider key="divider" />,
-                    <MenuItem key="approve">
-                      <ListItemIcon>
-                        <CheckCircleOutlineRoundedIcon />
-                      </ListItemIcon>
-                      Approve Recipe
-                    </MenuItem>,
-                  ])}
-          </Menu>
-        </>
-      )}
+      <Tooltip title="Actions" arrow>
+        <IconButton onClick={handleClick}>
+          <MoreVertIcon className="icon" />
+        </IconButton>
+      </Tooltip>
+      <Menu
+        anchorEl={anchorElement}
+        className="recipe-actions-menu"
+        open={open}
+        onClose={handleClose}
+        onClick={handleClose}
+        transformOrigin={{ horizontal: "right", vertical: "top" }}
+        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+      >
+        <MenuItem
+          key="edit"
+          onClick={() => navigate(`/recipes/edit/${recipe._id}`)}
+          disabled={!isAllowed}
+        >
+          <ListItemIcon>
+            <EditRoundedIcon />
+          </ListItemIcon>
+          Edit Recipe
+        </MenuItem>
+        {!recipe.private && !recipe.approved && !recipe.approval_required && (
+          <MenuItem key="request-approval" disabled={!isAllowed}>
+            <ListItemIcon>
+              <FlakyIcon />
+            </ListItemIcon>
+            Request Approval
+          </MenuItem>
+        )}
+        <MenuItem key="change-privacy" disabled={!isAllowed}>
+          <ListItemIcon>
+            <PrivacyTipRoundedIcon />
+          </ListItemIcon>
+          Change Privacy
+        </MenuItem>
+        {isModerator &&
+          !recipe.private &&
+          (recipe.approved
+            ? [
+                <Divider key="divider" />,
+                <MenuItem key="disapprove">
+                  <ListItemIcon>
+                    <BlockIcon />
+                  </ListItemIcon>
+                  Disapprove Recipe
+                </MenuItem>,
+              ]
+            : [
+                <Divider key="divider" />,
+                <MenuItem key="approve">
+                  <ListItemIcon>
+                    <CheckCircleOutlineRoundedIcon />
+                  </ListItemIcon>
+                  Approve Recipe
+                </MenuItem>,
+              ])}
+      </Menu>
     </>
   );
 };
