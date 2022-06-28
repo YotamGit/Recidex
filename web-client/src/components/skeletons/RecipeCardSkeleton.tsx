@@ -1,4 +1,5 @@
 import "../../styles/skeletons/RecipeCardSkeleton.css";
+import { useEffect, useState } from "react";
 //mui
 import Skeleton from "@mui/material/Skeleton";
 import Divider from "@mui/material/Divider";
@@ -10,7 +11,18 @@ interface propTypes {
   kind: "regular" | "moderation";
 }
 const RecipeCardSkeleton: FC<propTypes> = ({ kind }) => {
-  return (
+  const [delayed, setDelayed] = useState(true);
+
+  useEffect(() => {
+    setDelayed(true);
+    const timeout = setTimeout(() => setDelayed(false), 1000);
+    return () => {
+      clearTimeout(timeout);
+      setDelayed(true);
+    };
+  }, []);
+
+  return !delayed ? (
     <div className={`recipe-card-skeleton ${kind}`}>
       <Skeleton variant="text" width="30%" height="30px" />
       <Skeleton variant="text" width="50%" height="30px" />
@@ -55,6 +67,8 @@ const RecipeCardSkeleton: FC<propTypes> = ({ kind }) => {
         </div>
       )}
     </div>
+  ) : (
+    <></>
   );
 };
 

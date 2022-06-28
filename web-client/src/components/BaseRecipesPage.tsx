@@ -67,6 +67,9 @@ const BaseRecipesPage: FC<propTypes> = ({
 
   const loadRecipes = async () => {
     if (recipes.length > 0) {
+      //abort previous requests
+      abortControllerRef.current.abort();
+      abortControllerRef.current = new AbortController();
       await dispatch(
         getRecipes({
           abortController: abortControllerRef.current,

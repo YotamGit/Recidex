@@ -342,6 +342,9 @@ const recipesSlice = createSlice({
     setRecipes(state, action: PayloadAction<TRecipe[]>) {
       state.recipes = action.payload;
     },
+    setFetching(state, action: PayloadAction<boolean>) {
+      state.fetching = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -351,8 +354,7 @@ const recipesSlice = createSlice({
           state.fetchedAllRecipes = false;
           state.fetching = true;
         }
-
-        if (state.fetchedAllRecipes === false) {
+        if (!state.fetchedAllRecipes) {
           state.fetching = true;
         }
       })
@@ -392,6 +394,7 @@ const recipesSlice = createSlice({
   },
 });
 
-export const { setFetchedAllRecipes, setRecipes } = recipesSlice.actions;
+export const { setFetchedAllRecipes, setRecipes, setFetching } =
+  recipesSlice.actions;
 
 export default recipesSlice.reducer;
