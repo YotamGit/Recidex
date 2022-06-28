@@ -215,6 +215,10 @@ router.post("/new", async (req, res, next) => {
       req.body.recipeData.approval_required = false;
       req.body.recipeData.approved = false;
     }
+    if (req.body.recipeData.approval_required) {
+      req.body.recipeData.approved = false;
+      req.body.recipeData.private = false;
+    }
 
     //reduce image quality if present
     if (req.body.recipeData.image) {
@@ -302,6 +306,10 @@ router.post("/edit/:recipe_id", async (req, res, next) => {
       if (req.body.recipeData.private) {
         req.body.recipeData.approval_required = false;
         req.body.recipeData.approved = false;
+      }
+      if (req.body.recipeData.approval_required) {
+        req.body.recipeData.approved = false;
+        req.body.recipeData.private = false;
       }
 
       //reduce image quality if present
@@ -429,8 +437,7 @@ router.post("/edit/approve/:recipe_id", async (req, res, next) => {
           },
           { new: true }
         )
-          .select("title _id")
-          .populate("owner", "firstname lastname email");
+        .populate("owner", "firstname lastname email");
 
         if (recipe === null) {
           res.status(404).send("Recipe not found");
@@ -467,7 +474,7 @@ router.post("/edit/approve/:recipe_id", async (req, res, next) => {
           console.log(err);
         }
 
-        res.status(200).json({ approved: req.body.approve });
+        res.status(200).json(recipe);
       } else {
         res.status(403).send("Missing privileges to approve recipe.");
       }

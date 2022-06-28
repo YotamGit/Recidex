@@ -143,9 +143,12 @@ export const editRecipe = createAsyncThunk<
 >("recipes/editRecipe", async (props, thunkAPI) => {
   const state = thunkAPI.getState() as RootState;
   try {
-    var editedRecipe = await axios.post(`/api/recipes/edit/${props.recipeId}`, {
-      recipeData: props.recipeData,
-    });
+    var editedRecipe: any = await axios.post(
+      `/api/recipes/edit/${props.recipeId}`,
+      {
+        recipeData: props.recipeData,
+      }
+    );
 
     thunkAPI.dispatch(
       setAlert({
@@ -227,7 +230,7 @@ export const addRecipe = createAsyncThunk<
   AsyncThunkConfig
 >("recipes/addRecipe", async (props, thunkAPI) => {
   try {
-    let result = await axios.post(`/api/recipes/new`, {
+    let result: any = await axios.post(`/api/recipes/new`, {
       recipeData: props.recipeData,
     });
     thunkAPI.dispatch(
@@ -267,7 +270,7 @@ export const favoriteRecipe = createAsyncThunk<
   const state = thunkAPI.getState() as RootState;
 
   try {
-    let res = await axios.post(`/api/recipes/edit/favorite/${props.id}`, {
+    let res: any = await axios.post(`/api/recipes/edit/favorite/${props.id}`, {
       favorite: props.favorite,
     });
     //TODO return a single recipe instead of all of the recipes
@@ -289,6 +292,7 @@ export const favoriteRecipe = createAsyncThunk<
   }
 });
 interface ApproveRecipeProps {
+  fromModerationPage: boolean;
   _id: string;
   approve: boolean;
   reason?: string;
@@ -301,7 +305,7 @@ export const approveRecipe = createAsyncThunk<
   const state = thunkAPI.getState() as RootState;
 
   try {
-    let res = await axios.post(`/api/recipes/edit/approve/${props._id}`, {
+    let res: any = await axios.post(`/api/recipes/edit/approve/${props._id}`, {
       approve: props.approve,
       reason: props.reason,
     });
@@ -312,9 +316,15 @@ export const approveRecipe = createAsyncThunk<
         message: `Recipe ${props.approve ? "approved" : "disapproved"}`,
       })
     );
-    return state.recipes.recipes.filter(
-      (recipe: TRecipe) => recipe._id !== props._id
-    );
+    if (props.fromModerationPage) {
+      return state.recipes.recipes.filter(
+        (recipe: TRecipe) => recipe._id !== props._id
+      );
+    } else {
+      return state.recipes.recipes.map((recipe) =>
+        recipe._id === props._id ? res.data : recipe
+      );
+    }
   } catch (error: any) {
     thunkAPI.dispatch(
       setAlert({
