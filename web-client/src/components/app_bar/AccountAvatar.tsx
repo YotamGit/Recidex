@@ -85,7 +85,13 @@ const AccountAvatar: FC = () => {
               </MenuItem>,
 
               <Divider key="divider" />,
-              <MenuItem key="logout" onClick={() => dispatch(clearUserData())}>
+              <MenuItem
+                key="logout"
+                onClick={() => {
+                  dispatch(clearUserData());
+                  navigate("/");
+                }}
+              >
                 <ListItemIcon>
                   <LogoutRoundedIcon fontSize="small" />
                 </ListItemIcon>

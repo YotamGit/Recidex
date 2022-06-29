@@ -140,7 +140,10 @@ const NavDrawer: FC<propTypes> = ({ openDrawer, handleToggleDrawer }) => {
           currentPageUrl={activePage}
           text={"Log Out"}
           closeDrawer={handleToggleDrawer}
-          onClick={() => dispatch(clearUserData())}
+          onClick={() => {
+            dispatch(clearUserData());
+            navigate("/");
+          }}
           Icon={LogoutRoundedIcon}
           style={{ bottom: "0px", position: "absolute", width: "100%" }}
         />
