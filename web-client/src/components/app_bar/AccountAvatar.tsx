@@ -43,7 +43,6 @@ const AccountAvatar: FC = () => {
     <>
       <Tooltip title="Account Menu">
         <IconButton
-          style={{ marginLeft: "auto" }}
           className="account-avatar"
           onClick={handleClick}
           sx={{ p: 0 }}

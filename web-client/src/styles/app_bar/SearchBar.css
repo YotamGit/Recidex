@@ -1,9 +1,18 @@
 .search-bar-container {
+  width: 40ch;
   display: flex;
   justify-content: space-between;
 }
 .search-bar-container .icon {
   color: var(--blue-5);
+}
+.search-bar-container .MuiButtonBase-root {
+  padding: 0px !important;
+  color: var(--blue-5);
+}
+.search-bar-container .MuiAutocomplete-inputRoot {
+  padding-right: 1.5rem !important;
+  color: white;
 }
 
 .search-container {
@@ -19,17 +28,8 @@
   flex-direction: row;
 }
 
-.search-bar-container .MuiButtonBase-root {
-  padding: 0px !important;
-  color: var(--blue-5);
-}
-.search-bar-container .MuiAutocomplete-inputRoot {
-  padding-right: 43px !important;
-  color: white;
-}
-
 .search-bar-search-field {
-  width: 25ch;
+  flex-grow: 1;
 }
 
 .search-container:hover {

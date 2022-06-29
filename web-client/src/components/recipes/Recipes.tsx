@@ -1,7 +1,6 @@
 import RecipeCard from "./RecipeCard";
 import ModerationRecipeCard from "../recipe_moderation/ModerationRecipeCard";
 import "../../styles/recipes/Recipes.css";
-import { memo, useEffect } from "react";
 
 //import
 import RecipeCardSkeleton from "../skeletons/RecipeCardSkeleton";

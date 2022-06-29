@@ -16,21 +16,13 @@
   justify-content: space-between;
   align-items: center;
 }
-.app-bar .logo-container {
-  flex-grow: 1;
-  display: flex;
-  padding-left: 5px;
-  padding-right: 5px;
-  font-size: 2rem;
-  flex-direction: row;
-  align-items: center;
-  color: var(--blue-5);
-}
 
 .app-bar .logo {
   filter: invert(100%);
   overflow: hidden;
   width: 103px;
+  padding-left: 5px;
+  padding-right: 5px;
   cursor: pointer;
 
   filter: invert(75%) sepia(95%) saturate(1839%) hue-rotate(183deg)
@@ -39,4 +31,10 @@
 
 .app-bar .search-bar-container {
   margin-right: 0.5rem;
+}
+
+@media only screen and (max-width: 600px) {
+  .app-bar .logo-container {
+    flex-grow: 1;
+  }
 }
