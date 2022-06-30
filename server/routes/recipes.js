@@ -492,7 +492,6 @@ router.post("/edit/approve/:recipe_id", async (req, res, next) => {
 router.post("/edit/request-approval/:recipe_id", async (req, res, next) => {
   try {
     const recipe = await Recipe.findById({ _id: req.params.recipe_id });
-    console.log(recipe);
     if (recipe === null) {
       res.status(404).send("Recipe not found");
       return;

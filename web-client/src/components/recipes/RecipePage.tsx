@@ -34,9 +34,21 @@ const RecipePage: FC = () => {
         state.recipes.recipes.filter((recipe) => recipe._id === recipe_id)[0]
     )
   );
+  const storeRecipe = useAppSelector(
+    (state) =>
+      state.recipes.recipes.filter((recipe) => recipe._id === recipe_id)[0]
+  );
 
+  //update recipe when the store recipe updates
   useEffect(() => {
-    //fetch recipe if the page refeshes/loads from url
+    if (storeRecipe !== undefined) {
+      setRecipe(storeRecipe);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [storeRecipe]);
+
+  //fetch recipe if the page refeshes/loads from url or the store recipe is missing
+  useEffect(() => {
     if (recipe === undefined && recipe_id !== undefined) {
       getRecipe(recipe_id).then((res: TRecipe) => {
         if (res) {
@@ -65,13 +77,6 @@ const RecipePage: FC = () => {
               <Share url={window.location.href} emailTitle={recipe.title} />
             </div>
             <RecipeActionsMenuButton recipe={recipe} />
-            <Tooltip title="Edit recipe" arrow>
-              <IconButton
-                onClick={() => navigate(`/recipes/edit/${recipe._id}`)}
-              >
-                <EditRoundedIcon className="icon" />
-              </IconButton>
-            </Tooltip>
           </div>
           {recipe && <Recipe recipe={recipe} />}
         </div>
