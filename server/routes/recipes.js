@@ -253,11 +253,13 @@ router.post("/new", async (req, res, next) => {
 router.post("/delete/:recipe_id", async (req, res, next) => {
   try {
     const recipe = await Recipe.findById(req.params.recipe_id);
-    const isOwner = await authenticateRecipeOwnership(
+    const isModerator = await isModeratorUser(req.headers.validatedToken);
+    const isOwner = authenticateRecipeOwnership(
       req.headers.validatedToken,
       recipe
     );
-    if (isOwner) {
+
+    if (isOwner || isModerator) {
       const response = await Recipe.deleteOne({ _id: req.params.recipe_id });
       res.status(200).json(response);
     } else {
@@ -275,7 +277,7 @@ router.post("/edit/:recipe_id", async (req, res, next) => {
   try {
     const recipe = await Recipe.findById(req.params.recipe_id);
     const isModerator = await isModeratorUser(req.headers.validatedToken);
-    const isOwner = await authenticateRecipeOwnership(
+    const isOwner = authenticateRecipeOwnership(
       req.headers.validatedToken,
       recipe
     );
@@ -377,6 +379,7 @@ router.post("/edit/favorite/:recipe_id", async (req, res, next) => {
     const recipe = await Recipe.findById({ _id: req.params.recipe_id });
     if (recipe.private) {
       res.status(403).send("Private recipes can not be favorited");
+      return;
     } else {
       const users = (await Recipe.findById({ _id: req.params.recipe_id }))
         .favorited_by;
@@ -436,8 +439,7 @@ router.post("/edit/approve/:recipe_id", async (req, res, next) => {
             private: false,
           },
           { new: true }
-        )
-        .populate("owner", "firstname lastname email");
+        ).populate("owner", "firstname lastname email");
 
         if (recipe === null) {
           res.status(404).send("Recipe not found");
@@ -480,6 +482,56 @@ router.post("/edit/approve/:recipe_id", async (req, res, next) => {
       }
     } else {
       res.status(403).send("Cant approve a private recipe.");
+    }
+  } catch (err) {
+    next(err);
+  }
+});
+
+// REQUEST APPROVAL
+router.post("/edit/request-approval/:recipe_id", async (req, res, next) => {
+  try {
+    const recipe = await Recipe.findById({ _id: req.params.recipe_id });
+    console.log(recipe);
+    if (recipe === null) {
+      res.status(404).send("Recipe not found");
+      return;
+    }
+
+    if (recipe.private) {
+      res.status(403).send("Cant request approval for a private recipe.");
+      return;
+    }
+
+    if (req.body.approval_required === undefined) {
+      res.status(403).send(`Missing argument "request_approval".`);
+      return;
+    }
+
+    const isModerator = await isModeratorUser(req.headers.validatedToken);
+    const isOwner = authenticateRecipeOwnership(
+      req.headers.validatedToken,
+      recipe
+    );
+    if (isModerator || isOwner) {
+      const recipe = await Recipe.findOneAndUpdate(
+        { _id: req.params.recipe_id },
+        {
+          approved: false,
+          approval_required: req.body.approval_required,
+          private: false,
+        },
+        { new: true }
+      ).populate("owner", "firstname lastname");
+
+      if (recipe === null) {
+        res.status(404).send("Recipe not found");
+        return;
+      }
+
+      res.status(200).json(recipe);
+    } else {
+      res.status(403).send("Missing privileges to request approval.");
     }
   } catch (err) {
     next(err);

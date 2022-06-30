@@ -341,6 +341,53 @@ export const approveRecipe = createAsyncThunk<
     });
   }
 });
+interface RequestApprovalProps {
+  _id: string;
+  approval_required: boolean;
+}
+export const requestApproval = createAsyncThunk<
+  TRecipe[],
+  RequestApprovalProps,
+  AsyncThunkConfig
+>("recipes/requestApproval", async (props, thunkAPI) => {
+  const state = thunkAPI.getState() as RootState;
+
+  try {
+    let res: any = await axios.post(
+      `/api/recipes/edit/request-approval/${props._id}`,
+      {
+        approval_required: props.approval_required,
+      }
+    );
+    thunkAPI.dispatch(
+      setAlert({
+        severity: "success",
+        title: "Success",
+        message: `Approval request ${
+          props.approval_required ? "submitted" : "cancelled"
+        } successfully`,
+      })
+    );
+
+    return state.recipes.recipes.map((recipe) =>
+      recipe._id === props._id ? res.data : recipe
+    );
+  } catch (error: any) {
+    thunkAPI.dispatch(
+      setAlert({
+        severity: "error",
+        title: "Error",
+        message: "Failed to request approval, Please try again.",
+        details: error.response.data ? error.response.data : undefined,
+      })
+    );
+    return thunkAPI.rejectWithValue({
+      statusCode: error?.response?.status,
+      data: error?.response?.data,
+      message: error.message,
+    });
+  }
+});
 
 const recipesSlice = createSlice({
   name: "recipes",
@@ -399,6 +446,9 @@ const recipesSlice = createSlice({
         );
       })
       .addCase(approveRecipe.fulfilled, (state, action) => {
+        state.recipes = action.payload;
+      })
+      .addCase(requestApproval.fulfilled, (state, action) => {
         state.recipes = action.payload;
       });
   },

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import RecipeModerationButton from "../recipe_moderation/RecipeModerationButton";
+import RecipePrivacyApprovalMenuButton from "../recipe_editor/RecipePrivacyApprovalMenuButton";
 
 //mui
 import IconButton from "@mui/material/IconButton";
@@ -80,20 +81,22 @@ const RecipeActionsMenuButton: FC<propTypes> = ({ recipe }) => {
           </ListItemIcon>
           Edit Recipe
         </MenuItem>
-        {!recipe.private && !recipe.approved && !recipe.approval_required && (
-          <MenuItem key="request-approval" disabled={!isAllowed}>
-            <ListItemIcon>
-              <FlakyIcon />
-            </ListItemIcon>
-            Request Approval
-          </MenuItem>
-        )}
-        <MenuItem key="change-privacy" disabled={!isAllowed}>
-          <ListItemIcon>
-            <PrivacyTipRoundedIcon />
-          </ListItemIcon>
-          Change Privacy
-        </MenuItem>
+
+        {isAllowed && [
+          <RecipePrivacyApprovalMenuButton
+            kind="privacy"
+            key="change-privacy"
+            recipe={recipe}
+            handleCloseDialog={handleClose}
+          />,
+          <RecipePrivacyApprovalMenuButton
+            kind="approval"
+            key="request-approval"
+            recipe={recipe}
+            handleCloseDialog={handleClose}
+          />,
+        ]}
+
         {isModerator &&
           !recipe.private && [
             <Divider key="divider" />,

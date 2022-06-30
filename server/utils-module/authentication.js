@@ -38,15 +38,8 @@ export function authenticateUser(req, res, next) {
 }
 
 //check that the user owns the recipe or is an admin
-export async function authenticateRecipeOwnership(validatedToken, recipe) {
-  //to use === , convert validated token id to string.
-  //with == there is no need to do so.
-  let user = await User.findById(validatedToken._id);
-
-  return (
-    validatedToken._id == recipe.owner ||
-    ["admin", "moderator"].includes(user.role)
-  );
+export function authenticateRecipeOwnership(validatedToken, recipe) {
+  return validatedToken._id == recipe.owner;
 }
 
 //check if the user is a moderator
