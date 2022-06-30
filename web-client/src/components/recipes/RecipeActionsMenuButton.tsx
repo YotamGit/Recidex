@@ -35,7 +35,7 @@ const RecipeActionsMenuButton: FC<propTypes> = ({ recipe }) => {
 
   const userData = useAppSelector((state) => state.users.userData);
   const [isModerator, setIsModerator] = useState(false);
-  const [isAllowed, setIsAllowed] = useState(false);
+  const [isOwner, setIsOwner] = useState(false);
 
   const [disableButton, setDisableButton] = useState(false);
 
@@ -52,7 +52,7 @@ const RecipeActionsMenuButton: FC<propTypes> = ({ recipe }) => {
   useEffect(() => {
     let moderator = ["admin", "moderator"].includes(userData.role || "");
     setIsModerator(moderator);
-    setIsAllowed(recipe.owner?._id === userData._id || moderator);
+    setIsOwner(recipe.owner?._id === userData._id);
   }, [userData]);
 
   return (
@@ -74,7 +74,7 @@ const RecipeActionsMenuButton: FC<propTypes> = ({ recipe }) => {
         <MenuItem
           key="edit"
           onClick={() => navigate(`/recipes/edit/${recipe._id}`)}
-          disabled={!isAllowed}
+          disabled={!(isOwner || isModerator)}
         >
           <ListItemIcon>
             <EditRoundedIcon />
@@ -82,7 +82,7 @@ const RecipeActionsMenuButton: FC<propTypes> = ({ recipe }) => {
           Edit Recipe
         </MenuItem>
 
-        {isAllowed && [
+        {isOwner && [
           <RecipePrivacyApprovalMenuButton
             kind="privacy"
             key="change-privacy"
@@ -99,42 +99,43 @@ const RecipeActionsMenuButton: FC<propTypes> = ({ recipe }) => {
 
         {isModerator &&
           !recipe.private && [
-            <Divider key="divider" />,
-            recipe.approval_required ? (
-              [
-                <RecipeModerationButton
-                  key="approve"
-                  kind="approve"
-                  type="listItem"
-                  recipe={recipe}
-                  setDisabled={setDisableButton}
-                  disabled={disableButton}
-                  handleCloseDialog={handleClose}
-                  fromModerationPage={false}
-                />,
-                <RecipeModerationButton
-                  key="disapprove"
-                  kind="disapprove"
-                  type="listItem"
-                  recipe={recipe}
-                  setDisabled={setDisableButton}
-                  disabled={disableButton}
-                  handleCloseDialog={handleClose}
-                  fromModerationPage={false}
-                />,
-              ]
-            ) : (
-              <RecipeModerationButton
-                key={recipe.approved ? "disapprove" : "approve"}
-                kind={recipe.approved ? "disapprove" : "approve"}
-                type="listItem"
-                recipe={recipe}
-                setDisabled={setDisableButton}
-                disabled={disableButton}
-                handleCloseDialog={handleClose}
-                fromModerationPage={false}
-              />
-            ),
+            recipe.approval_required
+              ? [
+                  <Divider key="divider" />,
+                  <RecipeModerationButton
+                    key="approve"
+                    kind="approve"
+                    type="listItem"
+                    recipe={recipe}
+                    setDisabled={setDisableButton}
+                    disabled={disableButton}
+                    handleCloseDialog={handleClose}
+                    fromModerationPage={false}
+                  />,
+                  <RecipeModerationButton
+                    key="disapprove"
+                    kind="disapprove"
+                    type="listItem"
+                    recipe={recipe}
+                    setDisabled={setDisableButton}
+                    disabled={disableButton}
+                    handleCloseDialog={handleClose}
+                    fromModerationPage={false}
+                  />,
+                ]
+              : recipe.approved && [
+                  <Divider key="divider" />,
+                  <RecipeModerationButton
+                    key={"disapprove"}
+                    kind={"disapprove"}
+                    type="listItem"
+                    recipe={recipe}
+                    setDisabled={setDisableButton}
+                    disabled={disableButton}
+                    handleCloseDialog={handleClose}
+                    fromModerationPage={false}
+                  />,
+                ],
           ]}
       </Menu>
     </>

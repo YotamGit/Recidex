@@ -41,7 +41,7 @@ const RecipePrivacyApprovalMenuButton: FC<propTypes> = ({
         })
       );
     } else if (kind === "privacy") {
-      console.log("privacy");
+      // console.log("privacy");
     }
 
     setDisabled(false);
