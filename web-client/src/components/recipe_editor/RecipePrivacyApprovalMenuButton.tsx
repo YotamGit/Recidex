@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import GenericPromptDialog from "../utilities/GenericPromptDialog";
 
-import { requestApproval } from "../../slices/recipesSlice";
+import { requestApproval, changePrivacy } from "../../slices/recipesSlice";
 //redux
 import { useAppDispatch } from "../../hooks";
 //mui
@@ -41,7 +41,12 @@ const RecipePrivacyApprovalMenuButton: FC<propTypes> = ({
         })
       );
     } else if (kind === "privacy") {
-      // console.log("privacy");
+      dispatch(
+        changePrivacy({
+          _id: recipe._id as string,
+          private: !recipe.private,
+        })
+      );
     }
 
     setDisabled(false);

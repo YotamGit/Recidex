@@ -321,7 +321,7 @@ export const approveRecipe = createAsyncThunk<
         (recipe: TRecipe) => recipe._id !== props._id
       );
     } else {
-      return state.recipes.recipes.map((recipe) =>
+      return state.recipes.recipes.map((recipe: TRecipe) =>
         recipe._id === props._id ? res.data : recipe
       );
     }
@@ -369,7 +369,7 @@ export const requestApproval = createAsyncThunk<
       })
     );
 
-    return state.recipes.recipes.map((recipe) =>
+    return state.recipes.recipes.map((recipe: TRecipe) =>
       recipe._id === props._id ? res.data : recipe
     );
   } catch (error: any) {
@@ -378,6 +378,53 @@ export const requestApproval = createAsyncThunk<
         severity: "error",
         title: "Error",
         message: "Failed to request approval, Please try again.",
+        details: error.response.data ? error.response.data : undefined,
+      })
+    );
+    return thunkAPI.rejectWithValue({
+      statusCode: error?.response?.status,
+      data: error?.response?.data,
+      message: error.message,
+    });
+  }
+});
+interface ChangePrivacyProps {
+  _id: string;
+  private: boolean;
+}
+export const changePrivacy = createAsyncThunk<
+  TRecipe[],
+  ChangePrivacyProps,
+  AsyncThunkConfig
+>("recipes/changePrivacy", async (props, thunkAPI) => {
+  const state = thunkAPI.getState() as RootState;
+
+  try {
+    let res: any = await axios.post(
+      `/api/recipes/edit/change-privacy/${props._id}`,
+      {
+        private: props.private,
+      }
+    );
+    thunkAPI.dispatch(
+      setAlert({
+        severity: "success",
+        title: "Success",
+        message: `Recipe privacy changed to ${
+          props.private ? "Private" : "Public"
+        } successfully`,
+      })
+    );
+
+    return state.recipes.recipes.map((recipe) =>
+      recipe._id === props._id ? res.data : recipe
+    );
+  } catch (error: any) {
+    thunkAPI.dispatch(
+      setAlert({
+        severity: "error",
+        title: "Error",
+        message: "Failed to change recipe privacy, Please try again.",
         details: error.response.data ? error.response.data : undefined,
       })
     );
@@ -449,6 +496,9 @@ const recipesSlice = createSlice({
         state.recipes = action.payload;
       })
       .addCase(requestApproval.fulfilled, (state, action) => {
+        state.recipes = action.payload;
+      })
+      .addCase(changePrivacy.fulfilled, (state, action) => {
         state.recipes = action.payload;
       });
   },
