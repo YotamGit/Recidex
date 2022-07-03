@@ -28,8 +28,11 @@ import { TRecipe } from "../../slices/recipesSlice";
 
 interface propTypes {
   recipe: TRecipe;
+  local?: {
+    setRecipe?: (updatedRecipe: TRecipe) => void;
+  };
 }
-const RecipeActionsMenuButton: FC<propTypes> = ({ recipe }) => {
+const RecipeActionsMenuButton: FC<propTypes> = ({ recipe, local }) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -87,12 +90,14 @@ const RecipeActionsMenuButton: FC<propTypes> = ({ recipe }) => {
             kind="privacy"
             key="change-privacy"
             recipe={recipe}
+            setRecipe={local?.setRecipe}
             handleCloseDialog={handleClose}
           />,
           <RecipePrivacyApprovalMenuButton
             kind="approval"
             key="request-approval"
             recipe={recipe}
+            setRecipe={local?.setRecipe}
             handleCloseDialog={handleClose}
           />,
         ]}
@@ -107,6 +112,7 @@ const RecipeActionsMenuButton: FC<propTypes> = ({ recipe }) => {
                     kind="approve"
                     type="listItem"
                     recipe={recipe}
+                    setRecipe={local?.setRecipe}
                     setDisabled={setDisableButton}
                     disabled={disableButton}
                     handleCloseDialog={handleClose}
@@ -117,6 +123,7 @@ const RecipeActionsMenuButton: FC<propTypes> = ({ recipe }) => {
                     kind="disapprove"
                     type="listItem"
                     recipe={recipe}
+                    setRecipe={local?.setRecipe}
                     setDisabled={setDisableButton}
                     disabled={disableButton}
                     handleCloseDialog={handleClose}
@@ -130,6 +137,7 @@ const RecipeActionsMenuButton: FC<propTypes> = ({ recipe }) => {
                     kind={"disapprove"}
                     type="listItem"
                     recipe={recipe}
+                    setRecipe={local?.setRecipe}
                     setDisabled={setDisableButton}
                     disabled={disableButton}
                     handleCloseDialog={handleClose}

@@ -298,7 +298,7 @@ interface ApproveRecipeProps {
   reason?: string;
 }
 export const approveRecipe = createAsyncThunk<
-  TRecipe[],
+  TRecipe,
   ApproveRecipeProps,
   AsyncThunkConfig
 >("recipes/approveRecipe", async (props, thunkAPI) => {
@@ -316,15 +316,7 @@ export const approveRecipe = createAsyncThunk<
         message: `Recipe ${props.approve ? "approved" : "disapproved"}`,
       })
     );
-    if (props.fromModerationPage) {
-      return state.recipes.recipes.filter(
-        (recipe: TRecipe) => recipe._id !== props._id
-      );
-    } else {
-      return state.recipes.recipes.map((recipe: TRecipe) =>
-        recipe._id === props._id ? res.data : recipe
-      );
-    }
+    return res.data;
   } catch (error: any) {
     thunkAPI.dispatch(
       setAlert({
@@ -346,7 +338,7 @@ interface RequestApprovalProps {
   approval_required: boolean;
 }
 export const requestApproval = createAsyncThunk<
-  TRecipe[],
+  TRecipe,
   RequestApprovalProps,
   AsyncThunkConfig
 >("recipes/requestApproval", async (props, thunkAPI) => {
@@ -368,10 +360,7 @@ export const requestApproval = createAsyncThunk<
         } successfully`,
       })
     );
-
-    return state.recipes.recipes.map((recipe: TRecipe) =>
-      recipe._id === props._id ? res.data : recipe
-    );
+    return res.data;
   } catch (error: any) {
     thunkAPI.dispatch(
       setAlert({
@@ -393,7 +382,7 @@ interface ChangePrivacyProps {
   private: boolean;
 }
 export const changePrivacy = createAsyncThunk<
-  TRecipe[],
+  TRecipe,
   ChangePrivacyProps,
   AsyncThunkConfig
 >("recipes/changePrivacy", async (props, thunkAPI) => {
@@ -416,9 +405,7 @@ export const changePrivacy = createAsyncThunk<
       })
     );
 
-    return state.recipes.recipes.map((recipe) =>
-      recipe._id === props._id ? res.data : recipe
-    );
+    return res.data;
   } catch (error: any) {
     thunkAPI.dispatch(
       setAlert({
@@ -493,13 +480,25 @@ const recipesSlice = createSlice({
         );
       })
       .addCase(approveRecipe.fulfilled, (state, action) => {
-        state.recipes = action.payload;
+        if (action.meta.arg.fromModerationPage) {
+          state.recipes = state.recipes.filter(
+            (recipe: TRecipe) => recipe._id !== action.payload._id
+          );
+        } else {
+          state.recipes = state.recipes.map((recipe: TRecipe) =>
+            recipe._id === action.payload._id ? action.payload : recipe
+          );
+        }
       })
       .addCase(requestApproval.fulfilled, (state, action) => {
-        state.recipes = action.payload;
+        state.recipes = state.recipes.map((recipe: TRecipe) =>
+          recipe._id === action.payload._id ? action.payload : recipe
+        );
       })
       .addCase(changePrivacy.fulfilled, (state, action) => {
-        state.recipes = action.payload;
+        state.recipes = state.recipes.map((recipe: TRecipe) =>
+          recipe._id === action.payload._id ? action.payload : recipe
+        );
       });
   },
 });

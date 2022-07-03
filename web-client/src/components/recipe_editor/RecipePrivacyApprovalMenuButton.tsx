@@ -20,11 +20,13 @@ import { TRecipe } from "../../slices/recipesSlice";
 interface propTypes {
   kind: "privacy" | "approval";
   recipe: TRecipe;
+  setRecipe?: (updatetRecipe: TRecipe) => void;
   handleCloseDialog?: Function;
 }
 const RecipePrivacyApprovalMenuButton: FC<propTypes> = ({
   kind,
   recipe,
+  setRecipe,
   handleCloseDialog,
 }) => {
   const dispatch = useAppDispatch();
@@ -34,19 +36,25 @@ const RecipePrivacyApprovalMenuButton: FC<propTypes> = ({
   const onSubmit = async () => {
     setDisabled(true);
     if (kind === "approval") {
-      dispatch(
+      let res = await dispatch(
         requestApproval({
           _id: recipe._id as string,
           approval_required: !recipe.approval_required,
         })
       );
+      if (res.meta.requestStatus === "fulfilled" && setRecipe) {
+        setRecipe(res.payload as TRecipe);
+      }
     } else if (kind === "privacy") {
-      dispatch(
+      let res = await dispatch(
         changePrivacy({
           _id: recipe._id as string,
           private: !recipe.private,
         })
       );
+      if (res.meta.requestStatus === "fulfilled" && setRecipe) {
+        setRecipe(res.payload as TRecipe);
+      }
     }
 
     setDisabled(false);

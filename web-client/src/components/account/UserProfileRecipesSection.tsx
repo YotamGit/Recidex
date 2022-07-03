@@ -37,6 +37,13 @@ const UserProfileRecipesSection: FC<propTypes> = ({ userId }) => {
 
   const [fetching, setFetching] = useState(false);
 
+  const updateRecipe = (updatedRecipe: TRecipe) => {
+    let updatedRecipes = recipes?.map((recipe: TRecipe) =>
+      recipe._id === updatedRecipe._id ? updatedRecipe : recipe
+    );
+    setRecipes(updatedRecipes);
+  };
+
   const getRecipes = async (filters: any) => {
     setRecipes([]);
     setFetching(true);
@@ -141,7 +148,7 @@ const UserProfileRecipesSection: FC<propTypes> = ({ userId }) => {
           loading={fetching}
           approvalRequiredOnly={false}
           recipes={recipes}
-          chipsFilterFunction={getRecipes}
+          local={{ setRecipe: updateRecipe, chipsFilterFunction: getRecipes }}
         />
       )}
     </div>

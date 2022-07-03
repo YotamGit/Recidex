@@ -22,6 +22,7 @@ interface propTypes {
   kind: "approve" | "disapprove";
   type: "button" | "listItem";
   recipe: TRecipe;
+  setRecipe?: (updatedRecipe: TRecipe) => void;
   setDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   disabled: boolean;
   handleCloseDialog?: Function;
@@ -31,6 +32,7 @@ const RecipeModerationButton: FC<propTypes> = ({
   kind,
   type,
   recipe,
+  setRecipe,
   setDisabled,
   disabled,
   handleCloseDialog,
@@ -55,10 +57,12 @@ const RecipeModerationButton: FC<propTypes> = ({
         fromModerationPage: fromModerationPage,
       })
     );
-    // if (approveRes.meta.requestStatus === "rejected") {
-    //   setDisabled(false);
-    // }
-    setDisabled(false);
+    if (approveRes.meta.requestStatus === "fulfilled" && setRecipe) {
+      setRecipe(approveRes.payload as TRecipe);
+    }
+    if (!fromModerationPage) {
+      setDisabled(false);
+    }
   };
 
   return (

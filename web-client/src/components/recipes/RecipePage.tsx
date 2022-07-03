@@ -76,7 +76,7 @@ const RecipePage: FC = () => {
 
               <Share url={window.location.href} emailTitle={recipe.title} />
             </div>
-            <RecipeActionsMenuButton recipe={recipe} />
+            <RecipeActionsMenuButton recipe={recipe} local={{ setRecipe }} />
           </div>
           {recipe && <Recipe recipe={recipe} />}
         </div>

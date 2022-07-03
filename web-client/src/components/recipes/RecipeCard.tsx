@@ -37,9 +37,12 @@ marked.setOptions({
 
 interface propTypes {
   recipe: TRecipe;
-  chipsFilterFunction?: Function;
+  local?: {
+    setRecipe?: (updatedRecipe: TRecipe) => void;
+    chipsFilterFunction?: Function;
+  };
 }
-const RecipeCard: FC<propTypes> = ({ recipe, chipsFilterFunction }) => {
+const RecipeCard: FC<propTypes> = ({ recipe, local }) => {
   const navigate = useNavigate();
 
   const fullscreen = useAppSelector((state) => state.utilities.fullscreen);
@@ -75,7 +78,7 @@ const RecipeCard: FC<propTypes> = ({ recipe, chipsFilterFunction }) => {
           </Tooltip>
         )}
 
-        <RecipeActionsMenuButton recipe={recipe} />
+        <RecipeActionsMenuButton recipe={recipe} local={local} />
       </div>
       <div className="recipe-header">
         <div
@@ -111,7 +114,7 @@ const RecipeCard: FC<propTypes> = ({ recipe, chipsFilterFunction }) => {
       <div className="recipe-body">
         <RecipeCardChips
           recipe={recipe}
-          chipsFilterFunction={chipsFilterFunction}
+          chipsFilterFunction={local?.chipsFilterFunction}
         />
         {recipe.description && (
           <div

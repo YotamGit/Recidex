@@ -14,14 +14,17 @@ import { TRecipe } from "../../slices/recipesSlice";
 interface propTypes {
   approvalRequiredOnly: boolean;
   recipes: TRecipe[];
-  chipsFilterFunction?: Function;
   loading?: boolean;
+  local?: {
+    setRecipe?: (updatedRecipe: TRecipe) => void;
+    chipsFilterFunction?: Function;
+  };
 }
 
 const Recipes: FC<propTypes> = ({
   recipes,
+  local,
   approvalRequiredOnly,
-  chipsFilterFunction,
   loading,
 }) => {
   return (
@@ -30,11 +33,7 @@ const Recipes: FC<propTypes> = ({
         approvalRequiredOnly ? (
           <ModerationRecipeCard key={recipe._id} recipe={recipe} />
         ) : (
-          <RecipeCard
-            key={recipe._id}
-            recipe={recipe}
-            chipsFilterFunction={chipsFilterFunction}
-          />
+          <RecipeCard key={recipe._id} recipe={recipe} local={local} />
         )
       )}
       {loading &&
