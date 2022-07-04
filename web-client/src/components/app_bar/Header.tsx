@@ -51,6 +51,10 @@ const Header: FC<propTypes> = ({ showSearch, showLogo }) => {
           </IconButton>
 
           <div className="content">
+            {!maximizeSearch && <AccountAvatar />}
+            {showSearch && (
+              <SearchBar responsive={true} setExpanded={setMaximizeSearch} />
+            )}
             {!maximizeSearch && (showLogo === undefined ? true : showLogo) && (
               <span className="logo-container">
                 <img
@@ -61,11 +65,6 @@ const Header: FC<propTypes> = ({ showSearch, showLogo }) => {
                 ></img>
               </span>
             )}
-            {showSearch && (
-              <SearchBar responsive={true} setExpanded={setMaximizeSearch} />
-            )}
-
-            {!maximizeSearch && <AccountAvatar />}
           </div>
         </Toolbar>
       </AppBar>

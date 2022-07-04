@@ -10,9 +10,9 @@ cd web-client/
 npm run build
 EOF
 
-ssh $vps_name sudo rm -rf /var/www/recipes recipes-client
-scp -r web-client/build $vps_name:recipes-client
-ssh $vps_name sudo mv recipes-client /var/www/recipes
+ssh $vps_name sudo rm -rf /var/www/recidex recidex-client
+scp -r web-client/build $vps_name:recidex-client
+ssh $vps_name sudo mv recidex-client /var/www/recidex
 
 
 # Server

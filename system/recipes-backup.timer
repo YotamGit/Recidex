@@ -1,5 +1,5 @@
 [Unit]
-Description=Periodic backups for Recipes
+Description=Periodic backups for Recidex
 BindsTo=mongodb.service
 # Run once immediately
 Requires=recipes-backup.service

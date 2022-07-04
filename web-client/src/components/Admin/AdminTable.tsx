@@ -34,7 +34,7 @@ const AdminTable: FC = () => {
   const [orderBy, setOrderBy] = useState<keyof FullUser>("role");
   const [selected, setSelected] = useState<readonly string[]>([]);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rowsPerPage, setRowsPerPage] = useState(Math.min(10, users.length));
 
   useEffect(() => {
     setMinimalTable(!fullscreen || false);
