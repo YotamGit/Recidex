@@ -1,6 +1,7 @@
 import RecipeCard from "./RecipeCard";
 import ModerationRecipeCard from "../recipe_moderation/ModerationRecipeCard";
 import "../../styles/recipes/Recipes.css";
+import { memo } from "react";
 
 //import
 import RecipeCardSkeleton from "../skeletons/RecipeCardSkeleton";
@@ -47,4 +48,4 @@ const Recipes: FC<propTypes> = ({
   );
 };
 
-export default Recipes;
+export default memo(Recipes);

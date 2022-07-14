@@ -1,5 +1,5 @@
 import "../../styles/recipes/RecipeCard.css";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { marked } from "marked";
 
 import RecipeCardChips from "./RecipeCardChips";
@@ -42,6 +42,7 @@ interface propTypes {
     chipsFilterFunction?: Function;
   };
 }
+
 const RecipeCard: FC<propTypes> = ({ recipe, local }) => {
   const navigate = useNavigate();
 

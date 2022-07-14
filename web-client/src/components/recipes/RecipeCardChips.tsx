@@ -1,5 +1,4 @@
 import "../../styles/recipes/RecipeCardChips.css";
-
 //redux
 import { useAppDispatch } from "../../hooks";
 import { setFilters, setFiltered } from "../../slices/filtersSlice";
@@ -41,6 +40,7 @@ const RecipeCardChips: FC<propTypes> = ({ recipe, chipsFilterFunction }) => {
       dispatch(setFiltered(true));
     }
   };
+
   const chipSubCategoryOnClick = async () => {
     let filters = {
       category: recipe.category,
@@ -61,6 +61,7 @@ const RecipeCardChips: FC<propTypes> = ({ recipe, chipsFilterFunction }) => {
       dispatch(setFiltered(true));
     }
   };
+
   const chipDifficultyOnClick = async () => {
     let filters = {
       category: undefined,

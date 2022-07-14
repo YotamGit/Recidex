@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import "../../styles/account/UserProfileRecipesSection.css";
 
 import SearchBar from "../app_bar/SearchBar";
@@ -26,6 +26,8 @@ const UserProfileRecipesSection: FC<propTypes> = ({ userId }) => {
   const [favoritesOnly, setFavoritesOnly] = useState<boolean>(false);
   const [recipes, setRecipes] = useState<TRecipe[]>();
   const [filtered, setFiltered] = useState<boolean>(false);
+  const [filteredFromChip, setFilteredFromChip] = useState<boolean>(false);
+
   const [selectedFilters, setSelectedFilters] = useState<TSelectedFilters>({
     category: undefined,
     sub_category: undefined,
@@ -37,12 +39,38 @@ const UserProfileRecipesSection: FC<propTypes> = ({ userId }) => {
 
   const [fetching, setFetching] = useState(false);
 
-  const updateRecipe = (updatedRecipe: TRecipe) => {
-    let updatedRecipes = recipes?.map((recipe: TRecipe) =>
-      recipe._id === updatedRecipe._id ? updatedRecipe : recipe
-    );
-    setRecipes(updatedRecipes);
-  };
+  // update a specific recipe in the local recipes state
+  const updateRecipe = useCallback(
+    (updatedRecipe: TRecipe) => {
+      let updatedRecipes = recipes?.map((recipe: TRecipe) =>
+        recipe._id === updatedRecipe._id ? updatedRecipe : recipe
+      );
+      setRecipes(updatedRecipes);
+    },
+    [recipes]
+  );
+
+  // used to trigger getrecipes when filtering recipes through recipe chips
+  const chipsFilterFunction = useCallback((filters: TSelectedFilters) => {
+    setFilteredFromChip(true);
+    setSelectedFilters(filters);
+  }, []);
+
+  // we use a ref here so that local would not change between renders and cause a rerender,
+  // even if the contents of local are not changing the local object itself does.
+  const local = useRef<{
+    setRecipe?: (updatedRecipe: TRecipe) => void;
+    chipsFilterFunction?: Function;
+  }>({
+    setRecipe: updateRecipe,
+    chipsFilterFunction: chipsFilterFunction,
+  });
+
+  useEffect(() => {
+    if (filteredFromChip) {
+      getRecipes(selectedFilters).then((_) => setFilteredFromChip(false));
+    }
+  }, [selectedFilters]);
 
   const getRecipes = async (filters: any) => {
     setRecipes([]);
@@ -61,7 +89,9 @@ const UserProfileRecipesSection: FC<propTypes> = ({ userId }) => {
         },
       });
       if (filters) {
-        setSelectedFilters(filters);
+        if (!filteredFromChip) {
+          setSelectedFilters(filters);
+        }
         setFiltered(
           Object.values(filters).some((filter) => typeof filter !== "undefined")
         );
@@ -148,7 +178,7 @@ const UserProfileRecipesSection: FC<propTypes> = ({ userId }) => {
           loading={fetching}
           approvalRequiredOnly={false}
           recipes={recipes}
-          local={{ setRecipe: updateRecipe, chipsFilterFunction: getRecipes }}
+          local={local.current}
         />
       )}
     </div>
