@@ -2,7 +2,7 @@
   "name": "Recidex",
   "short_name": "Recidex",
   "theme_color": "#003756",
-  "background_color": "#fff",
+  "background_color": "#003756",
   "display": "fullscreen",
   "orientation": "portrait",
   "scope": "/",
