@@ -13,6 +13,7 @@ import {
   emailUserRecipeApproved,
   emailUserRecipeDisapproved,
 } from "../utils-module/notifications.js";
+import { escapeRegexSpecialChar } from "../utils-module/misc.js";
 
 // Routes
 
@@ -91,7 +92,12 @@ router.get("/", async (req, res, next) => {
           : {};
 
       let textSearchQuery = req.query?.searchText
-        ? { title: { $regex: req.query.searchText, $options: "mi" } }
+        ? {
+            title: {
+              $regex: escapeRegexSpecialChar(req.query.searchText),
+              $options: "mi",
+            },
+          }
         : {};
       let recipes = await Recipe.find({
         creation_time: { $lt: req.query.latest },

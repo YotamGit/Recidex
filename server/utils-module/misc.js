@@ -9,3 +9,10 @@ export function isValidObjectId(id) {
   }
   return false;
 }
+
+export function escapeRegexSpecialChar(string) {
+  if (string) {
+    return string.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+  }
+  return "";
+}
