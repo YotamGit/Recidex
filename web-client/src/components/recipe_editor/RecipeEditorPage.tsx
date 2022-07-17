@@ -27,6 +27,7 @@ const RecipeEditorPage: FC = () => {
   const navigate = useNavigate();
 
   const signedIn = useAppSelector((state) => state.users.signedIn);
+  const attemtSignIn = useAppSelector((state) => state.users.attemptSignIn);
   const userData = useAppSelector((state) => state.users.userData);
 
   const { recipe_id } = useParams();
@@ -67,20 +68,20 @@ const RecipeEditorPage: FC = () => {
 
   //redirect to home if not owner/moderator
   useEffect(() => {
-    if (!signedIn) {
+    if (!signedIn && !attemtSignIn) {
       navigate("/");
       return;
     }
     if (
       recipe !== undefined &&
       recipe.owner?._id !== userData._id &&
-      moderatorRoles.includes(userData.role || "")
+      !moderatorRoles.includes(userData.role || "")
     ) {
       navigate("/");
       return;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [recipe]);
+  }, [recipe, attemtSignIn, signedIn]);
 
   const onDeleteRecipe = async () => {
     setDisableDeleteButton(true);
