@@ -39,6 +39,8 @@ export let mainRecipesRoutes = [
   "/recipe-moderation",
 ];
 
+export let moderatorRoles = ["moderator", "admin"];
+
 function App() {
   const dispatch = useAppDispatch();
   const location = useLocation();
