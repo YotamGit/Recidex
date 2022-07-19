@@ -1,0 +1,52 @@
+version: "3.2"
+services:
+  mongodb:
+    image: mongo
+    restart: unless-stopped
+    container_name: mongodb
+    volumes:
+      - /var/lib/mongodb:/data/db
+    ports:
+      - 27017:27017
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile.prod
+    depends_on:
+      - api
+      - client
+    restart: always
+    ports:
+      - "3050:80"
+  api:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.prod
+    restart: unless-stopped
+    volumes:
+      - /recidex-server/node_modules
+      - ./server:/recidex-server
+    env_file:
+      - ./server/.env
+    depends_on:
+      - mongodb
+  client:
+    stdin_open: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    build:
+      context: ./web-client
+      dockerfile: Dockerfile.prod
+    volumes:
+      - /recidex-client/node_modules
+      - ./web-client:/recidex-client
+    env_file:
+      - ./web-client/.env
+    restart: unless-stopped
+    depends_on:
+      - "api"
+
+volumes:
+  db_location:
+
+
