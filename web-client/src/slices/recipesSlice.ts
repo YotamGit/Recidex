@@ -123,6 +123,7 @@ export const getRecipes = createAsyncThunk<
         })
       );
     }
+    thunkAPI.dispatch(setFetching(false));
 
     return thunkAPI.rejectWithValue({
       statusCode: error?.response?.status,
