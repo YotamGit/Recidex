@@ -5,21 +5,9 @@ services:
     restart: unless-stopped
     container_name: mongodb
     volumes:
-      - "E:/Projects/MongoDB/Data:/var/lib/mongodb"
+      - ./db:/data/db
     ports:
-      - 27017:27017
-  nginx:
-    build:
-      context: ./nginx
-      dockerfile: Dockerfile.dev
-    depends_on:
-      - api
-      - client
-    restart: always
-    expose:
-      - 8080
-    ports:
-      - "8080:80"
+      - "27017:27017"
   api:
     build:
       context: ./server
@@ -32,18 +20,12 @@ services:
       - ./server/.env
     depends_on:
       - mongodb
-  client:
-    stdin_open: true
-    environment:
-      - CHOKIDAR_USEPOLLING=true
+  nginx:
     build:
-      context: ./web-client
+      context: ./nginx
       dockerfile: Dockerfile.dev
-    volumes:
-      - /recidex-client/node_modules
-      - ./web-client:/recidex-client
-    env_file:
-      - ./web-client/.env
-    restart: unless-stopped
     depends_on:
-      - "api"
+      - api
+    restart: always
+    ports:
+      - "8080:80"

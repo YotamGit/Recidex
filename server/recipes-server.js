@@ -65,9 +65,15 @@ app.use((err, req, res, next) => {
 });
 
 // Connect To DB
-mongoose.connect("mongodb://localhost:27017/Recipes", () =>
-  console.log("Connected to DB")
-);
+mongoose
+  .connect("mongodb://mongodb:27017/Recipes", () =>
+    console.log("Connected to DB")
+  )
+  .catch((error) => {
+    console.log("##############################################");
+    console.log("Failed to connect to DB", error);
+    console.log("##############################################");
+  });
 
 // Start Server
 let PORT = process.env.PORT || 3001;
