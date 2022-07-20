@@ -14,9 +14,8 @@ services:
       dockerfile: Dockerfile.dev
     restart: unless-stopped
     volumes:
-      # - /recidex-server/node_modules
-      # - ./server:/recidex-server
-      - ./server/recipes-server.js:/recidex-server/recipes-server.js
+      - ./server:/recidex-server
+      - nodemodules:/recidex-server/node_modules
     env_file:
       - ./server/.env
     depends_on:
@@ -30,3 +29,6 @@ services:
     restart: always
     ports:
       - "8080:80"
+
+volumes:
+    nodemodules: {}
