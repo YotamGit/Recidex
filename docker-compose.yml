@@ -14,8 +14,9 @@ services:
       dockerfile: Dockerfile.dev
     restart: unless-stopped
     volumes:
-      - /recidex-server/node_modules
-      - ./server:/recidex-server
+      # - /recidex-server/node_modules
+      # - ./server:/recidex-server
+      - ./server/recipes-server.js:/recidex-server/recipes-server.js
     env_file:
       - ./server/.env
     depends_on:

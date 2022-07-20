@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon recipes-server.js",
+    "dev": "nodemon -L recipes-server.js",
     "start": "node recipes-server.js"
   },
   "author": "",
