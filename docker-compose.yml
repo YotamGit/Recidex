@@ -2,17 +2,14 @@ version: "3.2"
 services:
   mongodb:
     image: mongo
-    restart: unless-stopped
-    container_name: mongodb
     volumes:
       - ./db:/data/db
     ports:
       - "27017:27017"
   api:
-    build:
-      context: ./server
-      dockerfile: Dockerfile.dev
-    restart: unless-stopped
+    build: ./server
+    ports:
+      - "3001:3001"
     volumes:
       - ./server:/recidex-server
       - nodemodules:/recidex-server/node_modules
@@ -20,15 +17,5 @@ services:
       - ./server/.env
     depends_on:
       - mongodb
-  nginx:
-    build:
-      context: ./nginx
-      dockerfile: Dockerfile.dev
-    depends_on:
-      - api
-    restart: always
-    ports:
-      - "8080:80"
-
 volumes:
     nodemodules: {}

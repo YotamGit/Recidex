@@ -1,3 +1,0 @@
-FROM ubuntu/nginx
-COPY ./nginx_http.conf /etc/nginx/conf.d/http.conf
-COPY ./default.dev.conf /etc/nginx/sites-enabled/default
