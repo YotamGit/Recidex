@@ -1,6 +1,7 @@
 version: "3.2"
 services:
   mongodb:
+      container_name: recidex_mongo
       image: mongo
       restart: unless-stopped
       volumes:
@@ -8,6 +9,8 @@ services:
       ports:
         - "27017:27017"
   api:
+      container_name: recidex-api
+      image: yotamgolan.com:5000/recidex_api
       build:
         context: ./server
         dockerfile: Dockerfile
@@ -15,18 +18,16 @@ services:
           npm_flag: "--omit=dev"
           start_script: "start"
       restart: unless-stopped
-      env_file:
-        - ./server/.env
       depends_on:
         - mongodb
   client:
+      container_name: recidex_client
+      image: yotamgolan.com:5000/recidex_client
       build: ./web-client
       depends_on:
         - api
       restart: unless-stopped
       ports:
         - "8080:80"
-      env_file:
-      - ./web-client/.env
 
 

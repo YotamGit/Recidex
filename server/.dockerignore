@@ -1,5 +1,4 @@
 Dockerfile
 .dockerignore
 .gitignore
-.env
 node_modules
