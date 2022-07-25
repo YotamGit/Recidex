@@ -1,7 +1,7 @@
 version: "3.2"
 services:
   mongodb:
-      image: mongo
+      image: mongo:3.6.8
       restart: unless-stopped
       volumes:
         - ./db:/data/db

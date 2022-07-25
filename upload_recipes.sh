@@ -10,12 +10,14 @@ docker-compose -f docker-compose.upload.yml build
 # Copy compose file to server
 ssh $vps_name 'mkdir -p recidex'
 scp docker-compose.prod.yml $vps_name:recidex/docker-compose.yml
+ssh $vps_name 'cd recidex && mkdir -p db'
 
 # Push and pull images
 ssh $vps_name 'sudo docker container start docker-registry'
 docker-compose -f docker-compose.upload.yml push
 ssh $vps_name "cd recidex && sudo docker-compose pull"
 ssh $vps_name 'sudo docker container stop docker-registry'
+ssh $vps_name "cd recidex && sudo docker-compose up"
 
 # ssh $vps_name sudo rm -rf /var/www/recidex recidex-client
 # scp -r web-client/build $vps_name:recidex-client
