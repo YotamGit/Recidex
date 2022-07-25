@@ -5,7 +5,7 @@ set -e -x
 vps_name=${1:-oracle_vps}
 
 # Build images
-docker-compose -f docker-compose.prod.yml build
+docker-compose -f docker-compose.upload.yml build
 
 # Copy compose file to server
 ssh $vps_name 'mkdir -p recidex'
@@ -13,8 +13,8 @@ scp docker-compose.prod.yml $vps_name:recidex/docker-compose.yml
 
 # Push and pull images
 ssh $vps_name 'sudo docker container start docker-registry'
-docker-compose -f docker-compose.prod.yml push
-ssh $vps_name 'cd ~/recidex && sudo docker-compose pull'
+docker-compose -f docker-compose.upload.yml push
+ssh $vps_name "cd recidex && sudo docker-compose pull"
 ssh $vps_name 'sudo docker container stop docker-registry'
 
 # ssh $vps_name sudo rm -rf /var/www/recidex recidex-client
