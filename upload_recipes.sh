@@ -17,16 +17,15 @@ ssh $vps_name 'sudo docker container start docker-registry'
 docker-compose -f docker-compose.upload.yml push
 ssh $vps_name "cd recidex && sudo docker-compose pull"
 ssh $vps_name 'sudo docker container stop docker-registry'
-ssh $vps_name "cd recidex && sudo docker-compose up"
-
-# ssh $vps_name sudo rm -rf /var/www/recidex recidex-client
-# scp -r web-client/build $vps_name:recidex-client
-# ssh $vps_name sudo mv recidex-client /var/www/recidex
-
+ssh $vps_name "cd recidex && sudo docker-compose up -d"
 
 #Services
-# ssh $vps_name sudo systemctl stop recipes-backup
 scp -r system $vps_name:recidex
-# ssh $vps_name sudo systemctl daemon-reload
-# ssh $vps_name sudo systemctl start recipes-backup
-# ssh $vps_name sudo systemctl status recipes-backup
+
+ssh $vps_name "cd recidex && sudo docker-compose up -d"
+ssh $vps_name 'sudo cp ~/recidex/system/recidex-backup.service /etc/systemd/system/recidex-backup.service'
+ssh $vps_name 'sudo cp ~/recidex/system/recidex-backup.timer /etc/systemd/system/recidex-backup.timer'
+ssh $vps_name 'sudo systemctl daemon-reload'
+ssh $vps_name 'sudo systemctl stop recidex-backup'
+ssh $vps_name 'sudo systemctl start recidex-backup'
+ssh $vps_name 'sudo systemctl status recidex-backup'

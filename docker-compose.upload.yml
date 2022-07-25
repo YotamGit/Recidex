@@ -1,12 +1,5 @@
 version: "3.2"
 services:
-  mongodb:
-      image: mongo:3.6.8
-      restart: unless-stopped
-      volumes:
-        - ./db:/data/db
-      ports:
-        - "27017:27017"
   api:
       image: yotamgolan.com:5000/recidex_api
       build:
@@ -15,16 +8,7 @@ services:
         args:
           npm_flag: "--omit=dev"
           start_script: "start"
-      restart: unless-stopped
-      depends_on:
-        - mongodb
   client:
       image: yotamgolan.com:5000/recidex_client
       build: ./web-client
-      depends_on:
-        - api
-      restart: unless-stopped
-      ports:
-        - "8080:80"
-
 
