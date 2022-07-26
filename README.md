@@ -1,6 +1,12 @@
 # Recidex
+write a nice description here
+1. [Setup](#setup)
+2. [Technology Stack](#technology-stack)
+3. [Features](#features)
+4. [Pages](#pages)
+5. [Technical](#technical)
 
-## Technical
+## Setup
 ### Setup development environment
 1. install docker
 2. install npm, run `npm install` in `web-client` and `server` directories
