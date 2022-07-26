@@ -1,3 +1,4 @@
+## Technical
 ### Setup development environment
 1. install docker
 2. install npm, run `npm install` in `web-client` and `server` directories
@@ -28,8 +29,8 @@
 6. Enable backing services:
    * Run `sudo systemctl enable recidex-backup.service`
    * Run `sudo systemctl enable recidex-backup.timer`
-
-## Technologies
+---
+## Technology Stack
 
 ### Frontend
 1. React.js
@@ -41,13 +42,13 @@
 3. MongoDB
 4. Docker
 5. Nginx
-
+---
 ## Features
 * Create an account
 * Upload, edit, share and collect recipes
 * Different recipe privacy modes
 * Search and filter recipes
-
+---
 ## Pages
 ### Public
 Accessible by everyone
@@ -58,7 +59,6 @@ Accessible by everyone
 * `User Profile` - see user related data along with the user's public recipes and favorite recipes
 * `Recipe Page`
 * `Privacy Policy`
-
 ### User
 Accissible by a registered user
 * `My Recipes` - see your recipes categorized by privacy mode 
