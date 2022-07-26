@@ -9,7 +9,7 @@ write a nice description here
 ## Setup
 ### Setup development environment
 1. install docker
-2. install npm, run `npm install` in `web-client` and `server` directories
+2. install npm, run `npm install` in `web-client` directory
 3. create a directory named `db`
 
 ### To develop
@@ -21,7 +21,7 @@ write a nice description here
 6. To shutdown the containers, run `docker-compose -f docker-compose.dev.yml down`
 
 ### Setup Recidex in a new vps (oracle in this case)
-1. Create a file named `config` file at `C:\Users\<your-user>\.ssh\` and add the following: 
+1. Create a file named `config` at `C:\Users\<your-user>\.ssh\` and add the following: 
    ```
    Host oracle_vps
        User ubuntu
@@ -29,13 +29,13 @@ write a nice description here
        port 22
        IdentityFile "path-to-ssh-key"
    ```
-2. Configure server `nginx` to route requests from `https://recidex.yotamgolan.com/` to `http://localhost:8080`
+2. Configure vps's `nginx` to route requests from `https://recidex.yotamgolan.com/` to `http://localhost:8080`
 3. Install `docker` and `docker-compose`
 4. Set up an insecure (or secure) registry on the server:
    * https://www.digitalocean.com/community/tutorials/how-to-set-up-a-private-docker-registry-on-ubuntu-20-04
    * https://www.docker.com/blog/how-to-use-your-own-registry-2/
    * https://docs.docker.com/registry/insecure/
-5. To upload to production, run `./upload_recidex.sh` in bash
+5. To upload to production, run `./upload_recidex.sh` in bash from local machine
 6. Enable backing services:
    * Run `sudo systemctl enable recidex-backup.service`
    * Run `sudo systemctl enable recidex-backup.timer`
@@ -58,6 +58,7 @@ write a nice description here
 * Upload, edit, share and collect recipes
 * Different recipe privacy modes
 * Search and filter recipes
+* Moderate users and recipes
 
 ## Pages
 ### Public
