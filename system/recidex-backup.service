@@ -10,7 +10,7 @@ User=root
 ExecStart=/bin/bash -c "sudo docker exec recidex_mongo /bin/bash -c 'mongodump --archive=/db_backups/$(date +%%Y%%m%%d%%H%%M%%S).gz --gzip'"
 
 # delete all but 14 most recent backups (double % for escaping systemd replacements)
-ExecStartPost=/bin/bash -c "echo 'Mongo backup completed; removing excess backups..' ; find ~/recidex/db_backups/ -type f -printf '%%T@ %%p\n' | sort --reverse --numeric | tail --lines +14 | cut --fields 2 --delimiter=' ' | xargs --no-run-if-empty rm -fv"
+ExecStartPost=/bin/bash -c "echo 'Mongo backup completed; removing excess backups..' ;find home/ubuntu/recidex/db_backups/ -type f -printf '%%T@ %%p\n' | sort --reverse --numeric | tail --lines +14 | cut --fields 2 --delimiter=' ' | xargs --no-run-if-empty rm -fv"
 
 RemainAfterExit=true
 

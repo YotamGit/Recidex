@@ -9,3 +9,7 @@ After=docker.service
 [Timer]
 Unit=recidex-backup.service
 OnCalendar=daily
+Persistent=true
+
+[Install]
+WantedBy=timers.target
