@@ -1,3 +1,5 @@
+#Recidex
+
 ## Technical
 ### Setup development environment
 1. install docker
@@ -29,7 +31,7 @@
 6. Enable backing services:
    * Run `sudo systemctl enable recidex-backup.service`
    * Run `sudo systemctl enable recidex-backup.timer`
----
+
 ## Technology Stack
 
 ### Frontend
@@ -42,13 +44,13 @@
 3. MongoDB
 4. Docker
 5. Nginx
----
+
 ## Features
 * Create an account
 * Upload, edit, share and collect recipes
 * Different recipe privacy modes
 * Search and filter recipes
----
+
 ## Pages
 ### Public
 Accessible by everyone
