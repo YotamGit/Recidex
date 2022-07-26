@@ -16,11 +16,11 @@
 
 ### Setup Recidex in a new vps (oracle in this case)
 1. Create a file named `config` file at `C:\Users\<your-user>\.ssh\` and add the following: 
-   >Host oracle_vps
-   >User ubuntu
-   >HostName yotamgolan.com
-   >port 22
-   >IdentityFile "path-to-ssh-key"
+   ```Host oracle_vps
+          User ubuntu
+          HostName yotamgolan.com
+          port 22
+          IdentityFile "path-to-ssh-key"```
 2. Configure server `nginx` to route requests from `https://recidex.yotamgolan.com/` to `http://localhost:8080`
 3. Install `docker` and `docker-compose`
 4. Set up an insecure (or secure) registry on the server:
