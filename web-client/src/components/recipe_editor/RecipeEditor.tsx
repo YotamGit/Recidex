@@ -18,8 +18,12 @@ import TextField from "@mui/material/TextField";
 import Switch from "@mui/material/Switch";
 import Button from "@mui/material/Button";
 import LoadingButton from "@mui/lab/LoadingButton";
+import IconButton from "@mui/material/IconButton";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
+
+//mui icons
+import FileDownloadRoundedIcon from "@mui/icons-material/FileDownloadRounded";
 
 //redux
 import { editRecipe, addRecipe } from "../../slices/recipesSlice";
@@ -123,6 +127,24 @@ const RecipeEditor: FC<propTypes> = ({ action, recipe }) => {
   const deleteImage = () => {
     setImageName("");
     setImage(false);
+  };
+
+  const downloadImage = async () => {
+    if (typeof image === "string") {
+      var imageURL = `data:image/png;base64${image}`;
+    } else {
+      const serverImage = await fetch(`/api/recipes/image/${recipe._id}`);
+      const imageBlob = await serverImage.blob();
+
+      var imageURL = URL.createObjectURL(imageBlob);
+    }
+
+    const link = document.createElement("a");
+    link.href = imageURL;
+    link.download = imageName;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   const onSaveRecipeChanges = async () => {
@@ -369,6 +391,11 @@ const RecipeEditor: FC<propTypes> = ({ action, recipe }) => {
           {imageName && (
             <Chip
               className="image-name"
+              avatar={
+                <IconButton className="icon" onClick={downloadImage}>
+                  <FileDownloadRoundedIcon />
+                </IconButton>
+              }
               label={imageName}
               variant="outlined"
               onDelete={deleteImage}
