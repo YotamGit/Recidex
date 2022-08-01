@@ -4,7 +4,7 @@ write a nice description here
 2. [Technology Stack](#technology-stack)
 3. [Features](#features)
 4. [Pages](#pages)
-5. [Technical](#technical)
+
 
 ## Setup
 ### Setup development environment
