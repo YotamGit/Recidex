@@ -28,4 +28,7 @@ ssh $vps_name 'sudo cp ~/recidex/system/recidex-backup.timer /etc/systemd/system
 ssh $vps_name 'sudo systemctl daemon-reload'
 ssh $vps_name 'sudo systemctl stop recidex-backup'
 ssh $vps_name 'sudo systemctl start recidex-backup'
+ssh $vps_name 'sudo systemctl stop recidex-backup.timer'
+ssh $vps_name 'sudo systemctl start recidex-backup.timer'
 ssh $vps_name 'sudo systemctl status recidex-backup'
+ssh $vps_name 'sudo systemctl status recidex-backup.timer'
