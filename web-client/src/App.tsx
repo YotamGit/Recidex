@@ -92,51 +92,57 @@ function App() {
         <Route
           path="/login"
           element={
-            <ComponentWrapper
-              func={() => dispatch(setCurrentPageTitle("Log In"))}
-            >
-              <>
-                <Header showLogo={false} showSearch={false} />
+            <ProtectedRoute isAllowed={!signedIn} redirectPath={"/home"}>
+              <ComponentWrapper
+                func={() => dispatch(setCurrentPageTitle("Log In"))}
+              >
+                <>
+                  <Header showLogo={false} showSearch={false} />
 
-                <Authentication
-                  action={"login"}
-                  showSignAsGuest={true}
-                  showOtherAuthOption={true}
-                  navigateAfterLogin={true}
-                />
-              </>
-            </ComponentWrapper>
+                  <Authentication
+                    action={"login"}
+                    showSignAsGuest={true}
+                    showOtherAuthOption={true}
+                    navigateAfterLogin={true}
+                  />
+                </>
+              </ComponentWrapper>
+            </ProtectedRoute>
           }
         />
         <Route
           path="/signup"
           element={
-            <ComponentWrapper
-              func={() => dispatch(setCurrentPageTitle("Sign Up"))}
-            >
-              <>
-                <Header showLogo={false} showSearch={false} />
-                <Authentication
-                  action={"signup"}
-                  showSignAsGuest={true}
-                  showOtherAuthOption={true}
-                  navigateAfterLogin={true}
-                />
-              </>
-            </ComponentWrapper>
+            <ProtectedRoute isAllowed={!signedIn} redirectPath={"/home"}>
+              <ComponentWrapper
+                func={() => dispatch(setCurrentPageTitle("Sign Up"))}
+              >
+                <>
+                  <Header showLogo={false} showSearch={false} />
+                  <Authentication
+                    action={"signup"}
+                    showSignAsGuest={true}
+                    showOtherAuthOption={true}
+                    navigateAfterLogin={true}
+                  />
+                </>
+              </ComponentWrapper>
+            </ProtectedRoute>
           }
         />
         <Route
           path="/forgot-credentials/:type"
           element={
-            <ComponentWrapper
-              func={() => dispatch(setCurrentPageTitle("Forgot Credentials"))}
-            >
-              <>
-                <Header showLogo={false} showSearch={false} />
-                <ForgotCredentialsPage />
-              </>
-            </ComponentWrapper>
+            <ProtectedRoute isAllowed={!signedIn} redirectPath={"/home"}>
+              <ComponentWrapper
+                func={() => dispatch(setCurrentPageTitle("Forgot Credentials"))}
+              >
+                <>
+                  <Header showLogo={false} showSearch={false} />
+                  <ForgotCredentialsPage />
+                </>
+              </ComponentWrapper>
+            </ProtectedRoute>
           }
         />
         <Route
