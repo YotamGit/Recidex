@@ -14,6 +14,42 @@ import { emailNewUser } from "../utils-module/notifications.js";
 
 // Routes
 
+// a route to check if a given token is valid and authenticate the user
+router.post("/ping", async (req, res, next) => {
+  try {
+    let validatedToken = validateToken(req.cookies.userToken);
+    if (validatedToken) {
+      let user = await User.findById(validatedToken._id).select({
+        _id: 1,
+        role: 1,
+        username: 1,
+        firstname: 1,
+        lastname: 1,
+        email: 1,
+      });
+      if (
+        validatedToken.role !== user.role ||
+        validatedToken.lastname !== user.lastname ||
+        validatedToken.firstname !== user.firstname
+      ) {
+        res.status(409).json({
+          token: generateToken(user),
+          userData: user,
+        });
+      }
+
+      res.status(200).json({
+        authenticated: true,
+        userData: user,
+      });
+    } else {
+      res.status(401).json({ authenticated: false });
+    }
+  } catch (err) {
+    next(err);
+  }
+});
+
 // sign in a user and send back a jwt
 router.post("/", async (req, res, next) => {
   try {
@@ -51,42 +87,6 @@ router.post("/", async (req, res, next) => {
       }
     } else {
       res.status(401).send(false);
-    }
-  } catch (err) {
-    next(err);
-  }
-});
-
-// a route to check if a given token is valid
-router.post("/ping", async (req, res, next) => {
-  try {
-    let validatedToken = validateToken(req.cookies.userToken);
-    if (validatedToken) {
-      let user = await User.findById(validatedToken._id).select({
-        _id: 1,
-        role: 1,
-        username: 1,
-        firstname: 1,
-        lastname: 1,
-        email: 1,
-      });
-      if (
-        validatedToken.role !== user.role ||
-        validatedToken.lastname !== user.lastname ||
-        validatedToken.firstname !== user.firstname
-      ) {
-        res.status(409).json({
-          token: generateToken(user),
-          userData: user,
-        });
-      }
-
-      res.status(200).json({
-        authenticated: true,
-        userData: user,
-      });
-    } else {
-      res.status(401).json({ authenticated: false });
     }
   } catch (err) {
     next(err);

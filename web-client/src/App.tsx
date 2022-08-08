@@ -12,10 +12,10 @@ import {
   setCurrentPageTitle,
 } from "./slices/utilitySlice";
 
+import Header from "./components/app_bar/Header";
 import RecipePage from "./components/recipes/RecipePage";
 import RecipeEditorPage from "./components/recipe_editor/RecipeEditorPage";
 import AddRecipePage from "./components/recipe_editor/AddRecipePage";
-import Header from "./components/app_bar/Header";
 import BaseRecipesPage from "./components/BaseRecipesPage";
 import Authentication from "./components/Login/Authentication";
 import ForgotCredentialsPage from "./components/Login/ForgotCredentialsPage";
@@ -231,20 +231,6 @@ function App() {
           }
         />
         <Route
-          path="/recipes/edit/:recipe_id"
-          element={
-            <ComponentWrapper
-              func={() => dispatch(setCurrentPageTitle("Edit Recipe"))}
-            >
-              <>
-                <Header showSearch={false} />
-                <RecipeEditorPage />
-              </>
-            </ComponentWrapper>
-          }
-        />
-
-        <Route
           path="/recipes/new"
           element={
             <ComponentWrapper
@@ -253,6 +239,19 @@ function App() {
               <>
                 <Header showSearch={false} />
                 <AddRecipePage />
+              </>
+            </ComponentWrapper>
+          }
+        />
+        <Route
+          path="/recipes/edit/:recipe_id"
+          element={
+            <ComponentWrapper
+              func={() => dispatch(setCurrentPageTitle("Edit Recipe"))}
+            >
+              <>
+                <Header showSearch={false} />
+                <RecipeEditorPage />
               </>
             </ComponentWrapper>
           }

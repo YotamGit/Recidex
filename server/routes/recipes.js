@@ -536,7 +536,7 @@ router.post("/edit/approve/:recipe_id", async (req, res, next) => {
   }
 });
 
-// REQUEST APPROVAL
+// REQUEST APPROVAL OF A RECIPE
 router.post("/edit/request-approval/:recipe_id", async (req, res, next) => {
   try {
     if (!isValidObjectId(req.params.recipe_id)) {
@@ -579,7 +579,7 @@ router.post("/edit/request-approval/:recipe_id", async (req, res, next) => {
     next(err);
   }
 });
-// REQUEST APPROVAL
+// CHANGE PRIVACY OF RECIPE
 router.post("/edit/change-privacy/:recipe_id", async (req, res, next) => {
   try {
     if (!isValidObjectId(req.params.recipe_id)) {

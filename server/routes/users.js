@@ -246,6 +246,7 @@ router.post("/user/forgot-password", async (req, res, next) => {
     next(err);
   }
 });
+
 //FORGOT USERNAME
 router.post("/user/forgot-username", async (req, res, next) => {
   try {

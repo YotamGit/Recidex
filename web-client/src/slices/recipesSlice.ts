@@ -132,47 +132,32 @@ export const getRecipes = createAsyncThunk<
     });
   }
 });
-
-interface EditRecipeProps {
+interface AddRecipeProps {
   recipeData: TRecipe;
-  recipeId?: string;
 }
-export const editRecipe = createAsyncThunk<
-  TRecipe[],
-  EditRecipeProps,
+export const addRecipe = createAsyncThunk<
+  TRecipe,
+  AddRecipeProps,
   AsyncThunkConfig
->("recipes/editRecipe", async (props, thunkAPI) => {
-  const state = thunkAPI.getState() as RootState;
+>("recipes/addRecipe", async (props, thunkAPI) => {
   try {
-    var editedRecipe: any = await axios.post(
-      `/api/recipes/edit/${props.recipeId}`,
-      {
-        recipeData: props.recipeData,
-      }
-    );
-
+    let result: any = await axios.post(`/api/recipes/new`, {
+      recipeData: props.recipeData,
+    });
     thunkAPI.dispatch(
       setAlert({
         severity: "success",
         title: "Success",
-        message: "Recipe edited successfully.",
+        message: "Recipe added successfully.",
       })
     );
-
-    if (editedRecipe.data.approved || state.filters.ownerOnly) {
-      return state.recipes.recipes.map((recipe: TRecipe) =>
-        recipe._id === editedRecipe.data._id ? editedRecipe.data : recipe
-      );
-    }
-    return state.recipes.recipes.filter(
-      (recipe: TRecipe) => recipe._id !== editedRecipe.data._id
-    );
+    return result.data;
   } catch (error: any) {
     thunkAPI.dispatch(
       setAlert({
         severity: "error",
         title: "Error",
-        message: "Failed to edit recipe, Please try again.",
+        message: "Failed to add recipe, Please try again.",
         details: error.response.data ? error.response.data : undefined,
       })
     );
@@ -222,32 +207,46 @@ export const deleteRecipe = createAsyncThunk<
   }
 });
 
-interface AddRecipeProps {
+interface EditRecipeProps {
   recipeData: TRecipe;
+  recipeId?: string;
 }
-export const addRecipe = createAsyncThunk<
-  TRecipe,
-  AddRecipeProps,
+export const editRecipe = createAsyncThunk<
+  TRecipe[],
+  EditRecipeProps,
   AsyncThunkConfig
->("recipes/addRecipe", async (props, thunkAPI) => {
+>("recipes/editRecipe", async (props, thunkAPI) => {
+  const state = thunkAPI.getState() as RootState;
   try {
-    let result: any = await axios.post(`/api/recipes/new`, {
-      recipeData: props.recipeData,
-    });
+    var editedRecipe: any = await axios.post(
+      `/api/recipes/edit/${props.recipeId}`,
+      {
+        recipeData: props.recipeData,
+      }
+    );
+
     thunkAPI.dispatch(
       setAlert({
         severity: "success",
         title: "Success",
-        message: "Recipe added successfully.",
+        message: "Recipe edited successfully.",
       })
     );
-    return result.data;
+
+    if (editedRecipe.data.approved || state.filters.ownerOnly) {
+      return state.recipes.recipes.map((recipe: TRecipe) =>
+        recipe._id === editedRecipe.data._id ? editedRecipe.data : recipe
+      );
+    }
+    return state.recipes.recipes.filter(
+      (recipe: TRecipe) => recipe._id !== editedRecipe.data._id
+    );
   } catch (error: any) {
     thunkAPI.dispatch(
       setAlert({
         severity: "error",
         title: "Error",
-        message: "Failed to add recipe, Please try again.",
+        message: "Failed to edit recipe, Please try again.",
         details: error.response.data ? error.response.data : undefined,
       })
     );
