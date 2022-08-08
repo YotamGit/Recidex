@@ -18,6 +18,9 @@ import {
   isValidObjectId,
 } from "../utils-module/misc.js";
 
+//for validating enums when updating
+const opts = { runValidators: true };
+
 // Routes
 
 // GET X RECIPES FROM GIVEN DATE WITH FILTERS
@@ -309,7 +312,7 @@ router.post("/edit/:recipe_id", async (req, res, next) => {
       res.status(404).send("Recipe not found.");
       return;
     }
-
+    console.log(req.body.recipeData);
     const recipe = await Recipe.findById(req.params.recipe_id);
     if (!recipe) {
       res.status(404).send("Recipe not found.");
@@ -375,7 +378,8 @@ router.post("/edit/:recipe_id", async (req, res, next) => {
             ...req.body.recipeData,
             last_update_time: Date.now(),
           },
-        }
+        },
+        opts
       );
       const recipe = await Recipe.findById({ _id: req.params.recipe_id })
         .select("-image")
@@ -438,7 +442,8 @@ router.post("/edit/favorite/:recipe_id", async (req, res, next) => {
             users.push(req.headers.validatedToken._id);
             await Recipe.updateOne(
               { _id: req.params.recipe_id },
-              { favorited_by: users }
+              { favorited_by: users },
+              opts
             );
           }
           res.status(200).json(users);
@@ -448,7 +453,8 @@ router.post("/edit/favorite/:recipe_id", async (req, res, next) => {
             users.splice(index, 1);
             await Recipe.updateOne(
               { _id: req.params.recipe_id },
-              { favorited_by: users }
+              { favorited_by: users },
+              opts
             );
           }
           res.status(200).json(users);
@@ -491,7 +497,7 @@ router.post("/edit/approve/:recipe_id", async (req, res, next) => {
             approval_required: false,
             private: false,
           },
-          { new: true }
+          { new: true, ...opts }
         ).populate("owner", "firstname lastname email");
 
         //email result to user
@@ -568,7 +574,7 @@ router.post("/edit/request-approval/:recipe_id", async (req, res, next) => {
           approval_required: req.body.approval_required,
           private: false,
         },
-        { new: true }
+        { new: true, ...opts }
       ).populate("owner", "firstname lastname");
 
       res.status(200).json(updatedRecipe);
@@ -608,7 +614,7 @@ router.post("/edit/change-privacy/:recipe_id", async (req, res, next) => {
           approval_required: false,
           approved: false,
         },
-        { new: true }
+        { new: true, ...opts }
       ).populate("owner", "firstname lastname");
 
       res.status(200).json(updatedRecipe);
