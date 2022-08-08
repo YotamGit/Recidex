@@ -16,4 +16,4 @@ services:
     depends_on:
       - mongodb
 volumes:
-    nodemodules: {}
+    nodemodules:

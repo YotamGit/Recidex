@@ -1,9 +1,5 @@
 [Unit]
 Description=Periodic backups for Recidex
-BindsTo=docker.service
-# Run once immediately
-Requires=recidex-backup.service
-After=docker.service
 
 
 [Timer]
