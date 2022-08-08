@@ -13,7 +13,10 @@ import {
   emailUserRecipeApproved,
   emailUserRecipeDisapproved,
 } from "../utils-module/notifications.js";
-import { escapeRegexSpecialChar } from "../utils-module/misc.js";
+import {
+  escapeRegexSpecialChar,
+  isValidObjectId,
+} from "../utils-module/misc.js";
 
 // Routes
 
@@ -133,10 +136,21 @@ router.get("/", async (req, res, next) => {
 // GET BACK A SPECIFIC RECIPE
 router.get("/id/:recipe_id", async (req, res, next) => {
   try {
+    if (!isValidObjectId(req.params.recipe_id)) {
+      res.status(404).send("Recipe not found.");
+      return;
+    }
+
     const validatedToken = validateToken(req.cookies?.userToken);
     const recipe = await Recipe.findById(req.params.recipe_id)
       .select("-image")
       .populate("owner", "firstname lastname");
+
+    if (!recipe) {
+      res.status(404).send("Recipe not found.");
+      return;
+    }
+
     if (
       !recipe.private ||
       (validatedToken &&
@@ -258,7 +272,17 @@ router.post("/new", async (req, res, next) => {
 // DELETE A SPECIFIC RECIPE
 router.post("/delete/:recipe_id", async (req, res, next) => {
   try {
+    if (!isValidObjectId(req.params.recipe_id)) {
+      res.status(404).send("Recipe not found.");
+      return;
+    }
+
     const recipe = await Recipe.findById(req.params.recipe_id);
+    if (!recipe) {
+      res.status(404).send("Recipe not found.");
+      return;
+    }
+
     const isModerator = await isModeratorUser(req.headers.validatedToken);
     const isOwner = authenticateRecipeOwnership(
       req.headers.validatedToken,
@@ -281,8 +305,17 @@ router.post("/delete/:recipe_id", async (req, res, next) => {
 // UPDATE A SPECIFIC RECIPE
 router.post("/edit/:recipe_id", async (req, res, next) => {
   try {
+    if (!isValidObjectId(req.params.recipe_id)) {
+      res.status(404).send("Recipe not found.");
+      return;
+    }
+
     const recipe = await Recipe.findById(req.params.recipe_id);
-    const isModerator = await isModeratorUser(req.headers.validatedToken);
+    if (!recipe) {
+      res.status(404).send("Recipe not found.");
+      return;
+    }
+
     const isOwner = authenticateRecipeOwnership(
       req.headers.validatedToken,
       recipe
@@ -308,6 +341,7 @@ router.post("/edit/:recipe_id", async (req, res, next) => {
       delete req.body.recipeData.favorited_by;
 
       //handle privacy
+      const isModerator = await isModeratorUser(req.headers.validatedToken);
       if (!isModerator && !req.body.recipeData.private) {
         req.body.recipeData.approved = false;
       }
@@ -382,8 +416,16 @@ router.post("/edit/:recipe_id", async (req, res, next) => {
 // FAVORITE A RECIPE FOR A USER
 router.post("/edit/favorite/:recipe_id", async (req, res, next) => {
   try {
+    if (!isValidObjectId(req.params.recipe_id)) {
+      res.status(404).send("Recipe not found.");
+      return;
+    }
+
     const recipe = await Recipe.findById({ _id: req.params.recipe_id });
-    if (recipe.private) {
+    if (!recipe) {
+      res.status(404).send("Recipe not found.");
+      return;
+    } else if (recipe.private) {
       res.status(403).send("Private recipes can not be favorited");
       return;
     } else {
@@ -423,8 +465,13 @@ router.post("/edit/favorite/:recipe_id", async (req, res, next) => {
 // APPROVE A RECIPE
 router.post("/edit/approve/:recipe_id", async (req, res, next) => {
   try {
+    if (!isValidObjectId(req.params.recipe_id)) {
+      res.status(404).send("Recipe not found.");
+      return;
+    }
+
     const recipe = await Recipe.findById({ _id: req.params.recipe_id });
-    if (recipe === null) {
+    if (!recipe) {
       res.status(404).send("Recipe not found");
       return;
     }
@@ -492,18 +539,19 @@ router.post("/edit/approve/:recipe_id", async (req, res, next) => {
 // REQUEST APPROVAL
 router.post("/edit/request-approval/:recipe_id", async (req, res, next) => {
   try {
+    if (!isValidObjectId(req.params.recipe_id)) {
+      res.status(404).send("Recipe not found.");
+      return;
+    }
+
     const recipe = await Recipe.findById({ _id: req.params.recipe_id });
-    if (recipe === null) {
+    if (!recipe) {
       res.status(404).send("Recipe not found");
       return;
-    }
-
-    if (recipe.private) {
+    } else if (recipe.private) {
       res.status(403).send("Cant request approval for a private recipe.");
       return;
-    }
-
-    if (req.body.approval_required === undefined) {
+    } else if (req.body.approval_required === undefined) {
       res.status(403).send(`Missing argument "request_approval".`);
       return;
     }
@@ -534,13 +582,16 @@ router.post("/edit/request-approval/:recipe_id", async (req, res, next) => {
 // REQUEST APPROVAL
 router.post("/edit/change-privacy/:recipe_id", async (req, res, next) => {
   try {
-    const recipe = await Recipe.findById({ _id: req.params.recipe_id });
-    if (recipe === null) {
-      res.status(404).send("Recipe not found");
+    if (!isValidObjectId(req.params.recipe_id)) {
+      res.status(404).send("Recipe not found.");
       return;
     }
 
-    if (req.body.private === undefined) {
+    const recipe = await Recipe.findById({ _id: req.params.recipe_id });
+    if (!recipe) {
+      res.status(404).send("Recipe not found");
+      return;
+    } else if (req.body.private === undefined) {
       res.status(403).send(`Missing argument "private".`);
       return;
     }
