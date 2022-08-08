@@ -136,55 +136,59 @@ const FilterDialog: FC<propTypes> = ({ localSearch }) => {
         onClose={recipeFilterDialogToggle}
       >
         <DialogTitle className="title">{"Filter Recipes"}</DialogTitle>
-        <DialogContent>
-          <div className="recipe-filter-selectors-input-container">
-            <RecipeDropdown
-              value={category}
-              items={Object.keys(recipe_categories)}
-              label_text={"Category"}
-              id_prefix={"filter-category"}
-              class_name={"recipe-filter-form-control"}
-              onChange={setCategory}
-              resetField={() => setSubCategory(undefined)} //undefined to reset filter
-            />
-            <RecipeDropdown
-              value={sub_category}
-              items={
-                recipe_categories[category || ""]
-                  ? recipe_categories[category || ""]
-                  : []
-              }
-              label_text={"Sub Category"}
-              id_prefix={"filter-sub_category"}
-              class_name={"recipe-filter-form-control"}
-              onChange={setSubCategory}
-            />
-            <RecipeDropdown
-              value={difficulty}
-              items={recipe_difficulties}
-              label_text={"Difficulty"}
-              id_prefix={"filter-difficulty"}
-              class_name={"recipe-filter-form-control"}
-              onChange={setDifficulty}
-            />
-            <RecipeDropdown
-              value={prep_time}
-              items={recipe_durations}
-              label_text={"Prep Time"}
-              id_prefix={"filter-prep-time"}
-              class_name={"recipe-filter-form-control"}
-              onChange={setPrepTime}
-            />
-            <RecipeDropdown
-              value={total_time}
-              items={recipe_durations}
-              label_text={"Total Time"}
-              id_prefix={"filter-total-time"}
-              class_name={"recipe-filter-form-control"}
-              onChange={setTotalTime}
-            />
-          </div>
-        </DialogContent>
+        {recipe_categories && recipe_difficulties && recipe_durations && (
+          <>
+            <DialogContent>
+              <div className="recipe-filter-selectors-input-container">
+                <RecipeDropdown
+                  value={category}
+                  items={Object.keys(recipe_categories)}
+                  label_text={"Category"}
+                  id_prefix={"filter-category"}
+                  class_name={"recipe-filter-form-control"}
+                  onChange={setCategory}
+                  resetField={() => setSubCategory(undefined)} //undefined to reset filter
+                />
+                <RecipeDropdown
+                  value={sub_category}
+                  items={
+                    recipe_categories[category || ""]
+                      ? recipe_categories[category || ""]
+                      : []
+                  }
+                  label_text={"Sub Category"}
+                  id_prefix={"filter-sub_category"}
+                  class_name={"recipe-filter-form-control"}
+                  onChange={setSubCategory}
+                />
+                <RecipeDropdown
+                  value={difficulty}
+                  items={recipe_difficulties}
+                  label_text={"Difficulty"}
+                  id_prefix={"filter-difficulty"}
+                  class_name={"recipe-filter-form-control"}
+                  onChange={setDifficulty}
+                />
+                <RecipeDropdown
+                  value={prep_time}
+                  items={recipe_durations}
+                  label_text={"Prep Time"}
+                  id_prefix={"filter-prep-time"}
+                  class_name={"recipe-filter-form-control"}
+                  onChange={setPrepTime}
+                />
+                <RecipeDropdown
+                  value={total_time}
+                  items={recipe_durations}
+                  label_text={"Total Time"}
+                  id_prefix={"filter-total-time"}
+                  class_name={"recipe-filter-form-control"}
+                  onChange={setTotalTime}
+                />
+              </div>
+            </DialogContent>
+          </>
+        )}
         <DialogActions className="filter-dialog-action-section">
           <Tooltip title="Cancel" arrow>
             <CancelRoundedIcon

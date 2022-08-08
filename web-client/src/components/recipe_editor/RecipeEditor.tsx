@@ -324,51 +324,55 @@ const RecipeEditor: FC<propTypes> = ({ action, recipe }) => {
             onChange={(e) => setServings(e.target.value)}
           />
         </div>
-        <div className="selectors-input-container">
-          <RecipeDropdown
-            value={category}
-            items={Object.keys(recipe_categories)}
-            label_text={"Category"}
-            id_prefix={"editor-category"}
-            class_name={"recipe-editor-form-control"}
-            onChange={setCategory}
-            resetField={() => setSubCategory("")} //empty string to remove previous value
-          />
-          <RecipeDropdown
-            value={sub_category}
-            items={
-              recipe_categories[category] ? recipe_categories[category] : []
-            }
-            label_text={"Sub Category"}
-            id_prefix={"editor-sub_category"}
-            class_name={"recipe-editor-form-control"}
-            onChange={setSubCategory}
-          />
-          <RecipeDropdown
-            value={difficulty}
-            items={recipe_difficulties}
-            label_text={"Difficulty"}
-            id_prefix={"editor-difficulty"}
-            class_name={"recipe-editor-form-control"}
-            onChange={setDifficulty}
-          />
-          <RecipeDropdown
-            value={prep_time}
-            items={recipe_durations}
-            label_text={"Prep Time"}
-            id_prefix={"editor-prep-time"}
-            class_name={"recipe-editor-form-control"}
-            onChange={setPrepTime}
-          />
-          <RecipeDropdown
-            value={total_time}
-            items={recipe_durations}
-            label_text={"Total Time"}
-            id_prefix={"editor-total-time"}
-            class_name={"recipe-editor-form-control"}
-            onChange={setTotalTime}
-          />
-        </div>
+        {recipe_categories && recipe_difficulties && recipe_durations && (
+          <>
+            <div className="selectors-input-container">
+              <RecipeDropdown
+                value={category}
+                items={Object.keys(recipe_categories)}
+                label_text={"Category"}
+                id_prefix={"editor-category"}
+                class_name={"recipe-editor-form-control"}
+                onChange={setCategory}
+                resetField={() => setSubCategory("")} //empty string to remove previous value
+              />
+              <RecipeDropdown
+                value={sub_category}
+                items={
+                  recipe_categories[category] ? recipe_categories[category] : []
+                }
+                label_text={"Sub Category"}
+                id_prefix={"editor-sub_category"}
+                class_name={"recipe-editor-form-control"}
+                onChange={setSubCategory}
+              />
+              <RecipeDropdown
+                value={difficulty}
+                items={recipe_difficulties}
+                label_text={"Difficulty"}
+                id_prefix={"editor-difficulty"}
+                class_name={"recipe-editor-form-control"}
+                onChange={setDifficulty}
+              />
+              <RecipeDropdown
+                value={prep_time}
+                items={recipe_durations}
+                label_text={"Prep Time"}
+                id_prefix={"editor-prep-time"}
+                class_name={"recipe-editor-form-control"}
+                onChange={setPrepTime}
+              />
+              <RecipeDropdown
+                value={total_time}
+                items={recipe_durations}
+                label_text={"Total Time"}
+                id_prefix={"editor-total-time"}
+                class_name={"recipe-editor-form-control"}
+                onChange={setTotalTime}
+              />
+            </div>
+          </>
+        )}
         <div className="image-upload-container">
           <label htmlFor="image-input">
             <input

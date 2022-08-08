@@ -1,7 +1,7 @@
 import express from "express";
 import sanitizeHtml from "sanitize-html";
 const router = express.Router();
-import { Recipe } from "../models/Recipe.js";
+import { Recipe, recipeValues } from "../models/Recipe.js";
 import { User } from "../models/User.js";
 import {
   authenticateRecipeOwnership,
@@ -585,6 +585,7 @@ router.post("/edit/request-approval/:recipe_id", async (req, res, next) => {
     next(err);
   }
 });
+
 // CHANGE PRIVACY OF RECIPE
 router.post("/edit/change-privacy/:recipe_id", async (req, res, next) => {
   try {
@@ -621,6 +622,15 @@ router.post("/edit/change-privacy/:recipe_id", async (req, res, next) => {
     } else {
       res.status(403).send("Missing privileges to change recipe privacy.");
     }
+  } catch (err) {
+    next(err);
+  }
+});
+
+// GET RECIPE OPTIONS FOR SELECTORS(CATEGORIES, DIFFICULTIES, DURATIONS)
+router.get("/recipe-options", async (req, res, next) => {
+  try {
+    res.status(200).send(recipeValues);
   } catch (err) {
     next(err);
   }

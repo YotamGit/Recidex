@@ -1,4 +1,22 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
+import { AppDispatch, RootState } from "../store";
+import axios from "axios";
+
+interface FiltersSliceError {
+  statusCode: number;
+  data: string;
+  message: string;
+}
+
+type AsyncThunkConfig = {
+  /** return type for `thunkApi.getState` */
+  state?: RootState;
+  /** type for `thunkApi.dispatch` */
+  dispatch?: AppDispatch;
+
+  /** type to be passed into `rejectWithValue`'s first argument that will end up on `rejectedAction.payload` */
+  rejectValue?: FiltersSliceError;
+};
 
 export type recipePrivacyState =
   | "all"
@@ -32,21 +50,11 @@ interface FiltersState {
   searchText: string | undefined;
   titleFilters: object | undefined;
   filtered: boolean;
-  recipe_categories: {
+  recipe_categories?: {
     [key: string]: any;
-    Proteins: string[];
-    Salads: string[];
-    Asian: string[];
-    "Soups and Stews": string[];
-    Pasta: string[];
-    "Pizza and Focaccia": string[];
-    Bread: string[];
-    Drinks: string[];
-    Desserts: string[];
-    Other: string[];
   };
-  recipe_difficulties: string[];
-  recipe_durations: string[];
+  recipe_difficulties?: string[];
+  recipe_durations?: string[];
 }
 
 const initialState: FiltersState = {
@@ -65,42 +73,35 @@ const initialState: FiltersState = {
   searchText: undefined,
   titleFilters: undefined,
   filtered: false,
-  recipe_categories: {
-    Proteins: ["Meat", "Chicken", "Fish", "Other"],
-    Salads: [],
-    Asian: ["Japanese", "Chinese", "Thai", "Indian", "Other"],
-    "Soups and Stews": ["Clear Soup", "Thick Soup", "Stew", "Other"],
-    Pasta: [],
-    "Pizza and Focaccia": [],
-    Bread: ["Salty Pastries", "Other"],
-    Drinks: ["Hot", "Cold", "Alcohol", "Other"],
-    Desserts: [
-      "Cookies",
-      "Yeast",
-      "Cakes",
-      "Tarts and Pies",
-      "Cup",
-      "Snacks and Candies",
-    ],
-    Other: [],
-  },
-  recipe_difficulties: [
-    "Very Easy",
-    "Easy",
-    "Medium",
-    "Hard",
-    "Very Hard",
-    "Gordon Ramsay",
-  ],
-  recipe_durations: [
-    "under 10 minutes",
-    "10-20 minutes",
-    "20-40 minutes",
-    "40-60 minutes",
-    "1-2 hours",
-    "over 2 hours",
-  ],
+  recipe_categories: undefined,
+  recipe_difficulties: undefined,
+  recipe_durations: undefined,
 };
+
+export const getRecipeOptions = createAsyncThunk<
+  {
+    recipe_categories: any;
+    recipe_difficulties: any;
+    recipe_durations: any;
+  },
+  {},
+  AsyncThunkConfig
+>("filters/getRecipeOptions", async (props, thunkAPI) => {
+  try {
+    const options = await axios.get("/api/recipes/recipe-options");
+    return {
+      recipe_categories: options.data.recipe_categories,
+      recipe_difficulties: options.data.recipe_difficulties,
+      recipe_durations: options.data.recipe_durations,
+    };
+  } catch (error: any) {
+    return thunkAPI.rejectWithValue({
+      statusCode: error?.response?.status,
+      data: error?.response?.data,
+      message: error.message,
+    });
+  }
+});
 
 const filtersSlice = createSlice({
   name: "filters",
@@ -138,6 +139,13 @@ const filtersSlice = createSlice({
         state.selectedFilters[key] = undefined;
       });
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(getRecipeOptions.fulfilled, (state, action) => {
+      state.recipe_categories = action.payload.recipe_categories;
+      state.recipe_difficulties = action.payload.recipe_difficulties;
+      state.recipe_durations = action.payload.recipe_durations;
+    });
   },
 });
 
