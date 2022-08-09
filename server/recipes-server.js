@@ -67,15 +67,20 @@ app.use((err, req, res, next) => {
 });
 
 // Connect To DB
-mongoose
-  .connect("mongodb://mongodb:27017/Recipes", () =>
-    console.log("Connected to DB")
-  )
-  .catch((error) => {
-    console.log("##############################################");
+
+const connect = async () => {
+  try {
+    await mongoose.connect("mongodb://mongodb:27017/Recipes");
+    console.log("Connected to DB");
+  } catch (error) {
     console.log("Failed to connect to DB", error);
-    console.log("##############################################");
-  });
+    console.log("Retrying connection to DB");
+    await connect();
+  }
+};
+
+console.log("Connecting to DB");
+await connect();
 
 // Start Server
 let PORT = process.env.PORT || 3001;
