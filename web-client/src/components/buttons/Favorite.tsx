@@ -25,6 +25,7 @@ const Favorite: FC<propTypes> = ({
   const userId = useAppSelector((state) => state.users.userData._id || "");
   const [favorite, setFavorite] = useState(favorited_by.includes(userId));
   const [localFavoritedBy, setlocalFavoritedBy] = useState(favorited_by);
+  const [disableFavorite, setDisableFavorite] = useState(false);
 
   useEffect(() => {
     setlocalFavoritedBy(favorited_by);
@@ -36,6 +37,8 @@ const Favorite: FC<propTypes> = ({
   }, [userId, localFavoritedBy]);
 
   const toggleFavorite = async () => {
+    setDisableFavorite(true);
+
     let favRes = await dispatch(
       favoriteRecipe({ id: recipeId, favorite: !favorite })
     );
@@ -45,10 +48,16 @@ const Favorite: FC<propTypes> = ({
       setlocalFavoritedBy(payload.favorited_by);
       setFavorite(!favorite);
     }
+    setDisableFavorite(false);
   };
 
   return (
-    <AuthorizedButton type={"icon"} onClick={toggleFavorite} style={style}>
+    <AuthorizedButton
+      type={"icon"}
+      onClick={toggleFavorite}
+      style={style}
+      disabled={disableFavorite}
+    >
       {showCount && (
         <span
           style={{
