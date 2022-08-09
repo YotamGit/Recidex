@@ -8,9 +8,13 @@ import { BrowserRouter } from "react-router-dom";
 //redux
 import store from "./store";
 import { userPing } from "./slices/usersSlice";
-import { getRecipeOptions } from "./slices/filtersSlice";
+import {
+  getRecipeFilterValues,
+  getRecipePrivacyValues,
+} from "./slices/filtersSlice";
 
-store.dispatch(getRecipeOptions());
+store.dispatch(getRecipeFilterValues());
+store.dispatch(getRecipePrivacyValues());
 store.dispatch(userPing());
 
 ReactDOM.render(

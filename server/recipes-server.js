@@ -13,6 +13,7 @@ import { authenticateUser } from "./utils-module/authentication.js";
 import loginRoute from "./routes/login.js";
 import recipesRoute from "./routes/recipes.js";
 import usersRoute from "./routes/users.js";
+import filtersRoute from "./routes/filters.js";
 
 dotenv.config();
 
@@ -53,6 +54,7 @@ app.post("/api/users/user/edit", authenticateUser);
 app.use("/api/login", loginRoute);
 app.use("/api/recipes", recipesRoute);
 app.use("/api/users", usersRoute);
+app.use("/api/filters", filtersRoute);
 
 app.use("*", (req, res) => {
   res.status(404).send();

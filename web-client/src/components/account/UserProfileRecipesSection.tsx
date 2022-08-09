@@ -83,7 +83,7 @@ const UserProfileRecipesSection: FC<propTypes> = ({ userId }) => {
           filters: {
             favorited_by: favoritesOnly ? userId : undefined,
             owner: favoritesOnly ? undefined : userId,
-            private: false,
+            private: false, //api will automatically apply this but just in case
             ...(filters ? filters : selectedFilters),
           },
         },

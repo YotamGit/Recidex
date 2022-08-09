@@ -26,7 +26,6 @@ import Alert from "@mui/material/Alert";
 //types
 import { FC } from "react";
 import { TRecipe } from "../slices/recipesSlice";
-import { recipePrivacyState } from "../slices/filtersSlice";
 
 interface propTypes {
   ownerOnly: boolean;
@@ -43,7 +42,7 @@ const BaseRecipesPage: FC<propTypes> = ({
 }) => {
   const dispatch = useAppDispatch();
   const location = useLocation();
-  const [recipePrivacy, setRecipePrivacy] = useState<recipePrivacyState>(
+  const [recipePrivacy, setRecipePrivacy] = useState(
     useAppSelector((state) => state.filters.privacyState)
   );
 

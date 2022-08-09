@@ -1,5 +1,13 @@
 import mongoose from "mongoose";
 
+export const privacyValues = [
+  "all",
+  "public",
+  "approved",
+  "pending approval",
+  "private",
+];
+
 export const recipeValues = {
   recipe_categories: {
     Proteins: ["Meat", "Chicken", "Fish", "Other"],

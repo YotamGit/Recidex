@@ -18,13 +18,6 @@ type AsyncThunkConfig = {
   rejectValue?: FiltersSliceError;
 };
 
-export type recipePrivacyState =
-  | "all"
-  | "public"
-  | "approved"
-  | "pending approval"
-  | "private";
-
 export type TSelectedFilters = {
   [key: string]: any;
   category: string | undefined;
@@ -34,27 +27,22 @@ export type TSelectedFilters = {
   total_time: string | undefined;
 };
 interface FiltersState {
-  selectedFilters: {
-    [key: string]: any;
-    category: string | undefined;
-    sub_category: string | undefined;
-    difficulty: string | undefined;
-    prep_time: string | undefined;
-    total_time: string | undefined;
-  };
+  selectedFilters: TSelectedFilters;
   ownerOnly: boolean | undefined;
-  privacyState: recipePrivacyState;
+  privacyState: string;
   favoritesOnly: boolean | undefined;
   approvedOnly: boolean | undefined;
   approvalRequiredOnly: boolean | undefined;
   searchText: string | undefined;
   titleFilters: object | undefined;
   filtered: boolean;
+
   recipe_categories?: {
     [key: string]: any;
   };
   recipe_difficulties?: string[];
   recipe_durations?: string[];
+  recipe_privacy_values?: string[];
 }
 
 const initialState: FiltersState = {
@@ -78,21 +66,44 @@ const initialState: FiltersState = {
   recipe_durations: undefined,
 };
 
-export const getRecipeOptions = createAsyncThunk<
+export const getRecipeFilterValues = createAsyncThunk<
   {
-    recipe_categories: any;
-    recipe_difficulties: any;
-    recipe_durations: any;
+    recipe_categories: {
+      [key: string]: any;
+    };
+    recipe_difficulties: string[];
+    recipe_durations: string[];
   },
   {},
   AsyncThunkConfig
->("filters/getRecipeOptions", async (props, thunkAPI) => {
+>("filters/getRecipeFilterValues", async (props, thunkAPI) => {
   try {
-    const options = await axios.get("/api/recipes/recipe-options");
+    const options = await axios.get("/api/filters/recipe-filter-values");
     return {
       recipe_categories: options.data.recipe_categories,
       recipe_difficulties: options.data.recipe_difficulties,
       recipe_durations: options.data.recipe_durations,
+    };
+  } catch (error: any) {
+    return thunkAPI.rejectWithValue({
+      statusCode: error?.response?.status,
+      data: error?.response?.data,
+      message: error.message,
+    });
+  }
+});
+
+export const getRecipePrivacyValues = createAsyncThunk<
+  {
+    recipe_privacy_values: string[];
+  },
+  {},
+  AsyncThunkConfig
+>("filters/getRecipePrivacyValues", async (props, thunkAPI) => {
+  try {
+    const options = await axios.get("/api/filters/recipe-privacy-values");
+    return {
+      recipe_privacy_values: options.data,
     };
   } catch (error: any) {
     return thunkAPI.rejectWithValue({
@@ -119,7 +130,7 @@ const filtersSlice = createSlice({
     setOwnerOnly(state, action: PayloadAction<boolean>) {
       state.ownerOnly = action.payload;
     },
-    setPrivacyState(state, action: PayloadAction<recipePrivacyState>) {
+    setPrivacyState(state, action: PayloadAction<string>) {
       state.privacyState = action.payload;
     },
     setApprovalRequiredOnly(state, action: PayloadAction<boolean>) {
@@ -141,11 +152,15 @@ const filtersSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(getRecipeOptions.fulfilled, (state, action) => {
-      state.recipe_categories = action.payload.recipe_categories;
-      state.recipe_difficulties = action.payload.recipe_difficulties;
-      state.recipe_durations = action.payload.recipe_durations;
-    });
+    builder
+      .addCase(getRecipeFilterValues.fulfilled, (state, action) => {
+        state.recipe_categories = action.payload.recipe_categories;
+        state.recipe_difficulties = action.payload.recipe_difficulties;
+        state.recipe_durations = action.payload.recipe_durations;
+      })
+      .addCase(getRecipePrivacyValues.fulfilled, (state, action) => {
+        state.recipe_privacy_values = action.payload.recipe_privacy_values;
+      });
   },
 });
 

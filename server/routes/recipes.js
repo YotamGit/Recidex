@@ -1,7 +1,7 @@
 import express from "express";
 import sanitizeHtml from "sanitize-html";
 const router = express.Router();
-import { Recipe, recipeValues } from "../models/Recipe.js";
+import { Recipe } from "../models/Recipe.js";
 import { User } from "../models/User.js";
 import {
   authenticateRecipeOwnership,
@@ -34,17 +34,19 @@ router.get("/", async (req, res, next) => {
         req.query.filters = JSON.parse(req.query.filters);
       }
 
+      // query to retrieve public recipes only unless one of the fields exists
       let publicRecipeQuery =
         !validatedToken ||
-        (req.query.ownerOnly === undefined &&
-          req.query.favoritesOnly === undefined &&
-          req.query.approvedOnly === undefined &&
-          req.query.approvalRequiredOnly === undefined &&
-          req.query.customQuery === undefined)
+        (req.query.ownerOnly !== "true" &&
+          req.query.favoritesOnly !== "true" &&
+          req.query.approvedOnly !== "true" &&
+          req.query.approvalRequiredOnly !== "true" &&
+          req.query.customQuery !== "true")
           ? { private: false }
           : {};
 
-      //only moderators are allowed to use these fields when building a custom query
+      // prevent the usage of certain fields in case of publicRecipeQuery bypass
+      //o nly moderators are allowed to use these fields when building a custom query
       if (
         !validatedToken ||
         req.query.customQuery !== "true" ||
@@ -55,48 +57,43 @@ router.get("/", async (req, res, next) => {
         }
       }
 
+      // query to retrieve recipes for a specific user with privacy filtering
+      let privacyQueryCombinations = {
+        all: { owner: validatedToken._id },
+        public: { owner: validatedToken._id, private: false },
+        "pending approval": {
+          owner: validatedToken._id,
+          approval_required: true,
+        },
+        approved: { owner: validatedToken._id, approved: true },
+        private: { owner: validatedToken._id, private: true },
+      };
       let ownerOnlyQuery = {};
       if (validatedToken && req.query.ownerOnly === "true") {
-        switch (req.query.privacyState) {
-          case "all":
-            ownerOnlyQuery = { owner: validatedToken._id };
-            break;
-          case "public":
-            ownerOnlyQuery = { owner: validatedToken._id, private: false };
-            break;
-          case "pending approval":
-            ownerOnlyQuery = {
-              owner: validatedToken._id,
-              approval_required: true,
-            };
-            break;
-          case "approved":
-            ownerOnlyQuery = { owner: validatedToken._id, approved: true };
-            break;
-          case "private":
-            ownerOnlyQuery = { owner: validatedToken._id, private: true };
-            break;
-          default:
-            ownerOnlyQuery = { owner: validatedToken._id };
-            break;
-        }
+        ownerOnlyQuery =
+          privacyQueryCombinations[req.query.privacyState] ||
+          privacyQueryCombinations["all"];
       }
 
+      // query to retrieve recipes that require approval
       let approvalRequiredOnlyQuery =
         validatedToken && req.query.approvalRequiredOnly === "true"
           ? { approval_required: true, private: false }
           : {};
 
+      // query to retrieve user-favorited recipes only
       let favoritesOnlyQuery =
         validatedToken && req.query.favoritesOnly === "true"
           ? { favorited_by: validatedToken._id, private: false }
           : {};
 
+      // query to retrieve only approved recipes
       let approvedOnlyQuery =
         req.query.approvedOnly === "true"
           ? { approved: true, private: false }
           : {};
 
+      // query to search recipes by partial title text
       let textSearchQuery = req.query?.searchText
         ? {
             title: {
@@ -627,12 +624,4 @@ router.post("/edit/change-privacy/:recipe_id", async (req, res, next) => {
   }
 });
 
-// GET RECIPE OPTIONS FOR SELECTORS(CATEGORIES, DIFFICULTIES, DURATIONS)
-router.get("/recipe-options", async (req, res, next) => {
-  try {
-    res.status(200).send(recipeValues);
-  } catch (err) {
-    next(err);
-  }
-});
 export default router;
