@@ -20,10 +20,13 @@ dotenv.config();
 // Middlewares
 app.use(cors());
 app.use(cookieParser());
+
 // for parsing application/json
 app.use(express.json({ limit: "50mb" }));
+
 // for parsing application/xwww-
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
+
 app.use(mongoSanitize());
 app.use("*", (req, res, next) => {
   let startTime = performance.now();

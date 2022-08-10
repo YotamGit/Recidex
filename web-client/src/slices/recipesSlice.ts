@@ -83,24 +83,31 @@ export const getRecipes = createAsyncThunk<
   let approvedOnly = state.filters.approvedOnly;
   let approvalRequiredOnly = state.filters.approvalRequiredOnly;
   let selectedFilters = state.filters.selectedFilters;
+  let sort = { field: "favorite_count", direction: -1 }; //add to state, add to profile section
 
   try {
-    let result = await axios.get("/api/recipes", {
-      signal: params.abortController
-        ? params.abortController.signal
-        : undefined,
-      params: {
-        latest: params.args?.latest || new Date(),
-        count: 12,
+    let result = await axios.post(
+      "/api/recipes/filter",
+      {
         ownerOnly: ownerOnly || undefined,
         privacyState: ownerOnly ? privacyState : undefined,
         favoritesOnly: favoritesOnly || undefined,
         approvedOnly: approvedOnly || undefined,
         approvalRequiredOnly: approvalRequiredOnly || undefined,
         searchText: searchText,
-        filters: selectedFilters,
+        filters: Object.values(selectedFilters).some(
+          (filter) => typeof filter !== "undefined"
+        )
+          ? selectedFilters
+          : undefined,
+        sort: sort,
       },
-    });
+      {
+        signal: params.abortController
+          ? params.abortController.signal
+          : undefined,
+      }
+    );
 
     if (result.data.length === 0) {
       thunkAPI.dispatch(

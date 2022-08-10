@@ -24,24 +24,23 @@ const opts = { runValidators: true };
 // Routes
 
 // GET X RECIPES FROM GIVEN DATE WITH FILTERS
-router.get("/", async (req, res, next) => {
+router.post("/filter", async (req, res, next) => {
   try {
     const validatedToken = validateToken(req.cookies?.userToken);
-
-    if (Object.keys(req.query).length > 0) {
+    if (Object.keys(req.body).length > 0) {
       //to be able to delete filters
-      if (req.query.filters) {
-        req.query.filters = JSON.parse(req.query.filters);
+      if (req.body.filters) {
+        req.body.filters = JSON.parse(req.body.filters);
       }
 
       // query to retrieve public recipes only unless one of the fields exists
       let publicRecipeQuery =
         !validatedToken ||
-        (req.query.ownerOnly !== "true" &&
-          req.query.favoritesOnly !== "true" &&
-          req.query.approvedOnly !== "true" &&
-          req.query.approvalRequiredOnly !== "true" &&
-          req.query.customQuery !== "true")
+        (req.body.ownerOnly !== "true" &&
+          req.body.favoritesOnly !== "true" &&
+          req.body.approvedOnly !== "true" &&
+          req.body.approvalRequiredOnly !== "true" &&
+          req.body.customQuery !== "true")
           ? { private: false }
           : {};
 
@@ -49,11 +48,11 @@ router.get("/", async (req, res, next) => {
       //o nly moderators are allowed to use these fields when building a custom query
       if (
         !validatedToken ||
-        req.query.customQuery !== "true" ||
+        req.body.customQuery !== "true" ||
         !(await isModeratorUser(validatedToken))
       ) {
-        if (req.query.filters.private) {
-          req.query.filters.private = false;
+        if (req.body?.filters?.private) {
+          req.body.filters.private = false;
         }
       }
 
@@ -69,9 +68,9 @@ router.get("/", async (req, res, next) => {
         private: { owner: validatedToken._id, private: true },
       };
       let ownerOnlyQuery = {};
-      if (validatedToken && req.query.ownerOnly === "true") {
+      if (validatedToken && req.body.ownerOnly === "true") {
         ownerOnlyQuery =
-          privacyQueryCombinations[req.query.privacyState] ||
+          privacyQueryCombinations[req.body.privacyState] ||
           privacyQueryCombinations["all"];
       }
 
@@ -83,39 +82,83 @@ router.get("/", async (req, res, next) => {
 
       // query to retrieve user-favorited recipes only
       let favoritesOnlyQuery =
-        validatedToken && req.query.favoritesOnly === "true"
+        validatedToken && req.body.favoritesOnly === "true"
           ? { favorited_by: validatedToken._id, private: false }
           : {};
 
       // query to retrieve only approved recipes
       let approvedOnlyQuery =
-        req.query.approvedOnly === "true"
+        req.body.approvedOnly === "true"
           ? { approved: true, private: false }
           : {};
 
       // query to search recipes by partial title text
-      let textSearchQuery = req.query?.searchText
+      let textSearchQuery = req.body?.searchText
         ? {
             title: {
-              $regex: escapeRegexSpecialChar(req.query.searchText),
+              $regex: escapeRegexSpecialChar(req.body.searchText),
               $options: "mi",
             },
           }
         : {};
-      let recipes = await Recipe.find({
-        creation_time: { $lt: req.query.latest },
-        ...publicRecipeQuery,
-        ...ownerOnlyQuery,
-        ...approvalRequiredOnlyQuery,
-        ...favoritesOnlyQuery,
-        ...approvedOnlyQuery,
-        ...textSearchQuery,
-        ...req.query?.filters,
-      })
-        .select("-image")
-        .populate("owner", "firstname lastname")
-        .sort({ creation_time: -1 })
-        .limit(parseInt(req.query.count || "0"));
+
+      // let sortQuery = {}
+      // req.query.sortField
+      // req.query.sortDirection
+
+      console.log(req.body);
+      // pagination variables
+      let pageSize = parseInt(req.body.pageSize || "0");
+      let pageNumber = parseInt(req.body.pageNumber || "0");
+      let skip = pageSize * (pageNumber - 1);
+
+      let recipes = await Recipe.aggregate([
+        {
+          $match: {
+            ...publicRecipeQuery,
+            ...ownerOnlyQuery,
+            ...approvalRequiredOnlyQuery,
+            ...favoritesOnlyQuery,
+            ...approvedOnlyQuery,
+            ...textSearchQuery,
+            ...req.body?.filters,
+          },
+        },
+        {
+          $lookup: {
+            from: "users",
+            localField: "owner",
+            foreignField: "_id",
+            as: "fullOwner",
+          },
+        },
+        {
+          $set: {
+            favorite_count: {
+              $size: "$favorited_by",
+            },
+            fullOwner: { $first: "$fullOwner" },
+          },
+        },
+        {
+          $set: {
+            owner: {
+              firstname: "$fullOwner.firstname",
+              lastname: "$fullOwner.lastname",
+            },
+          },
+        },
+        { $unset: ["image", "fullOwner"] },
+        {
+          $sort: {
+            [req.body?.sort.field || "creation_time"]: parseInt(
+              req.body?.sort.direction || "-1"
+            ),
+          },
+        },
+        { $skip: skip },
+        { $limit: pageSize },
+      ]);
 
       res.sentCount = Object.keys(recipes).length;
       res.status(200).json(recipes);
