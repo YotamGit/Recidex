@@ -1,4 +1,5 @@
 import express from "express";
+import mongoose from "mongoose";
 import sanitizeHtml from "sanitize-html";
 const router = express.Router();
 import { Recipe } from "../models/Recipe.js";
@@ -29,18 +30,18 @@ router.post("/filter", async (req, res, next) => {
     const validatedToken = validateToken(req.cookies?.userToken);
     if (Object.keys(req.body).length > 0) {
       //to be able to delete filters
-      if (req.body.filters) {
-        req.body.filters = JSON.parse(req.body.filters);
-      }
+      // if (req.body.filters) {
+      //   req.body.filters = JSON.parse(req.body.filters);
+      // }
 
       // query to retrieve public recipes only unless one of the fields exists
       let publicRecipeQuery =
         !validatedToken ||
-        (req.body.ownerOnly !== "true" &&
-          req.body.favoritesOnly !== "true" &&
-          req.body.approvedOnly !== "true" &&
-          req.body.approvalRequiredOnly !== "true" &&
-          req.body.customQuery !== "true")
+        (req.body.ownerOnly !== true &&
+          req.body.favoritesOnly !== true &&
+          req.body.approvedOnly !== true &&
+          req.body.approvalRequiredOnly !== true &&
+          req.body.customQuery !== true)
           ? { private: false }
           : {};
 
@@ -48,7 +49,7 @@ router.post("/filter", async (req, res, next) => {
       //o nly moderators are allowed to use these fields when building a custom query
       if (
         !validatedToken ||
-        req.body.customQuery !== "true" ||
+        req.body.customQuery !== true ||
         !(await isModeratorUser(validatedToken))
       ) {
         if (req.body?.filters?.private) {
@@ -59,16 +60,25 @@ router.post("/filter", async (req, res, next) => {
       // query to retrieve recipes for a specific user with privacy filtering
       let privacyQueryCombinations = {
         all: { owner: validatedToken._id },
-        public: { owner: validatedToken._id, private: false },
+        public: {
+          owner: mongoose.Types.ObjectId(validatedToken._id),
+          private: false,
+        },
         "pending approval": {
-          owner: validatedToken._id,
+          owner: mongoose.Types.ObjectId(validatedToken._id),
           approval_required: true,
         },
-        approved: { owner: validatedToken._id, approved: true },
-        private: { owner: validatedToken._id, private: true },
+        approved: {
+          owner: mongoose.Types.ObjectId(validatedToken._id),
+          approved: true,
+        },
+        private: {
+          owner: mongoose.Types.ObjectId(validatedToken._id),
+          private: true,
+        },
       };
       let ownerOnlyQuery = {};
-      if (validatedToken && req.body.ownerOnly === "true") {
+      if (validatedToken && req.body.ownerOnly === true) {
         ownerOnlyQuery =
           privacyQueryCombinations[req.body.privacyState] ||
           privacyQueryCombinations["all"];
@@ -76,19 +86,22 @@ router.post("/filter", async (req, res, next) => {
 
       // query to retrieve recipes that require approval
       let approvalRequiredOnlyQuery =
-        validatedToken && req.query.approvalRequiredOnly === "true"
+        validatedToken && req.query.approvalRequiredOnly === true
           ? { approval_required: true, private: false }
           : {};
 
       // query to retrieve user-favorited recipes only
       let favoritesOnlyQuery =
-        validatedToken && req.body.favoritesOnly === "true"
-          ? { favorited_by: validatedToken._id, private: false }
+        validatedToken && req.body.favoritesOnly === true
+          ? {
+              favorited_by: mongoose.Types.ObjectId(validatedToken._id),
+              private: false,
+            }
           : {};
 
       // query to retrieve only approved recipes
       let approvedOnlyQuery =
-        req.body.approvedOnly === "true"
+        req.body.approvedOnly === true
           ? { approved: true, private: false }
           : {};
 
@@ -106,11 +119,12 @@ router.post("/filter", async (req, res, next) => {
       // req.query.sortField
       // req.query.sortDirection
 
-      console.log(req.body);
       // pagination variables
-      let pageSize = parseInt(req.body.pageSize || "0");
-      let pageNumber = parseInt(req.body.pageNumber || "0");
+      let pageSize = parseInt(req.body.pageSize) || Number.MAX_SAFE_INTEGER;
+      let pageNumber = parseInt(req.body.pageNumber) || 1;
       let skip = pageSize * (pageNumber - 1);
+
+      // console.log({ pageSize, pageNumber, skip });
 
       let recipes = await Recipe.aggregate([
         {
@@ -156,9 +170,9 @@ router.post("/filter", async (req, res, next) => {
             ),
           },
         },
-        { $skip: skip },
-        { $limit: pageSize },
       ]);
+      // .skip(skip)
+      // .limit(pageSize);
 
       res.sentCount = Object.keys(recipes).length;
       res.status(200).json(recipes);
