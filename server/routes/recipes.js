@@ -170,6 +170,7 @@ router.post("/filter", async (req, res, next) => {
           $sort: {
             [req.body.sort?.field || "creation_time"]:
               req.body.sort?.direction === "ascending" ? 1 : -1,
+            _id: 1,
           },
         },
       ])

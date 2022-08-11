@@ -1,7 +1,12 @@
 import "../../styles/recipes/RecipeCardChips.css";
 //redux
 import { useAppDispatch } from "../../hooks";
-import { setFilters, setFiltered } from "../../slices/filtersSlice";
+import {
+  setFilters,
+  setFiltered,
+  setPagination,
+  defaultPagination,
+} from "../../slices/filtersSlice";
 import { getRecipes } from "../../slices/recipesSlice";
 
 //mui
@@ -34,6 +39,8 @@ const RecipeCardChips: FC<propTypes> = ({ recipe, chipsFilterFunction }) => {
     }
 
     dispatch(setFilters(filters));
+    dispatch(setPagination(defaultPagination));
+
     let filterRes = await dispatch(getRecipes({ replace: true }));
 
     if (filterRes.meta.requestStatus === "fulfilled") {

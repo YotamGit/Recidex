@@ -16,6 +16,8 @@ import {
   setFavoritesOnly,
   setApprovedOnly,
   setApprovalRequiredOnly,
+  setPagination,
+  defaultPagination,
 } from "../slices/filtersSlice";
 
 //mui
@@ -42,6 +44,8 @@ const BaseRecipesPage: FC<propTypes> = ({
 }) => {
   const dispatch = useAppDispatch();
   const location = useLocation();
+  const pagination = useAppSelector((state) => state.filters.pagination);
+
   const [recipePrivacy, setRecipePrivacy] = useState(
     useAppSelector((state) => state.filters.privacyState)
   );
@@ -70,12 +74,12 @@ const BaseRecipesPage: FC<propTypes> = ({
       abortControllerRef.current.abort();
       abortControllerRef.current = new AbortController();
       await dispatch(
+        setPagination({ ...pagination, pageNumber: pagination.pageNumber + 1 })
+      );
+      await dispatch(
         getRecipes({
           abortController: abortControllerRef.current,
           replace: false,
-          args: {
-            latest: recipes.at(-1)?.creation_time,
-          },
         })
       );
     }
@@ -83,6 +87,7 @@ const BaseRecipesPage: FC<propTypes> = ({
 
   const initialRecipesLoad = async () => {
     try {
+      await dispatch(setPagination(defaultPagination));
       await dispatch(
         getRecipes({
           abortController: abortControllerRef.current,

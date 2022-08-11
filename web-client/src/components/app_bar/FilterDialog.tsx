@@ -18,15 +18,18 @@ import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
 //redux
 import { useAppSelector, useAppDispatch } from "../../hooks";
 import { getRecipes } from "../../slices/recipesSlice";
-import { setFiltered, setFilters, setSort } from "../../slices/filtersSlice";
+import {
+  setPagination,
+  defaultPagination,
+  setSort,
+  defaultSort,
+  setFiltered,
+  setFilters,
+} from "../../slices/filtersSlice";
 
 //types
 import { FC } from "react";
-import {
-  TSelectedFilters,
-  SortParams,
-  defaultSort,
-} from "../../slices/filtersSlice";
+import { TSelectedFilters, SortParams } from "../../slices/filtersSlice";
 
 interface propTypes {
   localSearch?: {
@@ -96,6 +99,8 @@ const FilterDialog: FC<propTypes> = ({ localSearch }) => {
 
     dispatch(setFilters(filters));
     dispatch(setSort(sort));
+    dispatch(setPagination(defaultPagination));
+
     let filterRes = await dispatch(getRecipes({ replace: true }));
 
     if (filterRes.meta.requestStatus === "fulfilled") {
@@ -126,8 +131,8 @@ const FilterDialog: FC<propTypes> = ({ localSearch }) => {
     setPrepTime(selectedFilters.prep_time);
     setTotalTime(selectedFilters.total_time);
 
-    setSortField("creation_time");
-    setSortDirection("descending");
+    setSortField(defaultSort.field);
+    setSortDirection(defaultSort.direction);
   };
 
   useEffect(() => {

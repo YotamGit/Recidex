@@ -44,6 +44,10 @@ export const defaultSort: SortParams = {
 };
 
 type PaginationParams = { pageSize: number; pageNumber: number };
+export const defaultPagination: PaginationParams = {
+  pageSize: 4,
+  pageNumber: 1,
+};
 
 interface FiltersState {
   selectedFilters: TSelectedFilters;
@@ -70,7 +74,7 @@ interface FiltersState {
 const initialState: FiltersState = {
   selectedFilters: DefaultFilters,
   sort: defaultSort,
-  pagination: { pageSize: 16, pageNumber: 1 },
+  pagination: defaultPagination,
   ownerOnly: undefined,
   privacyState: "all",
   favoritesOnly: undefined,

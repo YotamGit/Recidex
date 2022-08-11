@@ -66,9 +66,7 @@ export type TRecipe = {
 interface GetRecipesProps {
   replace: boolean;
   abortController?: AbortController;
-  args?: any;
 }
-// params - {replace:Boolean, args:{filters to pass to the db}}, see implementation...
 export const getRecipes = createAsyncThunk<
   { replace: boolean; recipes: TRecipe[] },
   GetRecipesProps,
