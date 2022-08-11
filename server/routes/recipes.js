@@ -29,11 +29,6 @@ router.post("/filter", async (req, res, next) => {
   try {
     const validatedToken = validateToken(req.cookies?.userToken);
     if (Object.keys(req.body).length > 0) {
-      //to be able to delete filters
-      // if (req.body.filters) {
-      //   req.body.filters = JSON.parse(req.body.filters);
-      // }
-
       // query to retrieve public recipes only unless one of the fields exists
       let publicRecipeQuery =
         !validatedToken ||
@@ -59,7 +54,7 @@ router.post("/filter", async (req, res, next) => {
 
       // query to retrieve recipes for a specific user with privacy filtering
       let privacyQueryCombinations = {
-        all: { owner: validatedToken._id },
+        all: { owner: mongoose.Types.ObjectId(validatedToken._id) },
         public: {
           owner: mongoose.Types.ObjectId(validatedToken._id),
           private: false,
@@ -120,11 +115,10 @@ router.post("/filter", async (req, res, next) => {
       // req.query.sortDirection
 
       // pagination variables
-      let pageSize = parseInt(req.body.pageSize) || Number.MAX_SAFE_INTEGER;
-      let pageNumber = parseInt(req.body.pageNumber) || 1;
-      let skip = pageSize * (pageNumber - 1);
-
-      // console.log({ pageSize, pageNumber, skip });
+      let pageSize =
+        parseInt(req.body.pagination?.pageSize) || Number.MAX_SAFE_INTEGER;
+      let pageNumber = parseInt(req.body.pagination?.pageNumber) || 1;
+      let skip = pageSize * (pageNumber - 1) * -1;
 
       let recipes = await Recipe.aggregate([
         {
@@ -165,15 +159,16 @@ router.post("/filter", async (req, res, next) => {
         { $unset: ["image", "fullOwner"] },
         {
           $sort: {
-            [req.body?.sort.field || "creation_time"]: parseInt(
-              req.body?.sort.direction || "-1"
+            [req.body.sort?.field || "creation_time"]: parseInt(
+              req.body.sort?.direction || "-1"
             ),
           },
         },
-      ]);
-      // .skip(skip)
-      // .limit(pageSize);
+      ])
+        .skip(skip)
+        .limit(pageSize);
 
+      console.log(recipes.length);
       res.sentCount = Object.keys(recipes).length;
       res.status(200).json(recipes);
     } else {

@@ -83,7 +83,8 @@ export const getRecipes = createAsyncThunk<
   let approvedOnly = state.filters.approvedOnly;
   let approvalRequiredOnly = state.filters.approvalRequiredOnly;
   let selectedFilters = state.filters.selectedFilters;
-  let sort = { field: "favorite_count", direction: 1 }; //add to state, add to profile section
+  let sort = { field: "favorite_count", direction: -1 }; //add to state, add to profile section
+  let pagination = { pageSize: 4, pageNumber: 0 };
 
   try {
     let result = await axios.post(
@@ -96,13 +97,18 @@ export const getRecipes = createAsyncThunk<
         approvalRequiredOnly: approvalRequiredOnly || undefined,
         searchText: searchText,
         filters: Object.values(selectedFilters).some(
-          (filter) => typeof filter !== "undefined"
+          (value) => typeof value !== "undefined"
         )
           ? selectedFilters
           : undefined,
-        sort: sort,
-        // pageSize: 0,
-        // pageNumber: 1,
+        sort: Object.values(sort).some((value) => typeof value !== "undefined")
+          ? sort
+          : undefined,
+        pagination: Object.values(pagination).some(
+          (value) => typeof value !== "undefined"
+        )
+          ? pagination
+          : undefined,
       },
       {
         signal: params.abortController
