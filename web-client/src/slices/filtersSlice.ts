@@ -26,10 +26,21 @@ export type TSelectedFilters = {
   prep_time: string | undefined;
   total_time: string | undefined;
 };
+export const DefaultFilters: TSelectedFilters = {
+  category: undefined,
+  sub_category: undefined,
+  difficulty: undefined,
+  prep_time: undefined,
+  total_time: undefined,
+};
 
 export type SortParams = {
   field: string;
   direction: "ascending" | "descending";
+};
+export const defaultSort: SortParams = {
+  field: "creation_time",
+  direction: "descending",
 };
 
 type PaginationParams = { pageSize: number; pageNumber: number };
@@ -57,17 +68,8 @@ interface FiltersState {
 }
 
 const initialState: FiltersState = {
-  selectedFilters: {
-    category: undefined,
-    sub_category: undefined,
-    difficulty: undefined,
-    prep_time: undefined,
-    total_time: undefined,
-  },
-  sort: {
-    field: "creation_time",
-    direction: "descending",
-  },
+  selectedFilters: DefaultFilters,
+  sort: defaultSort,
   pagination: { pageSize: 16, pageNumber: 1 },
   ownerOnly: undefined,
   privacyState: "all",

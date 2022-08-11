@@ -53,27 +53,27 @@ router.post("/filter", async (req, res, next) => {
       }
 
       // query to retrieve recipes for a specific user with privacy filtering
-      let privacyQueryCombinations = {
-        all: { owner: mongoose.Types.ObjectId(validatedToken._id) },
-        public: {
-          owner: mongoose.Types.ObjectId(validatedToken._id),
-          private: false,
-        },
-        "pending approval": {
-          owner: mongoose.Types.ObjectId(validatedToken._id),
-          approval_required: true,
-        },
-        approved: {
-          owner: mongoose.Types.ObjectId(validatedToken._id),
-          approved: true,
-        },
-        private: {
-          owner: mongoose.Types.ObjectId(validatedToken._id),
-          private: true,
-        },
-      };
       let ownerOnlyQuery = {};
       if (validatedToken && req.body.ownerOnly === true) {
+        let privacyQueryCombinations = {
+          all: { owner: mongoose.Types.ObjectId(validatedToken._id) },
+          public: {
+            owner: mongoose.Types.ObjectId(validatedToken._id),
+            private: false,
+          },
+          "pending approval": {
+            owner: mongoose.Types.ObjectId(validatedToken._id),
+            approval_required: true,
+          },
+          approved: {
+            owner: mongoose.Types.ObjectId(validatedToken._id),
+            approved: true,
+          },
+          private: {
+            owner: mongoose.Types.ObjectId(validatedToken._id),
+            private: true,
+          },
+        };
         ownerOnlyQuery =
           privacyQueryCombinations[req.body.privacyState] ||
           privacyQueryCombinations["all"];
@@ -109,6 +109,18 @@ router.post("/filter", async (req, res, next) => {
             },
           }
         : {};
+
+      // handle special filter fields that may contain ObjectId as string
+      if (req.body?.filters?.owner) {
+        req.body.filters.owner = mongoose.Types.ObjectId(
+          req.body.filters.owner
+        );
+      }
+      if (req.body?.filters?.favorited_by) {
+        req.body.filters.favorited_by = mongoose.Types.ObjectId(
+          req.body.filters.favorited_by
+        );
+      }
 
       // pagination variables
       let pageSize =
@@ -147,6 +159,7 @@ router.post("/filter", async (req, res, next) => {
         {
           $set: {
             owner: {
+              _id: "$fullOwner._id",
               firstname: "$fullOwner.firstname",
               lastname: "$fullOwner.lastname",
             },
@@ -163,7 +176,6 @@ router.post("/filter", async (req, res, next) => {
         .skip(skip)
         .limit(pageSize);
 
-      console.log(recipes.length);
       res.sentCount = Object.keys(recipes).length;
       res.status(200).json(recipes);
     } else {

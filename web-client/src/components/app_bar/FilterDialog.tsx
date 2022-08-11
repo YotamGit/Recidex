@@ -85,7 +85,7 @@ const FilterDialog: FC<propTypes> = ({ localSearch }) => {
     let sort = { field: sortField, direction: sortDirection };
     //TODO add sort to localsearch
     if (localSearch) {
-      await localSearch.getRecipes({ filters });
+      await localSearch.getRecipes(filters, sort);
       recipeFilterDialogToggle();
       return;
     }

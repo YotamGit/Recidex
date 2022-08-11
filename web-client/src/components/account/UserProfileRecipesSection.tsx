@@ -16,7 +16,12 @@ import { setAlert } from "../../slices/utilitySlice";
 //types
 import { FC } from "react";
 import { TRecipe } from "../../slices/recipesSlice";
-import { TSelectedFilters } from "../../slices/filtersSlice";
+import {
+  TSelectedFilters,
+  SortParams,
+  defaultSort,
+  DefaultFilters,
+} from "../../slices/filtersSlice";
 
 interface propTypes {
   userId: string;
@@ -28,13 +33,11 @@ const UserProfileRecipesSection: FC<propTypes> = ({ userId }) => {
   const [filtered, setFiltered] = useState<boolean>(false);
   const [filteredFromChip, setFilteredFromChip] = useState<boolean>(false);
 
-  const [selectedFilters, setSelectedFilters] = useState<TSelectedFilters>({
-    category: undefined,
-    sub_category: undefined,
-    difficulty: undefined,
-    prep_time: undefined,
-    total_time: undefined,
-  });
+  const [selectedFilters, setSelectedFilters] =
+    useState<TSelectedFilters>(DefaultFilters);
+
+  const [sort, setSort] = useState<SortParams>(defaultSort);
+
   const [searchText, setSearchText] = useState<string>("");
 
   const [fetching, setFetching] = useState(false);
@@ -50,7 +53,7 @@ const UserProfileRecipesSection: FC<propTypes> = ({ userId }) => {
     [recipes]
   );
 
-  // used to trigger getrecipes when filtering recipes through recipe chips
+  // used to trigger getRecipes when filtering recipes through recipe chips
   const chipsFilterFunction = useCallback((filters: TSelectedFilters) => {
     setFilteredFromChip(true);
     setSelectedFilters(filters);
@@ -66,35 +69,36 @@ const UserProfileRecipesSection: FC<propTypes> = ({ userId }) => {
     chipsFilterFunction: chipsFilterFunction,
   });
 
-  useEffect(() => {
-    if (filteredFromChip) {
-      getRecipes(selectedFilters).then((_) => setFilteredFromChip(false));
-    }
-  }, [selectedFilters]);
-
-  const getRecipes = async (filters: any) => {
+  const getRecipes = async (
+    filters: TSelectedFilters,
+    sortParams: SortParams
+  ) => {
     setRecipes([]);
     setFetching(true);
     try {
-      let result = await axios.get("/api/recipes", {
-        params: {
-          latest: new Date(),
-          searchText: searchText || undefined,
-          filters: {
-            favorited_by: favoritesOnly ? userId : undefined,
-            owner: favoritesOnly ? undefined : userId,
-            private: false, //api will automatically apply this but just in case
-            ...(filters ? filters : selectedFilters),
-          },
+      let result = await axios.post("/api/recipes/filter", {
+        searchText: searchText || undefined,
+        filters: {
+          favorited_by: favoritesOnly ? userId : undefined,
+          owner: favoritesOnly ? undefined : userId,
+          private: false, //api will automatically apply this but just in case
+          ...(filters ? filters : selectedFilters),
         },
+        sort: sortParams ? sortParams : sort,
       });
+
       if (filters) {
         if (!filteredFromChip) {
           setSelectedFilters(filters);
         }
         setFiltered(
-          Object.values(filters).some((filter) => typeof filter !== "undefined")
+          Object.values(filters).some(
+            (filter) => typeof filter !== "undefined"
+          ) || JSON.stringify(sortParams) !== JSON.stringify(defaultSort)
         );
+      }
+      if (sortParams) {
+        setSort(sortParams);
       }
       setRecipes(result.data);
     } catch (err: any) {
@@ -110,18 +114,27 @@ const UserProfileRecipesSection: FC<propTypes> = ({ userId }) => {
     setFetching(false);
   };
 
+  // this executes the getRecipes function when the chips filter flag is on and a filter has changed
+  useEffect(() => {
+    if (filteredFromChip) {
+      getRecipes(selectedFilters, sort).then((_) => setFilteredFromChip(false));
+    }
+  }, [selectedFilters, sort]);
+
   useEffect(() => {
     if (!userId) {
       return;
     }
+
     if (favoritesOnly) {
       dispatch(setTitleFilters({ favorited_by: userId, private: false }));
     } else {
       dispatch(setTitleFilters({ owner: userId, private: false }));
     }
-    getRecipes(selectedFilters);
+    getRecipes(selectedFilters, sort);
   }, [userId, favoritesOnly]);
 
+  //reset local state when userid changes
   useEffect(() => {
     setFavoritesOnly(false);
     setSelectedFilters({
@@ -131,6 +144,7 @@ const UserProfileRecipesSection: FC<propTypes> = ({ userId }) => {
       prep_time: undefined,
       total_time: undefined,
     });
+    setSort(defaultSort);
   }, [userId]);
 
   return (
@@ -170,6 +184,7 @@ const UserProfileRecipesSection: FC<propTypes> = ({ userId }) => {
             searchText,
             setSearchText,
             selectedFilters,
+            sort,
           }}
         />
       </div>
