@@ -22,7 +22,11 @@ import { setFiltered, setFilters, setSort } from "../../slices/filtersSlice";
 
 //types
 import { FC } from "react";
-import { TSelectedFilters, SortParams } from "../../slices/filtersSlice";
+import {
+  TSelectedFilters,
+  SortParams,
+  defaultSort,
+} from "../../slices/filtersSlice";
 
 interface propTypes {
   localSearch?: {
@@ -97,7 +101,9 @@ const FilterDialog: FC<propTypes> = ({ localSearch }) => {
     if (filterRes.meta.requestStatus === "fulfilled") {
       dispatch(
         setFiltered(
-          Object.values(filters).some((filter) => typeof filter !== "undefined")
+          Object.values(filters).some(
+            (filter) => typeof filter !== "undefined"
+          ) || JSON.stringify(sort) !== JSON.stringify(defaultSort)
         )
       );
     }
