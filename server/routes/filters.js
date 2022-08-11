@@ -1,7 +1,7 @@
 import express from "express";
 
 const router = express.Router();
-import { recipeValues, privacyValues } from "../models/Recipe.js";
+import { recipeValues, privacyValues, sortFields } from "../models/Recipe.js";
 
 // Routes
 
@@ -22,4 +22,14 @@ router.get("/recipe-privacy-values", async (req, res, next) => {
     next(err);
   }
 });
+
+// GET RECIPE FIELDS YOU CAN SORT BY
+router.get("/recipe-sort-fields", async (req, res, next) => {
+  try {
+    res.status(200).send(sortFields);
+  } catch (err) {
+    next(err);
+  }
+});
+
 export default router;

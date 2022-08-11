@@ -110,10 +110,6 @@ router.post("/filter", async (req, res, next) => {
           }
         : {};
 
-      // let sortQuery = {}
-      // req.query.sortField
-      // req.query.sortDirection
-
       // pagination variables
       let pageSize =
         Math.abs(req.body.pagination?.pageSize) || Number.MAX_SAFE_INTEGER;
@@ -159,9 +155,8 @@ router.post("/filter", async (req, res, next) => {
         { $unset: ["image", "fullOwner"] },
         {
           $sort: {
-            [req.body.sort?.field || "creation_time"]: parseInt(
-              req.body.sort?.direction || "-1"
-            ),
+            [req.body.sort?.field || "creation_time"]:
+              req.body.sort?.direction === "ascending" ? 1 : -1,
           },
         },
       ])

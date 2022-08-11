@@ -18,11 +18,11 @@ import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
 //redux
 import { useAppSelector, useAppDispatch } from "../../hooks";
 import { getRecipes } from "../../slices/recipesSlice";
-import { setFiltered, setFilters } from "../../slices/filtersSlice";
+import { setFiltered, setFilters, setSort } from "../../slices/filtersSlice";
 
 //types
 import { FC } from "react";
-import { TSelectedFilters } from "../../slices/filtersSlice";
+import { TSelectedFilters, SortParams } from "../../slices/filtersSlice";
 
 interface propTypes {
   localSearch?: {
@@ -30,6 +30,7 @@ interface propTypes {
     filtered: boolean;
     setFiltered: Function;
     selectedFilters: TSelectedFilters;
+    sort: SortParams;
   };
 }
 const FilterDialog: FC<propTypes> = ({ localSearch }) => {
@@ -47,17 +48,27 @@ const FilterDialog: FC<propTypes> = ({ localSearch }) => {
   const recipe_durations = useAppSelector(
     (state) => state.filters.recipe_durations
   );
+  const recipe_sort_fields = useAppSelector(
+    (state) => state.filters.recipe_sort_fields
+  );
 
   const filtered = useAppSelector((state) => state.filters.filtered);
 
   const selectedFilters = useAppSelector((state) =>
     localSearch ? localSearch.selectedFilters : state.filters.selectedFilters
   );
+  const sort = useAppSelector((state) =>
+    localSearch ? localSearch.sort : state.filters.sort
+  );
+
   const [category, setCategory] = useState(selectedFilters.category);
   const [sub_category, setSubCategory] = useState(selectedFilters.sub_category);
   const [difficulty, setDifficulty] = useState(selectedFilters.difficulty);
   const [prep_time, setPrepTime] = useState(selectedFilters.prep_time);
   const [total_time, setTotalTime] = useState(selectedFilters.total_time);
+
+  const [sortField, setSortField] = useState(sort.field);
+  const [sortDirection, setSortDirection] = useState(sort.direction);
 
   const recipeFilterDialogToggle = () => {
     setShowRecipeFilterDialog(!showRecipeFilterDialog);
@@ -71,13 +82,16 @@ const FilterDialog: FC<propTypes> = ({ localSearch }) => {
       prep_time,
       total_time,
     };
+    let sort = { field: sortField, direction: sortDirection };
+    //TODO add sort to localsearch
     if (localSearch) {
-      await localSearch.getRecipes(filters);
+      await localSearch.getRecipes({ filters });
       recipeFilterDialogToggle();
       return;
     }
 
     dispatch(setFilters(filters));
+    dispatch(setSort(sort));
     let filterRes = await dispatch(getRecipes({ replace: true }));
 
     if (filterRes.meta.requestStatus === "fulfilled") {
@@ -96,6 +110,8 @@ const FilterDialog: FC<propTypes> = ({ localSearch }) => {
     setDifficulty(undefined);
     setPrepTime(undefined);
     setTotalTime(undefined);
+    setSortField("creation_time");
+    setSortDirection("descending");
   };
   const resetSelections = () => {
     setCategory(selectedFilters.category);
@@ -103,6 +119,9 @@ const FilterDialog: FC<propTypes> = ({ localSearch }) => {
     setDifficulty(selectedFilters.difficulty);
     setPrepTime(selectedFilters.prep_time);
     setTotalTime(selectedFilters.total_time);
+
+    setSortField("creation_time");
+    setSortDirection("descending");
   };
 
   useEffect(() => {
@@ -135,60 +154,82 @@ const FilterDialog: FC<propTypes> = ({ localSearch }) => {
         open={showRecipeFilterDialog}
         onClose={recipeFilterDialogToggle}
       >
-        <DialogTitle className="title">{"Filter Recipes"}</DialogTitle>
-        {recipe_categories && recipe_difficulties && recipe_durations && (
-          <>
-            <DialogContent>
-              <div className="recipe-filter-selectors-input-container">
-                <RecipeDropdown
-                  value={category}
-                  items={Object.keys(recipe_categories)}
-                  label_text={"Category"}
-                  id_prefix={"filter-category"}
-                  class_name={"recipe-filter-form-control"}
-                  onChange={setCategory}
-                  resetField={() => setSubCategory(undefined)} //undefined to reset filter
-                />
-                <RecipeDropdown
-                  value={sub_category}
-                  items={
-                    recipe_categories[category || ""]
-                      ? recipe_categories[category || ""]
-                      : []
-                  }
-                  label_text={"Sub Category"}
-                  id_prefix={"filter-sub_category"}
-                  class_name={"recipe-filter-form-control"}
-                  onChange={setSubCategory}
-                />
-                <RecipeDropdown
-                  value={difficulty}
-                  items={recipe_difficulties}
-                  label_text={"Difficulty"}
-                  id_prefix={"filter-difficulty"}
-                  class_name={"recipe-filter-form-control"}
-                  onChange={setDifficulty}
-                />
-                <RecipeDropdown
-                  value={prep_time}
-                  items={recipe_durations}
-                  label_text={"Prep Time"}
-                  id_prefix={"filter-prep-time"}
-                  class_name={"recipe-filter-form-control"}
-                  onChange={setPrepTime}
-                />
-                <RecipeDropdown
-                  value={total_time}
-                  items={recipe_durations}
-                  label_text={"Total Time"}
-                  id_prefix={"filter-total-time"}
-                  class_name={"recipe-filter-form-control"}
-                  onChange={setTotalTime}
-                />
-              </div>
-            </DialogContent>
-          </>
-        )}
+        {recipe_categories &&
+          recipe_difficulties &&
+          recipe_durations &&
+          recipe_sort_fields && (
+            <>
+              <DialogContent>
+                <DialogTitle className="title">{"Filter Recipes"}</DialogTitle>
+                <div className="recipe-filter-selectors-input-container">
+                  <RecipeDropdown
+                    value={category}
+                    items={Object.keys(recipe_categories)}
+                    label_text={"Category"}
+                    id_prefix={"filter-category"}
+                    class_name={"recipe-filter-form-control"}
+                    onChange={setCategory}
+                    resetField={() => setSubCategory(undefined)} //undefined to reset filter
+                  />
+                  <RecipeDropdown
+                    value={sub_category}
+                    items={
+                      recipe_categories[category || ""]
+                        ? recipe_categories[category || ""]
+                        : []
+                    }
+                    label_text={"Sub Category"}
+                    id_prefix={"filter-sub_category"}
+                    class_name={"recipe-filter-form-control"}
+                    onChange={setSubCategory}
+                  />
+                  <RecipeDropdown
+                    value={difficulty}
+                    items={recipe_difficulties}
+                    label_text={"Difficulty"}
+                    id_prefix={"filter-difficulty"}
+                    class_name={"recipe-filter-form-control"}
+                    onChange={setDifficulty}
+                  />
+                  <RecipeDropdown
+                    value={prep_time}
+                    items={recipe_durations}
+                    label_text={"Prep Time"}
+                    id_prefix={"filter-prep-time"}
+                    class_name={"recipe-filter-form-control"}
+                    onChange={setPrepTime}
+                  />
+                  <RecipeDropdown
+                    value={total_time}
+                    items={recipe_durations}
+                    label_text={"Total Time"}
+                    id_prefix={"filter-total-time"}
+                    class_name={"recipe-filter-form-control"}
+                    onChange={setTotalTime}
+                  />
+                </div>
+                <DialogTitle className="title">{"Sort Recipes"}</DialogTitle>
+                <div className="recipe-filter-selectors-input-container">
+                  <RecipeDropdown
+                    value={sortField}
+                    items={recipe_sort_fields}
+                    label_text={"Sort Field"}
+                    id_prefix={"filter-sort-field"}
+                    class_name={"recipe-filter-form-control"}
+                    onChange={setSortField}
+                  />
+                  <RecipeDropdown
+                    value={sortDirection}
+                    items={["ascending", "descending"]}
+                    label_text={"Sort Direction"}
+                    id_prefix={"filter-sort-direction"}
+                    class_name={"recipe-filter-form-control"}
+                    onChange={setSortDirection}
+                  />
+                </div>
+              </DialogContent>
+            </>
+          )}
         <DialogActions className="filter-dialog-action-section">
           <Tooltip title="Cancel" arrow>
             <CancelRoundedIcon

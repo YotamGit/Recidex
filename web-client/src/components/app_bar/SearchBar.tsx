@@ -22,7 +22,7 @@ import { setAlert } from "../../slices/utilitySlice";
 
 //types
 import { FC } from "react";
-import { TSelectedFilters } from "../../slices/filtersSlice";
+import { TSelectedFilters, SortParams } from "../../slices/filtersSlice";
 
 interface propTypes {
   setExpanded?: Function;
@@ -34,6 +34,7 @@ interface propTypes {
     searchText: string;
     setSearchText: Function;
     selectedFilters: TSelectedFilters;
+    sort: SortParams;
   };
 }
 const SearchBar: FC<propTypes> = ({ setExpanded, localSearch, responsive }) => {

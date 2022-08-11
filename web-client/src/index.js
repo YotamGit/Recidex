@@ -11,10 +11,12 @@ import { userPing } from "./slices/usersSlice";
 import {
   getRecipeFilterValues,
   getRecipePrivacyValues,
+  getRecipeSortFields,
 } from "./slices/filtersSlice";
 
 store.dispatch(getRecipeFilterValues());
 store.dispatch(getRecipePrivacyValues());
+store.dispatch(getRecipeSortFields());
 store.dispatch(userPing());
 
 ReactDOM.render(

@@ -8,6 +8,12 @@ export const privacyValues = [
   "private",
 ];
 
+export const sortFields = [
+  "creation_time",
+  "last_update_time",
+  "favorite_count",
+];
+
 export const recipeValues = {
   recipe_categories: {
     Proteins: ["Meat", "Chicken", "Fish", "Other"],

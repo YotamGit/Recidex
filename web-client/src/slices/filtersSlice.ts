@@ -26,13 +26,18 @@ export type TSelectedFilters = {
   prep_time: string | undefined;
   total_time: string | undefined;
 };
+
+export type SortParams = {
+  field: string;
+  direction: "ascending" | "descending";
+};
+
+type PaginationParams = { pageSize: number; pageNumber: number };
+
 interface FiltersState {
   selectedFilters: TSelectedFilters;
-  sort: {
-    field: "creation_time" | "last_update_time" | "favorite_count";
-    direction: 1 | -1;
-  };
-  pagination: { pageSize: number; pageNumber: number };
+  sort: SortParams;
+  pagination: PaginationParams;
   ownerOnly: boolean | undefined;
   privacyState: string;
   favoritesOnly: boolean | undefined;
@@ -45,6 +50,7 @@ interface FiltersState {
   recipe_categories?: {
     [key: string]: any;
   };
+  recipe_sort_fields?: string[];
   recipe_difficulties?: string[];
   recipe_durations?: string[];
   recipe_privacy_values?: string[];
@@ -60,7 +66,7 @@ const initialState: FiltersState = {
   },
   sort: {
     field: "creation_time",
-    direction: -1,
+    direction: "descending",
   },
   pagination: { pageSize: 16, pageNumber: 1 },
   ownerOnly: undefined,
@@ -71,6 +77,7 @@ const initialState: FiltersState = {
   searchText: undefined,
   titleFilters: undefined,
   filtered: false,
+  recipe_sort_fields: undefined,
   recipe_categories: undefined,
   recipe_difficulties: undefined,
   recipe_durations: undefined,
@@ -124,12 +131,39 @@ export const getRecipePrivacyValues = createAsyncThunk<
   }
 });
 
+export const getRecipeSortFields = createAsyncThunk<
+  {
+    recipe_sort_fields: string[];
+  },
+  {},
+  AsyncThunkConfig
+>("filters/getRecipeSortFields", async (props, thunkAPI) => {
+  try {
+    const options = await axios.get("/api/filters/recipe-sort-fields");
+    return {
+      recipe_sort_fields: options.data,
+    };
+  } catch (error: any) {
+    return thunkAPI.rejectWithValue({
+      statusCode: error?.response?.status,
+      data: error?.response?.data,
+      message: error.message,
+    });
+  }
+});
+
 const filtersSlice = createSlice({
   name: "filters",
   initialState,
   reducers: {
-    setFilters(state, action: PayloadAction<any>) {
+    setFilters(state, action: PayloadAction<TSelectedFilters>) {
       state.selectedFilters = { ...state.selectedFilters, ...action.payload };
+    },
+    setSort(state, action: PayloadAction<SortParams>) {
+      state.sort = { ...state.sort, ...action.payload };
+    },
+    setPagination(state, action: PayloadAction<PaginationParams>) {
+      state.pagination = { ...state.pagination, ...action.payload };
     },
     setTitleFilters(state, action: PayloadAction<any>) {
       state.titleFilters = action.payload;
@@ -170,12 +204,17 @@ const filtersSlice = createSlice({
       })
       .addCase(getRecipePrivacyValues.fulfilled, (state, action) => {
         state.recipe_privacy_values = action.payload.recipe_privacy_values;
+      })
+      .addCase(getRecipeSortFields.fulfilled, (state, action) => {
+        state.recipe_sort_fields = action.payload.recipe_sort_fields;
       });
   },
 });
 
 export const {
   setFilters,
+  setSort,
+  setPagination,
   setTitleFilters,
   setFiltered,
   setOwnerOnly,

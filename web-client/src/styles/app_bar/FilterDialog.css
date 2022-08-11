@@ -1,3 +1,6 @@
+.recipe-filter-selectors-input-container * {
+  margin-bottom: 0.25rem;
+}
 .filter-dialog-action-section {
   display: flex !important;
   justify-content: center !important;
