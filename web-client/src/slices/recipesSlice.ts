@@ -84,7 +84,7 @@ export const getRecipes = createAsyncThunk<
   let approvalRequiredOnly = state.filters.approvalRequiredOnly;
   let selectedFilters = state.filters.selectedFilters;
   let sort = { field: "favorite_count", direction: -1 }; //add to state, add to profile section
-  let pagination = { pageSize: 4, pageNumber: 0 };
+  let pagination = { pageSize: undefined, pageNumber: undefined };
 
   try {
     let result = await axios.post(

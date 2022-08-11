@@ -116,9 +116,9 @@ router.post("/filter", async (req, res, next) => {
 
       // pagination variables
       let pageSize =
-        parseInt(req.body.pagination?.pageSize) || Number.MAX_SAFE_INTEGER;
-      let pageNumber = parseInt(req.body.pagination?.pageNumber) || 1;
-      let skip = pageSize * (pageNumber - 1) * -1;
+        Math.abs(req.body.pagination?.pageSize) || Number.MAX_SAFE_INTEGER;
+      let pageNumber = Math.abs(req.body.pagination?.pageNumber) || 1;
+      let skip = pageSize * (pageNumber - 1);
 
       let recipes = await Recipe.aggregate([
         {

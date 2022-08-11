@@ -28,6 +28,11 @@ export type TSelectedFilters = {
 };
 interface FiltersState {
   selectedFilters: TSelectedFilters;
+  sort: {
+    field: "creation_time" | "last_update_time" | "favorite_count";
+    direction: 1 | -1;
+  };
+  pagination: { pageSize: number; pageNumber: number };
   ownerOnly: boolean | undefined;
   privacyState: string;
   favoritesOnly: boolean | undefined;
@@ -53,6 +58,11 @@ const initialState: FiltersState = {
     prep_time: undefined,
     total_time: undefined,
   },
+  sort: {
+    field: "creation_time",
+    direction: -1,
+  },
+  pagination: { pageSize: 16, pageNumber: 1 },
   ownerOnly: undefined,
   privacyState: "all",
   favoritesOnly: undefined,
