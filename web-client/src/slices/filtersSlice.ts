@@ -45,7 +45,7 @@ export const defaultSort: SortParams = {
 
 type PaginationParams = { pageSize: number; pageNumber: number };
 export const defaultPagination: PaginationParams = {
-  pageSize: 4,
+  pageSize: 16,
   pageNumber: 1,
 };
 
