@@ -81,7 +81,7 @@ router.post("/filter", async (req, res, next) => {
 
       // query to retrieve recipes that require approval
       let approvalRequiredOnlyQuery =
-        validatedToken && req.query.approvalRequiredOnly === true
+        validatedToken && req.body.approvalRequiredOnly === true
           ? { approval_required: true, private: false }
           : {};
 
@@ -369,7 +369,6 @@ router.post("/edit/:recipe_id", async (req, res, next) => {
       res.status(404).send("Recipe not found.");
       return;
     }
-    console.log(req.body.recipeData);
     const recipe = await Recipe.findById(req.params.recipe_id);
     if (!recipe) {
       res.status(404).send("Recipe not found.");
