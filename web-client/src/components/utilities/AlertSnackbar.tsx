@@ -89,7 +89,9 @@ const AlertSnackbar: FC = () => {
         }
       >
         <AlertTitle>{title}</AlertTitle>
-        <div className="message">{message}</div>
+        <div className="message" style={{ whiteSpace: "pre-line" }}>
+          {message}
+        </div>
         {details && showDetails && (
           <>
             <div className="details">

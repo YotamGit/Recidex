@@ -6,7 +6,9 @@ interface propTypes {
 }
 const InputTextError: FC<propTypes> = ({ showError, message }) => {
   return showError ? (
-    <div style={{ color: "red", fontSize: "0.8rem" }}>{message}</div>
+    <div style={{ color: "red", fontSize: "0.8rem", whiteSpace: "pre-line" }}>
+      {message}
+    </div>
   ) : (
     <></>
   );

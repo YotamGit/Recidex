@@ -19,6 +19,7 @@ interface propTypes {
   inputId: string;
   labelText: string;
   value: string;
+  browserAutoComplete?: string;
   setValue: React.Dispatch<React.SetStateAction<string>>;
   isValidFunc?: Function;
   errorMessage: string;
@@ -29,6 +30,7 @@ const InputWithError: FC<propTypes> = ({
   inputId,
   labelText,
   value,
+  browserAutoComplete,
   setValue,
   isValidFunc,
   errorMessage,
@@ -59,6 +61,7 @@ const InputWithError: FC<propTypes> = ({
           }
         }}
         label={labelText}
+        autoComplete={browserAutoComplete || undefined}
         endAdornment={
           type === "password" && (
             <InputAdornment position="end">
