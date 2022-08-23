@@ -392,6 +392,9 @@ router.post("/edit/:recipe_id", async (req, res, next) => {
       );
       req.body.recipeData.notes = sanitizeHtml(req.body.recipeData.notes);
 
+      // to prevent race condition of edit
+      const last_update_time = req.body.recipeData.last_update_time;
+
       //delete certain fields for security reasons(other fields are limited)
       delete req.body.recipeData._id;
       delete req.body.recipeData.creation_time;
@@ -427,8 +430,12 @@ router.post("/edit/:recipe_id", async (req, res, next) => {
         //false means the image is to be deleted
         req.body.recipeData.image = null;
       }
+
       const response = await Recipe.updateOne(
-        { _id: req.params.recipe_id },
+        {
+          _id: req.params.recipe_id,
+          last_update_time: last_update_time,
+        },
         {
           $set: {
             ...req.body.recipeData,
@@ -437,6 +444,16 @@ router.post("/edit/:recipe_id", async (req, res, next) => {
         },
         opts
       );
+
+      if (response.modifiedCount === 0) {
+        res
+          .status(403)
+          .send(
+            "Cannot edit recipe. You have edited an older version of the recipe."
+          );
+        return;
+      }
+
       const recipe = await Recipe.findById({ _id: req.params.recipe_id })
         .select("-image")
         .populate("owner", "firstname lastname");
@@ -547,7 +564,11 @@ router.post("/edit/approve/:recipe_id", async (req, res, next) => {
       }
       if (isModerator) {
         const updatedRecipe = await Recipe.findOneAndUpdate(
-          { _id: req.params.recipe_id },
+          {
+            _id: req.params.recipe_id,
+            approved: !req.body.approve,
+            approval_required: true,
+          },
           {
             approved: req.body.approve,
             approval_required: false,
@@ -557,6 +578,15 @@ router.post("/edit/approve/:recipe_id", async (req, res, next) => {
           { new: true, ...opts }
         ).populate("owner", "firstname lastname email");
 
+        if (!updatedRecipe) {
+          res.status(403).send(
+            `Cannot ${
+              req.body.approve ? "approve" : "disapprove"
+            } recipe. Recipe has already been 
+               approved/disapproved`
+          );
+          return;
+        }
         //email result to user
         try {
           switch (req.body.approve) {

@@ -149,6 +149,7 @@ const RecipeEditor: FC<propTypes> = ({ action, recipe }) => {
 
   const onSaveRecipeChanges = async () => {
     let recipeData: TRecipe = {
+      last_update_time: recipe.last_update_time,
       private: privateRecipe,
       approval_required,
       title,
