@@ -515,7 +515,7 @@ router.post("/edit/favorite/:recipe_id", async (req, res, next) => {
             users.push(req.headers.validatedToken._id);
             await Recipe.updateOne(
               { _id: req.params.recipe_id },
-              { favorited_by: users, last_update_time: Date.now() },
+              { favorited_by: users },
               opts
             );
           }
@@ -566,8 +566,7 @@ router.post("/edit/approve/:recipe_id", async (req, res, next) => {
         const updatedRecipe = await Recipe.findOneAndUpdate(
           {
             _id: req.params.recipe_id,
-            approved: !req.body.approve,
-            approval_required: true,
+            last_update_time: req.body.last_update_time,
           },
           {
             approved: req.body.approve,
@@ -655,7 +654,10 @@ router.post("/edit/request-approval/:recipe_id", async (req, res, next) => {
     );
     if (isOwner) {
       const updatedRecipe = await Recipe.findOneAndUpdate(
-        { _id: req.params.recipe_id },
+        {
+          _id: req.params.recipe_id,
+          approval_required: !req.body.approval_required,
+        },
         {
           approved: false,
           approval_required: req.body.approval_required,
@@ -664,6 +666,18 @@ router.post("/edit/request-approval/:recipe_id", async (req, res, next) => {
         },
         { new: true, ...opts }
       ).populate("owner", "firstname lastname");
+
+      if (!updatedRecipe) {
+        res.status(403).send(
+          `Cannot ${
+            req.body.approval_required
+              ? "request approval"
+              : "cancel approval request"
+          }. A request has already been 
+             requested/canceled`
+        );
+        return;
+      }
 
       res.status(200).json(updatedRecipe);
     } else {

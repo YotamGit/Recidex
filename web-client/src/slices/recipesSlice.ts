@@ -307,6 +307,7 @@ export const favoriteRecipe = createAsyncThunk<
 interface ApproveRecipeProps {
   fromModerationPage: boolean;
   _id: string;
+  last_update_time: string;
   approve: boolean;
   reason?: string;
 }
@@ -321,6 +322,7 @@ export const approveRecipe = createAsyncThunk<
     let res: any = await axios.post(`/api/recipes/edit/approve/${props._id}`, {
       approve: props.approve,
       reason: props.reason,
+      last_update_time: props.last_update_time,
     });
     thunkAPI.dispatch(
       setAlert({

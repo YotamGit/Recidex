@@ -55,6 +55,7 @@ const RecipeModerationButton: FC<propTypes> = ({
         approve: approve,
         reason: disapproveReason,
         fromModerationPage: fromModerationPage,
+        last_update_time: recipe.last_update_time || "", // will never be empty string but typescript insists it can be undefined
       })
     );
     if (approveRes.meta.requestStatus === "fulfilled" && setRecipe) {
