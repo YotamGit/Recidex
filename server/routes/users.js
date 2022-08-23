@@ -168,7 +168,6 @@ router.post("/user/edit", async (req, res, next) => {
       res.status(404).send("User not found");
       return;
     }
-
     let userToEdit = await User.findById(req.body.userData._id);
 
     if (userToEdit) {

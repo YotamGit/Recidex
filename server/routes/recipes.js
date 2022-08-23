@@ -498,7 +498,7 @@ router.post("/edit/favorite/:recipe_id", async (req, res, next) => {
             users.push(req.headers.validatedToken._id);
             await Recipe.updateOne(
               { _id: req.params.recipe_id },
-              { favorited_by: users },
+              { favorited_by: users, last_update_time: Date.now() },
               opts
             );
           }
@@ -552,6 +552,7 @@ router.post("/edit/approve/:recipe_id", async (req, res, next) => {
             approved: req.body.approve,
             approval_required: false,
             private: false,
+            last_update_time: Date.now(),
           },
           { new: true, ...opts }
         ).populate("owner", "firstname lastname email");
@@ -629,6 +630,7 @@ router.post("/edit/request-approval/:recipe_id", async (req, res, next) => {
           approved: false,
           approval_required: req.body.approval_required,
           private: false,
+          last_update_time: Date.now(),
         },
         { new: true, ...opts }
       ).populate("owner", "firstname lastname");
@@ -670,6 +672,7 @@ router.post("/edit/change-privacy/:recipe_id", async (req, res, next) => {
           private: req.body.private,
           approval_required: false,
           approved: false,
+          last_update_time: Date.now(),
         },
         { new: true, ...opts }
       ).populate("owner", "firstname lastname");
