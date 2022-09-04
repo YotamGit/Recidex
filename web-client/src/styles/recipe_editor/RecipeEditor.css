@@ -17,6 +17,7 @@
 }
 
 .recipe-editor .text-input-container {
+  margin-bottom: 1rem;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -24,6 +25,7 @@
 }
 
 .recipe-editor .selectors-input-container {
+  margin-bottom: 1rem;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -49,6 +51,7 @@
   align-items: center;
   flex-grow: 1;
   margin-bottom: 15px;
+  margin-top: 2rem;
 }
 
 .recipe-editor .image {
