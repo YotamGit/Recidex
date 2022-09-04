@@ -246,7 +246,11 @@ export const editRecipe = createAsyncThunk<
       })
     );
 
-    if (editedRecipe.data.approved || state.filters.ownerOnly) {
+    if (
+      editedRecipe.data.approved ||
+      state.filters.ownerOnly ||
+      state.filters.approvalRequiredOnly
+    ) {
       return state.recipes.recipes.map((recipe: TRecipe) =>
         recipe._id === editedRecipe.data._id ? editedRecipe.data : recipe
       );
