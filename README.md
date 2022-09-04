@@ -1,5 +1,10 @@
 # Recidex
-write a nice description here
+https://recidex.yotamgolan.com
+
+Recidex is a recipes site where the recipes are uploaded by the users, for the users.
+Anyone can upload any recipe they would like to save.
+Whether it's a 30 years old written recipe worth keeping, a good recipe found online or a self made recipe, Recidex is the place for it.
+
 1. [Setup](#setup)
 2. [Technology Stack](#technology-stack)
 3. [Features](#features)
@@ -70,6 +75,7 @@ Accessible by everyone
 * `User Profile` - see user related data along with the user's public recipes and favorite recipes
 * `Recipe Page`
 * `Privacy Policy`
+* `Forgot Credentials` - recover username or reset password
 ### User
 Accissible by a registered user
 * `My Recipes` - see your recipes categorized by privacy mode 
