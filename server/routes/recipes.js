@@ -379,7 +379,9 @@ router.post("/edit/:recipe_id", async (req, res, next) => {
       req.headers.validatedToken,
       recipe
     );
-    if (isOwner) {
+    const isModerator = await isModeratorUser(req.headers.validatedToken);
+
+    if (isOwner || isModerator) {
       //sanitize html
       req.body.recipeData.description = sanitizeHtml(
         req.body.recipeData.description
@@ -403,7 +405,6 @@ router.post("/edit/:recipe_id", async (req, res, next) => {
       delete req.body.recipeData.favorited_by;
 
       //handle privacy
-      const isModerator = await isModeratorUser(req.headers.validatedToken);
       if (!isModerator && !req.body.recipeData.private) {
         req.body.recipeData.approved = false;
       }
