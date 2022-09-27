@@ -42,7 +42,8 @@ const RecipeDropdown: FC<propTypes> = ({
         >
           {items.map((option) => (
             <MenuItem key={option} value={option}>
-              {option
+              {option //replace underscores and capitalize first letters
+                .replace(/\_/g, " ")
                 .split(" ")
                 .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
                 .join(" ")}
