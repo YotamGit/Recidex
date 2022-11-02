@@ -8,7 +8,7 @@ import GenericPromptDialog from "../utilities/GenericPromptDialog";
 import PageTitle from "../utilities/PageTitle";
 
 import "../../styles/recipe_editor/RecipeEditorPage.css";
-import AuthorizedButton from "../Login/AuthorizedButton";
+import AuthorizedButton from "../login/AuthorizedButton";
 
 //mui
 import IconButton from "@mui/material/IconButton";

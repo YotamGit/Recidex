@@ -1,5 +1,5 @@
 import { useState, useEffect, FC } from "react";
-import AuthorizedButton from "../Login/AuthorizedButton";
+import AuthorizedButton from "../login/AuthorizedButton";
 
 //mui icons
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";

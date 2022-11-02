@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import MarkdownEditSection from "../markdown/MarkdownEditSection";
 import MarkdownPreviewSection from "../markdown/MarkdownPreviewSection";
 import RecipeDropdown from "../utilities/RecipeDropdown";
-import AuthorizedButton from "../Login/AuthorizedButton";
+import AuthorizedButton from "../login/AuthorizedButton";
 import { toBase64 } from "../../utils-module/images";
 import TabPanel from "../utilities/TabPanel";
 import GenericPromptDialog from "../utilities/GenericPromptDialog";
