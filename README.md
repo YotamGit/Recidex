@@ -53,10 +53,11 @@ Whether it's a 30 years old written recipe worth keeping, a good recipe found on
    
 ### Backend
 1. Node.js
-2. Express.js 
-3. MongoDB
-4. Docker
-5. Nginx
+2. TypeScript
+3. Express.js 
+4. MongoDB
+5. Docker
+6. Nginx
 
 ## Features
 * Create an account
