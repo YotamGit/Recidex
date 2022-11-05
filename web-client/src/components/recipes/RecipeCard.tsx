@@ -75,7 +75,10 @@ const RecipeCard: FC<propTypes> = ({ recipe, local }) => {
         )}
         {recipe.approval_required && (
           <Tooltip title="Pending Approval" arrow>
-            <PendingRoundedIcon className="icon" style={{ color: "#f29339" }} />
+            <PendingRoundedIcon
+              className="icon"
+              style={{ color: "rgb(242, 147, 57)" }}
+            />
           </Tooltip>
         )}
 

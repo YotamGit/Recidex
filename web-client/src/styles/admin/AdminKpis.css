@@ -1,6 +1,16 @@
 .admin-kpis {
+  gap: 2rem;
   margin: 1rem;
   display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.kpis-container {
+  display: flex;
+  flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+  gap: 1rem;
 }
