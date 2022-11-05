@@ -38,17 +38,18 @@ export async function getRecipeTitles(filters?: object) {
   }
 }
 
-//GET RECIPE COUNT
-export async function getRecipeCount() {
+//GET RECIPE KPI DATA
+export async function getRecipeKpiData() {
   try {
-    let count = await axios.get("/api/recipes/count");
-    return Number(count.data);
+    let count = await axios.get("/api/recipes/kpi-data");
+
+    return count.data;
   } catch (error: any) {
     store.dispatch(
       setAlert({
         severity: "error",
         title: "Error",
-        message: "Failed to get recipes count.",
+        message: "Failed to get recipes KPI data.",
         details: error.response.data ? error.response.data : undefined,
       })
     );
