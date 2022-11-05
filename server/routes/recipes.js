@@ -254,11 +254,45 @@ router.get("/titles", async (req, res, next) => {
   }
 });
 
-// GET RECIPE COUNT
-router.get("/count", async (req, res, next) => {
+// GET RECIPE KPI DATA FOR ADMIN PANEL KPI
+router.get("/kpi-data", async (req, res, next) => {
   try {
-    const recipes = await Recipe.find({}).distinct("_id");
-    res.status(200).send(recipes.length.toString());
+    const total_recipes_count = (await Recipe.find({}).distinct("_id")).length;
+
+    const private_recipes_count = (
+      await Recipe.find({ private: true }).distinct("_id")
+    ).length;
+    const public_recipes_count = (
+      await Recipe.find({
+        private: false,
+        approval_required: false,
+        approved: false,
+      }).distinct("_id")
+    ).length;
+
+    const approval_required_recipes_count = (
+      await Recipe.find({
+        private: false,
+        approval_required: true,
+        approved: false,
+      }).distinct("_id")
+    ).length;
+
+    const approved_recipes_count = (
+      await Recipe.find({
+        private: false,
+        approval_required: false,
+        approved: true,
+      }).distinct("_id")
+    ).length;
+
+    res.status(200).json({
+      total_recipes_count,
+      private_recipes_count,
+      public_recipes_count,
+      approval_required_recipes_count,
+      approved_recipes_count,
+    });
   } catch (err) {
     next(err);
   }
