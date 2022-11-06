@@ -50,13 +50,13 @@ Whether it's a 30 years old written recipe worth keeping, a good recipe found on
 ### Frontend
 1. React.js
 2. Material UI
+3. TypeScript
    
 ### Backend
 1. Node.js
-2. TypeScript
-3. Express.js 
-4. MongoDB
-5. Docker
+2. Express.js 
+3. MongoDB
+4. Docker
 6. Nginx
 
 ## Features
