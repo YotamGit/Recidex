@@ -62,3 +62,21 @@ export async function isUserExist(userId: string) {
     return false;
   }
 }
+
+//GET USER KPI DATA
+export async function getUserKpiData() {
+  try {
+    let count = await axios.get("/api/users/kpi-data");
+
+    return count.data;
+  } catch (error: any) {
+    store.dispatch(
+      setAlert({
+        severity: "error",
+        title: "Error",
+        message: "Failed to get User KPI data.",
+        details: error.response.data ? error.response.data : undefined,
+      })
+    );
+  }
+}

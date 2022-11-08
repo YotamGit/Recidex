@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import "../../styles/admin/AdminKpis.css";
 import { getRecipeKpiData } from "../../utils-module/recipes";
+import { getUserKpiData } from "../../utils-module/users";
 
 import Kpi from "./Kpi";
 
@@ -21,12 +22,20 @@ interface RecipeKpiDataTypes {
   approved_recipes_count: number;
 }
 
+interface UserKpiDataTypes {
+  total: number;
+  admin: number;
+  moderator: number;
+  member: number;
+}
+
 const AdminKpis = () => {
-  const users = useAppSelector((state) => state.users.users);
   const [recipeKpiData, setRecipeKpiData] = useState<RecipeKpiDataTypes>();
+  const [userKpiData, setUserKpiData] = useState<UserKpiDataTypes>();
 
   useEffect(() => {
     getRecipeKpiData().then((res) => res && setRecipeKpiData(res));
+    getUserKpiData().then((res) => res && setUserKpiData(res));
   }, []);
 
   const recipesPieData = {
@@ -56,6 +65,26 @@ const AdminKpis = () => {
     ],
   };
 
+  const usersPieData = {
+    labels: ["Admin", "Moderator", "Member"],
+    datasets: [
+      {
+        data: [userKpiData?.admin, userKpiData?.moderator, userKpiData?.member],
+        backgroundColor: [
+          "rgba(255, 93, 85, 0.4)",
+          "rgba(60, 89, 127, 0.4)",
+          "rgba(242, 147, 57, 0.4)",
+        ],
+        borderColor: [
+          "rgba(255, 93, 85, 1)",
+          "rgba(60, 89, 127, 1)",
+          "rgba(242, 147, 57, 1)",
+        ],
+        borderWidth: 1,
+      },
+    ],
+  };
+
   return (
     <div className="admin-kpis">
       <div className="kpis-container">
@@ -68,9 +97,9 @@ const AdminKpis = () => {
         </span>
       </div>
       <div className="kpis-container">
-        <Kpi title={"Users"} body={users.length} />
+        <Kpi title={"Users"} body={userKpiData ? userKpiData.total : 0} />
         <span>
-          <Doughnut data={recipesPieData} />
+          <Doughnut data={usersPieData} />
         </span>
       </div>
     </div>
