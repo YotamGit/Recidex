@@ -1,6 +1,7 @@
 import express from "express";
 import bcrypt from "bcryptjs";
 import crypto from "crypto";
+import mongoose from "mongoose";
 
 const router = express.Router();
 import { User } from "../models/User.js";
@@ -298,4 +299,35 @@ router.post("/user/reset-password", async (req, res, next) => {
   }
 });
 
+// GET RECIPE KPI DATA FOR ADMIN PANEL KPI
+router.get("/kpi-data", async (req, res, next) => {
+  try {
+    const users_by_roles = await User.aggregate([
+      {
+        $group: {
+          _id: "$role",
+          count: { $sum: 1 },
+        },
+      },
+    ]);
+
+    let users_by_roles_counts = {};
+    users_by_roles.forEach((role) => {
+      users_by_roles_counts[role._id] = role.count;
+    });
+
+    let total_users = Object.values(users_by_roles_counts).reduce(
+      (accumulator, value) => {
+        return accumulator + value;
+      },
+      0
+    );
+
+    users_by_roles_counts["total"] = total_users;
+
+    res.status(200).json(users_by_roles_counts);
+  } catch (err) {
+    next(err);
+  }
+});
 export default router;
