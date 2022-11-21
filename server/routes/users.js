@@ -27,9 +27,8 @@ router.get("/", async (req, res, next) => {
   try {
     let isModerator = await isModeratorUser(req.headers.validatedToken);
     if (isModerator) {
-      let users = await User.find({
-        _id: { $ne: req.headers.validatedToken._id },
-      }).select({
+      //get users
+      let users = await User.find({}).select({
         role: 1,
         username: 1,
         firstname: 1,
@@ -38,6 +37,96 @@ router.get("/", async (req, res, next) => {
         registration_date: 1,
         last_sign_in: 1,
       });
+
+      //get counts for each recipe privacy state per user
+      const public_recipes_count = await Recipe.aggregate([
+        {
+          $match: {
+            private: false,
+            approval_required: false,
+            approved: false,
+          },
+        },
+        {
+          $group: {
+            _id: "$owner",
+            public: { $sum: 1 },
+          },
+        },
+      ]);
+      const private_recipes_count = await Recipe.aggregate([
+        {
+          $match: {
+            private: true,
+          },
+        },
+        {
+          $group: {
+            _id: "$owner",
+            private: { $sum: 1 },
+          },
+        },
+      ]);
+      const approval_required_recipes_count = await Recipe.aggregate([
+        {
+          $match: {
+            private: false,
+            approval_required: true,
+            approved: false,
+          },
+        },
+        {
+          $group: {
+            _id: "$owner",
+            approval_required: { $sum: 1 },
+          },
+        },
+      ]);
+      const approved_recipes_count = await Recipe.aggregate([
+        {
+          $match: {
+            private: false,
+            approval_required: false,
+            approved: true,
+          },
+        },
+        {
+          $group: {
+            _id: "$owner",
+            approved: { $sum: 1 },
+          },
+        },
+      ]);
+
+      //combining all of the recipe counts per user id
+      let recipe_counts = {};
+      [
+        ...public_recipes_count,
+        ...private_recipes_count,
+        ...approval_required_recipes_count,
+        ...approved_recipes_count,
+      ].forEach((privacy) => {
+        const { _id, ...counts } = privacy;
+
+        if (recipe_counts[_id]) {
+          recipe_counts[_id] = {
+            ...recipe_counts[_id],
+            ...counts,
+          };
+        } else {
+          recipe_counts[_id] = counts;
+        }
+      });
+
+      // combine users and recipe counts
+      users.forEach((user_record, index, users) => {
+        console.log(recipe_counts[user_record._id]);
+        users[index] = {
+          ...user_record.toObject(),
+          ...recipe_counts[user_record._id],
+        };
+      });
+
       res.status(200).send(users);
     } else {
       res.status(403).send("Missing privileges");
