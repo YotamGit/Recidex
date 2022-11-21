@@ -63,6 +63,32 @@ const AdminTableDetailsRow: FC<propTypes> = ({ row, open, index }) => {
                   <TableCell align="left">Last Sign In</TableCell>
                   <TableCell align="left">{row.last_sign_in}</TableCell>
                 </TableRow>
+                <TableRow>
+                  <TableCell align="left">Public Recipes</TableCell>
+                  <TableCell align="left">{row.public_recipes_count}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell align="left">Approval Required Recipes</TableCell>
+                  <TableCell align="left">
+                    {row.approval_required_recipes_count}
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell align="left">Approved Recipes</TableCell>
+                  <TableCell align="left">
+                    {row.approved_recipes_count}
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell align="left">Private Recipes</TableCell>
+                  <TableCell align="left">
+                    {row.private_recipes_count}
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell align="left">Total Recipes</TableCell>
+                  <TableCell align="left">{row.total_recipes_count}</TableCell>
+                </TableRow>
               </TableBody>
             </Table>
             <div

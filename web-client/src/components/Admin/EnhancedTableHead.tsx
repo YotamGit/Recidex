@@ -69,6 +69,26 @@ const maximalHeadCells: readonly HeadCell[] = [
     id: "last_sign_in",
     label: "Last Sign In",
   },
+  {
+    id: "public_recipes_count",
+    label: "Public Recipes",
+  },
+  {
+    id: "approval_required_recipes_count",
+    label: "Approval Required Recipes",
+  },
+  {
+    id: "approved_recipes_count",
+    label: "Approved Recipes",
+  },
+  {
+    id: "private_recipes_count",
+    label: "Private Recipes",
+  },
+  {
+    id: "total_recipes_count",
+    label: "Total Recipes",
+  },
 ];
 
 interface EnhancedTableProps {

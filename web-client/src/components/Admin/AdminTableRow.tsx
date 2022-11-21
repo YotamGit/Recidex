@@ -98,6 +98,21 @@ const AdminTableRow: FC<propTypes> = ({ row, index, expand, minimalTable }) => {
               {row.last_sign_in}
             </TableCell>
             <TableCell className="table-cell" align="center">
+              {row.public_recipes_count}
+            </TableCell>
+            <TableCell className="table-cell" align="center">
+              {row.approval_required_recipes_count}
+            </TableCell>
+            <TableCell className="table-cell" align="center">
+              {row.approved_recipes_count}
+            </TableCell>
+            <TableCell className="table-cell" align="center">
+              {row.private_recipes_count}
+            </TableCell>
+            <TableCell className="table-cell" align="center">
+              {row.total_recipes_count}
+            </TableCell>
+            <TableCell className="table-cell" align="center">
               <EditUserButton user={row} />
             </TableCell>
           </>

@@ -66,6 +66,11 @@ export interface FullUser {
   email: string;
   registration_date: string;
   last_sign_in: string;
+  private_recipes_count: number;
+  public_recipes_count: number;
+  approval_required_recipes_count: number;
+  approved_recipes_count: number;
+  total_recipes_count: number;
 }
 
 export const userPing = createAsyncThunk<

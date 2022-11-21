@@ -50,10 +50,11 @@ router.get("/", async (req, res, next) => {
         {
           $group: {
             _id: "$owner",
-            public: { $sum: 1 },
+            public_recipes_count: { $sum: 1 },
           },
         },
       ]);
+
       const private_recipes_count = await Recipe.aggregate([
         {
           $match: {
@@ -63,10 +64,11 @@ router.get("/", async (req, res, next) => {
         {
           $group: {
             _id: "$owner",
-            private: { $sum: 1 },
+            private_recipes_count: { $sum: 1 },
           },
         },
       ]);
+
       const approval_required_recipes_count = await Recipe.aggregate([
         {
           $match: {
@@ -78,10 +80,11 @@ router.get("/", async (req, res, next) => {
         {
           $group: {
             _id: "$owner",
-            approval_required: { $sum: 1 },
+            approval_required_recipes_count: { $sum: 1 },
           },
         },
       ]);
+
       const approved_recipes_count = await Recipe.aggregate([
         {
           $match: {
@@ -93,7 +96,16 @@ router.get("/", async (req, res, next) => {
         {
           $group: {
             _id: "$owner",
-            approved: { $sum: 1 },
+            approved_recipes_count: { $sum: 1 },
+          },
+        },
+      ]);
+
+      const total_recipes_count = await Recipe.aggregate([
+        {
+          $group: {
+            _id: "$owner",
+            total_recipes_count: { $sum: 1 },
           },
         },
       ]);
@@ -105,6 +117,7 @@ router.get("/", async (req, res, next) => {
         ...private_recipes_count,
         ...approval_required_recipes_count,
         ...approved_recipes_count,
+        ...total_recipes_count,
       ].forEach((privacy) => {
         const { _id, ...counts } = privacy;
 
@@ -118,11 +131,19 @@ router.get("/", async (req, res, next) => {
         }
       });
 
+      const counts_base = {
+        private_recipes_count: 0,
+        public_recipes_count: 0,
+        approval_required_recipes_count: 0,
+        approved_recipes_count: 0,
+        total_recipes_count: 0,
+      };
       // combine users and recipe counts
       users.forEach((user_record, index, users) => {
         console.log(recipe_counts[user_record._id]);
         users[index] = {
           ...user_record.toObject(),
+          ...counts_base,
           ...recipe_counts[user_record._id],
         };
       });
