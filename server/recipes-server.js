@@ -3,9 +3,9 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import mongoSanitize from "express-mongo-sanitize";
 import cors from "cors";
-
-const app = express();
 import mongoose from "mongoose";
+import winston from "winston";
+import morgan from "morgan";
 
 import { authenticateUser } from "./utils-module/authentication.js";
 
@@ -16,6 +16,8 @@ import usersRoute from "./routes/users.js";
 import filtersRoute from "./routes/filters.js";
 
 dotenv.config();
+
+const app = express();
 
 // Middlewares
 app.use(cors());
