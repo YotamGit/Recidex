@@ -13,7 +13,10 @@ import recipesRoute from "./routes/recipes.js";
 import usersRoute from "./routes/users.js";
 import filtersRoute from "./routes/filters.js";
 
-import { morganMiddleware } from "./utils-module/logger.js";
+import {
+  morganMiddleware,
+  addRequestIdMiddleware,
+} from "./utils-module/logger.js";
 
 dotenv.config();
 
@@ -29,8 +32,12 @@ app.use(express.json({ limit: "50mb" }));
 // for parsing application/xwww-
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
+//give id to request
+app.use(addRequestIdMiddleware);
+
 app.use(mongoSanitize());
 
+// logging middleware
 app.use(morganMiddleware);
 
 // Authentication
