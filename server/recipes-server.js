@@ -4,8 +4,6 @@ import cookieParser from "cookie-parser";
 import mongoSanitize from "express-mongo-sanitize";
 import cors from "cors";
 import mongoose from "mongoose";
-import winston from "winston";
-import morgan from "morgan";
 
 import { authenticateUser } from "./utils-module/authentication.js";
 
@@ -14,6 +12,8 @@ import loginRoute from "./routes/login.js";
 import recipesRoute from "./routes/recipes.js";
 import usersRoute from "./routes/users.js";
 import filtersRoute from "./routes/filters.js";
+
+import { morganMiddleware } from "./utils-module/logger.js";
 
 dotenv.config();
 
@@ -30,19 +30,8 @@ app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
 app.use(mongoSanitize());
-app.use("*", (req, res, next) => {
-  let startTime = performance.now();
-  next();
-  res.on("finish", () => {
-    process.stdout.write(
-      `\n${new Date().toISOString()} ${req.method} ${req.originalUrl}`
-    );
-    let endTime = performance.now();
-    process.stdout.write(
-      ` ${res.statusCode} ${Math.round(endTime - startTime)}ms`
-    );
-  });
-});
+
+app.use(morganMiddleware);
 
 // Authentication
 app.post("/api/recipes/new", authenticateUser);

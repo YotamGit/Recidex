@@ -140,7 +140,6 @@ router.get("/", async (req, res, next) => {
       };
       // combine users and recipe counts
       users.forEach((user_record, index, users) => {
-        console.log(recipe_counts[user_record._id]);
         users[index] = {
           ...user_record.toObject(),
           ...counts_base,
