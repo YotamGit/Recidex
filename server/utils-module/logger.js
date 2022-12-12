@@ -1,9 +1,8 @@
 import winston from "winston";
-import morgan, { token } from "morgan";
+import morgan from "morgan";
+import { v4 as uuidv4 } from "uuid";
 
 const { combine, timestamp, json } = winston.format;
-
-morgan.token("request-id", (req, res) => req.requestId);
 
 const logger = winston.createLogger({
   level: process.env.LOG_LEVEL || "info",
@@ -16,6 +15,9 @@ const morganLogger = winston.createLogger({
   format: combine(timestamp(), json()),
   transports: [new winston.transports.Console()],
 });
+
+// add custom token to return the request id
+morgan.token("request-id", (req, res) => req.requestId);
 
 export const morganMiddleware = morgan(
   (tokens, req, res) => {
@@ -39,7 +41,6 @@ export const morganMiddleware = morgan(
 );
 
 export const addRequestIdMiddleware = (req, res, next) => {
-  // req.requestId = uuidv4();
-  req.requestId = "uuidv4()";
+  req.requestId = uuidv4();
   next();
 };
