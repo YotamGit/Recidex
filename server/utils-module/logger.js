@@ -40,7 +40,9 @@ export const morganMiddleware = morgan(
   }
 );
 
+// add request id and logger function to the request
 export const addRequestIdMiddleware = (req, res, next) => {
   req.requestId = uuidv4();
+  req.logger = logger.child({ request_id: req.requestId });
   next();
 };
