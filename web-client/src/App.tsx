@@ -32,14 +32,14 @@ import AlertSnackbar from "./components/utilities/AlertSnackbar";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 
-export let mainRecipesRoutes = [
+export const MAIN_RECIDEX_ROUTES = [
   "/home",
   "/my-recipes",
   "/favorites",
   "/recipe-moderation",
 ];
 
-export let moderatorRoles = ["moderator", "admin"];
+export const MODERATOR_ROLES = ["moderator", "admin"];
 
 function App() {
   const dispatch = useAppDispatch();

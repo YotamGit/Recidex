@@ -32,17 +32,27 @@ router.post("/ping", async (req, res, next) => {
         validatedToken.lastname !== user.lastname ||
         validatedToken.firstname !== user.firstname
       ) {
+        req.logger.info(
+          `Successfull ping attempt and login, a new authentication token has been generated`,
+          { user_id: user._id, username: user.username }
+        );
         res.status(409).json({
           token: generateToken(user),
           userData: user,
         });
+        return;
       }
 
+      req.logger.info(`Successfull ping attempt and login`, {
+        user_id: user._id,
+        username: user.username,
+      });
       res.status(200).json({
         authenticated: true,
         userData: user,
       });
     } else {
+      req.logger.info(`Failed ping attempt and login`);
       res.status(401).json({ authenticated: false });
     }
   } catch (err) {
@@ -71,6 +81,10 @@ router.post("/", async (req, res, next) => {
             },
           }
         );
+        req.logger.info(
+          `Successfull login attempt, a new authentication token has been generated`,
+          { user_id: user._id, username: user.username }
+        );
         res.status(200).json({
           token: generateToken(user),
           userData: {
@@ -83,9 +97,17 @@ router.post("/", async (req, res, next) => {
           },
         });
       } else {
+        req.logger.info(`Failed login attempt, wrong password was given`, {
+          user_id: user._id,
+          username: user.username,
+        });
         res.status(401).send(false);
       }
     } else {
+      req.logger.info(
+        `Failed login attempt, username does not exist in the DB`,
+        { username: req.body.username }
+      );
       res.status(401).send(false);
     }
   } catch (err) {
@@ -98,11 +120,16 @@ router.post("/signup", async (req, res, next) => {
   try {
     let usernameTaken = await isUsernameTaken(req.body.username);
     if (usernameTaken) {
+      req.logger.info(
+        `Failed signup attempt, username already exists in the DB`,
+        { username: req.body.username }
+      );
       res.status(409).send("The User already exists. Try a different Username");
       return;
     }
     let emailTaken = await isEmailTaken(req.body.email);
     if (emailTaken) {
+      req.logger.info(`Failed signup attempt, email already exists in the DB`);
       res.status(409).send("Email has already been taken. Try a different one");
       return;
     }
@@ -117,6 +144,10 @@ router.post("/signup", async (req, res, next) => {
       password: hashedPassword,
       notifications_opt_in: req.body.notifications_opt_in,
     });
+    req.logger.info(`Successfull signup attempt`, {
+      user_id: newUser._id,
+      username: newUser.username,
+    });
     res.status(200).json({
       token: generateToken(newUser),
       userData: {
@@ -129,6 +160,10 @@ router.post("/signup", async (req, res, next) => {
       },
     });
 
+    req.logger.info(`Sending signup email to user`, {
+      user_id: newUser._id,
+      username: newUser.username,
+    });
     await emailNewUser(newUser._id);
   } catch (err) {
     next(err);

@@ -4,7 +4,7 @@ import RecipesPrivacySelector from "./recipes/RecipesPrivacySelector";
 import PageTitle from "./utilities/PageTitle";
 import { useEffect, useState, useRef } from "react";
 import { useLocation } from "react-router-dom";
-import { mainRecipesRoutes } from "../App";
+import { MAIN_RECIDEX_ROUTES } from "../App";
 
 //redux
 import { useAppDispatch, useAppSelector } from "../hooks";
@@ -113,7 +113,7 @@ const BaseRecipesPage: FC<propTypes> = ({
       .slice(0, routeHistory.length - 1)
       .reverse()
       .find((element) =>
-        mainRecipesRoutes.includes(element.pathname)
+        MAIN_RECIDEX_ROUTES.includes(element.pathname)
       )?.pathname;
 
     if (location.pathname !== lastMainPageVisited || ownerOnly) {

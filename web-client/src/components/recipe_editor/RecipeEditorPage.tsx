@@ -1,7 +1,7 @@
 import RecipeEditor from "./RecipeEditor";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect, FC } from "react";
-import { mainRecipesRoutes, moderatorRoles } from "../../App";
+import { MAIN_RECIDEX_ROUTES, MODERATOR_ROLES } from "../../App";
 
 import { getRecipe } from "../../utils-module/recipes";
 import GenericPromptDialog from "../utilities/GenericPromptDialog";
@@ -75,7 +75,7 @@ const RecipeEditorPage: FC = () => {
     if (
       recipe !== undefined &&
       recipe.owner?._id !== userData._id &&
-      !moderatorRoles.includes(userData.role || "")
+      !MODERATOR_ROLES.includes(userData.role || "")
     ) {
       navigate("/");
       return;
@@ -95,7 +95,7 @@ const RecipeEditorPage: FC = () => {
         .slice(0, routeHistory.length - 1)
         .reverse()
         .find((element) =>
-          mainRecipesRoutes.includes(element.pathname)
+          MAIN_RECIDEX_ROUTES.includes(element.pathname)
         )?.pathname;
       navigate(lastMainPageVisited || "/home");
     } else {

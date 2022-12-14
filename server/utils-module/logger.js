@@ -2,12 +2,15 @@ import winston from "winston";
 import morgan from "morgan";
 import { v4 as uuidv4 } from "uuid";
 
-const { combine, timestamp, json } = winston.format;
+const { combine, timestamp, json, errors } = winston.format;
 
-const logger = winston.createLogger({
+export const logger = winston.createLogger({
   level: process.env.LOG_LEVEL || "info",
-  format: combine(timestamp(), json()),
+  format: combine(errors({ stack: true }), timestamp(), json()),
+  exitOnError: false,
   transports: [new winston.transports.Console()],
+  exceptionHandlers: [new winston.transports.Console()],
+  rejectionHandlers: [new winston.transports.Console()],
 });
 
 const morganLogger = winston.createLogger({
