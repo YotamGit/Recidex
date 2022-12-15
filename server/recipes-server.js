@@ -51,6 +51,7 @@ app.post("/api/recipes/edit/favorite/*", authenticateUser);
 app.post("/api/recipes/edit/approve/*", authenticateUser);
 
 app.get("/api/users", authenticateUser);
+app.get("/api/users/user/account/info/*", authenticateUser);
 app.post("/api/users/user/delete", authenticateUser);
 app.post("/api/users/user/edit", authenticateUser);
 
@@ -78,7 +79,7 @@ const connect = async () => {
   } catch (error) {
     logger.error("Failed to connect to DB, will retry in 5 seconds", error);
     await setTimeout(5000);
-    logger.info("Retrying connection to DB");
+    logger.warn("Retrying connection to DB");
     await connect();
   }
 };

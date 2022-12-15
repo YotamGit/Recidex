@@ -147,8 +147,10 @@ router.get("/", async (req, res, next) => {
         };
       });
 
+      req.logger.info("Sending users data with recipe counts");
       res.status(200).send(users);
     } else {
+      req.logger.info("Failed to retrieve users data, missing privileges");
       res.status(403).send("Missing privileges");
     }
   } catch (err) {
@@ -160,6 +162,9 @@ router.get("/", async (req, res, next) => {
 router.get("/user/exists/:user_id", async (req, res, next) => {
   try {
     if (!isValidObjectId(req.params.user_id)) {
+      req.logger.info("Failed user lookup, user id is invalid", {
+        user_id: req.params.user_id,
+      });
       res.status(200).send(false);
       return;
     }
@@ -167,8 +172,14 @@ router.get("/user/exists/:user_id", async (req, res, next) => {
     let userExists = await User.exists({ _id: req.params.user_id });
 
     if (userExists) {
+      req.logger.info("Successfull user lookup, user exists in the DB", {
+        user_id: req.params.user_id,
+      });
       res.status(200).send(true);
     } else {
+      req.logger.info("Failed user lookup, user does not exist in the DB", {
+        user_id: req.params.user_id,
+      });
       res.status(200).send(false);
     }
   } catch (err) {
@@ -180,6 +191,12 @@ router.get("/user/exists/:user_id", async (req, res, next) => {
 router.get("/user/info/:user_id", async (req, res, next) => {
   try {
     if (!isValidObjectId(req.params.user_id)) {
+      req.logger.info(
+        "Failed to retrieve user profile data, user id is invalid",
+        {
+          user_id: req.params.user_id,
+        }
+      );
       res.status(404).send("User not found");
       return;
     }
@@ -204,6 +221,9 @@ router.get("/user/info/:user_id", async (req, res, next) => {
         private: false,
       }).distinct("_id");
 
+      req.logger.info("Sending user profile data with recipe counts", {
+        user_id: req.params.user_id,
+      });
       res.status(200).json({
         userInfo,
         metrics: {
@@ -213,6 +233,12 @@ router.get("/user/info/:user_id", async (req, res, next) => {
         },
       });
     } else {
+      req.logger.info(
+        "Failed to retrieve user profile data, user does not exist in the DB",
+        {
+          user_id: req.params.user_id,
+        }
+      );
       res.status(404).send("User not found");
     }
   } catch (err) {
@@ -223,7 +249,30 @@ router.get("/user/info/:user_id", async (req, res, next) => {
 //GET A SPECIFIC USER ACCOUNT DATA
 router.get("/user/account/info/:user_id", async (req, res, next) => {
   try {
+    let isModerator = await isModeratorUser(req.headers.validatedToken);
+    if (
+      !isModerator &&
+      !(req.headers.validatedToken._id === req.params.user_id)
+    ) {
+      req.logger.info(
+        "Failed to retrieve user account data, missing privileges",
+        {
+          user_id: req.params.user_id,
+          initiator_id: req.headers.validatedToken._id,
+        }
+      );
+      res.status(403).send("Missing privileges");
+      return;
+    }
+
     if (!isValidObjectId(req.params.user_id)) {
+      req.logger.info(
+        "Failed to retrieve user account data, user id is invalid",
+        {
+          user_id: req.params.user_id,
+          initiator_id: req.headers.validatedToken._id,
+        }
+      );
       res.status(404).send("User not found");
       return;
     }
@@ -233,8 +282,19 @@ router.get("/user/account/info/:user_id", async (req, res, next) => {
     );
 
     if (userInfo) {
+      req.logger.info("Sending user account data", {
+        user_id: req.params.user_id,
+        initiator_id: req.headers.validatedToken._id,
+      });
       res.status(200).json(userInfo);
     } else {
+      req.logger.info(
+        "Failed to retrieve user account data, user does not exist in the DB",
+        {
+          user_id: req.params.user_id,
+          initiator_id: req.headers.validatedToken._id,
+        }
+      );
       res.status(404).send("User not found");
     }
   } catch (err) {
@@ -246,6 +306,10 @@ router.get("/user/account/info/:user_id", async (req, res, next) => {
 router.post("/user/delete", async (req, res, next) => {
   try {
     if (!isValidObjectId(req.body._id)) {
+      req.logger.info("Failed to delete user, user id is invalid", {
+        user_id: req.body._id,
+        initiator_id: req.headers.validatedToken._id,
+      });
       res.status(404).send("User not found");
       return;
     }
@@ -259,11 +323,23 @@ router.post("/user/delete", async (req, res, next) => {
         await Recipe.deleteMany({ owner: user._id });
         let deletedUser = await User.findOneAndDelete({ _id: user._id });
 
+        req.logger.info("Successfully deleted user", {
+          user_id: req.body._id,
+          initiator_id: req.headers.validatedToken._id,
+        });
         res.status(200).json(deletedUser);
       } else {
+        req.logger.info("Failed to delete user, missing privileges", {
+          user_id: req.body._id,
+          initiator_id: req.headers.validatedToken._id,
+        });
         res.status(403).send("Missing privileges");
       }
     } else {
+      req.logger.info("Failed to delete user, user does not exist in the DB", {
+        user_id: req.body._id,
+        initiator_id: req.headers.validatedToken._id,
+      });
       res.status(404).send("User not found");
     }
   } catch (err) {
@@ -275,6 +351,10 @@ router.post("/user/delete", async (req, res, next) => {
 router.post("/user/edit", async (req, res, next) => {
   try {
     if (!isValidObjectId(req.body.userData._id)) {
+      req.logger.info("Failed to edit user, user id is invalid", {
+        user_id: req.body.userData._id,
+        initiator_id: req.headers.validatedToken._id,
+      });
       res.status(404).send("User not found");
       return;
     }
@@ -295,6 +375,13 @@ router.post("/user/edit", async (req, res, next) => {
         if (userToEdit.username !== req.body.userData.username) {
           let usernameTaken = await isUsernameTaken(req.body.userData.username);
           if (usernameTaken) {
+            req.logger.info(
+              "Failed to edit user, username already exists in the DB",
+              {
+                user_id: req.body.userData._id,
+                initiator_id: req.headers.validatedToken._id,
+              }
+            );
             res.status(409).send("Username already exists.");
             return;
           }
@@ -302,7 +389,14 @@ router.post("/user/edit", async (req, res, next) => {
         if (userToEdit.email !== req.body.userData.email) {
           let emailTaken = await isEmailTaken(req.body.userData.email);
           if (emailTaken) {
-            res.status(409).send("Email already exists");
+            req.logger.info(
+              "Failed to edit user, email already exists in the DB",
+              {
+                user_id: req.body.userData._id,
+                initiator_id: req.headers.validatedToken._id,
+              }
+            );
+            res.status(409).send("Email already taken");
             return;
           }
         }
@@ -316,11 +410,23 @@ router.post("/user/edit", async (req, res, next) => {
           { _id: req.body.userData._id },
           { $set: { ...req.body.userData, ...updatePasswordQuery } }
         );
+        req.logger.info("Successfully edited user", {
+          user_id: req.body.userData._id,
+          initiator_id: req.headers.validatedToken._id,
+        });
         res.status(200).send(response);
       } else {
+        req.logger.info("Failed to edit user, missing privileges", {
+          user_id: req.body.userData._id,
+          initiator_id: req.headers.validatedToken._id,
+        });
         res.status(403).send("Missing privileges");
       }
     } else {
+      req.logger.info("Failed to edit user, user does not exist in the DB", {
+        user_id: req.body.userData._id,
+        initiator_id: req.headers.validatedToken._id,
+      });
       res.status(404).send("User not found");
     }
   } catch (err) {
@@ -348,7 +454,24 @@ router.post("/user/forgot-password", async (req, res, next) => {
         type: "password_reset",
         user: user._id,
       });
+      req.logger.info("Created a password reset token", {
+        user_id: user._id,
+      });
+
+      req.logger.info(
+        "Sending an email with a password reset token to the user",
+        {
+          user_id: user._id,
+        }
+      );
       await emailUserPasswordReset(user._id, rawToken);
+    } else {
+      req.logger.info(
+        "Failed to create a password reset token, username and email combination does not exist in the DB",
+        {
+          username: req.body.userData.username,
+        }
+      );
     }
     res.status(200).send(true);
   } catch (err) {
@@ -364,7 +487,14 @@ router.post("/user/forgot-username", async (req, res, next) => {
     });
 
     if (user) {
+      req.logger.info("Sending an email with the username to the user", {
+        user_id: user._id,
+      });
       await emailUserUsername(user._id);
+    } else {
+      req.logger.info(
+        "Failed to recover username, email does not exist in the DB"
+      );
     }
     res.status(200).send(true);
   } catch (err) {
@@ -376,6 +506,7 @@ router.post("/user/forgot-username", async (req, res, next) => {
 router.post("/user/reset-password", async (req, res, next) => {
   try {
     if (!req.body.token) {
+      req.logger.info("Failed to reset password, reset token is missing");
       res.status(400).send("Missing reset token.");
       return;
     }
@@ -392,13 +523,29 @@ router.post("/user/reset-password", async (req, res, next) => {
       );
 
       if (!user) {
+        req.logger.info(
+          "Failed to reset user password, user no longer exists in the DB",
+          {
+            user_id: resetToken.user,
+          }
+        );
         res.status(410).send("User no longer exists.");
         return;
+      } else {
+        req.logger.info("Successfully reset user password", {
+          user_id: resetToken.user,
+        });
       }
 
       await Token.deleteMany({ type: "password_reset", user: resetToken.user });
+      req.logger.info("Deleted used password reset token from the DB", {
+        user_id: resetToken.user,
+      });
       res.status(200).send();
     } else {
+      req.logger.info(
+        "Failed to reset user password, reset token expired or invalid"
+      );
       res
         .status(401)
         .send("Failed to reset password.\nReset link expired or invalid.");
@@ -408,7 +555,7 @@ router.post("/user/reset-password", async (req, res, next) => {
   }
 });
 
-// GET RECIPE KPI DATA FOR ADMIN PANEL KPI
+// GET USERS KPI DATA FOR ADMIN PANEL KPI
 router.get("/kpi-data", async (req, res, next) => {
   try {
     const users_by_roles = await User.aggregate([
@@ -434,6 +581,7 @@ router.get("/kpi-data", async (req, res, next) => {
 
     users_by_roles_counts["total"] = total_users;
 
+    req.logger.info("Sending users kpi data");
     res.status(200).json(users_by_roles_counts);
   } catch (err) {
     next(err);
