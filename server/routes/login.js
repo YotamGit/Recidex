@@ -33,7 +33,7 @@ router.post("/ping", async (req, res, next) => {
         validatedToken.firstname !== user.firstname
       ) {
         req.logger.info(
-          `Successfull ping attempt and login, a new authentication token has been generated`,
+          "Successfull ping attempt and login, a new authentication token has been generated",
           { user_id: user._id, username: user.username }
         );
         res.status(409).json({

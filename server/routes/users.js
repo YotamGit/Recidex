@@ -1,7 +1,6 @@
 import express from "express";
 import bcrypt from "bcryptjs";
 import crypto from "crypto";
-import mongoose from "mongoose";
 
 const router = express.Router();
 import { User } from "../models/User.js";
@@ -147,10 +146,14 @@ router.get("/", async (req, res, next) => {
         };
       });
 
-      req.logger.info("Sending users data with recipe counts");
+      req.logger.info("Sending users data with recipe counts", {
+        initiator_id: req.headers.validatedToken._id,
+      });
       res.status(200).send(users);
     } else {
-      req.logger.info("Failed to retrieve users data, missing privileges");
+      req.logger.info("Failed to retrieve users data, missing privileges", {
+        initiator_id: req.headers.validatedToken._id,
+      });
       res.status(403).send("Missing privileges");
     }
   } catch (err) {
@@ -221,7 +224,7 @@ router.get("/user/info/:user_id", async (req, res, next) => {
         private: false,
       }).distinct("_id");
 
-      req.logger.info("Sending user profile data with recipe counts", {
+      req.logger.info("Sending user profile data", {
         user_id: req.params.user_id,
       });
       res.status(200).json({
@@ -522,7 +525,11 @@ router.post("/user/reset-password", async (req, res, next) => {
         { password: await bcrypt.hash(req.body.password, 10) }
       );
 
-      if (!user) {
+      if (user) {
+        req.logger.info("Successfully reset user password", {
+          user_id: resetToken.user,
+        });
+      } else {
         req.logger.info(
           "Failed to reset user password, user no longer exists in the DB",
           {
@@ -531,10 +538,6 @@ router.post("/user/reset-password", async (req, res, next) => {
         );
         res.status(410).send("User no longer exists.");
         return;
-      } else {
-        req.logger.info("Successfully reset user password", {
-          user_id: resetToken.user,
-        });
       }
 
       await Token.deleteMany({ type: "password_reset", user: resetToken.user });
