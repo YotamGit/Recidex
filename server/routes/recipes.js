@@ -774,7 +774,7 @@ router.post("/edit/approve/:recipe_id", async (req, res, next) => {
 
       if (req.body.approve === undefined) {
         req.logger.info(
-          `Failed to update recipe approval status, Argument "approve" is missing`,
+          `Failed to update recipe approval status, argument "approve" is missing from the request`,
           {
             recipe_id: req.params.recipe_id,
             initiator_id: req.headers.validatedToken._id,
@@ -886,18 +886,46 @@ router.post("/edit/approve/:recipe_id", async (req, res, next) => {
 router.post("/edit/request-approval/:recipe_id", async (req, res, next) => {
   try {
     if (!isValidObjectId(req.params.recipe_id)) {
+      req.logger.info(
+        "Failed to request approval of recipe, recipe id is invalid",
+        {
+          recipe_id: req.params.recipe_id,
+          initiator_id: req.headers.validatedToken._id,
+        }
+      );
       res.status(404).send("Recipe not found.");
       return;
     }
 
     const recipe = await Recipe.findById({ _id: req.params.recipe_id });
     if (!recipe) {
+      req.logger.info(
+        "Failed to request approval of recipe, recipe does not exist in the DB",
+        {
+          recipe_id: req.params.recipe_id,
+          initiator_id: req.headers.validatedToken._id,
+        }
+      );
       res.status(404).send("Recipe not found");
       return;
     } else if (recipe.private) {
+      req.logger.info(
+        "Failed to request approval of recipe, can not request approval of a private recipe",
+        {
+          recipe_id: req.params.recipe_id,
+          initiator_id: req.headers.validatedToken._id,
+        }
+      );
       res.status(403).send("Cant request approval for a private recipe.");
       return;
     } else if (req.body.approval_required === undefined) {
+      req.logger.info(
+        `Failed to request approval of recipe, argument "request_approval" is missing from the request`,
+        {
+          recipe_id: req.params.recipe_id,
+          initiator_id: req.headers.validatedToken._id,
+        }
+      );
       res.status(403).send(`Missing argument "request_approval".`);
       return;
     }
@@ -922,6 +950,13 @@ router.post("/edit/request-approval/:recipe_id", async (req, res, next) => {
       ).populate("owner", "firstname lastname");
 
       if (!updatedRecipe) {
+        req.logger.info(
+          "Failed to request approval of recipe, encountered a race condition",
+          {
+            recipe_id: req.params.recipe_id,
+            initiator_id: req.headers.validatedToken._id,
+          }
+        );
         res.status(403).send(
           `Cannot ${
             req.body.approval_required
@@ -932,9 +967,23 @@ router.post("/edit/request-approval/:recipe_id", async (req, res, next) => {
         );
         return;
       }
+      req.logger.info("Successfully requested approval of recipe", {
+        recipe_id: req.params.recipe_id,
+        initiator_id: req.headers.validatedToken._id,
+      });
 
+      req.logger.info("Sending updated recipe", {
+        recipe_id: req.params.recipe_id,
+      });
       res.status(200).json(updatedRecipe);
     } else {
+      req.logger.info(
+        "Failed to request approval of recipe, missing privileges",
+        {
+          recipe_id: req.params.recipe_id,
+          initiator_id: req.headers.validatedToken._id,
+        }
+      );
       res.status(403).send("Missing privileges to request approval.");
     }
   } catch (err) {
@@ -946,15 +995,36 @@ router.post("/edit/request-approval/:recipe_id", async (req, res, next) => {
 router.post("/edit/change-privacy/:recipe_id", async (req, res, next) => {
   try {
     if (!isValidObjectId(req.params.recipe_id)) {
+      req.logger.info(
+        "Failed to update privacy of recipe, recipe id is invalid",
+        {
+          recipe_id: req.params.recipe_id,
+          initiator_id: req.headers.validatedToken._id,
+        }
+      );
       res.status(404).send("Recipe not found.");
       return;
     }
 
     const recipe = await Recipe.findById({ _id: req.params.recipe_id });
     if (!recipe) {
+      req.logger.info(
+        "Failed to update privacy of recipe, recipe does not exist in the DB",
+        {
+          recipe_id: req.params.recipe_id,
+          initiator_id: req.headers.validatedToken._id,
+        }
+      );
       res.status(404).send("Recipe not found");
       return;
     } else if (req.body.private === undefined) {
+      req.logger.info(
+        `Failed to update privacy of recipe, argument "private" is missing from the request`,
+        {
+          recipe_id: req.params.recipe_id,
+          initiator_id: req.headers.validatedToken._id,
+        }
+      );
       res.status(403).send(`Missing argument "private".`);
       return;
     }
@@ -975,8 +1045,23 @@ router.post("/edit/change-privacy/:recipe_id", async (req, res, next) => {
         { new: true, ...opts }
       ).populate("owner", "firstname lastname");
 
+      req.logger.info("Successfully updated recipe privacy", {
+        recipe_id: req.params.recipe_id,
+        initiator_id: req.headers.validatedToken._id,
+      });
+
+      req.logger.info("Sending updated recipe", {
+        recipe_id: req.params.recipe_id,
+      });
       res.status(200).json(updatedRecipe);
     } else {
+      req.logger.info(
+        "Failed to update privacy of recipe, missing privileges",
+        {
+          recipe_id: req.params.recipe_id,
+          initiator_id: req.headers.validatedToken._id,
+        }
+      );
       res.status(403).send("Missing privileges to change recipe privacy.");
     }
   } catch (err) {
