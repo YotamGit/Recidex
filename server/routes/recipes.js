@@ -654,15 +654,36 @@ router.post("/edit/:recipe_id", async (req, res, next) => {
 router.post("/edit/favorite/:recipe_id", async (req, res, next) => {
   try {
     if (!isValidObjectId(req.params.recipe_id)) {
+      req.logger.info(
+        "Failed to update recipe favorite status, recipe id is invalid",
+        {
+          recipe_id: req.params.recipe_id,
+          initiator_id: req.headers.validatedToken._id,
+        }
+      );
       res.status(404).send("Recipe not found.");
       return;
     }
 
     const recipe = await Recipe.findById({ _id: req.params.recipe_id });
     if (!recipe) {
+      req.logger.info(
+        "Failed to update recipe favorite status, does not exist in the DB",
+        {
+          recipe_id: req.params.recipe_id,
+          initiator_id: req.headers.validatedToken._id,
+        }
+      );
       res.status(404).send("Recipe not found.");
       return;
     } else if (recipe.private) {
+      req.logger.info(
+        "Failed to update recipe favorite status, can not update favorite status of a private recipe",
+        {
+          recipe_id: req.params.recipe_id,
+          initiator_id: req.headers.validatedToken._id,
+        }
+      );
       res.status(403).send("Private recipes can not be favorited");
       return;
     } else {
@@ -679,6 +700,10 @@ router.post("/edit/favorite/:recipe_id", async (req, res, next) => {
               opts
             );
           }
+          req.logger.info("User favorited a recipe", {
+            recipe_id: req.params.recipe_id,
+            initiator_id: req.headers.validatedToken._id,
+          });
           res.status(200).json(users);
           break;
         case false:
@@ -690,10 +715,25 @@ router.post("/edit/favorite/:recipe_id", async (req, res, next) => {
               opts
             );
           }
+          req.logger.info("User unfavorited a recipe", {
+            recipe_id: req.params.recipe_id,
+            initiator_id: req.headers.validatedToken._id,
+          });
+
+          req.logger.info("Sending updated recipe favorited by users list", {
+            recipe_id: req.params.recipe_id,
+          });
           res.status(200).json(users);
           break;
         default:
-          res.status(400).send("favorite field is missing or not boolean");
+          req.logger.info(
+            `Failed to update recipe favorite status, argument "favorite" is missing from the request or is invalid`,
+            {
+              recipe_id: req.params.recipe_id,
+              initiator_id: req.headers.validatedToken._id,
+            }
+          );
+          res.status(400).send(`Argument "favorite" is missing or not boolean`);
       }
     }
   } catch (err) {
@@ -705,12 +745,26 @@ router.post("/edit/favorite/:recipe_id", async (req, res, next) => {
 router.post("/edit/approve/:recipe_id", async (req, res, next) => {
   try {
     if (!isValidObjectId(req.params.recipe_id)) {
+      req.logger.info(
+        "Failed to update recipe approval status, recipe id is invalid",
+        {
+          recipe_id: req.params.recipe_id,
+          initiator_id: req.headers.validatedToken._id,
+        }
+      );
       res.status(404).send("Recipe not found.");
       return;
     }
 
     const recipe = await Recipe.findById({ _id: req.params.recipe_id });
     if (!recipe) {
+      req.logger.info(
+        "Failed to update recipe approval status, recipe does not exist in the DB",
+        {
+          recipe_id: req.params.recipe_id,
+          initiator_id: req.headers.validatedToken._id,
+        }
+      );
       res.status(404).send("Recipe not found");
       return;
     }
@@ -719,6 +773,13 @@ router.post("/edit/approve/:recipe_id", async (req, res, next) => {
       const isModerator = await isModeratorUser(req.headers.validatedToken);
 
       if (req.body.approve === undefined) {
+        req.logger.info(
+          `Failed to update recipe approval status, Argument "approve" is missing`,
+          {
+            recipe_id: req.params.recipe_id,
+            initiator_id: req.headers.validatedToken._id,
+          }
+        );
         res.status(403).send(`Missing argument "approve".`);
         return;
       }
@@ -738,6 +799,13 @@ router.post("/edit/approve/:recipe_id", async (req, res, next) => {
         ).populate("owner", "firstname lastname email");
 
         if (!updatedRecipe) {
+          req.logger.info(
+            "Failed to update recipe approval status, encountered a race condition",
+            {
+              recipe_id: req.params.recipe_id,
+              initiator_id: req.headers.validatedToken._id,
+            }
+          );
           res.status(403).send(
             `Cannot ${
               req.body.approve ? "approve" : "disapprove"
@@ -746,10 +814,17 @@ router.post("/edit/approve/:recipe_id", async (req, res, next) => {
           );
           return;
         }
+        req.logger.info("Successfully updated recipe approval status", {
+          recipe_id: req.params.recipe_id,
+          initiator_id: req.headers.validatedToken._id,
+        });
         //email result to user
         try {
           switch (req.body.approve) {
             case true:
+              req.logger.info("Sending recipe approval email to owner", {
+                recipe_id: req.params.recipe_id,
+              });
               await emailUserRecipeApproved({
                 recipient: updatedRecipe.owner._id,
                 recipe: updatedRecipe,
@@ -761,6 +836,9 @@ router.post("/edit/approve/:recipe_id", async (req, res, next) => {
               });
               break;
             case false:
+              req.logger.info("Sending recipe disapproval email to owner", {
+                recipe_id: req.params.recipe_id,
+              });
               await emailUserRecipeDisapproved({
                 recipient: updatedRecipe.owner._id,
                 recipe: updatedRecipe,
@@ -773,15 +851,31 @@ router.post("/edit/approve/:recipe_id", async (req, res, next) => {
               break;
           }
         } catch (err) {
-          console.log(err);
+          req.logger.error("Failed to send approval/disapproval email", err);
         }
-
+        req.logger.info("Sending updated recipe", {
+          recipe_id: req.params.recipe_id,
+        });
         res.status(200).json(updatedRecipe);
       } else {
+        req.logger.info(
+          "Failed to update recipe approval status, missing privileges",
+          {
+            recipe_id: req.params.recipe_id,
+            initiator_id: req.headers.validatedToken._id,
+          }
+        );
         res.status(403).send("Missing privileges to approve recipe.");
       }
     } else {
-      res.status(403).send("Cant approve a private recipe.");
+      req.logger.info(
+        "Failed to update recipe approval status, can not update approval status of a private recipe",
+        {
+          recipe_id: req.params.recipe_id,
+          initiator_id: req.headers.validatedToken._id,
+        }
+      );
+      res.status(403).send("Can't approve/disapprove a private recipe.");
     }
   } catch (err) {
     next(err);
