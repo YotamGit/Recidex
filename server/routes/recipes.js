@@ -41,7 +41,7 @@ router.post("/filter", async (req, res, next) => {
           : {};
 
       // prevent the usage of certain fields in case of publicRecipeQuery bypass
-      //o nly moderators are allowed to use these fields when building a custom query
+      //only moderators are allowed to use these fields when building a custom query
       if (
         !validatedToken ||
         req.body.customQuery !== true ||
@@ -177,6 +177,18 @@ router.post("/filter", async (req, res, next) => {
         .skip(skip)
         .limit(pageSize);
 
+      req.logger.info("Sending recipes with the appropriate filters applied", {
+        filters: {
+          ...publicRecipeQuery,
+          ...ownerOnlyQuery,
+          ...approvalRequiredOnlyQuery,
+          ...favoritesOnlyQuery,
+          ...approvedOnlyQuery,
+          ...textSearchQuery,
+          ...req.body?.filters,
+        },
+        recipes_sent: Object.keys(recipes).length,
+      });
       res.sentCount = Object.keys(recipes).length;
       res.status(200).json(recipes);
     } else {
@@ -186,6 +198,10 @@ router.post("/filter", async (req, res, next) => {
         .sort({
           creation_time: -1,
         });
+
+      req.logger.info("Sending all of the non private recipes", {
+        recipes_sent: Object.keys(recipes).length,
+      });
       res.status(200).json(recipes);
     }
   } catch (err) {
@@ -197,19 +213,29 @@ router.post("/filter", async (req, res, next) => {
 router.get("/id/:recipe_id", async (req, res, next) => {
   try {
     if (!isValidObjectId(req.params.recipe_id)) {
+      req.logger.info("Unable to retrieve recipe, recipe id is invalid", {
+        recipe_id: req.params.recipe_id,
+      });
       res.status(404).send("Recipe not found.");
       return;
     }
 
-    const validatedToken = validateToken(req.cookies?.userToken);
     const recipe = await Recipe.findById(req.params.recipe_id)
       .select("-image")
       .populate("owner", "firstname lastname");
 
     if (!recipe) {
+      req.logger.info(
+        "Failed to retrieve recipe, recipe does not exist in the DB",
+        {
+          recipe_id: req.params.recipe_id,
+        }
+      );
       res.status(404).send("Recipe not found.");
       return;
     }
+
+    const validatedToken = validateToken(req.cookies?.userToken);
 
     if (
       !recipe.private ||
@@ -218,8 +244,14 @@ router.get("/id/:recipe_id", async (req, res, next) => {
           owner: recipe.owner._id,
         })))
     ) {
+      req.logger.info("Sending recipe", {
+        recipe_id: req.params.recipe_id,
+      });
       res.status(200).json(recipe);
     } else {
+      req.logger.info("Failed to retrieve recipe, missing privileges", {
+        recipe_id: req.params.recipe_id,
+      });
       res.status(401).send("Missing permissions to view recipe.");
     }
   } catch (err) {
@@ -231,15 +263,23 @@ router.get("/id/:recipe_id", async (req, res, next) => {
 router.get("/image/:recipe_id", async (req, res, next) => {
   try {
     const recipe = await Recipe.findById(req.params.recipe_id).select([
+      "imageName",
       "image",
       "-_id",
     ]);
 
+    req.logger.info("Sending recipe image", {
+      recipe_id: req.params.recipe_id,
+      image_name: recipe.imageName,
+    });
     res
       .status(200)
       .set({ "Content-Type": "image/webp" })
       .send(new Buffer.from(recipe.image));
   } catch (err) {
+    req.logger.info("Failed to retrieve recipe image", {
+      recipe_id: req.params.recipe_id,
+    });
     res.status(204).send("No Image Found");
   }
 });
@@ -248,6 +288,7 @@ router.get("/image/:recipe_id", async (req, res, next) => {
 router.get("/titles", async (req, res, next) => {
   try {
     const titles = await Recipe.find({ ...req.query }).distinct("title");
+    req.logger.info("Sending recipe titles", { filters: req.query });
     res.status(200).send(titles);
   } catch (err) {
     next(err);
@@ -262,6 +303,7 @@ router.get("/kpi-data", async (req, res, next) => {
     const private_recipes_count = (
       await Recipe.find({ private: true }).distinct("_id")
     ).length;
+
     const public_recipes_count = (
       await Recipe.find({
         private: false,
@@ -286,6 +328,7 @@ router.get("/kpi-data", async (req, res, next) => {
       }).distinct("_id")
     ).length;
 
+    req.logger.info("Sending recipes kpi data");
     res.status(200).json({
       total_recipes_count,
       private_recipes_count,
@@ -302,6 +345,7 @@ router.get("/kpi-data", async (req, res, next) => {
 router.post("/new", async (req, res, next) => {
   try {
     const isModerator = await isModeratorUser(req.headers.validatedToken);
+
     //sanitize html
     req.body.recipeData.description = sanitizeHtml(
       req.body.recipeData.description
@@ -314,12 +358,17 @@ router.post("/new", async (req, res, next) => {
     );
     req.body.recipeData.notes = sanitizeHtml(req.body.recipeData.notes);
 
+    req.logger.info("Sanitized new recipe html");
+
     //delete certain fields for security reasons(other fields are limited b)
     delete req.body.recipeData._id;
     delete req.body.recipeData.creation_time;
     delete req.body.recipeData.last_update_time;
     delete req.body.recipeData.owner;
     delete req.body.recipeData.favorited_by;
+    req.logger.info(
+      "Deleted fields that should not be edited by the user from the new recipe data"
+    );
 
     //handle privacy
     if (!isModerator && !req.body.recipeData.private) {
@@ -340,7 +389,13 @@ router.post("/new", async (req, res, next) => {
         req.body.recipeData.image = await reduceImgQuality(
           req.body.recipeData.image
         );
+        req.logger.info("Reduced image quality", {
+          image_name: req.body.recipeData.imageName,
+        });
       } catch (err) {
+        req.logger.info("Failed to add new recipe, invalid image", {
+          image_name: req.body.recipeData.imageName,
+        });
         res.status(400).send("Cannot add recipe. Invalid Image");
         return;
       }
@@ -349,6 +404,13 @@ router.post("/new", async (req, res, next) => {
     const savedRecipe = await Recipe.create({
       ...req.body.recipeData,
       owner: req.headers.validatedToken._id,
+    });
+    req.logger.info("Added new recipe to the DB", {
+      recipe_id: savedRecipe._id,
+    });
+
+    req.logger.info("Sending new recipe", {
+      recipe_id: savedRecipe._id,
     });
     // find the recipe again in order to populate the owner with the names and send it to the client
     res
@@ -367,12 +429,23 @@ router.post("/new", async (req, res, next) => {
 router.post("/delete/:recipe_id", async (req, res, next) => {
   try {
     if (!isValidObjectId(req.params.recipe_id)) {
+      req.logger.info("Failed to delete recipe, invalid recipe id", {
+        recipe_id: req.params.recipe_id,
+        initiator_id: req.headers.validatedToken._id,
+      });
       res.status(404).send("Recipe not found.");
       return;
     }
 
     const recipe = await Recipe.findById(req.params.recipe_id);
     if (!recipe) {
+      req.logger.info(
+        "Failed to delete recipe, recipe does not exist in the DB",
+        {
+          recipe_id: req.params.recipe_id,
+          initiator_id: req.headers.validatedToken._id,
+        }
+      );
       res.status(404).send("Recipe not found.");
       return;
     }
@@ -385,8 +458,16 @@ router.post("/delete/:recipe_id", async (req, res, next) => {
 
     if (isOwner || isModerator) {
       const response = await Recipe.deleteOne({ _id: req.params.recipe_id });
+      req.logger.info("Successfully deleted recipe", {
+        recipe_id: req.params.recipe_id,
+        initiator_id: req.headers.validatedToken._id,
+      });
       res.status(200).json(response);
     } else {
+      req.logger.info("Failed to delete recipe, missing privileges", {
+        recipe_id: req.params.recipe_id,
+        initiator_id: req.headers.validatedToken._id,
+      });
       res
         .status(401)
         .send("Cannot delete recipe. You are not the Owner of this Recipe");
@@ -400,11 +481,22 @@ router.post("/delete/:recipe_id", async (req, res, next) => {
 router.post("/edit/:recipe_id", async (req, res, next) => {
   try {
     if (!isValidObjectId(req.params.recipe_id)) {
+      req.logger.info("Failed to edit recipe, recipe id is invalid", {
+        recipe_id: req.params.recipe_id,
+        initiator_id: req.headers.validatedToken._id,
+      });
       res.status(404).send("Recipe not found.");
       return;
     }
     const recipe = await Recipe.findById(req.params.recipe_id);
     if (!recipe) {
+      req.logger.info(
+        "Failed to edit recipe, recipe does not exist in the DB",
+        {
+          recipe_id: req.params.recipe_id,
+          initiator_id: req.headers.validatedToken._id,
+        }
+      );
       res.status(404).send("Recipe not found.");
       return;
     }
@@ -428,6 +520,8 @@ router.post("/edit/:recipe_id", async (req, res, next) => {
       );
       req.body.recipeData.notes = sanitizeHtml(req.body.recipeData.notes);
 
+      req.logger.info("Sanitized updated recipe html");
+
       // to prevent race condition of edit
       const last_update_time = req.body.recipeData.last_update_time;
 
@@ -437,6 +531,9 @@ router.post("/edit/:recipe_id", async (req, res, next) => {
       delete req.body.recipeData.last_update_time;
       delete req.body.recipeData.owner;
       delete req.body.recipeData.favorited_by;
+      req.logger.info(
+        "Deleted fields that should not be edited by the user from the updated recipe data"
+      );
 
       //handle privacy
       if (!isModerator && !req.body.recipeData.private) {
@@ -457,7 +554,13 @@ router.post("/edit/:recipe_id", async (req, res, next) => {
           req.body.recipeData.image = await reduceImgQuality(
             req.body.recipeData.image
           );
+          req.logger.info("Reduced image quality", {
+            image_name: req.body.recipeData.imageName,
+          });
         } catch (err) {
+          req.logger.info("Failed to edit recipe, invalid image", {
+            image_name: req.body.recipeData.imageName,
+          });
           res.status(400).send("Cannot edit recipe. Invalid Image");
           return;
         }
@@ -481,6 +584,10 @@ router.post("/edit/:recipe_id", async (req, res, next) => {
       );
 
       if (response.modifiedCount === 0) {
+        req.logger.info("Failed to edit recipe, encountered a race condition", {
+          recipe_id: req.params.recipe_id,
+          initiator_id: req.headers.validatedToken._id,
+        });
         res
           .status(403)
           .send(
@@ -493,6 +600,10 @@ router.post("/edit/:recipe_id", async (req, res, next) => {
         .select("-image")
         .populate("owner", "firstname lastname");
 
+      req.logger.info("Successfully edited recipe", {
+        recipe_id: recipe._id,
+        initiator_id: req.headers.validatedToken._id,
+      });
       //notify user of recipe approval by a moderator
       if (
         !recipe.private &&
@@ -500,6 +611,13 @@ router.post("/edit/:recipe_id", async (req, res, next) => {
         req.headers.validatedToken._id != recipe.owner._id
       ) {
         try {
+          req.logger.info(
+            "Sending email notification about recipe edit to the owner",
+            {
+              recipe_id: recipe._id,
+              user_id: recipe.owner._id,
+            }
+          );
           await emailUserRecipeApproved({
             recipe: recipe,
             recipient: recipe.owner._id,
@@ -514,8 +632,15 @@ router.post("/edit/:recipe_id", async (req, res, next) => {
         }
       }
 
+      req.logger.info("Sending updated recipe", {
+        recipe_id: recipe._id,
+      });
       res.status(200).json(recipe);
     } else {
+      req.logger.info("Failed to edit recipe, missing privileges", {
+        recipe_id: req.params.recipe_id,
+        initiator_id: req.headers.validatedToken._id,
+      });
       res
         .status(401)
         .send("Cannot edit recipe. You are not the Owner of this Recipe");
