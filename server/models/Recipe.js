@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-export const privacyValues = [
+export const PRIVACY_VALUES = [
   "all",
   "public",
   "approved",
@@ -8,13 +8,13 @@ export const privacyValues = [
   "private",
 ];
 
-export const sortFields = [
+export const SORT_FIELDS = [
   "creation_time",
   "last_update_time",
   "favorite_count",
 ];
 
-export const recipeValues = {
+export const RECIPE_VALUES = {
   recipe_categories: {
     Proteins: ["Meat", "Chicken", "Fish", "Other"],
     Salads: [],
@@ -64,23 +64,23 @@ const RecipeSchema = mongoose.Schema(
     title: String,
     category: {
       type: String,
-      enum: [""].concat(Object.keys(recipeValues.recipe_categories)),
+      enum: [""].concat(Object.keys(RECIPE_VALUES.recipe_categories)),
     },
     sub_category: {
       type: String,
-      enum: [""].concat(...Object.values(recipeValues.recipe_categories)),
+      enum: [""].concat(...Object.values(RECIPE_VALUES.recipe_categories)),
     },
     difficulty: {
       type: String,
-      enum: [""].concat(recipeValues.recipe_difficulties),
+      enum: [""].concat(RECIPE_VALUES.recipe_difficulties),
     },
     prep_time: {
       type: String,
-      enum: [""].concat(recipeValues.recipe_durations),
+      enum: [""].concat(RECIPE_VALUES.recipe_durations),
     },
     total_time: {
       type: String,
-      enum: [""].concat(recipeValues.recipe_durations),
+      enum: [""].concat(RECIPE_VALUES.recipe_durations),
     },
     servings: String,
     description: String,
