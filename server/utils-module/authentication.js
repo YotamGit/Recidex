@@ -30,9 +30,13 @@ export function validateToken(token) {
 export function authenticateUser(req, res, next) {
   let token = validateToken(req.cookies.userToken);
   if (token) {
+    req.logger.info("Successfully validated user token", {
+      user_id: token._id,
+    });
     req.headers.validatedToken = token;
     next();
   } else {
+    req.logger.info("Failed to validate user token, invalid token");
     res.status(401).send("Unauthorized, provide valid credentials.");
   }
 }
