@@ -1,0 +1,4 @@
+.socials-icon > * {
+  color: var(--blue-5) !important;
+  font-size: 2rem !important;
+}

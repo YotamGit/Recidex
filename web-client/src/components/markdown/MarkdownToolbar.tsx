@@ -111,7 +111,11 @@ const MarkdownToolbar: FC<propTypes> = ({ textBoxId, data, setData }) => {
 
       <Tooltip title="Markdown Cheatsheet" arrow>
         <a href="https://commonmark.org/help/" target="_blank" rel="noreferrer">
-          <img src={markdownIcon} style={{ height: "20px" }} alt="" />
+          <img
+            src={markdownIcon}
+            style={{ height: "20px" }}
+            alt="markdown icon"
+          />
         </a>
       </Tooltip>
     </div>

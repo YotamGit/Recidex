@@ -2,6 +2,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "../../styles/app_bar/NavDrawer.css";
 import DrawerItem from "./DrawerItem";
+import SocialIcon from "../buttons/SocialIcon";
 
 //mui
 import Drawer from "@mui/material/Drawer";
@@ -18,7 +19,6 @@ import MenuBookIcon from "@mui/icons-material/MenuBook";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import PersonAddAltRoundedIcon from "@mui/icons-material/PersonAddAltRounded";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
-import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import FactCheckIcon from "@mui/icons-material/FactCheck";
 
 //redux
@@ -134,19 +134,7 @@ const NavDrawer: FC<propTypes> = ({ openDrawer, handleToggleDrawer }) => {
           closeDrawer={handleToggleDrawer}
           Icon={FactCheckIcon}
         />
-        <DrawerItem
-          visible={signedIn}
-          addDivider={false}
-          currentPageUrl={activePage}
-          text={"Log Out"}
-          closeDrawer={handleToggleDrawer}
-          onClick={() => {
-            dispatch(clearUserData());
-            navigate("/");
-          }}
-          Icon={LogoutRoundedIcon}
-          style={{ bottom: "0px", position: "absolute", width: "100%" }}
-        />
+
         <DrawerItem
           visible={!signedIn}
           addDivider={true}
@@ -165,6 +153,24 @@ const NavDrawer: FC<propTypes> = ({ openDrawer, handleToggleDrawer }) => {
           closeDrawer={handleToggleDrawer}
           Icon={PersonAddAltRoundedIcon}
         />
+        <div className="drawer-footer">
+          <div className="socials">
+            <SocialIcon social="github" />
+            <SocialIcon social="linkedin" />
+          </div>
+          <DrawerItem
+            visible={signedIn}
+            addDivider={false}
+            currentPageUrl={activePage}
+            text={"Log Out"}
+            closeDrawer={handleToggleDrawer}
+            onClick={() => {
+              dispatch(clearUserData());
+              navigate("/");
+            }}
+            Icon={LogoutRoundedIcon}
+          />
+        </div>
       </div>
     </Drawer>
   );
