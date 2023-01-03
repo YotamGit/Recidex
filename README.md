@@ -56,7 +56,8 @@ Whether it's a 30 years old written recipe worth keeping, a good recipe found on
 1. Node.js
 2. Express.js 
 3. MongoDB
-4. Docker
+4. Winston and Morgan for logging
+5. Docker
 6. Nginx
 
 ## Features
