@@ -1,7 +1,6 @@
 .drawer .MuiDrawer-paper {
   background-color: var(--blue-1);
   color: var(--blue-5);
-  /* color: white; */
 
   width: 300px;
 }
