@@ -102,28 +102,28 @@ const Recipe: FC<propTypes> = ({ recipe }) => {
           >
             <span className="recipe-additional-data">
               <span className="additional-data-title">Category:</span>{" "}
-              {recipe.category}
+              {recipe.category || "Missing Data"}
             </span>
             <span className="recipe-additional-data">
               <span className="additional-data-title">Sub Category:</span>{" "}
-              {recipe.sub_category}
+              {recipe.sub_category || "Missing Data"}
             </span>
             <span className="recipe-additional-data">
               <span className="additional-data-title">Difficulty:</span>{" "}
-              {recipe.difficulty}
+              {recipe.difficulty || "Missing Data"}
             </span>
 
             <span className="recipe-additional-data">
               <span className="additional-data-title">Prep Time:</span>{" "}
-              {recipe.prep_time}
+              {recipe.prep_time || "Missing Data"}
             </span>
             <span className="recipe-additional-data">
               <span className="additional-data-title">Total Time:</span>{" "}
-              {recipe.total_time}
+              {recipe.total_time || "Missing Data"}
             </span>
             <span className="recipe-additional-data">
               <span className="additional-data-title">Servings:</span>{" "}
-              <span dir="auto">{recipe.servings}</span>
+              <span dir="auto">{recipe.servings || "Missing Data"}</span>
             </span>
           </div>
         </div>
