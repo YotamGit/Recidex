@@ -23,6 +23,7 @@ export const RECIPE_VALUES = {
     Pasta: [],
     "Pizza and Focaccia": [],
     Bread: ["Salty Pastries", "Other"],
+    Quiche: [],
     Drinks: ["Hot", "Cold", "Alcohol", "Other"],
     Desserts: [
       "Cookies",
