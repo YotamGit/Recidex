@@ -104,10 +104,12 @@ const Recipe: FC<propTypes> = ({ recipe }) => {
               <span className="additional-data-title">Category:</span>{" "}
               {recipe.category || "Missing Data"}
             </span>
-            <span className="recipe-additional-data">
-              <span className="additional-data-title">Sub Category:</span>{" "}
-              {recipe.sub_category || "Missing Data"}
-            </span>
+            {recipe.sub_category && (
+              <span className="recipe-additional-data">
+                <span className="additional-data-title">Sub Category:</span>{" "}
+                {recipe.sub_category}
+              </span>
+            )}
             <span className="recipe-additional-data">
               <span className="additional-data-title">Difficulty:</span>{" "}
               {recipe.difficulty || "Missing Data"}
