@@ -124,8 +124,19 @@ const AdminTable: FC = () => {
         </Table>
       </TableContainer>
       <div className="pagination-row">
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25, 50, 100, users.length]
+            .filter((value) => value <= users.length)
+            .sort((a, b) => a - b)}
+          component="div"
+          count={users.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
         <ToggleButtonGroup
-          style={{ marginTop: "5px" }}
+          style={{ marginTop: "5px", marginBottom: "5px" }}
           size="small"
           value={minimalTable}
           exclusive
@@ -141,17 +152,6 @@ const AdminTable: FC = () => {
             <PhoneAndroidRoundedIcon />
           </ToggleButton>
         </ToggleButtonGroup>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25, 50, 100, users.length]
-            .filter((value) => value <= users.length)
-            .sort((a, b) => a - b)}
-          component="div"
-          count={users.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
       </div>
     </div>
   );

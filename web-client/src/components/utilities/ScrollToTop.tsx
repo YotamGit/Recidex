@@ -6,6 +6,7 @@ import Fab from "@mui/material/Fab";
 
 //mui icons
 import ArrowUpwardRoundedIcon from "@mui/icons-material/ArrowUpwardRounded";
+import CancelIcon from "@mui/icons-material/Cancel";
 
 //types
 import { FC } from "react";
@@ -34,13 +35,19 @@ const ScrollToTop: FC = () => {
   return (
     <>
       {showScrollToTop && (
-        <Fab
-          aria-label="scroll to top"
-          className="scroll-to-top-btn"
-          onClick={scrollToTop}
-        >
-          <ArrowUpwardRoundedIcon className="icon" />
-        </Fab>
+        <>
+          <CancelIcon
+            className="close-scroll-to-top-btn"
+            onClick={() => setShowScrollToTop(false)}
+          ></CancelIcon>
+          <Fab
+            aria-label="scroll to top"
+            className="scroll-to-top-btn"
+            onClick={scrollToTop}
+          >
+            <ArrowUpwardRoundedIcon className="icon" />
+          </Fab>
+        </>
       )}
     </>
   );

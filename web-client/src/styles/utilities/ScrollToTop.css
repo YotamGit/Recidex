@@ -11,3 +11,12 @@
 .scroll-to-top-btn .icon {
   color: var(--blue-5);
 }
+
+.close-scroll-to-top-btn {
+  color: gray;
+  position: fixed !important;
+  cursor: pointer;
+  bottom: 60px;
+  right: 4px;
+  z-index: 99999;
+}
