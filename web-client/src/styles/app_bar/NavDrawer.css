@@ -35,6 +35,14 @@
   justify-content: center;
   gap: 1rem;
 }
+.drawer .about-button {
+  text-align: center;
+  text-decoration: underline;
+  font-size: 1.2rem;
+  cursor: pointer;
+  width: fit-content;
+  margin: 0.5rem auto;
+}
 
 @media only screen and (max-width: 600px) {
   .drawer .MuiDrawer-paper {

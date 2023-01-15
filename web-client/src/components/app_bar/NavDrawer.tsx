@@ -158,6 +158,15 @@ const NavDrawer: FC<propTypes> = ({ openDrawer, handleToggleDrawer }) => {
             <SocialIcon social="github" />
             <SocialIcon social="linkedin" />
           </div>
+          <div
+            className="about-button"
+            onClick={() => {
+              navigate("/about");
+              handleToggleDrawer();
+            }}
+          >
+            About
+          </div>
           <DrawerItem
             visible={signedIn}
             addDivider={false}

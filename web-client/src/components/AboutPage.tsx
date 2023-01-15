@@ -17,7 +17,7 @@ const AboutPage: FC = () => {
 
         So why wait? Start exploring the endless culinary possibilities on Recidex today! Happy cooking!`}
       </div>
-      <div className="social-section">
+      <div className="socials">
         <SocialIcon social={"github"} />
         <SocialIcon social={"linkedin"} />
       </div>
