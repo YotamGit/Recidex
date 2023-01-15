@@ -24,6 +24,7 @@ import AdminPanelPage from "./components/admin/AdminPanelPage";
 import AccountInfoPage from "./components/account/AccountInfoPage";
 import UserProfilePage from "./components/account/UserProfilePage";
 import PrivacyPolicyPage from "./components/PrivacyPolicyPage";
+import AboutPage from "./components/AboutPage";
 import NotFoundPage from "./components/NotFoundPage";
 
 import AlertSnackbar from "./components/utilities/AlertSnackbar";
@@ -336,6 +337,19 @@ function App() {
               <>
                 <Header showSearch={false} />
                 <PrivacyPolicyPage />
+              </>
+            </ComponentWrapper>
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            <ComponentWrapper
+              func={() => dispatch(setCurrentPageTitle("About"))}
+            >
+              <>
+                <Header showSearch={false} />
+                <AboutPage />
               </>
             </ComponentWrapper>
           }
