@@ -1,0 +1,11 @@
+.about-page .about-content {
+  width: 60%;
+  margin-inline: auto;
+}
+
+@media only screen and (max-width: 600px) {
+  .about-page .about-content {
+    width: 90%;
+    margin: none;
+  }
+}
