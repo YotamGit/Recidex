@@ -3,6 +3,6 @@
   line-height: 0;
 }
 .socials-icon > * {
-  color: var(--blue-5) !important;
+  color: var(--blue-5);
   font-size: 2rem !important;
 }

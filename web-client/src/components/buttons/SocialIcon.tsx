@@ -14,24 +14,25 @@ interface propTypes {
   social: "linkedin" | "github";
 }
 
-const socials: Record<propTypes["social"], { icon: any; link: string }> = {
-  linkedin: {
-    icon: <LinkedInIcon />,
-    link: "https://www.linkedin.com/in/golan-yotam/",
-  },
-  github: { icon: <GitHubIcon />, link: "https://github.com/YotamGit" },
-};
+export const SOCIALS: Record<propTypes["social"], { icon: any; link: string }> =
+  {
+    linkedin: {
+      icon: <LinkedInIcon />,
+      link: "https://www.linkedin.com/in/golan-yotam/",
+    },
+    github: { icon: <GitHubIcon />, link: "https://github.com/YotamGit" },
+  };
 
 const SocialIcon: FC<propTypes> = ({ social }) => {
   return (
     <>
       <Link
         className="socials-icon"
-        href={socials[social].link}
+        href={SOCIALS[social].link}
         target="_blank"
         rel="noreferrer"
       >
-        {socials[social].icon}
+        {SOCIALS[social].icon}
       </Link>
     </>
   );
