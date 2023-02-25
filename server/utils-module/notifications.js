@@ -61,7 +61,7 @@ export async function emailUserPasswordReset(recipient, token) {
         },
         template: process.env.USER_PASSWORD_RESET_EMAIL_TOKEN,
         data: {
-          resetLink: `https://recipes.yotamgolan.com/reset-password/${token}`,
+          resetLink: `https://recidex.yotamgolan.com/reset-password/${token}`,
           name: {
             first: user.firstname,
             last: user.lastname,

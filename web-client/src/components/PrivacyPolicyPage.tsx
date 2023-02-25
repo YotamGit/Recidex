@@ -114,11 +114,11 @@ const PrivacyPolicyPage: FC = () => {
             <p>
               <strong>Website</strong> refers to Recidex, accessible from{" "}
               <a
-                href="https://recipes.yotamgolan.com"
+                href="https://recidex.yotamgolan.com"
                 rel="external nofollow noopener"
                 target="_blank"
               >
-                https://recipes.yotamgolan.com
+                https://recidex.yotamgolan.com
               </a>
             </p>
           </li>
