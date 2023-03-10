@@ -36,16 +36,12 @@ const ScrollToTop: FC = () => {
     <>
       {showScrollToTop && (
         <>
-          <CancelIcon
-            className="close-scroll-to-top-btn"
-            onClick={() => setShowScrollToTop(false)}
-          ></CancelIcon>
-          <Fab
-            aria-label="scroll to top"
-            className="scroll-to-top-btn"
-            onClick={scrollToTop}
-          >
-            <ArrowUpwardRoundedIcon className="icon" />
+          <Fab aria-label="scroll to top" className="scroll-to-top-btn">
+            <CancelIcon
+              className="close-scroll-to-top-btn"
+              onClick={() => setShowScrollToTop(false)}
+            />
+            <ArrowUpwardRoundedIcon className="icon" onClick={scrollToTop} />
           </Fab>
         </>
       )}
