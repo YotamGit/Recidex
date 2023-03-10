@@ -323,7 +323,25 @@ router.post("/user/delete", async (req, res, next) => {
         user
       );
       if (allowedToEdit) {
+        //remove user from favorites
+        let recipes = await Recipe.find({});
+        recipes.forEach(async (recipe) => {
+          if (recipe.favorited_by.includes(user._id)) {
+            const index = recipe.favorited_by.indexOf(user._id);
+            let favorited_by = recipe.favorited_by;
+
+            favorited_by.splice(index, 1);
+            await Recipe.updateOne(
+              { _id: recipe._id },
+              { favorited_by: favorited_by }
+            );
+          }
+        });
+
+        //delete user recipes
         await Recipe.deleteMany({ owner: user._id });
+
+        //delete user
         let deletedUser = await User.findOneAndDelete({ _id: user._id });
 
         req.logger.info("Successfully deleted user", {
