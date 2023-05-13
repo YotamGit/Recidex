@@ -6,7 +6,6 @@ import RecidexLogo from "../../utils-module/Photos/RecidexLogo.svg";
 import NavDrawer from "./NavDrawer";
 import SearchBar from "./SearchBar";
 import AccountAvatar from "./AccountAvatar";
-import SocialIcon from "../buttons/SocialIcon";
 
 //mui
 import Toolbar from "@mui/material/Toolbar";
@@ -74,8 +73,6 @@ const Header: FC<propTypes> = ({ showSearch, showLogo }) => {
                     gap: "0.5rem",
                   }}
                 >
-                  <SocialIcon social="github" />
-                  <SocialIcon social="linkedin" />
                   <AccountAvatar />
                 </span>
               </>
