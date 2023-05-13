@@ -71,6 +71,7 @@ const Header: FC<propTypes> = ({ showSearch, showLogo }) => {
                     display: "flex",
                     alignItems: "center",
                     gap: "0.5rem",
+                    ...(!showSearch && { marginLeft: "auto" }),
                   }}
                 >
                   <AccountAvatar />
