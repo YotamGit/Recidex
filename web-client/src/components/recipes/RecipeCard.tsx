@@ -1,5 +1,5 @@
 import "../../styles/recipes/RecipeCard.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import { marked } from "marked";
 
 import RecipeCardChips from "./RecipeCardChips";
@@ -85,12 +85,12 @@ const RecipeCard: FC<propTypes> = ({ recipe, local }) => {
         <RecipeActionsMenuButton recipe={recipe} local={local} />
       </div>
       <div className="recipe-header">
-        <div
-          className="recipe-title"
-          onClick={() => navigate(`/recipes/${recipe._id}`)}
+        <Link
+          className="recipe-title link-reset"
+          to={`/recipes/${recipe._id}`}
         >
           {recipe.title}
-        </div>
+        </Link>
         <div className="recipe-data-dates">
           <span className="recipe-data-date">
             <span>Created: </span>
