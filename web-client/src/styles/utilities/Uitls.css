@@ -1,0 +1,6 @@
+.link-reset {
+  text-decoration: none; /* Remove underline */
+  color: inherit; /* Inherit color from parent */
+  cursor: pointer; /* Show pointer cursor on hover */
+  user-select: text;
+}
