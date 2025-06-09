@@ -5,6 +5,7 @@ import "../../styles/recipes/Recipe.css";
 
 import Favorite from "../buttons/Favorite";
 import MarkdownPreviewSection from "../markdown/MarkdownPreviewSection";
+import ScreenWakeSwitch from "../utilities/ScreenWakeSwitch";
 
 import isURL from "validator/lib/isURL";
 
@@ -130,6 +131,7 @@ const Recipe: FC<propTypes> = ({ recipe }) => {
           </div>
         </div>
         <div className="recipe-main-data-container">
+          <ScreenWakeSwitch rtl={recipe.rtl} />
           <MarkdownPreviewSection
             sectionTitle={recipe.rtl ? "מרכיבים" : "Ingredients"}
             markdownText={recipe.ingredients}
