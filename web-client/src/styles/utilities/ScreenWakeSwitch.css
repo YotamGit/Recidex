@@ -1,0 +1,11 @@
+.screen-wake-switch {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.screen-wake-switch-title {
+  font-size: 1rem;
+  color: var(--blue-1);
+  font-weight: 550;
+}
