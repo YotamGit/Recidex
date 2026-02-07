@@ -1,4 +1,4 @@
-FROM node
+FROM node:20-bullseye-slim
 WORKDIR /recidex-server
 COPY package.json ./
 COPY package-lock.json ./
