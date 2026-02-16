@@ -1,7 +1,7 @@
 version: "3.2"
 services:
   mongodb:
-    image: mongo
+    image: mongo:4.4
     volumes:
       - ./db:/data/db
     ports:
@@ -10,6 +10,7 @@ services:
     build: ./server
     ports:
       - "3001:3001"
+      - "9229:9229"
     volumes:
       - ./server:/recidex-server
       - nodemodules:/recidex-server/node_modules
