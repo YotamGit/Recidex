@@ -123,7 +123,7 @@ export async function initializeDatabase() {
     logger.info("Disconnected from direct MongoDB connection");
 
     await replicaSetConnect();
-    // await syncData();
+    await syncData();
     logger.info("Database initialized successfully");
   } catch (error) {
     logger.error("Database initialization failed", error);

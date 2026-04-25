@@ -1,0 +1,74 @@
+[
+  {
+    "unit_id": 1,
+    "unit_name_english": "gram",
+    "unit_abbreviation_english": "g",
+    "unit_name_hebrew": "גרם",
+    "unit_abbreviation_hebrew": "ג׳",
+    "dimension": "mass",
+    "to_base_factor": 1
+  },
+  {
+    "unit_id": 2,
+    "unit_name_english": "milliliter",
+    "unit_abbreviation_english": "ml",
+    "unit_name_hebrew": "מיליליטר",
+    "unit_abbreviation_hebrew": "מ״ל",
+    "dimension": "volume",
+    "to_base_factor": 1
+  },
+  {
+    "unit_id": 3,
+    "unit_name_english": "piece",
+    "unit_abbreviation_english": "pc",
+    "unit_name_hebrew": "יחידה",
+    "unit_abbreviation_hebrew": "יח׳",
+    "dimension": "count",
+    "to_base_factor": 1
+  },
+  {
+    "unit_id": 4,
+    "unit_name_english": "kilogram",
+    "unit_abbreviation_english": "kg",
+    "unit_name_hebrew": "קילוגרם",
+    "unit_abbreviation_hebrew": "ק״ג",
+    "dimension": "mass",
+    "to_base_factor": 1000
+  },
+  {
+    "unit_id": 5,
+    "unit_name_english": "cup",
+    "unit_abbreviation_english": "cup",
+    "unit_name_hebrew": "כוס",
+    "unit_abbreviation_hebrew": "כוס",
+    "dimension": "volume",
+    "to_base_factor": 250
+  },
+  {
+    "unit_id": 6,
+    "unit_name_english": "liter",
+    "unit_abbreviation_english": "l",
+    "unit_name_hebrew": "ליטר",
+    "unit_abbreviation_hebrew": "ל׳",
+    "dimension": "volume",
+    "to_base_factor": 1000
+  },
+  {
+    "unit_id": 7,
+    "unit_name_english": "tablespoon",
+    "unit_abbreviation_english": "tbsp",
+    "unit_name_hebrew": "כף",
+    "unit_abbreviation_hebrew": "כף",
+    "dimension": "volume",
+    "to_base_factor": 15
+  },
+  {
+    "unit_id": 8,
+    "unit_name_english": "teaspoon",
+    "unit_abbreviation_english": "tsp",
+    "unit_name_hebrew": "כפית",
+    "unit_abbreviation_hebrew": "כפית",
+    "dimension": "volume",
+    "to_base_factor": 5
+  }
+]

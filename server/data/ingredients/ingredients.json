@@ -1,0 +1,5903 @@
+[
+  {
+    "item_id": 1,
+    "item_name_english": "Wakame",
+    "item_name_hebrew": "אצת ווקאמה",
+    "category": 1,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 2,
+    "item_name_english": "Nori",
+    "item_name_hebrew": "אצת נורי",
+    "category": 1,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 3,
+    "item_name_english": "Kombu",
+    "item_name_hebrew": "אצת קומבו",
+    "category": 1,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 4,
+    "item_name_english": "Rice vinegar",
+    "item_name_hebrew": "חומץ אורז",
+    "category": 1,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 5,
+    "item_name_english": "Shaoxing wine",
+    "item_name_hebrew": "יין שאושינג",
+    "category": 1,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 6,
+    "item_name_english": "Mirin",
+    "item_name_hebrew": "מירין",
+    "category": 1,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 7,
+    "item_name_english": "Umeboshi paste",
+    "item_name_hebrew": "משחת אומבושי",
+    "category": 1,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 8,
+    "item_name_english": "Yuzu kosho",
+    "item_name_hebrew": "משחת יוזו קושו",
+    "category": 1,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 9,
+    "item_name_english": "Miso paste",
+    "item_name_hebrew": "משחת מיסו",
+    "category": 1,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 10,
+    "item_name_english": "Red miso paste",
+    "item_name_hebrew": "משחת מיסו אדומה",
+    "category": 1,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 11,
+    "item_name_english": "Green miso paste",
+    "item_name_hebrew": "משחת מיסו ירוקה",
+    "category": 1,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 12,
+    "item_name_english": "White miso paste",
+    "item_name_hebrew": "משחת מיסו לבנה",
+    "category": 1,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 13,
+    "item_name_english": "Yellow miso paste",
+    "item_name_hebrew": "משחת מיסו צהובה",
+    "category": 1,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 14,
+    "item_name_english": "Curry paste",
+    "item_name_hebrew": "משחת קארי",
+    "category": 1,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 15,
+    "item_name_english": "Red curry paste",
+    "item_name_hebrew": "משחת קארי אדומה",
+    "category": 1,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 16,
+    "item_name_english": "Green curry paste",
+    "item_name_hebrew": "משחת קארי ירוקה",
+    "category": 1,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 17,
+    "item_name_english": "Yellow curry paste",
+    "item_name_hebrew": "משחת קארי צהובה",
+    "category": 1,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 18,
+    "item_name_english": "Ponzu",
+    "item_name_hebrew": "פונזו",
+    "category": 1,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 19,
+    "item_name_english": "Shiitake (dried)",
+    "item_name_hebrew": "פטריית שיטאקה מיובשות",
+    "category": 1,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 20,
+    "item_name_english": "Kimchi",
+    "item_name_hebrew": "קימצ'י",
+    "category": 1,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 21,
+    "item_name_english": "Worcestershire sauce",
+    "item_name_hebrew": "רוטב ווסטרשייר",
+    "category": 1,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 22,
+    "item_name_english": "Teriyaki sauce",
+    "item_name_hebrew": "רוטב טריאקי",
+    "category": 1,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 23,
+    "item_name_english": "Soy sauce",
+    "item_name_hebrew": "רוטב סויה",
+    "category": 1,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 24,
+    "item_name_english": "Light soy sauce",
+    "item_name_hebrew": "רוטב סויה בהירה",
+    "category": 1,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 25,
+    "item_name_english": "Dark soy sauce",
+    "item_name_hebrew": "רוטב סויה כהה",
+    "category": 1,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 26,
+    "item_name_english": "Sweet soy sauce",
+    "item_name_hebrew": "רוטב סויה מתוק",
+    "category": 1,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 27,
+    "item_name_english": "Oyster sauce",
+    "item_name_hebrew": "רוטב צדפות",
+    "category": 1,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 28,
+    "item_name_english": "Agar powder",
+    "item_name_hebrew": "אבקת אגר",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 29,
+    "item_name_english": "Baking powder",
+    "item_name_hebrew": "אבקת אפייה",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 30,
+    "item_name_english": "Powdered sugar",
+    "item_name_hebrew": "אבקת סוכר",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 31,
+    "item_name_english": "Cocoa powder",
+    "item_name_hebrew": "אבקת קקאו",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 32,
+    "item_name_english": "Fondant",
+    "item_name_hebrew": "בצק סוכר",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 33,
+    "item_name_english": "Gelatin",
+    "item_name_hebrew": "ג’לטין",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 34,
+    "item_name_english": "Jelly powder",
+    "item_name_hebrew": "אבקת ג’לי",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 35,
+    "item_name_english": "Edible gold leaf",
+    "item_name_hebrew": "זהב אכיל",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 36,
+    "item_name_english": "Chocolate glaze",
+    "item_name_hebrew": "זיגוג שוקולד",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 37,
+    "item_name_english": "Vanilla extract",
+    "item_name_hebrew": "תמצית וניל",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 38,
+    "item_name_english": "Artificial sweetener",
+    "item_name_hebrew": "ממתיק מלאכותי",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 39,
+    "item_name_english": "Marzipan",
+    "item_name_hebrew": "מרציפן",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 40,
+    "item_name_english": "Baking soda",
+    "item_name_hebrew": "סודה לשתייה",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 41,
+    "item_name_english": "Golden sugar",
+    "item_name_hebrew": "סוכר גולדן",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 42,
+    "item_name_english": "Palm sugar",
+    "item_name_hebrew": "סוכר דקלים",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 43,
+    "item_name_english": "Brown sugar",
+    "item_name_hebrew": "סוכר חום",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 44,
+    "item_name_english": "Dark brown sugar",
+    "item_name_hebrew": "סוכר חום כהה",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 45,
+    "item_name_english": "White sugar",
+    "item_name_hebrew": "סוכר לבן",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 46,
+    "item_name_english": "Turbinado sugar",
+    "item_name_hebrew": "סוכר קנים חום גס (טורבינדו)",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 47,
+    "item_name_english": "Date sugar",
+    "item_name_hebrew": "סוכר תמרים",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 48,
+    "item_name_english": "Semolina",
+    "item_name_hebrew": "סולת",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 49,
+    "item_name_english": "Glucose syrup",
+    "item_name_hebrew": "סירופ גלוקוז",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 50,
+    "item_name_english": "Tapioca starch",
+    "item_name_hebrew": "עמילן טפיוקה",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 51,
+    "item_name_english": "Pectin",
+    "item_name_hebrew": "פקטין",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 52,
+    "item_name_english": "Food coloring",
+    "item_name_hebrew": "צבע מאכל",
+    "category": 2,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 53,
+    "item_name_english": "Cornstarch",
+    "item_name_hebrew": "קורנפלור",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 54,
+    "item_name_english": "Rice flour",
+    "item_name_hebrew": "קמח אורז",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 55,
+    "item_name_english": "Millet flour",
+    "item_name_hebrew": "קמח דוחן",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 56,
+    "item_name_english": "Gram flour",
+    "item_name_hebrew": "קמח חומוס",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 57,
+    "item_name_english": "All-purpose flour",
+    "item_name_hebrew": "קמח חיטה לבן",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 58,
+    "item_name_english": "Whole wheat flour",
+    "item_name_hebrew": "קמח חיטה מלאה",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 59,
+    "item_name_english": "Teff flour",
+    "item_name_hebrew": "קמח טף",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 60,
+    "item_name_english": "Spelt flour",
+    "item_name_hebrew": "קמח כוסמין",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 61,
+    "item_name_english": "Bread flour",
+    "item_name_hebrew": "קמח לחם",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 62,
+    "item_name_english": "Semolina flour",
+    "item_name_hebrew": "קמח סולת (סמולינה)",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 63,
+    "item_name_english": "Cake flour",
+    "item_name_hebrew": "קמח עוגות",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 64,
+    "item_name_english": "Quinoa flour",
+    "item_name_hebrew": "קמח קינואה",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 65,
+    "item_name_english": "Oat flour",
+    "item_name_hebrew": "קמח שיבולת שועל",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 66,
+    "item_name_english": "Rye flour",
+    "item_name_hebrew": "קמח שיפון",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 67,
+    "item_name_english": "Barley flour",
+    "item_name_hebrew": "קמח שעורה",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 68,
+    "item_name_english": "Almond flour",
+    "item_name_hebrew": "קמח שקדים",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 69,
+    "item_name_english": "Cornmeal",
+    "item_name_hebrew": "קמח תירס",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 70,
+    "item_name_english": "Polenta",
+    "item_name_hebrew": "קמח תירס גס (פולנטה)",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 71,
+    "item_name_english": "Pastry cream",
+    "item_name_hebrew": "קרם פטיסייר",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 72,
+    "item_name_english": "Baking chocolate",
+    "item_name_hebrew": "שוקולד לאפייה",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 73,
+    "item_name_english": "Chocolate chips",
+    "item_name_hebrew": "שוקולד צ'יפס",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 74,
+    "item_name_english": "Dry yeast",
+    "item_name_hebrew": "שמרים יבשים",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 75,
+    "item_name_english": "Vanilla extract",
+    "item_name_hebrew": "תמצית וניל",
+    "category": 2,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 76,
+    "item_name_english": "Rum extract",
+    "item_name_hebrew": "תמצית רום",
+    "category": 2,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 77,
+    "item_name_english": "Cake mix",
+    "item_name_hebrew": "תערובת לעוגה",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 78,
+    "item_name_english": "00' pizza flour",
+    "item_name_hebrew": "קמח פיצה '00'",
+    "category": 2,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 79,
+    "item_name_english": "Espresso powder",
+    "item_name_hebrew": "אבקת אספרסו",
+    "category": 3,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 80,
+    "item_name_english": "Matcha powder",
+    "item_name_hebrew": "אבקת מאצ׳ה",
+    "category": 3,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 81,
+    "item_name_english": "Rose water",
+    "item_name_hebrew": "מי ורדים",
+    "category": 3,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 82,
+    "item_name_english": "Orange blossom water",
+    "item_name_hebrew": "מי זוהר",
+    "category": 3,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 83,
+    "item_name_english": "Tonic water",
+    "item_name_hebrew": "מי טוניק",
+    "category": 3,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 84,
+    "item_name_english": "Coconut water",
+    "item_name_hebrew": "מי קוקוס",
+    "category": 3,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 85,
+    "item_name_english": "Sparkling water",
+    "item_name_hebrew": "מים מוגזים",
+    "category": 3,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 86,
+    "item_name_english": "Lemon juice (bottled)",
+    "item_name_hebrew": "מיץ לימון בבקבוק",
+    "category": 3,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 87,
+    "item_name_english": "Tamarind juice",
+    "item_name_hebrew": "מיץ תמרהינדי",
+    "category": 3,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 88,
+    "item_name_english": "Grenadine",
+    "item_name_hebrew": "סירופ גרנדין",
+    "category": 3,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 89,
+    "item_name_english": "Rose syrup",
+    "item_name_hebrew": "סירופ ורדים",
+    "category": 3,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 90,
+    "item_name_english": "Green tea leaves",
+    "item_name_hebrew": "עלי תה ירוק",
+    "category": 3,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 91,
+    "item_name_english": "Coffee (ground)",
+    "item_name_hebrew": "קפה טחון",
+    "category": 3,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 92,
+    "item_name_english": "Instant coffee",
+    "item_name_hebrew": "קפה נמס",
+    "category": 3,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 93,
+    "item_name_english": "Green tea",
+    "item_name_hebrew": "תה ירוק",
+    "category": 3,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 94,
+    "item_name_english": "Black tea",
+    "item_name_hebrew": "תה שחור",
+    "category": 3,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 95,
+    "item_name_english": "Green tea bags",
+    "item_name_hebrew": "תיוני תה ירוק",
+    "category": 3,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 96,
+    "item_name_english": "Black tea bags",
+    "item_name_hebrew": "תיוני תה שחור",
+    "category": 3,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 97,
+    "item_name_english": "Chai spice mix",
+    "item_name_hebrew": "תערובת תבליני צ׳אי",
+    "category": 3,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 98,
+    "item_name_english": "Cooking wine",
+    "item_name_hebrew": "יין בישול",
+    "category": 4,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 99,
+    "item_name_english": "Pineapple (Canned)",
+    "item_name_hebrew": "אננס משומר",
+    "category": 5,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 100,
+    "item_name_english": "Anchovy (Canned)",
+    "item_name_hebrew": "אנשובי משומר",
+    "category": 5,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 101,
+    "item_name_english": "Peas (Canned)",
+    "item_name_hebrew": "אפונים משומרים",
+    "category": 5,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 102,
+    "item_name_english": "Peaches (Canned)",
+    "item_name_hebrew": "אפרסקים משומרים",
+    "category": 5,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 103,
+    "item_name_english": "Spam (canned meat)",
+    "item_name_hebrew": "בשר ספאם משומר",
+    "category": 5,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 104,
+    "item_name_english": "Jackfruit (Canned)",
+    "item_name_hebrew": "ג׳קפרוט משומר",
+    "category": 5,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 105,
+    "item_name_english": "Golden syrup",
+    "item_name_hebrew": "גולדן סירופ",
+    "category": 5,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 106,
+    "item_name_english": "Honey",
+    "item_name_hebrew": "דבש",
+    "category": 5,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 107,
+    "item_name_english": "Molasses",
+    "item_name_hebrew": "דבשה",
+    "category": 5,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 108,
+    "item_name_english": "Pickled herring",
+    "item_name_hebrew": "דג הרינג כבוש",
+    "category": 5,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 109,
+    "item_name_english": "Mackerel (Canned)",
+    "item_name_hebrew": "דג מקרל משומר",
+    "category": 5,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 110,
+    "item_name_english": "Pumpkin (Canned)",
+    "item_name_hebrew": "דלעת משומרת",
+    "category": 5,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 111,
+    "item_name_english": "Olive (Canned)",
+    "item_name_hebrew": "זיתים משומרים",
+    "category": 5,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 112,
+    "item_name_english": "Chickpea (Canned)",
+    "item_name_hebrew": "חומוס משומר",
+    "category": 5,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 113,
+    "item_name_english": "Vinegar",
+    "item_name_hebrew": "חומץ",
+    "category": 5,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 114,
+    "item_name_english": "White wine vinegar",
+    "item_name_hebrew": "חומץ יין לבן",
+    "category": 5,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 115,
+    "item_name_english": "Horseradish",
+    "item_name_hebrew": "חזרת",
+    "category": 5,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 116,
+    "item_name_english": "Coconut milk",
+    "item_name_hebrew": "חלב קוקוס",
+    "category": 5,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 117,
+    "item_name_english": "Peanut butter",
+    "item_name_hebrew": "חמאת בוטנים",
+    "category": 5,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 118,
+    "item_name_english": "Almond butter",
+    "item_name_hebrew": "חמאת שקדים",
+    "category": 5,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 119,
+    "item_name_english": "Mustard",
+    "item_name_hebrew": "חרדל",
+    "category": 5,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 120,
+    "item_name_english": "Tuna (Canned)",
+    "item_name_hebrew": "טונה משומרת",
+    "category": 5,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 121,
+    "item_name_english": "Tahini",
+    "item_name_hebrew": "טחינה",
+    "category": 5,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 122,
+    "item_name_english": "Lychee (Canned)",
+    "item_name_hebrew": "ליצ’י משומר",
+    "category": 5,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 123,
+    "item_name_english": "Pickle",
+    "item_name_hebrew": "מלפפונים חמוצים",
+    "category": 5,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 124,
+    "item_name_english": "Mango (Canned)",
+    "item_name_hebrew": "מנגו משומר",
+    "category": 5,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 125,
+    "item_name_english": "Soup (Canned)",
+    "item_name_hebrew": "מרק משומר",
+    "category": 5,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 126,
+    "item_name_english": "Apple cider",
+    "item_name_hebrew": "סיידר תפוחים",
+    "category": 5,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 127,
+    "item_name_english": "Salmon (Canned)",
+    "item_name_hebrew": "סלמון משומר",
+    "category": 5,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 128,
+    "item_name_english": "Salsa",
+    "item_name_hebrew": "סלסה",
+    "category": 5,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 129,
+    "item_name_english": "Sardine (Canned)",
+    "item_name_hebrew": "סרדינים משומרים",
+    "category": 5,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 130,
+    "item_name_english": "Crushed tomatoes",
+    "item_name_hebrew": "עגבניות מרוסקות",
+    "category": 5,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 131,
+    "item_name_english": "Tomato (Canned)",
+    "item_name_hebrew": "עגבניות משומרות",
+    "category": 5,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 132,
+    "item_name_english": "Lentil (Canned)",
+    "item_name_hebrew": "עדשים משומרים",
+    "category": 5,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 133,
+    "item_name_english": "Chicken (Canned)",
+    "item_name_hebrew": "עוף משומר",
+    "category": 5,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 134,
+    "item_name_english": "Mushroom (Canned)",
+    "item_name_hebrew": "פטריות משומרות",
+    "category": 5,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 135,
+    "item_name_english": "Beef broth",
+    "item_name_hebrew": "ציר בקר",
+    "category": 5,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 136,
+    "item_name_english": "Vegetable broth",
+    "item_name_hebrew": "ציר ירקות",
+    "category": 5,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 137,
+    "item_name_english": "Chicken broth",
+    "item_name_hebrew": "ציר עוף",
+    "category": 5,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 138,
+    "item_name_english": "Corned beef (canned)",
+    "item_name_hebrew": "קורנד ביף משומר",
+    "category": 5,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 139,
+    "item_name_english": "Tomato sauce",
+    "item_name_hebrew": "רוטב עגבניות",
+    "category": 5,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 140,
+    "item_name_english": "Pasta sauce",
+    "item_name_hebrew": "רוטב פסטה",
+    "category": 5,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 141,
+    "item_name_english": "Chili sauce",
+    "item_name_hebrew": "רוטב צ'ילי",
+    "category": 5,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 142,
+    "item_name_english": "Sweet chili sauce",
+    "item_name_hebrew": "רוטב צ'ילי מתוק",
+    "category": 5,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 143,
+    "item_name_english": "Tomato paste",
+    "item_name_hebrew": "רסק עגבניות",
+    "category": 5,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 144,
+    "item_name_english": "Ham (Canned)",
+    "item_name_hebrew": "שינקן משומר",
+    "category": 5,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 145,
+    "item_name_english": "Olive oil",
+    "item_name_hebrew": "שמן זית",
+    "category": 5,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 146,
+    "item_name_english": "Truffle oil",
+    "item_name_hebrew": "שמן כמהין",
+    "category": 5,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 147,
+    "item_name_english": "Canola oil",
+    "item_name_hebrew": "שמן קנולה",
+    "category": 5,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 148,
+    "item_name_english": "Sesame oil",
+    "item_name_hebrew": "שמן שומשום",
+    "category": 5,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 149,
+    "item_name_english": "Kidney bean (Canned)",
+    "item_name_hebrew": "שעועית אדומה משומרת",
+    "category": 5,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 150,
+    "item_name_english": "Baked bean",
+    "item_name_hebrew": "שעועית מבושלת",
+    "category": 5,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 151,
+    "item_name_english": "Black bean (Canned)",
+    "item_name_hebrew": "שעועית שחורה משומרת",
+    "category": 5,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 152,
+    "item_name_english": "Corn (Canned)",
+    "item_name_hebrew": "תירס משומר",
+    "category": 5,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 153,
+    "item_name_english": "Harissa",
+    "item_name_hebrew": "אריסה",
+    "category": 6,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 154,
+    "item_name_english": "Gochujang",
+    "item_name_hebrew": "גוצ'וג'אנג",
+    "category": 6,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 155,
+    "item_name_english": "Vinaigrette",
+    "item_name_hebrew": "ויניגרט",
+    "category": 6,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 156,
+    "item_name_english": "Balsamic vinegar",
+    "item_name_hebrew": "חומץ בלסמי",
+    "category": 6,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 157,
+    "item_name_english": "Apple cider vinegar",
+    "item_name_hebrew": "חומץ תפוחים",
+    "category": 6,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 158,
+    "item_name_english": "Dijon mustard",
+    "item_name_hebrew": "חרדל דיג’ון",
+    "category": 6,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 159,
+    "item_name_english": "Mayonnaise",
+    "item_name_hebrew": "מיונז",
+    "category": 6,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 160,
+    "item_name_english": "Spicy mayo",
+    "item_name_hebrew": "מיונז חריף",
+    "category": 6,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 161,
+    "item_name_english": "Relish",
+    "item_name_hebrew": "ממרח חמוצים (רליש)",
+    "category": 6,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 162,
+    "item_name_english": "Date spread",
+    "item_name_hebrew": "ממרח תמרים",
+    "category": 6,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 163,
+    "item_name_english": "Bulgogi marinade",
+    "item_name_hebrew": "מרינדה קוריאנית לבשר (בולגוגי)",
+    "category": 6,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 164,
+    "item_name_english": "Ginger garlic paste",
+    "item_name_hebrew": "משחת ג'ינג'ר-שום",
+    "category": 6,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 165,
+    "item_name_english": "Chili paste",
+    "item_name_hebrew": "משחת צ'ילי",
+    "category": 6,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 166,
+    "item_name_english": "Aji amarillo paste",
+    "item_name_hebrew": "משחת צ׳ילי אחי אמריו",
+    "category": 6,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 167,
+    "item_name_english": "Fermented bean paste",
+    "item_name_hebrew": "משחת שעועית מותססת",
+    "category": 6,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 168,
+    "item_name_english": "Nutella",
+    "item_name_hebrew": "נוטלה",
+    "category": 6,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 169,
+    "item_name_english": "Maple syrup",
+    "item_name_hebrew": "סירופ מייפל",
+    "category": 6,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 170,
+    "item_name_english": "Caramel syrup",
+    "item_name_hebrew": "סירופ קרמל",
+    "category": 6,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 171,
+    "item_name_english": "Salsa verde",
+    "item_name_hebrew": "סלסה ורדה",
+    "category": 6,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 172,
+    "item_name_english": "Salsa roja",
+    "item_name_hebrew": "סלסה מקסיקנית רוחה",
+    "category": 6,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 173,
+    "item_name_english": "Sambal",
+    "item_name_hebrew": "סמבל",
+    "category": 6,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 174,
+    "item_name_english": "Sriracha",
+    "item_name_hebrew": "סרירצ'ה",
+    "category": 6,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 175,
+    "item_name_english": "Chimichurri",
+    "item_name_hebrew": "צ'ימיצ'ורי",
+    "category": 6,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 176,
+    "item_name_english": "Tzatziki",
+    "item_name_hebrew": "צזיקי",
+    "category": 6,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 177,
+    "item_name_english": "Ketchup",
+    "item_name_hebrew": "קטשופ",
+    "category": 6,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 178,
+    "item_name_english": "Adobo sauce",
+    "item_name_hebrew": "רוטב אדובו מקסיקני",
+    "category": 6,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 179,
+    "item_name_english": "Italian dressing",
+    "item_name_hebrew": "רוטב איטלקי",
+    "category": 6,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 180,
+    "item_name_english": "Barbecue sauce",
+    "item_name_hebrew": "רוטב ברביקיו",
+    "category": 6,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 181,
+    "item_name_english": "Gravy",
+    "item_name_hebrew": "רוטב בשר",
+    "category": 6,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 182,
+    "item_name_english": "Fish sauce",
+    "item_name_hebrew": "רוטב דגים",
+    "category": 6,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 183,
+    "item_name_english": "Hoisin sauce",
+    "item_name_hebrew": "רוטב הויסין",
+    "category": 6,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 184,
+    "item_name_english": "Cranberry sauce",
+    "item_name_hebrew": "רוטב חמוציות",
+    "category": 6,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 185,
+    "item_name_english": "Tabasco sauce",
+    "item_name_hebrew": "רוטב טבסקו",
+    "category": 6,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 186,
+    "item_name_english": "Tartar sauce",
+    "item_name_hebrew": "רוטב טרטר",
+    "category": 6,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 187,
+    "item_name_english": "Katsu sauce",
+    "item_name_hebrew": "רוטב יפני לקאטסו",
+    "category": 6,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 188,
+    "item_name_english": "Mojo",
+    "item_name_hebrew": "רוטב מוחו קובני",
+    "category": 6,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 189,
+    "item_name_english": "Mole sauce",
+    "item_name_hebrew": "רוטב מולה",
+    "category": 6,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 190,
+    "item_name_english": "Marinara sauce",
+    "item_name_hebrew": "רוטב מרינרה",
+    "category": 6,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 191,
+    "item_name_english": "Steak sauce",
+    "item_name_hebrew": "רוטב סטייק",
+    "category": 6,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 192,
+    "item_name_english": "Peri peri sauce",
+    "item_name_hebrew": "רוטב פרי פרי",
+    "category": 6,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 193,
+    "item_name_english": "Char siu sauce",
+    "item_name_hebrew": "רוטב צ׳אר סיו",
+    "category": 6,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 194,
+    "item_name_english": "Chili garlic sauce",
+    "item_name_hebrew": "רוטב צ׳ילי שום",
+    "category": 6,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 195,
+    "item_name_english": "French dressing",
+    "item_name_hebrew": "רוטב צרפתי",
+    "category": 6,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 196,
+    "item_name_english": "Ranch dressing",
+    "item_name_hebrew": "רוטב ראנץ’",
+    "category": 6,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 197,
+    "item_name_english": "Black bean sauce",
+    "item_name_hebrew": "רוטב שעועית שחורה",
+    "category": 6,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 198,
+    "item_name_english": "Tamarind sauce",
+    "item_name_hebrew": "רוטב תמרהינדי",
+    "category": 6,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 199,
+    "item_name_english": "Jam",
+    "item_name_hebrew": "ריבה",
+    "category": 6,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 200,
+    "item_name_english": "Chili jam",
+    "item_name_hebrew": "ריבת צ'ילי",
+    "category": 6,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 201,
+    "item_name_english": "Chocolate spread",
+    "item_name_hebrew": "שוקולד למריחה",
+    "category": 6,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 202,
+    "item_name_english": "Chili oil",
+    "item_name_hebrew": "שמן צ'ילי",
+    "category": 6,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 203,
+    "item_name_english": "Tamari",
+    "item_name_hebrew": "תמרי",
+    "category": 6,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 204,
+    "item_name_english": "Cheese",
+    "item_name_hebrew": "גבינה",
+    "category": 7,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 205,
+    "item_name_english": "Swiss cheese",
+    "item_name_hebrew": "גבינה שוויצרית",
+    "category": 7,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 206,
+    "item_name_english": "Edam cheese",
+    "item_name_hebrew": "גבינת אדם",
+    "category": 7,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 207,
+    "item_name_english": "Emmental cheese",
+    "item_name_hebrew": "גבינת אמנטל",
+    "category": 7,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 208,
+    "item_name_english": "Brie cheese",
+    "item_name_hebrew": "גבינת ברי",
+    "category": 7,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 209,
+    "item_name_english": "Gouda cheese",
+    "item_name_hebrew": "גבינת גאודה",
+    "category": 7,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 210,
+    "item_name_english": "Halloumi",
+    "item_name_hebrew": "גבינת חלומי",
+    "category": 7,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 211,
+    "item_name_english": "Monterey jack",
+    "item_name_hebrew": "גבינת מונטריי ג'ק",
+    "category": 7,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 212,
+    "item_name_english": "Mozzarella cheese",
+    "item_name_hebrew": "גבינת מוצרלה",
+    "category": 7,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 213,
+    "item_name_english": "Mascarpone",
+    "item_name_hebrew": "גבינת מסקרפונה",
+    "category": 7,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 214,
+    "item_name_english": "Stilton",
+    "item_name_hebrew": "גבינת סטילטון",
+    "category": 7,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 215,
+    "item_name_english": "Goat cheese",
+    "item_name_hebrew": "גבינת עיזים",
+    "category": 7,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 216,
+    "item_name_english": "Paneer",
+    "item_name_hebrew": "גבינת פאניר",
+    "category": 7,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 217,
+    "item_name_english": "Feta cheese",
+    "item_name_hebrew": "גבינת פטה",
+    "category": 7,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 218,
+    "item_name_english": "Pepper jack",
+    "item_name_hebrew": "גבינת פפר ג'ק",
+    "category": 7,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 219,
+    "item_name_english": "Pecorino",
+    "item_name_hebrew": "גבינת פקורינו",
+    "category": 7,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 220,
+    "item_name_english": "Provolone",
+    "item_name_hebrew": "גבינת פרובולונה",
+    "category": 7,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 221,
+    "item_name_english": "Cheddar cheese",
+    "item_name_hebrew": "גבינת צ'דר",
+    "category": 7,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 222,
+    "item_name_english": "Cottage cheese",
+    "item_name_hebrew": "גבינת קוטג'",
+    "category": 7,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 223,
+    "item_name_english": "Colby cheese",
+    "item_name_hebrew": "גבינת קולבי",
+    "category": 7,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 224,
+    "item_name_english": "Colby jack",
+    "item_name_hebrew": "גבינת קולבי ג'ק",
+    "category": 7,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 225,
+    "item_name_english": "Camembert",
+    "item_name_hebrew": "גבינת קממבר",
+    "category": 7,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 226,
+    "item_name_english": "Romano cheese",
+    "item_name_hebrew": "גבינת רומנו",
+    "category": 7,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 227,
+    "item_name_english": "Ricotta cheese",
+    "item_name_hebrew": "גבינת ריקוטה",
+    "category": 7,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 228,
+    "item_name_english": "Cream cheese",
+    "item_name_hebrew": "גבינת שמנת",
+    "category": 7,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 229,
+    "item_name_english": "Ice cream",
+    "item_name_hebrew": "גלידה",
+    "category": 7,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 230,
+    "item_name_english": "Milk",
+    "item_name_hebrew": "חלב",
+    "category": 7,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 231,
+    "item_name_english": "Condensed milk",
+    "item_name_hebrew": "חלב מרוכז",
+    "category": 7,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 232,
+    "item_name_english": "Evaporated milk",
+    "item_name_hebrew": "חלב מרוכז לא ממותק",
+    "category": 7,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 233,
+    "item_name_english": "Butter",
+    "item_name_hebrew": "חמאה",
+    "category": 7,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 234,
+    "item_name_english": "Ghee",
+    "item_name_hebrew": "חמאה מזוקקת",
+    "category": 7,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 235,
+    "item_name_english": "Yogurt",
+    "item_name_hebrew": "יוגורט",
+    "category": 7,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 236,
+    "item_name_english": "Greek yogurt",
+    "item_name_hebrew": "יוגורט יווני",
+    "category": 7,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 237,
+    "item_name_english": "Coconut yogurt",
+    "item_name_hebrew": "יוגורט קוקוס",
+    "category": 7,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 238,
+    "item_name_english": "Buttermilk",
+    "item_name_hebrew": "רוויון (חובצה)",
+    "category": 7,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 239,
+    "item_name_english": "Cream",
+    "item_name_hebrew": "שמנת",
+    "category": 7,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 240,
+    "item_name_english": "Sour cream",
+    "item_name_hebrew": "שמנת חמוצה",
+    "category": 7,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 241,
+    "item_name_english": "Half and half",
+    "item_name_hebrew": "שמנת חצי-חצי",
+    "category": 7,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 242,
+    "item_name_english": "Heavy cream",
+    "item_name_hebrew": "שמנת מתוקה",
+    "category": 7,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 243,
+    "item_name_english": "Arrowroot powder",
+    "item_name_hebrew": "אבקת ארורוט",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 244,
+    "item_name_english": "Pumpkin powder",
+    "item_name_hebrew": "אבקת דלעת",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 245,
+    "item_name_english": "Onion soup powder",
+    "item_name_hebrew": "אבקת מרק בצל",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 246,
+    "item_name_english": "Chicken soup powder",
+    "item_name_hebrew": "אבקת מרק עוף",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 247,
+    "item_name_english": "Bambara nut",
+    "item_name_hebrew": "אגוז במברה",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 248,
+    "item_name_english": "Hazelnut",
+    "item_name_hebrew": "אגוז לוז",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 249,
+    "item_name_english": "Walnut",
+    "item_name_hebrew": "אגוז מלך",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 250,
+    "item_name_english": "Pecan",
+    "item_name_hebrew": "אגוז פקאן",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 251,
+    "item_name_english": "Agar agar",
+    "item_name_hebrew": "אגר אגר",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 252,
+    "item_name_english": "Dried blueberry",
+    "item_name_hebrew": "אוכמניות מיובשות",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 253,
+    "item_name_english": "Rice",
+    "item_name_hebrew": "אורז",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 254,
+    "item_name_english": "Basmati rice",
+    "item_name_hebrew": "אורז בסמטי",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 255,
+    "item_name_english": "Wild rice",
+    "item_name_hebrew": "אורז בר",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 256,
+    "item_name_english": "Sticky rice",
+    "item_name_hebrew": "אורז דביק",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 257,
+    "item_name_english": "Brown rice",
+    "item_name_hebrew": "אורז חום",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 258,
+    "item_name_english": "White rice",
+    "item_name_hebrew": "אורז לבן",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 259,
+    "item_name_english": "Sushi rice",
+    "item_name_hebrew": "אורז סושי",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 260,
+    "item_name_english": "Orzo",
+    "item_name_hebrew": "אורזו",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 261,
+    "item_name_english": "Rice noodle",
+    "item_name_hebrew": "אטריות אורז",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 262,
+    "item_name_english": "Rice vermicelli",
+    "item_name_hebrew": "אטריות אורז דקות",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 263,
+    "item_name_english": "Egg noodle",
+    "item_name_hebrew": "אטריות ביצים",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 264,
+    "item_name_english": "Ramen noodles",
+    "item_name_hebrew": "אטריות ראמן",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 265,
+    "item_name_english": "Split pea (dry)",
+    "item_name_hebrew": "אפונה חצויה (יבשה)",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 266,
+    "item_name_english": "Green pea (dry)",
+    "item_name_hebrew": "אפונה ירוקה מיובשת",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 267,
+    "item_name_english": "Bulgur wheat",
+    "item_name_hebrew": "בורגול",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 268,
+    "item_name_english": "Tamarind block",
+    "item_name_hebrew": "בלוק תמרהינדי",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 269,
+    "item_name_english": "Chickpea (dry)",
+    "item_name_hebrew": "גרגרי חומוס (יבש)",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 270,
+    "item_name_english": "Popcorn kernels",
+    "item_name_hebrew": "גרעיני פופקורן",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 271,
+    "item_name_english": "Dried cherry",
+    "item_name_hebrew": "דובדבנים מיובשים",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 272,
+    "item_name_english": "Millet",
+    "item_name_hebrew": "דוחן",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 273,
+    "item_name_english": "Dried gooseberry",
+    "item_name_hebrew": "דומדמנית הודית מיובשת",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 274,
+    "item_name_english": "Sorghum",
+    "item_name_hebrew": "דורה",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 275,
+    "item_name_english": "Pumpkin seed",
+    "item_name_hebrew": "זרעי דלעת",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 276,
+    "item_name_english": "Sunflower seed",
+    "item_name_hebrew": "זרעי חמנייה",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 277,
+    "item_name_english": "Flaxseed",
+    "item_name_hebrew": "זרעי פשתן",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 278,
+    "item_name_english": "Chia seed",
+    "item_name_hebrew": "זרעי צ'יה",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 279,
+    "item_name_english": "Sesame seed",
+    "item_name_hebrew": "זרעי שומשום",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 280,
+    "item_name_english": "Wheat",
+    "item_name_hebrew": "חיטה",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 281,
+    "item_name_english": "Durum wheat",
+    "item_name_hebrew": "חיטת דורום",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 282,
+    "item_name_english": "Cranberry (dried)",
+    "item_name_hebrew": "חמוציות מיובשות",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 283,
+    "item_name_english": "Teff",
+    "item_name_hebrew": "טף",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 284,
+    "item_name_english": "Amaranth",
+    "item_name_hebrew": "ירבוז",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 285,
+    "item_name_english": "Spelt",
+    "item_name_hebrew": "כוסמין",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 286,
+    "item_name_english": "Buckwheat",
+    "item_name_hebrew": "כוסמת",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 287,
+    "item_name_english": "Dried fruit mix",
+    "item_name_hebrew": "מיקס פירות מיובשים",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 288,
+    "item_name_english": "Almond paste",
+    "item_name_hebrew": "משחת שקדים",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 289,
+    "item_name_english": "Dried apricot",
+    "item_name_hebrew": "משמש מיובש",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 290,
+    "item_name_english": "Alfalfa sprout",
+    "item_name_hebrew": "נבטי אלפלפה",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 291,
+    "item_name_english": "Gnocchi (dry)",
+    "item_name_hebrew": "ניוקי יבש",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 292,
+    "item_name_english": "Wheat bran",
+    "item_name_hebrew": "סובין חיטה",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 293,
+    "item_name_english": "Oat bran",
+    "item_name_hebrew": "סובין שיבולת שועל",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 294,
+    "item_name_english": "Spaghetti",
+    "item_name_hebrew": "ספגטי",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 295,
+    "item_name_english": "Lentil (dry)",
+    "item_name_hebrew": "עדשים (יבשים)",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 296,
+    "item_name_english": "Green lentil (dry)",
+    "item_name_hebrew": "עדשים ירוקות",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 297,
+    "item_name_english": "Chestnut",
+    "item_name_hebrew": "ערמונים",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 298,
+    "item_name_english": "Panko",
+    "item_name_hebrew": "פאנקו",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 299,
+    "item_name_english": "Farro",
+    "item_name_hebrew": "פארו",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 300,
+    "item_name_english": "Soybean (dry)",
+    "item_name_hebrew": "פולי סויה יבשים",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 301,
+    "item_name_english": "Coffee bean",
+    "item_name_hebrew": "פולי קפה",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 302,
+    "item_name_english": "Dried mushroom",
+    "item_name_hebrew": "פטריות מיובשות",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 303,
+    "item_name_english": "Bread crumbs",
+    "item_name_hebrew": "פירורי לחם",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 304,
+    "item_name_english": "Dried chili pepper",
+    "item_name_hebrew": "פלפל צ’ילי מיובש",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 305,
+    "item_name_english": "Pasta",
+    "item_name_hebrew": "פסטה",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 306,
+    "item_name_english": "Ditalini pasta",
+    "item_name_hebrew": "פסטה דיטליני",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 307,
+    "item_name_english": "Linguine pasta",
+    "item_name_hebrew": "פסטה לינגוויני",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 308,
+    "item_name_english": "Macaroni pasta",
+    "item_name_hebrew": "פסטה מקרוני",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 309,
+    "item_name_english": "Penne pasta",
+    "item_name_hebrew": "פסטה פנה",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 310,
+    "item_name_english": "Farfalle pasta",
+    "item_name_hebrew": "פסטה פרפלה",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 311,
+    "item_name_english": "Shell pasta",
+    "item_name_hebrew": "פסטה צדפות",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 312,
+    "item_name_english": "Rigatoni pasta",
+    "item_name_hebrew": "פסטה ריגטוני",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 313,
+    "item_name_english": "Okra chips",
+    "item_name_hebrew": "צ׳יפס במיה",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 314,
+    "item_name_english": "Raisin",
+    "item_name_hebrew": "צימוקים",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 315,
+    "item_name_english": "Pine nut",
+    "item_name_hebrew": "צנובר",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 316,
+    "item_name_english": "Bouillon cube",
+    "item_name_hebrew": "קוביית מרק",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 317,
+    "item_name_english": "Couscous",
+    "item_name_hebrew": "קוסקוס",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 318,
+    "item_name_english": "Toasted coconut",
+    "item_name_hebrew": "קוקוס קלוי",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 319,
+    "item_name_english": "Quinoa",
+    "item_name_hebrew": "קינואה",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 320,
+    "item_name_english": "Rye cracker",
+    "item_name_hebrew": "קרקר שיפון",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 321,
+    "item_name_english": "Cashew",
+    "item_name_hebrew": "קשיו",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 322,
+    "item_name_english": "Prune (dried plum)",
+    "item_name_hebrew": "שזיף מיובש",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 323,
+    "item_name_english": "Oatmeal",
+    "item_name_hebrew": "שיבולת שועל",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 324,
+    "item_name_english": "Rolled oats",
+    "item_name_hebrew": "שיבולת שועל מגולגלת",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 325,
+    "item_name_english": "Rye",
+    "item_name_hebrew": "שיפון",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 326,
+    "item_name_english": "Adzuki bean (dry)",
+    "item_name_hebrew": "שעועית אזוקי יבשה",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 327,
+    "item_name_english": "Borlotti bean (dry)",
+    "item_name_hebrew": "שעועית בורלוטי (יבשה)",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 328,
+    "item_name_english": "Kidney bean (dry)",
+    "item_name_hebrew": "שעועית כליה (יבשה)",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 329,
+    "item_name_english": "Navy bean (dry)",
+    "item_name_hebrew": "שעועית לבנה נאווי (יבשה)",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 330,
+    "item_name_english": "Black-eyed pea (dry)",
+    "item_name_hebrew": "שעועית לוביה (יבשה)",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 331,
+    "item_name_english": "Lima bean (dry)",
+    "item_name_hebrew": "שעועית לימה (יבשה)",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 332,
+    "item_name_english": "Mung bean (dry)",
+    "item_name_hebrew": "שעועית מאש (יבשה)",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 333,
+    "item_name_english": "Pinto bean (dry)",
+    "item_name_hebrew": "שעועית פינטו (יבשה)",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 334,
+    "item_name_english": "Cannellini bean",
+    "item_name_hebrew": "שעועית קנליני (יבשה)",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 335,
+    "item_name_english": "Black bean (dry)",
+    "item_name_hebrew": "שעועית שחורה (יבשה)",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 336,
+    "item_name_english": "Barley",
+    "item_name_hebrew": "שעורה",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 337,
+    "item_name_english": "Almond",
+    "item_name_hebrew": "שקדים",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 338,
+    "item_name_english": "Ground almonds",
+    "item_name_hebrew": "שקדים טחונים",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 339,
+    "item_name_english": "Dried fig",
+    "item_name_hebrew": "תאנה מיובשת",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 340,
+    "item_name_english": "Lupin bean",
+    "item_name_hebrew": "תורמוס",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 341,
+    "item_name_english": "Dried date",
+    "item_name_hebrew": "תמר מיובש",
+    "category": 8,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 342,
+    "item_name_english": "Pork belly",
+    "item_name_hebrew": "בטן חזיר",
+    "category": 9,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 343,
+    "item_name_english": "Bacon",
+    "item_name_hebrew": "בייקון",
+    "category": 9,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 344,
+    "item_name_english": "Beef",
+    "item_name_hebrew": "בקר",
+    "category": 9,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 345,
+    "item_name_english": "Ground beef",
+    "item_name_hebrew": "בקר טחון",
+    "category": 9,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 346,
+    "item_name_english": "Duck",
+    "item_name_hebrew": "ברווז",
+    "category": 9,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 347,
+    "item_name_english": "Ground turkey",
+    "item_name_hebrew": "הודו טחון",
+    "category": 9,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 348,
+    "item_name_english": "Oxtail",
+    "item_name_hebrew": "זנב שור",
+    "category": 9,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 349,
+    "item_name_english": "Duck breast",
+    "item_name_hebrew": "חזה ברווז",
+    "category": 9,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 350,
+    "item_name_english": "Chicken breast",
+    "item_name_hebrew": "חזה עוף",
+    "category": 9,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 351,
+    "item_name_english": "Pork",
+    "item_name_hebrew": "חזיר",
+    "category": 9,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 352,
+    "item_name_english": "Lamb",
+    "item_name_hebrew": "טלה",
+    "category": 9,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 353,
+    "item_name_english": "Chicken thigh",
+    "item_name_hebrew": "ירך עוף",
+    "category": 9,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 354,
+    "item_name_english": "Liver",
+    "item_name_hebrew": "כבד",
+    "category": 9,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 355,
+    "item_name_english": "Foie gras",
+    "item_name_hebrew": "כבד אווז",
+    "category": 9,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 356,
+    "item_name_english": "Chicken liver",
+    "item_name_hebrew": "כבד עוף",
+    "category": 9,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 357,
+    "item_name_english": "Chicken wing",
+    "item_name_hebrew": "כנף עוף",
+    "category": 9,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 358,
+    "item_name_english": "Chicken heart",
+    "item_name_hebrew": "לב עוף",
+    "category": 9,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 359,
+    "item_name_english": "Sausage",
+    "item_name_hebrew": "נקניק",
+    "category": 9,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 360,
+    "item_name_english": "Hot dog",
+    "item_name_hebrew": "נקניקיה",
+    "category": 9,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 361,
+    "item_name_english": "Steak",
+    "item_name_hebrew": "סטייק",
+    "category": 9,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 362,
+    "item_name_english": "Salami",
+    "item_name_hebrew": "סלמי",
+    "category": 9,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 363,
+    "item_name_english": "Chicken",
+    "item_name_hebrew": "עוף",
+    "category": 9,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 364,
+    "item_name_english": "Turkey",
+    "item_name_hebrew": "עוף הודו",
+    "category": 9,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 365,
+    "item_name_english": "Ground chicken",
+    "item_name_hebrew": "עוף טחון",
+    "category": 9,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 366,
+    "item_name_english": "Goat",
+    "item_name_hebrew": "עז",
+    "category": 9,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 367,
+    "item_name_english": "Pancetta",
+    "item_name_hebrew": "פנצ'טה",
+    "category": 9,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 368,
+    "item_name_english": "Pepperoni",
+    "item_name_hebrew": "פפרוני",
+    "category": 9,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 369,
+    "item_name_english": "Prosciutto",
+    "item_name_hebrew": "פרושוטו",
+    "category": 9,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 370,
+    "item_name_english": "Chorizo",
+    "item_name_hebrew": "צ'וריסוס",
+    "category": 9,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 371,
+    "item_name_english": "Pork chop",
+    "item_name_hebrew": "צלעות חזיר",
+    "category": 9,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 372,
+    "item_name_english": "Lamb chop",
+    "item_name_hebrew": "צלעות טלה",
+    "category": 9,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 373,
+    "item_name_english": "Tripe",
+    "item_name_hebrew": "קיבה",
+    "category": 9,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 374,
+    "item_name_english": "Ham",
+    "item_name_hebrew": "שינקן",
+    "category": 9,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 375,
+    "item_name_english": "Pheasant",
+    "item_name_hebrew": "שליו",
+    "category": 9,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 376,
+    "item_name_english": "Electrolyte powder",
+    "item_name_hebrew": "אבקת אלקטרוליטים",
+    "category": 10,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 377,
+    "item_name_english": "Pea protein powder",
+    "item_name_hebrew": "אבקת חלבון אפונה",
+    "category": 10,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 378,
+    "item_name_english": "Collagen powder",
+    "item_name_hebrew": "אבקת קולגן",
+    "category": 10,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 379,
+    "item_name_english": "Sugar alcohol",
+    "item_name_hebrew": "אלכוהול סוכרי",
+    "category": 10,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 380,
+    "item_name_english": "Whey protein",
+    "item_name_hebrew": "חלבון מי גבינה",
+    "category": 10,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 381,
+    "item_name_english": "Monk fruit sweetener",
+    "item_name_hebrew": "ממתיק פרי הנזיר",
+    "category": 10,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 382,
+    "item_name_english": "Coconut sugar",
+    "item_name_hebrew": "סוכר קוקוס",
+    "category": 10,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 383,
+    "item_name_english": "Nutritional yeast",
+    "item_name_hebrew": "שמרי בירה",
+    "category": 10,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 384,
+    "item_name_english": "Paleo baking mix",
+    "item_name_hebrew": "תערובת אפייה פליאו",
+    "category": 10,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 385,
+    "item_name_english": "Keto flour blend",
+    "item_name_hebrew": "תערובת קמח קטו",
+    "category": 10,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 386,
+    "item_name_english": "Gluten-free flour blend",
+    "item_name_hebrew": "תערובת קמחים ללא גלוטן",
+    "category": 10,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 387,
+    "item_name_english": "Eggplant bacon",
+    "item_name_hebrew": "בייקון חציל",
+    "category": 11,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 388,
+    "item_name_english": "Vegetarian bacon",
+    "item_name_hebrew": "בייקון טבעוני",
+    "category": 11,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 389,
+    "item_name_english": "Seitan bacon",
+    "item_name_hebrew": "בייקון סייטן",
+    "category": 11,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 390,
+    "item_name_english": "Vegan ground meat",
+    "item_name_hebrew": "בשר טחון טבעוני",
+    "category": 11,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 391,
+    "item_name_english": "Vegetarian ground meat",
+    "item_name_hebrew": "בשר טחון צמחוני",
+    "category": 11,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 392,
+    "item_name_english": "Oat meat",
+    "item_name_hebrew": "בשר שיבולת שועל",
+    "category": 11,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 393,
+    "item_name_english": "Jackfruit pulled pork",
+    "item_name_hebrew": "ג׳קפרוט בסגנון פולד פורק",
+    "category": 11,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 394,
+    "item_name_english": "Jackfruit (young)",
+    "item_name_hebrew": "ג׳קפרוט צעיר",
+    "category": 11,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 395,
+    "item_name_english": "Vegan cheese",
+    "item_name_hebrew": "גבינה טבעונית",
+    "category": 11,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 396,
+    "item_name_english": "Cashew cheese",
+    "item_name_hebrew": "גבינת קשיו",
+    "category": 11,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 397,
+    "item_name_english": "Veggie burger",
+    "item_name_hebrew": "המבורגר צמחוני",
+    "category": 11,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 398,
+    "item_name_english": "Lupin flour burger",
+    "item_name_hebrew": "המבורגר קמח תורמוס",
+    "category": 11,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 399,
+    "item_name_english": "Black bean burger",
+    "item_name_hebrew": "המבורגר שעועית שחורה",
+    "category": 11,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 400,
+    "item_name_english": "Walnut milk",
+    "item_name_hebrew": "חלב אגוזי מלך",
+    "category": 11,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 401,
+    "item_name_english": "Rice milk",
+    "item_name_hebrew": "חלב אורז",
+    "category": 11,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 402,
+    "item_name_english": "Pea milk",
+    "item_name_hebrew": "חלב אפונה",
+    "category": 11,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 403,
+    "item_name_english": "Macadamia milk",
+    "item_name_hebrew": "חלב מקדמיה",
+    "category": 11,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 404,
+    "item_name_english": "Soy milk",
+    "item_name_hebrew": "חלב סויה",
+    "category": 11,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 405,
+    "item_name_english": "Flax milk",
+    "item_name_hebrew": "חלב פשתן",
+    "category": 11,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 406,
+    "item_name_english": "Tigernut milk",
+    "item_name_hebrew": "חלב צ׳ופה",
+    "category": 11,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 407,
+    "item_name_english": "Hemp milk",
+    "item_name_hebrew": "חלב קנבוס",
+    "category": 11,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 408,
+    "item_name_english": "Oat milk",
+    "item_name_hebrew": "חלב שיבולת שועל",
+    "category": 11,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 409,
+    "item_name_english": "Almond milk",
+    "item_name_hebrew": "חלב שקדים",
+    "category": 11,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 410,
+    "item_name_english": "Pea protein",
+    "item_name_hebrew": "חלבון אפונה",
+    "category": 11,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 411,
+    "item_name_english": "Textured wheat protein",
+    "item_name_hebrew": "חלבון חיטה במרקם",
+    "category": 11,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 412,
+    "item_name_english": "Textured soy protein",
+    "item_name_hebrew": "חלבון סויה במרקם",
+    "category": 11,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 413,
+    "item_name_english": "Soy protein isolate",
+    "item_name_hebrew": "חלבון סויה מבודד",
+    "category": 11,
+    "preferred_shopping_dimension": "volume"
+  },
+  {
+    "item_id": 414,
+    "item_name_english": "Textured vegetable protein",
+    "item_name_hebrew": "חלבון צמחי במרקם",
+    "category": 11,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 415,
+    "item_name_english": "Tofu",
+    "item_name_hebrew": "טופו",
+    "category": 11,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 416,
+    "item_name_english": "Chickpea tofu",
+    "item_name_hebrew": "טופו חומוס",
+    "category": 11,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 417,
+    "item_name_english": "Tofurky",
+    "item_name_hebrew": "טופורקי",
+    "category": 11,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 418,
+    "item_name_english": "Tempeh",
+    "item_name_hebrew": "טמפה",
+    "category": 11,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 419,
+    "item_name_english": "Tempeh bacon",
+    "item_name_hebrew": "טמפה בסגנון בייקון",
+    "category": 11,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 420,
+    "item_name_english": "Rice yogurt",
+    "item_name_hebrew": "יוגורט אורז",
+    "category": 11,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 421,
+    "item_name_english": "Coconut milk yogurt",
+    "item_name_hebrew": "יוגורט חלב קוקוס",
+    "category": 11,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 422,
+    "item_name_english": "Soy yogurt",
+    "item_name_hebrew": "יוגורט סויה",
+    "category": 11,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 423,
+    "item_name_english": "Oat yogurt",
+    "item_name_hebrew": "יוגורט שיבולת שועל",
+    "category": 11,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 424,
+    "item_name_english": "Almond yogurt",
+    "item_name_hebrew": "יוגורט שקדים",
+    "category": 11,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 425,
+    "item_name_english": "Lentil loaf",
+    "item_name_hebrew": "כיכר עדשים",
+    "category": 11,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 426,
+    "item_name_english": "Plant-based hot dog",
+    "item_name_hebrew": "נקניקייה מהצומח",
+    "category": 11,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 427,
+    "item_name_english": "Veggie sausage",
+    "item_name_hebrew": "נקניקייה צמחונית",
+    "category": 11,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 428,
+    "item_name_english": "Beet sausage",
+    "item_name_hebrew": "נקניקיית סלק",
+    "category": 11,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 429,
+    "item_name_english": "Cauliflower steak",
+    "item_name_hebrew": "סטייק כרובית",
+    "category": 11,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 430,
+    "item_name_english": "Seitan",
+    "item_name_hebrew": "סייטן",
+    "category": 11,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 431,
+    "item_name_english": "Plant-based chicken",
+    "item_name_hebrew": "עוף מהצומח",
+    "category": 11,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 432,
+    "item_name_english": "Tofu skin",
+    "item_name_hebrew": "עור טופו (יובה)",
+    "category": 11,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 433,
+    "item_name_english": "Chia pudding",
+    "item_name_hebrew": "פודינג צ'יה",
+    "category": 11,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 434,
+    "item_name_english": "Soy chorizo",
+    "item_name_hebrew": "צ׳וריסו סויה",
+    "category": 11,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 435,
+    "item_name_english": "Seitan roast",
+    "item_name_hebrew": "צלי סייטן",
+    "category": 11,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 436,
+    "item_name_english": "Lentil patty",
+    "item_name_hebrew": "קציצת עדשים",
+    "category": 11,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 437,
+    "item_name_english": "Mushroom patty",
+    "item_name_hebrew": "קציצת פטריות",
+    "category": 11,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 438,
+    "item_name_english": "Udon (pre-cooked)",
+    "item_name_hebrew": "אטריות אודון מבושלות",
+    "category": 12,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 439,
+    "item_name_english": "Instant noodle",
+    "item_name_hebrew": "אטריות אינסטנט",
+    "category": 12,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 440,
+    "item_name_english": "Borscht base",
+    "item_name_hebrew": "בסיס לבורשט",
+    "category": 12,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 441,
+    "item_name_english": "Stock base",
+    "item_name_hebrew": "בסיס לציר",
+    "category": 12,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 442,
+    "item_name_english": "Curry base",
+    "item_name_hebrew": "בסיס קארי",
+    "category": 12,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 443,
+    "item_name_english": "Puff pastry",
+    "item_name_hebrew": "בצק עלים",
+    "category": 12,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 444,
+    "item_name_english": "Pizza dough",
+    "item_name_hebrew": "בצק פיצה",
+    "category": 12,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 445,
+    "item_name_english": "Tortilla",
+    "item_name_hebrew": "טורטיות",
+    "category": 12,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 446,
+    "item_name_english": "Naan bread",
+    "item_name_hebrew": "לחם נאן הודי",
+    "category": 12,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 447,
+    "item_name_english": "Pita bread",
+    "item_name_hebrew": "לחם פיתה",
+    "category": 12,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 448,
+    "item_name_english": "Gnocchi (fresh)",
+    "item_name_hebrew": "ניוקי טרי",
+    "category": 12,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 449,
+    "item_name_english": "Egg roll wrapper",
+    "item_name_hebrew": "עלי אגרול",
+    "category": 12,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 450,
+    "item_name_english": "Wonton wrapper",
+    "item_name_hebrew": "עלי וונטון",
+    "category": 12,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 451,
+    "item_name_english": "Polenta (tube)",
+    "item_name_hebrew": "פולנטה בגליל",
+    "category": 12,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 452,
+    "item_name_english": "Instant ramen",
+    "item_name_hebrew": "ראמן אינסטנט",
+    "category": 12,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 453,
+    "item_name_english": "Pie crust",
+    "item_name_hebrew": "תחתית פאי",
+    "category": 12,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 454,
+    "item_name_english": "Avocado",
+    "item_name_hebrew": "אבוקדו",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 455,
+    "item_name_english": "Watermelon",
+    "item_name_hebrew": "אבטיח",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 456,
+    "item_name_english": "Pear",
+    "item_name_hebrew": "אגס",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 457,
+    "item_name_english": "Edamame",
+    "item_name_hebrew": "אדממה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 458,
+    "item_name_english": "Bilberry",
+    "item_name_hebrew": "אוכמנית",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 459,
+    "item_name_english": "Blueberry",
+    "item_name_hebrew": "אוכמנית כחולה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 460,
+    "item_name_english": "Oregano",
+    "item_name_hebrew": "אורגנו",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 461,
+    "item_name_english": "Endive",
+    "item_name_hebrew": "אנדיב",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 462,
+    "item_name_english": "Pineapple",
+    "item_name_hebrew": "אננס",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 463,
+    "item_name_english": "Pineberry",
+    "item_name_hebrew": "אננסית (או תות אננס)",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 464,
+    "item_name_english": "Acai",
+    "item_name_hebrew": "אסאי",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 465,
+    "item_name_english": "Asparagus",
+    "item_name_hebrew": "אספרגוס",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 466,
+    "item_name_english": "Escarole",
+    "item_name_hebrew": "אסקרולה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 467,
+    "item_name_english": "Acerola",
+    "item_name_hebrew": "אסרולה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 468,
+    "item_name_english": "Pea",
+    "item_name_hebrew": "אפונה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 469,
+    "item_name_english": "Persimmon",
+    "item_name_hebrew": "אפרסמון",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 470,
+    "item_name_english": "Peach",
+    "item_name_hebrew": "אפרסק",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 471,
+    "item_name_english": "Ackee",
+    "item_name_hebrew": "אקי",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 472,
+    "item_name_english": "Aratiles",
+    "item_name_hebrew": "אראטילס",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 473,
+    "item_name_english": "Araza",
+    "item_name_hebrew": "ארזה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 474,
+    "item_name_english": "Artichoke",
+    "item_name_hebrew": "ארטישוק",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 475,
+    "item_name_english": "Jerusalem artichoke",
+    "item_name_hebrew": "ארטישוק ירושלמי",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 476,
+    "item_name_english": "Grapefruit",
+    "item_name_hebrew": "אשכולית",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 477,
+    "item_name_english": "Citron",
+    "item_name_hebrew": "אתרוג",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 478,
+    "item_name_english": "Boysenberry",
+    "item_name_hebrew": "בויזנברי",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 479,
+    "item_name_english": "Bok choy",
+    "item_name_hebrew": "בוק צ'וי",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 480,
+    "item_name_english": "Burdock",
+    "item_name_hebrew": "בורדוק",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 481,
+    "item_name_english": "Basil",
+    "item_name_hebrew": "בזיליקום",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 482,
+    "item_name_english": "Sweet potato",
+    "item_name_hebrew": "בטטה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 483,
+    "item_name_english": "Okra",
+    "item_name_hebrew": "במיה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 484,
+    "item_name_english": "Banana",
+    "item_name_hebrew": "בננה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 485,
+    "item_name_english": "Onion",
+    "item_name_hebrew": "בצל",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 486,
+    "item_name_english": "Vidalia onion",
+    "item_name_hebrew": "בצל וידליה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 487,
+    "item_name_english": "Green onion",
+    "item_name_hebrew": "בצל ירוק",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 488,
+    "item_name_english": "Scallion",
+    "item_name_hebrew": "בצל ירוק",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 489,
+    "item_name_english": "Spring onion",
+    "item_name_hebrew": "בצל ירוק",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 490,
+    "item_name_english": "White onion",
+    "item_name_hebrew": "בצל לבן",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 491,
+    "item_name_english": "Sweet onion",
+    "item_name_hebrew": "בצל מתוק",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 492,
+    "item_name_english": "Red onion",
+    "item_name_hebrew": "בצל סגול",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 493,
+    "item_name_english": "Pearl onion",
+    "item_name_hebrew": "בצל פנינה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 494,
+    "item_name_english": "Cipollini onion",
+    "item_name_hebrew": "בצל צ׳יפוליני",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 495,
+    "item_name_english": "Shallot",
+    "item_name_hebrew": "בצל שאלוט",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 496,
+    "item_name_english": "Broccoli",
+    "item_name_hebrew": "ברוקולי",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 497,
+    "item_name_english": "Rapini",
+    "item_name_hebrew": "ברוקולי ראב",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 498,
+    "item_name_english": "Broccolini",
+    "item_name_hebrew": "ברוקוליני",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 499,
+    "item_name_english": "Jambul",
+    "item_name_hebrew": "ג'אמבול",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 500,
+    "item_name_english": "Jackfruit",
+    "item_name_hebrew": "ג'קפרוט",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 501,
+    "item_name_english": "Garlic scape",
+    "item_name_hebrew": "גבעול שום",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 502,
+    "item_name_english": "Goji berry",
+    "item_name_hebrew": "גוג'י ברי",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 503,
+    "item_name_english": "Guava",
+    "item_name_hebrew": "גויאבה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 504,
+    "item_name_english": "Carrot",
+    "item_name_hebrew": "גזר",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 505,
+    "item_name_english": "Baby carrot",
+    "item_name_hebrew": "גזר גמדי",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 506,
+    "item_name_english": "Watercress",
+    "item_name_hebrew": "גרגר הנחלים",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 507,
+    "item_name_english": "Mustard cress",
+    "item_name_hebrew": "גרגר חרדל",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 508,
+    "item_name_english": "Cherry",
+    "item_name_hebrew": "דובדבן",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 509,
+    "item_name_english": "Currant",
+    "item_name_hebrew": "דומדמנית",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 510,
+    "item_name_english": "Redcurrant",
+    "item_name_hebrew": "דומדמנית אדומה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 511,
+    "item_name_english": "Blackcurrant",
+    "item_name_hebrew": "דומדמנית שחורה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 512,
+    "item_name_english": "Durian",
+    "item_name_hebrew": "דוריאן",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 513,
+    "item_name_english": "Pumpkin",
+    "item_name_hebrew": "דלעת",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 514,
+    "item_name_english": "Squash",
+    "item_name_hebrew": "דלעת",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 515,
+    "item_name_english": "Snake gourd",
+    "item_name_hebrew": "דלעת נחש",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 516,
+    "item_name_english": "Winter melon",
+    "item_name_hebrew": "דלעת שעווה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 517,
+    "item_name_english": "Huckleberry",
+    "item_name_hebrew": "האקלברי",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 518,
+    "item_name_english": "Hala fruit",
+    "item_name_hebrew": "הלה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 519,
+    "item_name_english": "Zucchini",
+    "item_name_hebrew": "זוקיני",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 520,
+    "item_name_english": "Olive",
+    "item_name_hebrew": "זית",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 521,
+    "item_name_english": "Quince",
+    "item_name_hebrew": "חבוש",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 522,
+    "item_name_english": "Gooseberry",
+    "item_name_hebrew": "חזרזר",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 523,
+    "item_name_english": "Jicama",
+    "item_name_hebrew": "חיזמא",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 524,
+    "item_name_english": "Jalapeno",
+    "item_name_hebrew": "חלפיניו",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 525,
+    "item_name_english": "Cranberry",
+    "item_name_hebrew": "חמוצית",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 526,
+    "item_name_english": "Lettuce",
+    "item_name_hebrew": "חסה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 527,
+    "item_name_english": "Butter lettuce",
+    "item_name_hebrew": "חסה בוסטון",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 528,
+    "item_name_english": "Iceberg lettuce",
+    "item_name_hebrew": "חסת אייסברג",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 529,
+    "item_name_english": "Lamb's lettuce",
+    "item_name_hebrew": "חסת ולריאנה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 530,
+    "item_name_english": "Eggplant",
+    "item_name_hebrew": "חציל",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 531,
+    "item_name_english": "Taro",
+    "item_name_hebrew": "טארו",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 532,
+    "item_name_english": "Tomatillo",
+    "item_name_hebrew": "טומטיו",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 533,
+    "item_name_english": "Tatsoi",
+    "item_name_hebrew": "טטסוי",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 534,
+    "item_name_english": "Thyme",
+    "item_name_hebrew": "טימין",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 535,
+    "item_name_english": "Tamarillo",
+    "item_name_hebrew": "טמרילו",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 536,
+    "item_name_english": "Tangelo",
+    "item_name_hebrew": "טנגלו",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 537,
+    "item_name_english": "Yam",
+    "item_name_hebrew": "יאם",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 538,
+    "item_name_english": "Buddha's hand",
+    "item_name_hebrew": "יד הבודהה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 539,
+    "item_name_english": "Yuzu",
+    "item_name_hebrew": "יוזו",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 540,
+    "item_name_english": "Cilantro",
+    "item_name_hebrew": "כוסברה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 541,
+    "item_name_english": "Truffle",
+    "item_name_hebrew": "כמהין",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 542,
+    "item_name_english": "Cabbage",
+    "item_name_hebrew": "כרוב",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 543,
+    "item_name_english": "Red cabbage",
+    "item_name_hebrew": "כרוב אדום",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 544,
+    "item_name_english": "Brussels sprout",
+    "item_name_hebrew": "כרוב ניצנים",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 545,
+    "item_name_english": "Savoy cabbage",
+    "item_name_hebrew": "כרוב סבוי",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 546,
+    "item_name_english": "Napa cabbage",
+    "item_name_hebrew": "כרוב סיני",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 547,
+    "item_name_english": "Cauliflower",
+    "item_name_hebrew": "כרובית",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 548,
+    "item_name_english": "Romanesco",
+    "item_name_hebrew": "כרובית רומנסקו",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 549,
+    "item_name_english": "Leek",
+    "item_name_hebrew": "כרישה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 550,
+    "item_name_english": "Longan",
+    "item_name_hebrew": "לונגן",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 551,
+    "item_name_english": "Lime",
+    "item_name_hebrew": "ליים",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 552,
+    "item_name_english": "Lemon",
+    "item_name_hebrew": "לימון",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 553,
+    "item_name_english": "Lychee",
+    "item_name_hebrew": "ליצ'י",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 554,
+    "item_name_english": "Langsat",
+    "item_name_hebrew": "לנגסט",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 555,
+    "item_name_english": "Turnip",
+    "item_name_hebrew": "לפת",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 556,
+    "item_name_english": "Mizuna",
+    "item_name_hebrew": "מיזונה (חרדל יפני)",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 557,
+    "item_name_english": "Spring mix",
+    "item_name_hebrew": "מיקס עלים",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 558,
+    "item_name_english": "Melon",
+    "item_name_hebrew": "מלון",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 559,
+    "item_name_english": "Honeydew",
+    "item_name_hebrew": "מלון דבש",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 560,
+    "item_name_english": "Cantaloupe",
+    "item_name_hebrew": "מלון כתום",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 561,
+    "item_name_english": "Cucumber",
+    "item_name_hebrew": "מלפפון",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 562,
+    "item_name_english": "Mango",
+    "item_name_hebrew": "מנגו",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 563,
+    "item_name_english": "Mangosteen",
+    "item_name_hebrew": "מנגוסטין",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 564,
+    "item_name_english": "American mayapple",
+    "item_name_hebrew": "מנדרגולה אמריקנית",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 565,
+    "item_name_english": "Tangerine",
+    "item_name_hebrew": "מנדרינה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 566,
+    "item_name_english": "Vanilla bean",
+    "item_name_hebrew": "מקלות וניל",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 567,
+    "item_name_english": "Apricot",
+    "item_name_hebrew": "משמש",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 568,
+    "item_name_english": "Sunflower sprout",
+    "item_name_hebrew": "נבט חמנייה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 569,
+    "item_name_english": "Bean sprout",
+    "item_name_hebrew": "נבטי שעועית",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 570,
+    "item_name_english": "Nance",
+    "item_name_hebrew": "ננסי (פרי טרופי קטן)",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 571,
+    "item_name_english": "Peppermint",
+    "item_name_hebrew": "נענע (מנטה)",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 572,
+    "item_name_english": "Pea shoot",
+    "item_name_hebrew": "נצר אפונה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 573,
+    "item_name_english": "Chayote shoot",
+    "item_name_hebrew": "נצר צ'איווטה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 574,
+    "item_name_english": "Bamboo shoot",
+    "item_name_hebrew": "נצרי במבוק",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 575,
+    "item_name_english": "Nectarine",
+    "item_name_hebrew": "נקטרינה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 576,
+    "item_name_english": "Satsuma",
+    "item_name_hebrew": "סאטסומה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 577,
+    "item_name_english": "Cactus pear",
+    "item_name_hebrew": "סברס",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 578,
+    "item_name_english": "Sloe",
+    "item_name_hebrew": "סלו",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 579,
+    "item_name_english": "Salmonberry",
+    "item_name_hebrew": "סלמוןברי",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 580,
+    "item_name_english": "Salsify",
+    "item_name_hebrew": "סלסיפי",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 581,
+    "item_name_english": "Beet",
+    "item_name_hebrew": "סלק",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 582,
+    "item_name_english": "Beetroot",
+    "item_name_hebrew": "סלק אדום",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 583,
+    "item_name_english": "Salak",
+    "item_name_hebrew": "סלק דרום-מזרח אסייתי",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 584,
+    "item_name_english": "Celery",
+    "item_name_hebrew": "סלרי",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 585,
+    "item_name_english": "Saskatoon berry",
+    "item_name_hebrew": "ססקיטון",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 586,
+    "item_name_english": "Black sapote",
+    "item_name_hebrew": "ספוטה שחורה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 587,
+    "item_name_english": "Purple tomato",
+    "item_name_hebrew": "עגבניה סגולה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 588,
+    "item_name_english": "San Marzano tomato",
+    "item_name_hebrew": "עגבניות סן מרזנו",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 589,
+    "item_name_english": "Cherry tomato",
+    "item_name_hebrew": "עגבניות שרי",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 590,
+    "item_name_english": "Tomato",
+    "item_name_hebrew": "עגבנייה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 591,
+    "item_name_english": "Green tomato",
+    "item_name_hebrew": "עגבנייה ירוקה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 592,
+    "item_name_english": "Yellow tomato",
+    "item_name_hebrew": "עגבנייה צהובה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 593,
+    "item_name_english": "Pear tomato",
+    "item_name_hebrew": "עגבניית אגס",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 594,
+    "item_name_english": "Beefsteak tomato",
+    "item_name_hebrew": "עגבניית ביף סטייק",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 595,
+    "item_name_english": "Brandywine tomato",
+    "item_name_hebrew": "עגבניית ברנדיוויין",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 596,
+    "item_name_english": "Zebra tomato",
+    "item_name_hebrew": "עגבניית זברה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 597,
+    "item_name_english": "Heirloom tomato",
+    "item_name_hebrew": "עגבניית מורשת",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 598,
+    "item_name_english": "Campari tomato",
+    "item_name_hebrew": "עגבניית קמפרי",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 599,
+    "item_name_english": "Plum tomato",
+    "item_name_hebrew": "עגבניית שזיף",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 600,
+    "item_name_english": "Chicory",
+    "item_name_hebrew": "עולש",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 601,
+    "item_name_english": "Chive",
+    "item_name_hebrew": "עירית",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 602,
+    "item_name_english": "Mustard green",
+    "item_name_hebrew": "עלי חרדל",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 603,
+    "item_name_english": "Microgreens",
+    "item_name_hebrew": "עלי מיקרו",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 604,
+    "item_name_english": "Kohlrabi leaf",
+    "item_name_hebrew": "עלי קולרבי",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 605,
+    "item_name_english": "Shiso leaf",
+    "item_name_hebrew": "עלי שיסו",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 606,
+    "item_name_english": "Dandelion green",
+    "item_name_hebrew": "עלי שן הארי",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 607,
+    "item_name_english": "Grapes",
+    "item_name_hebrew": "ענבים",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 608,
+    "item_name_english": "Water chestnut",
+    "item_name_hebrew": "ערמון מים",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 609,
+    "item_name_english": "Pomelo",
+    "item_name_hebrew": "פומלה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 610,
+    "item_name_english": "Raspberry",
+    "item_name_hebrew": "פטל",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 611,
+    "item_name_english": "Blackberry",
+    "item_name_hebrew": "פטל שחור",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 612,
+    "item_name_english": "Parsley",
+    "item_name_hebrew": "פטרוזיליה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 613,
+    "item_name_english": "Mushroom",
+    "item_name_hebrew": "פטרייה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 614,
+    "item_name_english": "Wood ear mushroom",
+    "item_name_hebrew": "פטריית אזנונית יהודה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 615,
+    "item_name_english": "Enoki mushroom",
+    "item_name_hebrew": "פטריית אנוקי",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 616,
+    "item_name_english": "Black trumpet",
+    "item_name_hebrew": "פטריית חצוצרה שחורה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 617,
+    "item_name_english": "Maitake",
+    "item_name_hebrew": "פטריית מאיטקה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 618,
+    "item_name_english": "Morel",
+    "item_name_hebrew": "פטריית מורל",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 619,
+    "item_name_english": "King oyster mushroom",
+    "item_name_hebrew": "פטריית מלך היער",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 620,
+    "item_name_english": "Shiitake",
+    "item_name_hebrew": "פטריית שיטאקה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 621,
+    "item_name_english": "Champignon mushroom",
+    "item_name_hebrew": "פטריית שמפיניון",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 622,
+    "item_name_english": "Chanterelle",
+    "item_name_hebrew": "פטריית שנטרל",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 623,
+    "item_name_english": "Dragonfruit",
+    "item_name_hebrew": "פיטאיה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 624,
+    "item_name_english": "Feijoa",
+    "item_name_hebrew": "פייג'ואה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 625,
+    "item_name_english": "Pistachio",
+    "item_name_hebrew": "פיסטוק",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 626,
+    "item_name_english": "Plantain",
+    "item_name_hebrew": "פלאטנו",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 627,
+    "item_name_english": "Red bell pepper",
+    "item_name_hebrew": "פלפל אדום",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 628,
+    "item_name_english": "Bell pepper",
+    "item_name_hebrew": "פלפל גמבה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 629,
+    "item_name_english": "Habanero",
+    "item_name_hebrew": "פלפל הבנרו",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 630,
+    "item_name_english": "Green bell pepper",
+    "item_name_hebrew": "פלפל ירוק",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 631,
+    "item_name_english": "Chili pepper",
+    "item_name_hebrew": "פלפל צ'ילי",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 632,
+    "item_name_english": "Yellow bell pepper",
+    "item_name_hebrew": "פלפל צהוב",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 633,
+    "item_name_english": "Passionfruit",
+    "item_name_hebrew": "פסיפלורה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 634,
+    "item_name_english": "Papaya",
+    "item_name_hebrew": "פפאיה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 635,
+    "item_name_english": "Pawpaw",
+    "item_name_hebrew": "פפאיה אפריקאית",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 636,
+    "item_name_english": "Chive blossom",
+    "item_name_hebrew": "פרחי עירית",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 637,
+    "item_name_english": "Ugli fruit",
+    "item_name_hebrew": "פרי אגלי",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 638,
+    "item_name_english": "Breadfruit",
+    "item_name_hebrew": "פרי הלחם",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 639,
+    "item_name_english": "Miracle fruit",
+    "item_name_hebrew": "פרי הפלא",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 640,
+    "item_name_english": "Salal berry",
+    "item_name_hebrew": "פרי סלאל",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 641,
+    "item_name_english": "Chayote",
+    "item_name_hebrew": "צ'איווטה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 642,
+    "item_name_english": "Chico fruit",
+    "item_name_hebrew": "צ'יקו",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 643,
+    "item_name_english": "Radish",
+    "item_name_hebrew": "צנון",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 644,
+    "item_name_english": "Daikon",
+    "item_name_hebrew": "צנון דייקון לבן",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 645,
+    "item_name_english": "Kohlrabi",
+    "item_name_hebrew": "קולרבי",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 646,
+    "item_name_english": "Coconut",
+    "item_name_hebrew": "קוקוס",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 647,
+    "item_name_english": "Catmon",
+    "item_name_hebrew": "קטמון",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 648,
+    "item_name_english": "Kiwano",
+    "item_name_hebrew": "קיוואנו",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 649,
+    "item_name_english": "Kiwifruit",
+    "item_name_hebrew": "קיווי",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 650,
+    "item_name_english": "Kale",
+    "item_name_hebrew": "קייל",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 651,
+    "item_name_english": "Courgette",
+    "item_name_hebrew": "קישוא",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 652,
+    "item_name_english": "Marrow squash",
+    "item_name_hebrew": "קישוא גדול (מרו)",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 653,
+    "item_name_english": "Cloudberry",
+    "item_name_hebrew": "קלאודברי",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 654,
+    "item_name_english": "Star fruit",
+    "item_name_hebrew": "קרמבולה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 655,
+    "item_name_english": "Radicchio",
+    "item_name_hebrew": "רדיקיו",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 656,
+    "item_name_english": "Rosemary",
+    "item_name_hebrew": "רוזמרין",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 657,
+    "item_name_english": "Arugula",
+    "item_name_hebrew": "רוקט",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 658,
+    "item_name_english": "Rhubarb",
+    "item_name_hebrew": "ריבס",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 659,
+    "item_name_english": "Pomegranate",
+    "item_name_hebrew": "רימון",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 660,
+    "item_name_english": "Rambutan",
+    "item_name_hebrew": "רמבוטן",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 661,
+    "item_name_english": "Garlic",
+    "item_name_hebrew": "שום",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 662,
+    "item_name_english": "Spring garlic",
+    "item_name_hebrew": "שום ירוק",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 663,
+    "item_name_english": "Silverskin garlic",
+    "item_name_hebrew": "שום כסף",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 664,
+    "item_name_english": "Purple garlic",
+    "item_name_hebrew": "שום סגול",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 665,
+    "item_name_english": "Elephant garlic",
+    "item_name_hebrew": "שום פיל",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 666,
+    "item_name_english": "Fennel",
+    "item_name_hebrew": "שומר",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 667,
+    "item_name_english": "Ginger root",
+    "item_name_hebrew": "שורש ג'ינג'ר",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 668,
+    "item_name_english": "Galangal root",
+    "item_name_hebrew": "שורש גלנגל",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 669,
+    "item_name_english": "Wasabi root",
+    "item_name_hebrew": "שורש וואסבי",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 670,
+    "item_name_english": "Turmeric root",
+    "item_name_hebrew": "שורש כורכום",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 671,
+    "item_name_english": "Lotus root",
+    "item_name_hebrew": "שורש לוטוס",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 672,
+    "item_name_english": "Parsnip",
+    "item_name_hebrew": "שורש פטרוזיליה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 673,
+    "item_name_english": "Chayote root",
+    "item_name_hebrew": "שורש צ'איווטה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 674,
+    "item_name_english": "Plum",
+    "item_name_hebrew": "שזיף",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 675,
+    "item_name_english": "Dill",
+    "item_name_hebrew": "שמיר",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 676,
+    "item_name_english": "Loquat",
+    "item_name_hebrew": "שסק",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 677,
+    "item_name_english": "Green bean",
+    "item_name_hebrew": "שעועית ירוקה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 678,
+    "item_name_english": "Yardlong bean",
+    "item_name_hebrew": "שעועית סינית",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 679,
+    "item_name_english": "Fig",
+    "item_name_hebrew": "תאנה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 680,
+    "item_name_english": "Mulberry",
+    "item_name_hebrew": "תות עץ",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 681,
+    "item_name_english": "Strawberry",
+    "item_name_hebrew": "תות שדה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 682,
+    "item_name_english": "Corn",
+    "item_name_hebrew": "תירס",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 683,
+    "item_name_english": "Date",
+    "item_name_hebrew": "תמר",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 684,
+    "item_name_english": "Jujube",
+    "item_name_hebrew": "תמר הודו",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 685,
+    "item_name_english": "Tamarind",
+    "item_name_hebrew": "תמרהינדי",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 686,
+    "item_name_english": "Orange",
+    "item_name_hebrew": "תפוז",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 687,
+    "item_name_english": "African cherry orange",
+    "item_name_hebrew": "תפוז דובדבן אפריקאי",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 688,
+    "item_name_english": "Kumquat",
+    "item_name_hebrew": "תפוז סיני",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 689,
+    "item_name_english": "Apple",
+    "item_name_hebrew": "תפוח",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 690,
+    "item_name_english": "Ambrosia apple",
+    "item_name_hebrew": "תפוח אמברוזיה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 691,
+    "item_name_english": "Empire apple",
+    "item_name_hebrew": "תפוח אמפייר",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 692,
+    "item_name_english": "Braeburn apple",
+    "item_name_hebrew": "תפוח ברייברן",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 693,
+    "item_name_english": "Bramley apple",
+    "item_name_hebrew": "תפוח ברמלי",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 694,
+    "item_name_english": "Jazz apple",
+    "item_name_hebrew": "תפוח ג׳אז",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 695,
+    "item_name_english": "Jonagold apple",
+    "item_name_hebrew": "תפוח ג׳ונגולד",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 696,
+    "item_name_english": "Gala apple",
+    "item_name_hebrew": "תפוח גאלה",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 697,
+    "item_name_english": "Golden delicious apple",
+    "item_name_hebrew": "תפוח גולדן דלישס",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 698,
+    "item_name_english": "Granny smith apple",
+    "item_name_hebrew": "תפוח גרני סמית",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 699,
+    "item_name_english": "Honeycrisp apple",
+    "item_name_hebrew": "תפוח האניקריספ",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 700,
+    "item_name_english": "Winesap apple",
+    "item_name_hebrew": "תפוח ויינסאפ",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 701,
+    "item_name_english": "York apple",
+    "item_name_hebrew": "תפוח יורק",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 702,
+    "item_name_english": "McIntosh apple",
+    "item_name_hebrew": "תפוח מקינטוש",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 703,
+    "item_name_english": "SweeTango apple",
+    "item_name_hebrew": "תפוח סוויטנגו",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 704,
+    "item_name_english": "Spartan apple",
+    "item_name_hebrew": "תפוח ספרטן",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 705,
+    "item_name_english": "Fuji apple",
+    "item_name_hebrew": "תפוח פוג׳י",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 706,
+    "item_name_english": "Pink lady apple",
+    "item_name_hebrew": "תפוח פינק ליידי",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 707,
+    "item_name_english": "Cornish aromatic apple",
+    "item_name_hebrew": "תפוח קורניש ארומטי",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 708,
+    "item_name_english": "Cripps pink apple",
+    "item_name_hebrew": "תפוח קריפס פינק",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 709,
+    "item_name_english": "Red delicious apple",
+    "item_name_hebrew": "תפוח רד דלישס",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 710,
+    "item_name_english": "Spinach",
+    "item_name_hebrew": "תרד",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 711,
+    "item_name_english": "Baby spinach",
+    "item_name_hebrew": "תרד בייבי",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 712,
+    "item_name_english": "Water spinach",
+    "item_name_hebrew": "תרד מים",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 713,
+    "item_name_english": "New zealand spinach",
+    "item_name_hebrew": "תרד ניו זילנדי",
+    "category": 13,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 714,
+    "item_name_english": "Anchovy",
+    "item_name_hebrew": "אנשובי",
+    "category": 14,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 715,
+    "item_name_english": "Roe",
+    "item_name_hebrew": "ביצי דגים",
+    "category": 14,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 716,
+    "item_name_english": "Tilapia",
+    "item_name_hebrew": "דג אמנון",
+    "category": 14,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 717,
+    "item_name_english": "Bass",
+    "item_name_hebrew": "דג בס",
+    "category": 14,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 718,
+    "item_name_english": "Cod",
+    "item_name_hebrew": "דג בקלה",
+    "category": 14,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 719,
+    "item_name_english": "Barramundi",
+    "item_name_hebrew": "דג ברמונדי",
+    "category": 14,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 720,
+    "item_name_english": "Grouper",
+    "item_name_hebrew": "דג דקר",
+    "category": 14,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 721,
+    "item_name_english": "Haddock",
+    "item_name_hebrew": "דג הדוק",
+    "category": 14,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 722,
+    "item_name_english": "Halibut",
+    "item_name_hebrew": "דג הליבוט",
+    "category": 14,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 723,
+    "item_name_english": "Herring",
+    "item_name_hebrew": "דג הרינג",
+    "category": 14,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 724,
+    "item_name_english": "Sturgeon",
+    "item_name_hebrew": "דג חדקן",
+    "category": 14,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 725,
+    "item_name_english": "Tuna",
+    "item_name_hebrew": "דג טונה",
+    "category": 14,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 726,
+    "item_name_english": "Perch",
+    "item_name_hebrew": "דג מושט",
+    "category": 14,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 727,
+    "item_name_english": "Mackerel",
+    "item_name_hebrew": "דג מקרל",
+    "category": 14,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 728,
+    "item_name_english": "Sole",
+    "item_name_hebrew": "דג סול",
+    "category": 14,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 729,
+    "item_name_english": "Flounder",
+    "item_name_hebrew": "דג סולית",
+    "category": 14,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 730,
+    "item_name_english": "Salmon",
+    "item_name_hebrew": "דג סלמון",
+    "category": 14,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 731,
+    "item_name_english": "Snapper",
+    "item_name_hebrew": "דג סנאפר",
+    "category": 14,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 732,
+    "item_name_english": "Pollock",
+    "item_name_hebrew": "דג פולוק",
+    "category": 14,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 733,
+    "item_name_english": "Pike",
+    "item_name_hebrew": "דג פייק",
+    "category": 14,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 734,
+    "item_name_english": "Carp",
+    "item_name_hebrew": "דג קרפיון",
+    "category": 14,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 735,
+    "item_name_english": "Rockfish",
+    "item_name_hebrew": "דג רוקפיש",
+    "category": 14,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 736,
+    "item_name_english": "Mahi mahi",
+    "item_name_hebrew": "דג רעמתן כחלחל",
+    "category": 14,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 737,
+    "item_name_english": "Catfish",
+    "item_name_hebrew": "דג שפמנון",
+    "category": 14,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 738,
+    "item_name_english": "Squid",
+    "item_name_hebrew": "דיונון",
+    "category": 14,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 739,
+    "item_name_english": "Lobster",
+    "item_name_hebrew": "לובסטר",
+    "category": 14,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 740,
+    "item_name_english": "Mussel",
+    "item_name_hebrew": "מולים",
+    "category": 14,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 741,
+    "item_name_english": "Salmon fillet",
+    "item_name_hebrew": "נתח דג סלמון",
+    "category": 14,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 742,
+    "item_name_english": "Scallop",
+    "item_name_hebrew": "סקאלופ",
+    "category": 14,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 743,
+    "item_name_english": "Crab",
+    "item_name_hebrew": "סרטן",
+    "category": 14,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 744,
+    "item_name_english": "Blue crab",
+    "item_name_hebrew": "סרטן כחול",
+    "category": 14,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 745,
+    "item_name_english": "King crab",
+    "item_name_hebrew": "סרטן מלך",
+    "category": 14,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 746,
+    "item_name_english": "Crayfish",
+    "item_name_hebrew": "סרטן נהרות",
+    "category": 14,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 747,
+    "item_name_english": "Snow crab",
+    "item_name_hebrew": "סרטן שלג",
+    "category": 14,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 748,
+    "item_name_english": "Clam",
+    "item_name_hebrew": "צדפה",
+    "category": 14,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 749,
+    "item_name_english": "Abalone",
+    "item_name_hebrew": "צדפת אבלון",
+    "category": 14,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 750,
+    "item_name_english": "Oyster",
+    "item_name_hebrew": "צדפת אויסטר",
+    "category": 14,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 751,
+    "item_name_english": "Geoduck",
+    "item_name_hebrew": "צדפת גאודאק",
+    "category": 14,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 752,
+    "item_name_english": "Eel",
+    "item_name_hebrew": "צלופח",
+    "category": 14,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 753,
+    "item_name_english": "Caviar",
+    "item_name_hebrew": "קוויאר",
+    "category": 14,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 754,
+    "item_name_english": "Conch",
+    "item_name_hebrew": "קונכייה",
+    "category": 14,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 755,
+    "item_name_english": "Shellfish",
+    "item_name_hebrew": "רכיכות",
+    "category": 14,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 756,
+    "item_name_english": "Shrimp",
+    "item_name_hebrew": "שרימפס",
+    "category": 14,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 757,
+    "item_name_english": "Prawn",
+    "item_name_hebrew": "שרימפס גדול",
+    "category": 14,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 758,
+    "item_name_english": "Octopus",
+    "item_name_hebrew": "תמנון",
+    "category": 14,
+    "preferred_shopping_dimension": "count"
+  },
+  {
+    "item_id": 759,
+    "item_name_english": "Onion powder",
+    "item_name_hebrew": "אבקת בצל",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 760,
+    "item_name_english": "Galangal powder",
+    "item_name_hebrew": "אבקת גלנגל",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 761,
+    "item_name_english": "Wasabi powder",
+    "item_name_hebrew": "אבקת ווסאבי",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 762,
+    "item_name_english": "Five-spice powder",
+    "item_name_hebrew": "אבקת חמשת התבלינים",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 763,
+    "item_name_english": "Mustard powder",
+    "item_name_hebrew": "אבקת חרדל",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 764,
+    "item_name_english": "Amchoor",
+    "item_name_hebrew": "אבקת מנגו ירוק אמצ׳ור (אמצ׳ור)",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 765,
+    "item_name_english": "Chili powder",
+    "item_name_hebrew": "אבקת צ’ילי",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 766,
+    "item_name_english": "Curry powder",
+    "item_name_hebrew": "אבקת קארי",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 767,
+    "item_name_english": "Yellow curry powder",
+    "item_name_hebrew": "אבקת קארי צהובה",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 768,
+    "item_name_english": "Garlic powder",
+    "item_name_hebrew": "אבקת שום",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 769,
+    "item_name_english": "Tamarind powder",
+    "item_name_hebrew": "אבקת תמרהינדי",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 770,
+    "item_name_english": "Ajwain",
+    "item_name_hebrew": "אג'ואן",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 771,
+    "item_name_english": "Nutmeg",
+    "item_name_hebrew": "אגוז מוסקט",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 772,
+    "item_name_english": "Oregano (dried)",
+    "item_name_hebrew": "אורגנו מיובש",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 773,
+    "item_name_english": "Hyssop",
+    "item_name_hebrew": "אזוב",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 774,
+    "item_name_english": "Berbere",
+    "item_name_hebrew": "ברברי אתיופי",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 775,
+    "item_name_english": "Barberry",
+    "item_name_hebrew": "ברבריס",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 776,
+    "item_name_english": "Ginger (ground)",
+    "item_name_hebrew": "ג'ינג'ר טחון",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 777,
+    "item_name_english": "Garam masala",
+    "item_name_hebrew": "גראם מסאלה",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 778,
+    "item_name_english": "Juniper berry",
+    "item_name_hebrew": "גרגרי ערער",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 779,
+    "item_name_english": "Cardamom",
+    "item_name_hebrew": "הל",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 780,
+    "item_name_english": "Saffron",
+    "item_name_hebrew": "זעפרן",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 781,
+    "item_name_english": "Zaatar",
+    "item_name_hebrew": "זעתר",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 782,
+    "item_name_english": "Anise seed",
+    "item_name_hebrew": "זרעי אניס",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 783,
+    "item_name_english": "Mustard seed",
+    "item_name_hebrew": "זרעי חרדל",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 784,
+    "item_name_english": "Coriander seed",
+    "item_name_hebrew": "זרעי כוסברה",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 785,
+    "item_name_english": "Celery seed",
+    "item_name_hebrew": "זרעי סלרי",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 786,
+    "item_name_english": "Caraway seed",
+    "item_name_hebrew": "זרעי קימל",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 787,
+    "item_name_english": "Fennel seed",
+    "item_name_hebrew": "זרעי שומר",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 788,
+    "item_name_english": "Fenugreek",
+    "item_name_hebrew": "חילבה",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 789,
+    "item_name_english": "Asafoetida",
+    "item_name_hebrew": "חלתית",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 790,
+    "item_name_english": "Thyme (dried)",
+    "item_name_hebrew": "טימין מיובש",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 791,
+    "item_name_english": "Tarragon (dried)",
+    "item_name_hebrew": "טרגון מיובש",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 792,
+    "item_name_english": "Star anise",
+    "item_name_hebrew": "כוכב אניס",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 793,
+    "item_name_english": "Cilantro (dry)",
+    "item_name_hebrew": "כוסברה מיובשת",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 794,
+    "item_name_english": "Turmeric",
+    "item_name_hebrew": "כורכום",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 795,
+    "item_name_english": "Cumin",
+    "item_name_hebrew": "כמון",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 796,
+    "item_name_english": "Lavender",
+    "item_name_hebrew": "לבנדר",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 797,
+    "item_name_english": "Dried lime",
+    "item_name_hebrew": "ליים מיובש",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 798,
+    "item_name_english": "MSG",
+    "item_name_hebrew": "מונוסודיום גלוטמט",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 799,
+    "item_name_english": "Mahleb",
+    "item_name_hebrew": "מחלב",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 800,
+    "item_name_english": "Marjoram",
+    "item_name_hebrew": "מיורן",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 801,
+    "item_name_english": "Mace",
+    "item_name_hebrew": "מייס",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 802,
+    "item_name_english": "Salt",
+    "item_name_hebrew": "מלח",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 803,
+    "item_name_english": "Himalayan salt",
+    "item_name_hebrew": "מלח הימלאיה",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 804,
+    "item_name_english": "Truffle salt",
+    "item_name_hebrew": "מלח כמהין",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 805,
+    "item_name_english": "Smoked salt",
+    "item_name_hebrew": "מלח מעושן",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 806,
+    "item_name_english": "Celery salt",
+    "item_name_hebrew": "מלח סלרי",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 807,
+    "item_name_english": "Garlic salt",
+    "item_name_hebrew": "מלח שום",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 808,
+    "item_name_english": "Sage",
+    "item_name_hebrew": "מרווה",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 809,
+    "item_name_english": "Horehound",
+    "item_name_hebrew": "מרווה לבנה",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 810,
+    "item_name_english": "Peppermint (dried)",
+    "item_name_hebrew": "נענע (מנטה) מיובשת",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 811,
+    "item_name_english": "Sumac",
+    "item_name_hebrew": "סומאק",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 812,
+    "item_name_english": "Bay leaf",
+    "item_name_hebrew": "עלה דפנה",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 813,
+    "item_name_english": "Fenugreek leaf",
+    "item_name_hebrew": "עלה חילבה",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 814,
+    "item_name_english": "Rose petal",
+    "item_name_hebrew": "עלי ורדים",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 815,
+    "item_name_english": "Kaffir lime leaf",
+    "item_name_hebrew": "עלי ליים קפיר",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 816,
+    "item_name_english": "Curry leaf",
+    "item_name_hebrew": "עלי קארי",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 817,
+    "item_name_english": "Lemongrass (dried)",
+    "item_name_hebrew": "עשב לימון מיובש",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 818,
+    "item_name_english": "Parsley (dried)",
+    "item_name_hebrew": "פטרוזיליה מיובשת",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 819,
+    "item_name_english": "Allspice",
+    "item_name_hebrew": "פלפל אנגלי",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 820,
+    "item_name_english": "Long pepper",
+    "item_name_hebrew": "פלפל הודי ארוך",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 821,
+    "item_name_english": "Aleppo pepper",
+    "item_name_hebrew": "פלפל חלבי",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 822,
+    "item_name_english": "White pepper",
+    "item_name_hebrew": "פלפל לבן",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 823,
+    "item_name_english": "Lemon pepper",
+    "item_name_hebrew": "פלפל לימון",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 824,
+    "item_name_english": "Sichuan pepper",
+    "item_name_hebrew": "פלפל סצ׳ואן",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 825,
+    "item_name_english": "Chili flake",
+    "item_name_hebrew": "פלפל צ׳ילי גרוס",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 826,
+    "item_name_english": "Ghost pepper",
+    "item_name_hebrew": "פלפל צ'ילי רוח רפאים",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 827,
+    "item_name_english": "Black pepper",
+    "item_name_hebrew": "פלפל שחור",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 828,
+    "item_name_english": "Paprika",
+    "item_name_hebrew": "פפריקה",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 829,
+    "item_name_english": "Smoked paprika",
+    "item_name_hebrew": "פפריקה מעושנת",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 830,
+    "item_name_english": "Kashmiri chili",
+    "item_name_hebrew": "צ'ילי קשמירי",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 831,
+    "item_name_english": "Clove",
+    "item_name_hebrew": "ציפורן",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 832,
+    "item_name_english": "Savory",
+    "item_name_hebrew": "צתרה",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 833,
+    "item_name_english": "Cinnamon",
+    "item_name_hebrew": "קינמון",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 834,
+    "item_name_english": "Kalonji",
+    "item_name_hebrew": "קצח",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 835,
+    "item_name_english": "Cream of tartar",
+    "item_name_hebrew": "קרם טרטר",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 836,
+    "item_name_english": "Ras el hanout",
+    "item_name_hebrew": "ראס אל חנות",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 837,
+    "item_name_english": "Dried rosemary",
+    "item_name_hebrew": "רוזמרין מיובש",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 838,
+    "item_name_english": "Licorice root",
+    "item_name_hebrew": "שורש ליקוריץ",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 839,
+    "item_name_english": "Dill weed",
+    "item_name_hebrew": "שמיר מיובש",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 840,
+    "item_name_english": "Chervil",
+    "item_name_hebrew": "שרוויל",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 841,
+    "item_name_english": "Herb de provence",
+    "item_name_hebrew": "תערובת עשבי תיבול פרובנס",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 842,
+    "item_name_english": "Italian seasoning",
+    "item_name_hebrew": "תערובת תיבול איטלקית",
+    "category": 15,
+    "preferred_shopping_dimension": "mass"
+  },
+  {
+    "item_id": 843,
+    "item_name_english": "Egg",
+    "item_name_hebrew": "ביצה",
+    "category": 7,
+    "preferred_shopping_dimension": "count"
+  }
+]
