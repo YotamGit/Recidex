@@ -3,11 +3,9 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import mongoSanitize from "express-mongo-sanitize";
 import cors from "cors";
-import mongoose from "mongoose";
-
-import { setTimeout } from "timers/promises";
 
 import { authenticateUser } from "./utils-module/authentication.js";
+import { initializeDatabase } from "./utils-module/database.js";
 
 //route imports
 import loginRoute from "./routes/login.js";
@@ -71,20 +69,8 @@ app.use((err, req, res, next) => {
   res.status(500).send("Internal Server Error");
 });
 
-// Connect to DB
-const connect = async () => {
-  try {
-    await mongoose.connect("mongodb://mongodb:27017/Recipes");
-    logger.info("Successfully connected to DB");
-  } catch (error) {
-    logger.error("Failed to connect to DB, will retry in 5 seconds", error);
-    await setTimeout(5000);
-    logger.warn("Retrying connection to DB");
-    await connect();
-  }
-};
-logger.info("Attempting connection to DB");
-await connect();
+// Initialize database (connection, replica set, data sync)
+await initializeDatabase();
 
 // Start Server
 let PORT = process.env.PORT || 3001;

@@ -1,12 +1,13 @@
 version: "3.2"
 services:
   mongodb:
-      container_name: recidex_mongo
-      image: mongo:4.4
-      restart: unless-stopped
-      volumes:
-        - ./db:/data/db
-        - ./db_backups:/db_backups
+    container_name: recidex_mongo
+    image: mongo:4.4
+    command: mongod --replSet rs0 --bind_ip_all
+    restart: unless-stopped
+    volumes:
+      - ./db:/data/db
+      - ./db_backups:/db_backups
   api:
       container_name: recidex_api
       image: localhost:5000/recidex_api
