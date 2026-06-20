@@ -1,6 +1,7 @@
 import axios from "axios";
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { AppDispatch, RootState } from "../store";
+import { AsyncThunkConfig } from "../types/asyncThunkConfig";
 import { setAlert } from "./utilitySlice";
 
 interface RecipesState {
@@ -12,22 +13,6 @@ const initialState: RecipesState = {
   recipes: [],
   fetchedAllRecipes: false,
   fetching: false,
-};
-
-interface RecipesSliceError {
-  statusCode: number;
-  data: string;
-  message: string;
-}
-
-type AsyncThunkConfig = {
-  /** return type for `thunkApi.getState` */
-  state?: RootState;
-  /** type for `thunkApi.dispatch` */
-  dispatch?: AppDispatch;
-
-  /** type to be passed into `rejectWithValue`'s first argument that will end up on `rejectedAction.payload` */
-  rejectValue?: RecipesSliceError;
 };
 
 export type TRecipe = {
@@ -95,7 +80,7 @@ export const getRecipes = createAsyncThunk<
         approvalRequiredOnly: approvalRequiredOnly || undefined,
         searchText: searchText,
         filters: Object.values(selectedFilters).some(
-          (value) => typeof value !== "undefined"
+          (value) => typeof value !== "undefined",
         )
           ? selectedFilters
           : undefined,
@@ -103,7 +88,7 @@ export const getRecipes = createAsyncThunk<
           ? sort
           : undefined,
         pagination: Object.values(pagination).some(
-          (value) => typeof value !== "undefined"
+          (value) => typeof value !== "undefined",
         )
           ? pagination
           : undefined,
@@ -112,7 +97,7 @@ export const getRecipes = createAsyncThunk<
         signal: params.abortController
           ? params.abortController.signal
           : undefined,
-      }
+      },
     );
 
     if (result.data.length === 0) {
@@ -121,7 +106,7 @@ export const getRecipes = createAsyncThunk<
           severity: "info",
           title: "Info",
           message: "No recipes to fetch.",
-        })
+        }),
       );
     }
     return { replace: params.replace, recipes: result.data };
@@ -133,7 +118,7 @@ export const getRecipes = createAsyncThunk<
           title: "Error",
           message: "Failed to fetch recipes, Please refresh the page.",
           details: error.response?.data ? error.response?.data : undefined,
-        })
+        }),
       );
     }
     thunkAPI.dispatch(setFetching(false));
@@ -162,7 +147,7 @@ export const addRecipe = createAsyncThunk<
         severity: "success",
         title: "Success",
         message: "Recipe added successfully.",
-      })
+      }),
     );
     return result.data;
   } catch (error: any) {
@@ -172,7 +157,7 @@ export const addRecipe = createAsyncThunk<
         title: "Error",
         message: "Failed to add recipe, Please try again.",
         details: error.response.data ? error.response.data : undefined,
-      })
+      }),
     );
     return thunkAPI.rejectWithValue({
       statusCode: error?.response?.status,
@@ -198,10 +183,10 @@ export const deleteRecipe = createAsyncThunk<
         severity: "success",
         title: "Success",
         message: "Recipe deleted successfully",
-      })
+      }),
     );
     return state.recipes.recipes.filter(
-      (recipe: TRecipe) => recipe._id !== props.id
+      (recipe: TRecipe) => recipe._id !== props.id,
     );
   } catch (error: any) {
     thunkAPI.dispatch(
@@ -210,7 +195,7 @@ export const deleteRecipe = createAsyncThunk<
         title: "Error",
         message: "Failed to delete recipe, Please try again.",
         details: error.response.data ? error.response.data : undefined,
-      })
+      }),
     );
     return thunkAPI.rejectWithValue({
       statusCode: error?.response?.status,
@@ -235,7 +220,7 @@ export const editRecipe = createAsyncThunk<
       `/api/recipes/edit/${props.recipeId}`,
       {
         recipeData: props.recipeData,
-      }
+      },
     );
 
     thunkAPI.dispatch(
@@ -243,7 +228,7 @@ export const editRecipe = createAsyncThunk<
         severity: "success",
         title: "Success",
         message: "Recipe edited successfully.",
-      })
+      }),
     );
 
     if (
@@ -252,11 +237,11 @@ export const editRecipe = createAsyncThunk<
       state.filters.approvalRequiredOnly
     ) {
       return state.recipes.recipes.map((recipe: TRecipe) =>
-        recipe._id === editedRecipe.data._id ? editedRecipe.data : recipe
+        recipe._id === editedRecipe.data._id ? editedRecipe.data : recipe,
       );
     }
     return state.recipes.recipes.filter(
-      (recipe: TRecipe) => recipe._id !== editedRecipe.data._id
+      (recipe: TRecipe) => recipe._id !== editedRecipe.data._id,
     );
   } catch (error: any) {
     thunkAPI.dispatch(
@@ -265,7 +250,7 @@ export const editRecipe = createAsyncThunk<
         title: "Error",
         message: "Failed to edit recipe, Please try again.",
         details: error.response.data ? error.response.data : undefined,
-      })
+      }),
     );
     return thunkAPI.rejectWithValue({
       statusCode: error?.response?.status,
@@ -299,7 +284,7 @@ export const favoriteRecipe = createAsyncThunk<
         title: "Error",
         message: "Failed to favorite recipe, Please try again.",
         details: error.response.data ? error.response.data : undefined,
-      })
+      }),
     );
     return thunkAPI.rejectWithValue({
       statusCode: error?.response?.status,
@@ -333,7 +318,7 @@ export const approveRecipe = createAsyncThunk<
         severity: "success",
         title: "Success",
         message: `Recipe ${props.approve ? "approved" : "disapproved"}`,
-      })
+      }),
     );
     return res.data;
   } catch (error: any) {
@@ -343,7 +328,7 @@ export const approveRecipe = createAsyncThunk<
         title: "Error",
         message: "Failed to approve/disapprove recipe, Please try again.",
         details: error.response.data ? error.response.data : undefined,
-      })
+      }),
     );
     return thunkAPI.rejectWithValue({
       statusCode: error?.response?.status,
@@ -368,7 +353,7 @@ export const requestApproval = createAsyncThunk<
       `/api/recipes/edit/request-approval/${props._id}`,
       {
         approval_required: props.approval_required,
-      }
+      },
     );
     thunkAPI.dispatch(
       setAlert({
@@ -377,7 +362,7 @@ export const requestApproval = createAsyncThunk<
         message: `Approval request ${
           props.approval_required ? "submitted" : "cancelled"
         } successfully`,
-      })
+      }),
     );
     return res.data;
   } catch (error: any) {
@@ -387,7 +372,7 @@ export const requestApproval = createAsyncThunk<
         title: "Error",
         message: "Failed to request approval, Please try again.",
         details: error.response.data ? error.response.data : undefined,
-      })
+      }),
     );
     return thunkAPI.rejectWithValue({
       statusCode: error?.response?.status,
@@ -412,7 +397,7 @@ export const changePrivacy = createAsyncThunk<
       `/api/recipes/edit/change-privacy/${props._id}`,
       {
         private: props.private,
-      }
+      },
     );
     thunkAPI.dispatch(
       setAlert({
@@ -421,7 +406,7 @@ export const changePrivacy = createAsyncThunk<
         message: `Recipe privacy changed to ${
           props.private ? "Private" : "Public"
         } successfully`,
-      })
+      }),
     );
 
     return res.data;
@@ -432,7 +417,7 @@ export const changePrivacy = createAsyncThunk<
         title: "Error",
         message: "Failed to change recipe privacy, Please try again.",
         details: error.response.data ? error.response.data : undefined,
-      })
+      }),
     );
     return thunkAPI.rejectWithValue({
       statusCode: error?.response?.status,
@@ -495,28 +480,28 @@ const recipesSlice = createSlice({
         state.recipes = state.recipes.map((recipe: TRecipe) =>
           recipe._id === action.payload.recipeId
             ? { ...recipe, favorited_by: action.payload.favorited_by }
-            : recipe
+            : recipe,
         );
       })
       .addCase(approveRecipe.fulfilled, (state, action) => {
         if (action.meta.arg.fromModerationPage) {
           state.recipes = state.recipes.filter(
-            (recipe: TRecipe) => recipe._id !== action.payload._id
+            (recipe: TRecipe) => recipe._id !== action.payload._id,
           );
         } else {
           state.recipes = state.recipes.map((recipe: TRecipe) =>
-            recipe._id === action.payload._id ? action.payload : recipe
+            recipe._id === action.payload._id ? action.payload : recipe,
           );
         }
       })
       .addCase(requestApproval.fulfilled, (state, action) => {
         state.recipes = state.recipes.map((recipe: TRecipe) =>
-          recipe._id === action.payload._id ? action.payload : recipe
+          recipe._id === action.payload._id ? action.payload : recipe,
         );
       })
       .addCase(changePrivacy.fulfilled, (state, action) => {
         state.recipes = state.recipes.map((recipe: TRecipe) =>
-          recipe._id === action.payload._id ? action.payload : recipe
+          recipe._id === action.payload._id ? action.payload : recipe,
         );
       });
   },
