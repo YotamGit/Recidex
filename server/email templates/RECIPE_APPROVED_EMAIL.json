@@ -1,0 +1,105 @@
+{
+  "blocks": [
+    {
+      "id": "block_7ada5e7a-4e25-4368-adac-7e43664e53e9",
+      "type": "text",
+      "content": "<text-color parent-id=\"2\">Hello </text-color><variable id=\"3\"><text-color parent-id=\"4\">{name.first}</text-color></variable><text-color parent-id=\"5\"> </text-color><variable id=\"6\"><text-color parent-id=\"7\">{name.last}</text-color></variable><text-color parent-id=\"8\">,</text-color>",
+      "checksum": "6d5fcca109c8aed71803c3638ae533fd",
+      "locales": {}
+    },
+    {
+      "id": "block_bfede5fc-5490-47f8-a998-d6632f32b4a1",
+      "type": "text",
+      "content": "<text-color parent-id=\"2\">Recipe \"</text-color><variable id=\"3\"><text-color parent-id=\"4\">{recipeTitle}</text-color></variable><text-color parent-id=\"5\">\" has been approved.</text-color><br/><br/><text-color parent-id=\"9\"><strong>Approved by:</strong></text-color><text-color parent-id=\"10\"> </text-color><variable id=\"11\"><text-color parent-id=\"12\">{approvedBy}</text-color></variable><br/><text-color parent-id=\"15\"><strong>Approved at:</strong></text-color><text-color parent-id=\"16\"> </text-color><variable id=\"17\"><text-color parent-id=\"18\">{approvalDate}</text-color></variable>",
+      "checksum": "0cfa146132b67904d30ab2d3516e0d1e",
+      "locales": {}
+    },
+    {
+      "id": "block_ba954d90-816f-4e66-9e00-cb805e3e8e2f",
+      "type": "text",
+      "content": "<text-color parent-id=\"2\">Break an egg!,</text-color><br/><text-color parent-id=\"4\"><strong>The Recidex Team</strong></text-color>",
+      "checksum": "62e665c5547da556acf7cc436895efdb",
+      "locales": {}
+    },
+    {
+      "id": "block_75dc4571-94bd-40ab-96c5-4839d5789198",
+      "type": "action",
+      "content": "Recipe",
+      "checksum": "aef6ec2224f7ef3c74b4942b0e7f2969",
+      "locales": {}
+    },
+    {
+      "id": "block_8119bee7-ef0f-4bde-b67c-eb408faa6139",
+      "type": "divider"
+    },
+    {
+      "id": "block_f1cd5e5c-cf66-4cdb-b5e4-b644fa7128d6",
+      "type": "divider"
+    },
+    {
+      "id": "block_ef43ca75-bdb3-45fa-b3f9-b1267a5dd4d4",
+      "type": "text",
+      "content": "<a id=\"3\">unsubscribe</a>",
+      "checksum": "97cdfaccc0616dd48a272fb1ab00409b",
+      "locales": {}
+    },
+    {
+      "id": "block_93fad356-9f63-4db0-8dbe-d94632d08df4",
+      "type": "text",
+      "content": "Lorem ipsum dolor, sit amet.",
+      "checksum": "11de54e167902f32cc46cbdb1330b60b",
+      "locales": {}
+    },
+    {
+      "id": "block_0b6576c1-50d4-4deb-83f0-d5b68e9b5b96",
+      "type": "divider"
+    },
+    {
+      "id": "block_35eff190-6897-44aa-b460-b47f72e9c95f",
+      "type": "text",
+      "content": "",
+      "checksum": "d41d8cd98f00b204e9800998ecf8427e",
+      "locales": {}
+    },
+    {
+      "id": "block_93e0de75-3cc0-4dfc-840b-2ef1c35b1ba9",
+      "type": "text",
+      "content": "Lorem ipsum dolor, sit amet.",
+      "checksum": "11de54e167902f32cc46cbdb1330b60b",
+      "locales": {}
+    },
+    {
+      "id": "block_8dc9589d-65dc-4899-9b1a-b2fd8236f2dc",
+      "type": "text",
+      "content": "Lorem ipsum dolor, sit amet.",
+      "checksum": "11de54e167902f32cc46cbdb1330b60b",
+      "locales": {}
+    },
+    {
+      "id": "block_df28d56e-10f6-4d20-8a38-840b8aaa0488",
+      "type": "text",
+      "content": "<a id=\"3\">unsubscribe</a>",
+      "checksum": "97cdfaccc0616dd48a272fb1ab00409b",
+      "locales": {}
+    },
+    {
+      "id": "block_32c91124-b133-4744-b330-cfd6630588da",
+      "type": "text",
+      "content": "<a id=\"3\">Unsubscribe</a>",
+      "checksum": "ea93608aaae70c7b2e781187a9fe8ebe",
+      "locales": {}
+    }
+  ],
+  "channels": [
+    {
+      "id": "channel_99cd000d-1492-45ce-aa58-1a735478ec65",
+      "type": "email",
+      "content": {
+        "subject": "Recipe Approved"
+      },
+      "checksum": "11786748072d273dd69ff6c16661c2c2",
+      "locales": {}
+    }
+  ],
+  "checksum": "4c10c4938bdb724ad00aa1eed095facc"
+}

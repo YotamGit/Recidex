@@ -1,0 +1,69 @@
+{
+  "blocks": [
+    {
+      "id": "block_7ada5e7a-4e25-4368-adac-7e43664e53e9",
+      "type": "text",
+      "content": "<text-color parent-id=\"2\">Hello </text-color><variable id=\"3\"><text-color parent-id=\"4\">{name.first}</text-color></variable><text-color parent-id=\"5\"> </text-color><variable id=\"6\"><text-color parent-id=\"7\">{name.last}</text-color></variable><text-color parent-id=\"8\">,</text-color>",
+      "checksum": "6d5fcca109c8aed71803c3638ae533fd",
+      "locales": {}
+    },
+    {
+      "id": "block_bfede5fc-5490-47f8-a998-d6632f32b4a1",
+      "type": "text",
+      "content": "<text-color parent-id=\"2\">Welcome to Recidex.</text-color><br/><br/><text-color parent-id=\"6\">Your Recidex account has been successfully created.</text-color><br/><text-color parent-id=\"8\">Log into </text-color><a id=\"9\"><text-color parent-id=\"10\">Recidex</text-color></a><a id=\"12\"><text-color parent-id=\"13\"> </text-color></a><text-color parent-id=\"14\">to collect your favorite recipes!</text-color><br/><br/><text-color parent-id=\"18\"><strong>Username:</strong></text-color><text-color parent-id=\"19\"> </text-color><variable id=\"20\"><text-color parent-id=\"21\">{username}</text-color></variable><br/><text-color parent-id=\"24\"><strong>Registered at:</strong></text-color><text-color parent-id=\"25\"> </text-color><variable id=\"26\"><text-color parent-id=\"27\">{registrationDate}</text-color></variable>",
+      "checksum": "0114da38d45ba27860120b8fe65b1ec6",
+      "locales": {}
+    },
+    {
+      "id": "block_ba954d90-816f-4e66-9e00-cb805e3e8e2f",
+      "type": "text",
+      "content": "<text-color parent-id=\"2\">Break an egg!,</text-color><br/><text-color parent-id=\"4\"><strong>The Recidex Team</strong></text-color>",
+      "checksum": "62e665c5547da556acf7cc436895efdb",
+      "locales": {}
+    },
+    {
+      "id": "block_75dc4571-94bd-40ab-96c5-4839d5789198",
+      "type": "action",
+      "content": "My Profile",
+      "checksum": "e8956174978be0a343e1e582cf681e4c",
+      "locales": {}
+    },
+    {
+      "id": "block_8119bee7-ef0f-4bde-b67c-eb408faa6139",
+      "type": "divider"
+    },
+    {
+      "id": "block_d5ac03a1-04f9-42e6-b76c-e6aba034a4d6",
+      "type": "text",
+      "content": "Recipes account has been created successfully.",
+      "checksum": "339bfa7a1efd50e92d415cee1254f234",
+      "locales": {}
+    },
+    {
+      "id": "block_a76d26a5-113a-4b35-bcd6-2dd4f1a39766",
+      "type": "text",
+      "content": "Account has been created successfully",
+      "checksum": "69f57d1bd6e5ebca91bb5411d37cc7a1",
+      "locales": {}
+    },
+    {
+      "id": "block_72606c25-a618-4755-8336-d212af70cf06",
+      "type": "text",
+      "content": "<a id=\"3\">Unsubscribe</a>",
+      "checksum": "ea93608aaae70c7b2e781187a9fe8ebe",
+      "locales": {}
+    }
+  ],
+  "channels": [
+    {
+      "id": "channel_99cd000d-1492-45ce-aa58-1a735478ec65",
+      "type": "email",
+      "content": {
+        "subject": "Welcome to Recidex!"
+      },
+      "checksum": "3d170f2bbf302b1e137d3a641d091a76",
+      "locales": {}
+    }
+  ],
+  "checksum": "7c0c6a2b595acddacfc5aaaa0387f256"
+}
