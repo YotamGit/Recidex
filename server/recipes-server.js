@@ -12,6 +12,7 @@ import loginRoute from "./routes/login.js";
 import recipesRoute from "./routes/recipes.js";
 import usersRoute from "./routes/users.js";
 import filtersRoute from "./routes/filters.js";
+import ingredientsRoute from "./routes/ingredients.js";
 
 import {
   morganMiddleware,
@@ -58,6 +59,7 @@ app.use("/api/login", loginRoute);
 app.use("/api/recipes", recipesRoute);
 app.use("/api/users", usersRoute);
 app.use("/api/filters", filtersRoute);
+app.use("/api/ingredients", ingredientsRoute);
 
 app.use("*", (req, res) => {
   res.status(404).send();
