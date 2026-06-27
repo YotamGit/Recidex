@@ -117,7 +117,7 @@ export const getIngredients = createAsyncThunk<
   AsyncThunkConfig
 >("ingredients/getIngredients", async (props, thunkAPI) => {
   try {
-    let result = await axios.post("/api/ingredients");
+    let result = await axios.get("/api/ingredients");
     return result.data;
   } catch (error: any) {
     return thunkAPI.rejectWithValue({
@@ -134,7 +134,7 @@ export const getIngredientCategories = createAsyncThunk<
   AsyncThunkConfig
 >("ingredients/getIngredientCategories", async (props, thunkAPI) => {
   try {
-    let result = await axios.post("/api/ingredients/categories");
+    let result = await axios.get("/api/ingredients/categories");
     return result.data;
   } catch (error: any) {
     return thunkAPI.rejectWithValue({
@@ -151,7 +151,7 @@ export const getPreparationMethods = createAsyncThunk<
   AsyncThunkConfig
 >("ingredients/getPreparationMethods", async (props, thunkAPI) => {
   try {
-    let result = await axios.post("/api/ingredients/prep-methods");
+    let result = await axios.get("/api/ingredients/prep-methods");
     return result.data;
   } catch (error: any) {
     return thunkAPI.rejectWithValue({
@@ -168,7 +168,7 @@ export const getDimensionConversions = createAsyncThunk<
   AsyncThunkConfig
 >("ingredients/getDimensionConversions", async (props, thunkAPI) => {
   try {
-    let result = await axios.post("/api/ingredients/dimension-conversion");
+    let result = await axios.get("/api/ingredients/dimension-conversion");
     return result.data;
   } catch (error: any) {
     return thunkAPI.rejectWithValue({
@@ -185,7 +185,7 @@ export const getMeasurementUnits = createAsyncThunk<
   AsyncThunkConfig
 >("ingredients/getMeasurementUnits", async (props, thunkAPI) => {
   try {
-    let result = await axios.post("/api/ingredients/measurement-units");
+    let result = await axios.get("/api/ingredients/measurement-units");
     return result.data;
   } catch (error: any) {
     return thunkAPI.rejectWithValue({
