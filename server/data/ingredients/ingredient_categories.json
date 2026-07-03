@@ -1,0 +1,77 @@
+[
+  {
+    "category_id": 1,
+    "category_name_english": "Asian Pantry",
+    "category_name_hebrew": "מטבח אסייתי"
+  },
+  {
+    "category_id": 2,
+    "category_name_english": "Baking Supplies",
+    "category_name_hebrew": "חומרי אפייה"
+  },
+  {
+    "category_id": 3,
+    "category_name_english": "Beverage Ingredients",
+    "category_name_hebrew": "מרכיבים למשקאות"
+  },
+  {
+    "category_id": 4,
+    "category_name_english": "Beverages",
+    "category_name_hebrew": "משקאות"
+  },
+  {
+    "category_id": 5,
+    "category_name_english": "Canned Goods",
+    "category_name_hebrew": "שימורים"
+  },
+  {
+    "category_id": 6,
+    "category_name_english": "Condiments & Sauces",
+    "category_name_hebrew": "רטבים ומטבלים"
+  },
+  {
+    "category_id": 7,
+    "category_name_english": "Dairy",
+    "category_name_hebrew": "מוצרי חלב"
+  },
+  {
+    "category_id": 8,
+    "category_name_english": "Dried Goods",
+    "category_name_hebrew": "מצרכים יבשים"
+  },
+  {
+    "category_id": 9,
+    "category_name_english": "Meat",
+    "category_name_hebrew": "בשר"
+  },
+  {
+    "category_id": 10,
+    "category_name_english": "Nutrition & Dietary",
+    "category_name_hebrew": "תזונה ודיאטה"
+  },
+  {
+    "category_id": 11,
+    "category_name_english": "Plant-Based Alternatives",
+    "category_name_hebrew": "תחליפים מן הצומח"
+  },
+  {
+    "category_id": 12,
+    "category_name_english": "Prepared Foods",
+    "category_name_hebrew": "אוכל מוכן"
+  },
+  {
+    "category_id": 13,
+    "category_name_english": "Produce",
+    "category_name_hebrew": "פירות וירקות"
+  },
+  {
+    "category_id": 14,
+    "category_name_english": "Seafood",
+    "category_name_hebrew": "מאכלי ים"
+  },
+  {
+    "category_id": 15,
+    "category_name_english": "Spices & Herbs",
+    "category_name_hebrew": "תבלינים ועשבי תיבול"
+  }
+]

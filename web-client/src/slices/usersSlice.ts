@@ -2,6 +2,7 @@ import axios from "axios";
 import Cookies from "universal-cookie";
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { AppDispatch, RootState } from "../store";
+import { AsyncThunkConfig } from "../types/asyncThunkConfig";
 import { setAlert } from "./utilitySlice";
 
 interface UsersState {
@@ -26,22 +27,6 @@ const initialState: UsersState = {
     notification_opt_in: undefined,
   },
   users: [],
-};
-
-interface UsersSliceError {
-  statusCode: number;
-  data: string;
-  message: string;
-}
-
-type AsyncThunkConfig = {
-  /** return type for `thunkApi.getState` */
-  state?: RootState;
-  /** type for `thunkApi.dispatch` */
-  dispatch?: AppDispatch;
-
-  /** type to be passed into `rejectWithValue`'s first argument that will end up on `rejectedAction.payload` */
-  rejectValue?: UsersSliceError;
 };
 
 //a user type used for user-data stored in the state after authentication
@@ -123,7 +108,7 @@ export const signInUser = createAsyncThunk<
         email: props.action === "signup" ? props.userData.email : undefined,
         username: props.userData.username,
         password: props.userData.password,
-      }
+      },
     );
     return {
       userData: result.data.userData,
@@ -144,7 +129,7 @@ export const signInUser = createAsyncThunk<
           props.action === "signup" ? "Sign Up" : "Log In"
         }.`,
         details: error.response.data ? error.response.data : undefined,
-      })
+      }),
     );
 
     return thunkAPI.rejectWithValue({
@@ -174,11 +159,11 @@ export const deleteUser = createAsyncThunk<
         severity: "success",
         title: "Success",
         message: "User deleted successfully",
-      })
+      }),
     );
 
     return state.users.users.filter(
-      (user: FullUser) => user._id !== props.userId
+      (user: FullUser) => user._id !== props.userId,
     );
   } catch (error: any) {
     thunkAPI.dispatch(
@@ -187,7 +172,7 @@ export const deleteUser = createAsyncThunk<
         title: "Error",
         message: "Failed to delete user, Please try again.",
         details: error.response.data ? error.response.data : undefined,
-      })
+      }),
     );
 
     return thunkAPI.rejectWithValue({
@@ -232,7 +217,7 @@ export const editUser = createAsyncThunk<
         severity: "success",
         title: "Success",
         message: "User edited successfully",
-      })
+      }),
     );
     delete props.userData.password;
     delete props.userData.notification_opt_in;
@@ -240,7 +225,7 @@ export const editUser = createAsyncThunk<
       action: props.action,
       userData: props.userData as User,
       users: state.users.users.map((user: FullUser) =>
-        user._id === props.userData._id ? { ...user, ...props.userData } : user
+        user._id === props.userData._id ? { ...user, ...props.userData } : user,
       ) as FullUser[],
     };
   } catch (error: any) {
@@ -250,7 +235,7 @@ export const editUser = createAsyncThunk<
         title: "Error",
         message: "Failed to edit user, Please try again.",
         details: error.response.data ? error.response.data : undefined,
-      })
+      }),
     );
 
     return thunkAPI.rejectWithValue({
@@ -275,7 +260,7 @@ export const getUsers = createAsyncThunk<FullUser[], {}, AsyncThunkConfig>(
           title: "Error",
           message: "Failed to fetch users, Please try again.",
           details: error.response.data ? error.response.data : undefined,
-        })
+        }),
       );
       return thunkAPI.rejectWithValue({
         statusCode: error?.response?.status,
@@ -283,7 +268,7 @@ export const getUsers = createAsyncThunk<FullUser[], {}, AsyncThunkConfig>(
         message: error.message,
       });
     }
-  }
+  },
 );
 
 const usersSlice = createSlice({
@@ -298,7 +283,7 @@ const usersSlice = createSlice({
     },
     setUserData(
       state,
-      action: PayloadAction<{ userData: User; token: string; action?: string }>
+      action: PayloadAction<{ userData: User; token: string; action?: string }>,
     ) {
       state.userData._id = action.payload.userData._id;
       state.userData.username = action.payload.userData.username;

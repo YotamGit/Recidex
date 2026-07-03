@@ -1,22 +1,7 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { AppDispatch, RootState } from "../store";
+import { AsyncThunkConfig } from "../types/asyncThunkConfig";
 import axios from "axios";
-
-interface FiltersSliceError {
-  statusCode: number;
-  data: string;
-  message: string;
-}
-
-type AsyncThunkConfig = {
-  /** return type for `thunkApi.getState` */
-  state?: RootState;
-  /** type for `thunkApi.dispatch` */
-  dispatch?: AppDispatch;
-
-  /** type to be passed into `rejectWithValue`'s first argument that will end up on `rejectedAction.payload` */
-  rejectValue?: FiltersSliceError;
-};
 
 export type TSelectedFilters = {
   [key: string]: any;

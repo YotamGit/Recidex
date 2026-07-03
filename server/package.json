@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon -L recipes-server.js",
+    "dev": "nodemon -L --inspect=0.0.0.0 --inspect-port=9229 recipes-server.js",
     "start": "node recipes-server.js"
   },
   "author": "",
@@ -26,7 +26,6 @@
     "sharp": "^0.30.4",
     "uuid": "^9.0.0",
     "winston": "^3.8.2"
-
   },
   "devDependencies": {
     "nodemon": "^2.0.15"

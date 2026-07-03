@@ -1,6 +1,6 @@
 import RecipeEditor from "./RecipeEditor";
 import { useParams, useNavigate } from "react-router-dom";
-import { useState, useEffect, FC } from "react";
+import { useState, useEffect, FC, useMemo } from "react";
 import { MAIN_RECIDEX_ROUTES, MODERATOR_ROLES } from "../../App";
 
 import { getRecipe } from "../../utils-module/recipes";
@@ -20,14 +20,23 @@ import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
 
 //redux
 import { useAppSelector, useAppDispatch } from "../../hooks";
+import { useEnsureIngredientData } from "../../hooks/useEnsureIngredientData";
 import { deleteRecipe } from "../../slices/recipesSlice";
 
+//types
+import { DataOptions } from "../../slices/ingredientsSlice";
+
 const RecipeEditorPage: FC = () => {
+  const required = useMemo(
+    () => ["measurementUnits", "ingredients"] as DataOptions[],
+    [],
+  );
+  const { loading, error, ready, missing } = useEnsureIngredientData(required);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const signedIn = useAppSelector((state) => state.users.signedIn);
-  const attemtSignIn = useAppSelector((state) => state.users.attemptSignIn);
+  const attemptSignIn = useAppSelector((state) => state.users.attemptSignIn);
   const userData = useAppSelector((state) => state.users.userData);
 
   const { recipe_id } = useParams();
@@ -40,13 +49,13 @@ const RecipeEditorPage: FC = () => {
   const [recipe, setRecipe] = useState(
     useAppSelector(
       (state) =>
-        state.recipes.recipes.filter((recipe) => recipe._id === recipe_id)[0]
-    )
+        state.recipes.recipes.filter((recipe) => recipe._id === recipe_id)[0],
+    ),
   );
 
   const storeRecipe = useAppSelector(
     (state) =>
-      state.recipes.recipes.filter((recipe) => recipe._id === recipe_id)[0]
+      state.recipes.recipes.filter((recipe) => recipe._id === recipe_id)[0],
   );
 
   useEffect(() => {
@@ -68,7 +77,7 @@ const RecipeEditorPage: FC = () => {
 
   //redirect to home if not owner/moderator
   useEffect(() => {
-    if (!signedIn && !attemtSignIn) {
+    if (!signedIn && !attemptSignIn) {
       navigate("/");
       return;
     }
@@ -81,7 +90,7 @@ const RecipeEditorPage: FC = () => {
       return;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [recipe, attemtSignIn, signedIn]);
+  }, [recipe, attemptSignIn, signedIn]);
 
   const onDeleteRecipe = async () => {
     setDisableDeleteButton(true);
@@ -95,7 +104,7 @@ const RecipeEditorPage: FC = () => {
         .slice(0, routeHistory.length - 1)
         .reverse()
         .find((element) =>
-          MAIN_RECIDEX_ROUTES.includes(element.pathname)
+          MAIN_RECIDEX_ROUTES.includes(element.pathname),
         )?.pathname;
       navigate(lastMainPageVisited || "/home");
     } else {

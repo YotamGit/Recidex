@@ -1,0 +1,866 @@
+[
+  {
+    "item_id": 4,
+    "from_unit_id": 5,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 251.49,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 4,
+    "from_unit_id": 7,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 15.09,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 4,
+    "from_unit_id": 8,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 5.03,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 9,
+    "from_unit_id": 5,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 290.59,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 9,
+    "from_unit_id": 7,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 17.44,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 9,
+    "from_unit_id": 8,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 5.81,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 10,
+    "from_unit_id": 5,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 290.59,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 10,
+    "from_unit_id": 7,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 17.44,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 10,
+    "from_unit_id": 8,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 5.81,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 11,
+    "from_unit_id": 5,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 290.59,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 11,
+    "from_unit_id": 7,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 17.44,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 11,
+    "from_unit_id": 8,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 5.81,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 12,
+    "from_unit_id": 5,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 290.59,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 12,
+    "from_unit_id": 7,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 17.44,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 12,
+    "from_unit_id": 8,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 5.81,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 13,
+    "from_unit_id": 5,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 290.59,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 13,
+    "from_unit_id": 7,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 17.44,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 13,
+    "from_unit_id": 8,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 5.81,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 14,
+    "from_unit_id": 5,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 253.61,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 14,
+    "from_unit_id": 7,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 15.22,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 14,
+    "from_unit_id": 8,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 5.07,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 15,
+    "from_unit_id": 5,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 253.61,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 15,
+    "from_unit_id": 7,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 15.22,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 15,
+    "from_unit_id": 8,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 5.07,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 16,
+    "from_unit_id": 5,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 253.61,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 16,
+    "from_unit_id": 7,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 15.22,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 16,
+    "from_unit_id": 8,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 5.07,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 17,
+    "from_unit_id": 5,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 253.61,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 17,
+    "from_unit_id": 7,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 15.22,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 17,
+    "from_unit_id": 8,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 5.07,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 21,
+    "from_unit_id": 5,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 290.59,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 21,
+    "from_unit_id": 7,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 17.44,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 21,
+    "from_unit_id": 8,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 5.81,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 22,
+    "from_unit_id": 5,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 304.33,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 22,
+    "from_unit_id": 7,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 18.26,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 22,
+    "from_unit_id": 8,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 6.09,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 23,
+    "from_unit_id": 5,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 269.46,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 23,
+    "from_unit_id": 7,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 16.17,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 23,
+    "from_unit_id": 8,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 5.39,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 24,
+    "from_unit_id": 5,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 269.46,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 24,
+    "from_unit_id": 7,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 16.17,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 24,
+    "from_unit_id": 8,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 5.39,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 25,
+    "from_unit_id": 5,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 269.46,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 25,
+    "from_unit_id": 7,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 16.17,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 25,
+    "from_unit_id": 8,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 5.39,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 26,
+    "from_unit_id": 5,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 269.46,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 26,
+    "from_unit_id": 7,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 16.17,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 26,
+    "from_unit_id": 8,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 5.39,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 27,
+    "from_unit_id": 5,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 270.51,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 27,
+    "from_unit_id": 7,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 16.23,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 27,
+    "from_unit_id": 8,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 5.41,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 28,
+    "from_unit_id": 5,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 202.88,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 28,
+    "from_unit_id": 7,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 12.17,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 28,
+    "from_unit_id": 8,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 4.06,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 29,
+    "from_unit_id": 5,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 233.32,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 29,
+    "from_unit_id": 7,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 14,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 29,
+    "from_unit_id": 8,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 4.67,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 30,
+    "from_unit_id": 5,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 126.8,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 30,
+    "from_unit_id": 7,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 7.61,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 30,
+    "from_unit_id": 8,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 2.54,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 31,
+    "from_unit_id": 5,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 90.88,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 31,
+    "from_unit_id": 7,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 5.45,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 31,
+    "from_unit_id": 8,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 1.82,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 37,
+    "from_unit_id": 5,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 219.79,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 37,
+    "from_unit_id": 7,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 13.19,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 37,
+    "from_unit_id": 8,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 4.4,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 40,
+    "from_unit_id": 5,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 233.32,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 40,
+    "from_unit_id": 7,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 14,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 40,
+    "from_unit_id": 8,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 4.67,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 41,
+    "from_unit_id": 5,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 202.88,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 41,
+    "from_unit_id": 7,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 12.17,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 41,
+    "from_unit_id": 8,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 4.06,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 42,
+    "from_unit_id": 5,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 202.88,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 42,
+    "from_unit_id": 7,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 12.17,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 42,
+    "from_unit_id": 8,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 4.06,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 43,
+    "from_unit_id": 5,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 232.47,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 43,
+    "from_unit_id": 7,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 13.95,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 43,
+    "from_unit_id": 8,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 4.65,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 44,
+    "from_unit_id": 5,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 202.88,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 44,
+    "from_unit_id": 7,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 12.17,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 44,
+    "from_unit_id": 8,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 4.06,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 45,
+    "from_unit_id": 5,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 211.34,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 45,
+    "from_unit_id": 7,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 12.68,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 45,
+    "from_unit_id": 8,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 4.23,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 46,
+    "from_unit_id": 5,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 213.45,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 46,
+    "from_unit_id": 7,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 12.81,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 46,
+    "from_unit_id": 8,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 4.27,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 48,
+    "from_unit_id": 5,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 176.47,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 48,
+    "from_unit_id": 7,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 10.59,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 48,
+    "from_unit_id": 8,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 3.53,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 53,
+    "from_unit_id": 5,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 135.26,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 53,
+    "from_unit_id": 7,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 8.12,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 53,
+    "from_unit_id": 8,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 2.71,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 54,
+    "from_unit_id": 5,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 166.96,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 54,
+    "from_unit_id": 7,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 10.02,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  },
+  {
+    "item_id": 54,
+    "from_unit_id": 8,
+    "to_unit_id": 1,
+    "prep_id": 0,
+    "factor": 3.34,
+    "source": "AquaCalc",
+    "confidence": "medium"
+  }
+]

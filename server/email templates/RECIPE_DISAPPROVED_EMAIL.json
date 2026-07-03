@@ -1,0 +1,55 @@
+{
+  "blocks": [
+    {
+      "id": "block_7ada5e7a-4e25-4368-adac-7e43664e53e9",
+      "type": "text",
+      "content": "<text-color parent-id=\"2\">Hello </text-color><variable id=\"3\"><text-color parent-id=\"4\">{name.first}</text-color></variable><text-color parent-id=\"5\"> </text-color><variable id=\"6\"><text-color parent-id=\"7\">{name.last}</text-color></variable><text-color parent-id=\"8\">,</text-color>",
+      "checksum": "6d5fcca109c8aed71803c3638ae533fd",
+      "locales": {}
+    },
+    {
+      "id": "block_bfede5fc-5490-47f8-a998-d6632f32b4a1",
+      "type": "text",
+      "content": "<text-color parent-id=\"2\">Recipe \"</text-color><variable id=\"3\"><text-color parent-id=\"4\">{recipeTitle}</text-color></variable><text-color parent-id=\"5\">\" has been disapproved.</text-color><br/><br/><text-color parent-id=\"9\">Please edit the recipe and re-submit it for approval.</text-color><br/><br/><text-color parent-id=\"13\"><strong>Disapproved by:</strong></text-color><text-color parent-id=\"14\"> </text-color><variable id=\"15\"><text-color parent-id=\"16\">{disapprovedBy}</text-color></variable><br/><text-color parent-id=\"19\"><strong>Disapproved at:</strong></text-color><text-color parent-id=\"20\"> </text-color><variable id=\"21\"><text-color parent-id=\"22\">{disapprovalDate}</text-color></variable><br/><br/><u><strong><text-color parent-id=\"27\">Reason for disapproval:</text-color></strong></u><variable id=\"28\"><text-color parent-id=\"29\">{disapproveReason}</text-color></variable>",
+      "checksum": "555e42aa7308614fbef8e4ecda5df64f",
+      "locales": {}
+    },
+    {
+      "id": "block_ba954d90-816f-4e66-9e00-cb805e3e8e2f",
+      "type": "text",
+      "content": "<text-color parent-id=\"2\">Break an egg!,</text-color><br/><text-color parent-id=\"4\"><strong>The Recidex Team</strong></text-color>",
+      "checksum": "62e665c5547da556acf7cc436895efdb",
+      "locales": {}
+    },
+    {
+      "id": "block_75dc4571-94bd-40ab-96c5-4839d5789198",
+      "type": "action",
+      "content": "edit recipe",
+      "checksum": "74cd3c16f12769871c0e1b9ba47e7cef",
+      "locales": {}
+    },
+    {
+      "id": "block_8119bee7-ef0f-4bde-b67c-eb408faa6139",
+      "type": "divider"
+    },
+    {
+      "id": "block_d8049ad5-54d0-4c55-bfae-f9a7cf304ba8",
+      "type": "text",
+      "content": "<a id=\"3\">Unsubscribe</a>",
+      "checksum": "ea93608aaae70c7b2e781187a9fe8ebe",
+      "locales": {}
+    }
+  ],
+  "channels": [
+    {
+      "id": "channel_99cd000d-1492-45ce-aa58-1a735478ec65",
+      "type": "email",
+      "content": {
+        "subject": "Recipe Disapproved"
+      },
+      "checksum": "54fc4bfb1af448914800e30f733ab985",
+      "locales": {}
+    }
+  ],
+  "checksum": "de2ef41d365de26a193f93e382aec817"
+}

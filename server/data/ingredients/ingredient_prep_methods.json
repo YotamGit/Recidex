@@ -1,0 +1,80 @@
+[
+  {
+    "prep_id": 0,
+    "prep_name_english": "None / Not specified",
+    "prep_name_hebrew": "ללא / לא מצוין",
+    "affects_weight": false
+  },
+  {
+    "prep_id": 1,
+    "prep_name_english": "Chopped",
+    "prep_name_hebrew": "קצוץ",
+    "affects_weight": true
+  },
+  {
+    "prep_id": 2,
+    "prep_name_english": "Diced",
+    "prep_name_hebrew": "חתוך לקוביות",
+    "affects_weight": true
+  },
+  {
+    "prep_id": 3,
+    "prep_name_english": "Sliced",
+    "prep_name_hebrew": "פרוס",
+    "affects_weight": true
+  },
+  {
+    "prep_id": 4,
+    "prep_name_english": "Minced",
+    "prep_name_hebrew": "טחון",
+    "affects_weight": true
+  },
+  {
+    "prep_id": 5,
+    "prep_name_english": "Grated",
+    "prep_name_hebrew": "מגורד",
+    "affects_weight": true
+  },
+  {
+    "prep_id": 6,
+    "prep_name_english": "Shredded",
+    "prep_name_hebrew": "מגורר גס",
+    "affects_weight": true
+  },
+  {
+    "prep_id": 7,
+    "prep_name_english": "Packed",
+    "prep_name_hebrew": "דחוס",
+    "affects_weight": true
+  },
+  {
+    "prep_id": 8,
+    "prep_name_english": "Sifted",
+    "prep_name_hebrew": "מנופה",
+    "affects_weight": true
+  },
+  {
+    "prep_id": 9,
+    "prep_name_english": "Cooked",
+    "prep_name_hebrew": "מבושל",
+    "affects_weight": false
+  },
+  {
+    "prep_id": 10,
+    "prep_name_english": "Raw",
+    "prep_name_hebrew": "נא",
+    "affects_weight": false
+  },
+  {
+    "prep_id": 11,
+    "prep_name_english": "Drained",
+    "prep_name_hebrew": "מסונן",
+    "affects_weight": false
+  },
+  {
+    "prep_id": 12,
+    "prep_name_english": "Rinsed",
+    "prep_name_hebrew": "שטוף",
+    "affects_weight": false
+  }
+]
